@@ -8,5 +8,5 @@ Download and install:
 - .NET Core 5.0
 - Docker Desktop
 
-### 1 - Windows setup instructions
+### Windows setup instructions
 1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
