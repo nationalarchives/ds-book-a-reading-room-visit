@@ -23,6 +23,11 @@ namespace book_a_reading_room_visit.web.Controllers
             return View();
         }
 
+        public IActionResult Availability()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
