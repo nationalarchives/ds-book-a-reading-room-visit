@@ -14,4 +14,4 @@ Download and install:
 
 ### Entity relationship diagram
 
-![Kew booking system](https://user-images.githubusercontent.com/40386980/106905527-47f19480-66f4-11eb-9952-15209c084011.jpg)
+![Kew booking system](https://user-images.githubusercontent.com/40386980/106906147-cb12ea80-66f4-11eb-9aff-55d25d22aea1.jpg)
