@@ -1,0 +1,47 @@
+﻿main {
+    background-color: #eee;
+}
+
+section.container {
+    background-color: #fff;
+    margin-top: 2.4em;
+}
+
+.order-options {
+    section {
+        border: 2px black solid;
+        display: inline-block;
+        margin: 1em;
+        padding: 1em;
+
+        ul {
+            li {
+                list-style: none;
+                text-align: left;
+            }
+        }
+
+        .order-option-heading {
+            min-height: 100px;
+        }
+    }
+}
+
+.order-options + section {
+    clear: both;
+}
+
+#booking-summary {
+    background-color: #eee;
+    display: inline-block;
+    margin: 1em auto;
+    max-width: 70%;
+    padding: 1em 2em;
+
+    div {
+
+        p {
+            margin: 0 0 10px;
+        }
+    }
+}
