@@ -50,7 +50,27 @@ namespace book_a_reading_room_visit.web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}");
+
+                endpoints.MapControllerRoute(
+                    name: "availability",
+                    pattern: "{controller=Home}/{action=Availability}");
+
+                endpoints.MapControllerRoute(
+                    name: "secure-booking",
+                    pattern: "{controller=Booking}/{action=SecureBooking}");
+
+                endpoints.MapControllerRoute(
+                    name: "booking-confirmation",
+                    pattern: "{controller=Booking}/{action=BookingConfirmation}");
+
+                endpoints.MapControllerRoute(
+                    name: "order-documents",
+                    pattern: "{controller=DocumentOrder}/{action=OrderDocuments}");
+
+                endpoints.MapControllerRoute(
+                    name: "document-order",
+                    pattern: "{controller=DocumentOrder}/{action=DocumentOrder}");
             });
         }
     }
