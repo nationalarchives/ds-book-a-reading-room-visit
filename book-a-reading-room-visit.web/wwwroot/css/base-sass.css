@@ -7673,12 +7673,6 @@ button:focus {
 .cards .col-md-4 .entry-image {
   min-height: 185px;
 }
-.cards h2 {
-  border-top: 2px solid #26262a;
-  padding-top: 10px;
-  margin-top: 0;
-  margin-bottom: 26px;
-}
 .cards h3 {
   border-top: 2px solid #26262a;
   padding-top: 10px;
@@ -7835,20 +7829,45 @@ main {
 section.container {
   background-color: #fff;
   margin-top: 2.4em;
+  padding: 4em 2em 2em 2em;
 }
 
-.order-options section {
-  border: 2px black solid;
+.order-options section.col-md-6 {
   display: inline-block;
-  margin: 1em;
-  padding: 1em;
+  margin: 2em 0;
 }
-.order-options section ul li {
+.order-options section.col-md-6 .card {
+  background-color: #eee;
+  border: 2px #ddd solid;
+}
+.order-options section.col-md-6 .card ul li {
   list-style: none;
   text-align: left;
+  margin-bottom: 1em;
 }
-.order-options section .order-option-heading {
+.order-options section.col-md-6 .card ul li:before {
+  content: "- ";
+}
+.order-options section.col-md-6 .card a.button {
+  margin-bottom: 1em;
+  text-decoration: none;
+}
+.order-options section.col-md-6 .card .order-option-heading {
   min-height: 100px;
+}
+.order-options #computer-only {
+  background-color: #fff;
+  border: 2px #ddd solid;
+  padding-bottom: 1em;
+}
+
+@media screen and (max-width: 992px) {
+  .order-options section.col-md-6 {
+    width: 100%;
+  }
+}
+.prompt {
+  font-weight: bold;
 }
 
 .order-options + section {

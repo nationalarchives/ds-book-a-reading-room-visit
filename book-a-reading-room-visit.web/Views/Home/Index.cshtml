@@ -1,8 +1,86 @@
 ﻿@{
-    ViewData["Title"] = "Home Page - Page 1";
+    ViewData["Title"] = "Home Page";
 }
 
+<h1 class="display-4">Book a visit to view our documents</h1>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>Page 1 of 5</p>
+
+    <section class="container">
+
+        <section>
+            <div>
+                <p>
+                    To reserve a place, you will need your reader's ticket number and to know how many documents you would like to see.
+                    You can then choose an available date to view documents in our reading rooms.
+                </p>
+            </div>
+            <div>
+                <a href="">How to book and what to expect ></a>
+            </div>
+        </section>
+
+        <section class="order-options">
+            <div class="row">
+                <section class="col-md-6">
+                    <div class="card">
+                        <div class="order-option-heading">
+                            <h2>Book a standard visit</h2>
+                            <p class="prompt">(Most common choice)</p>
+                        </div>
+
+                        <ul>
+                            <li>Usually a 1-day visit</li>
+                            <li>Up to 12 documents for 1 day or 24 documents for 2 days</li>
+                            <li>Documents can be from different series</li>
+                            <li>Computer access available</li>
+                        </ul>
+
+                        <a class="button primary" href="/book-a-visit/availability">Find a day to visit</a>
+
+                        <p class="prompt">400 spaces available</p>
+                    </div>
+                </section>
+
+                <section class="col-md-6">
+                    <div class="card">
+                        <div class="order-option-heading">
+                            <h2>Book a bulk order visit</h2>
+                        </div>
+
+                        <ul>
+                            <li>Usually a 2-day visit</li>
+                            <li>Between 20 - 40 documents</li>
+                            <li>Documents have to be from the same series</li>
+                            <li>Computer access available</li>
+                        </ul>
+
+                        <a class="button primary" href="/book-a-visit/availability">Find a day to visit</a>
+
+                        <p class="prompt">10 spaces available</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="row">
+                <section class="col-md-12">
+                    <div id="computer-only">
+                        <h2>Book to use a computer only</h2>
+
+                        <div class="container">
+                            <p>
+                                If you’re not looking to view original documents, you can still use PCs in our open reading room to view digital
+                                documents for free or access other partner services.
+                            </p>
+
+                            <a href="">Find out more ></a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </section>
+
+    </section>
+
 </div>
