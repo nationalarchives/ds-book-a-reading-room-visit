@@ -1,0 +1,79 @@
+﻿main {
+    background-color: #eee;
+}
+
+section.container {
+    background-color: #fff;
+    margin-top: 2.4em;
+    padding: 4em 2em 2em 2em;
+}
+
+.order-options {
+    section.col-md-6 {
+        display: inline-block;
+        margin: 2em 0;
+
+        .card {
+            background-color: #eee;
+            border: 2px #ddd solid;
+
+            ul {
+                li {
+                    list-style: none;
+                    text-align: left;
+                    margin-bottom: 1em;
+
+                    &:before {
+                        content: "- ";
+                    }
+                }
+            }
+
+            a.button {
+                margin-bottom: 1em;
+                text-decoration: none;
+            }
+
+            .order-option-heading {
+                min-height: 100px;
+            }
+        }
+    }
+
+    #computer-only {
+        background-color: #fff;
+        border: 2px #ddd solid;
+        padding-bottom: 1em;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .order-options {
+        section.col-md-6 {
+            width: 100%;
+        }
+    }
+}
+
+.prompt {
+    font-weight: bold;
+}
+
+.order-options + section {
+    clear: both;
+}
+
+#booking-summary {
+    background-color: #eee;
+    display: inline-block;
+    margin: 1em auto;
+    max-width: 70%;
+    padding: 1em 2em;
+
+    div {
+
+        p {
+            margin: 0 0 10px;
+        }
+    }
+}

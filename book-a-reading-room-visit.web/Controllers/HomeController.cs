@@ -18,11 +18,14 @@ namespace book_a_reading_room_visit.web.Controllers
             _logger = logger;
         }
 
+        [Route("")]
+        [Route("book-a-visit")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("book-a-visit/availability")]
         public IActionResult Availability()
         {
             return View();

@@ -1,0 +1,159 @@
+footer {
+  color: #fff;
+  background-color: $dark;
+  a,
+  a:active,
+  a:visited,
+  a:hover {
+    color: $yellow-peach;
+  }
+  a:focus {
+    color: $dark;
+  }
+  .footer-content {
+    padding-top: 1.6em;
+  }
+  .footer-col {
+    margin-bottom: 1.6em;
+    min-height: 280px;
+    @media (max-width: 767px) {
+      min-height: auto;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      a {
+        display: block;
+        border-top: 1px solid #444;
+        padding: 0.1em 0;
+        margin: 0;
+        &:hover {
+          color: #ffffff;
+          outline: 1px solid #ffffff;
+        }
+      }
+    }
+    .square-logo {
+      max-width: 157px;
+      margin-bottom: 23px;
+    }
+  }
+  .footer-base {
+    margin-bottom: 1.6em;
+    .ogl {
+      img {
+        float: left;
+        margin: 3px 25px 10px 0;
+        width: auto;
+        padding: 5px;
+        @media (max-width: 767px) {
+          float: none;
+        }
+      }
+      > a:hover {
+        outline: none;
+        img {
+          outline: 5px solid #ffffff;
+        }
+      }
+      p {
+        a:hover {
+          outline: 1px solid #ffffff;
+        }
+      }
+    }
+    .gov-uk {
+      text-align: right;
+      @media (max-width: 767px) {
+        text-align: left;
+      }
+      a:hover {
+        background: none;
+        outline: 5px solid #ffffff;
+      }
+      a:focus {
+        background: none;
+      }
+    }
+  }
+  .opening-times {
+    .open_table {
+      display: table;
+      width: 100%;
+      .open_tableRow {
+        display: table-row;
+      }
+      .open_tableHeading {
+        display: table-header-group;
+      }
+      .open_tableCell,
+      .open_tableHead {
+        display: table-cell;
+        padding: 3px 0;
+      }
+      .open_tableHeading {
+        display: table-header-group;
+        font-weight: bold;
+      }
+      .open_tableFoot {
+        display: table-footer-group;
+        font-weight: bold;
+      }
+      .open_tableBody {
+        display: table-row-group;
+      }
+    }
+    .open {
+      margin-top: 40px;
+      @media (max-width: 1024px) {
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+        float: none !important;
+        max-width: 320px;
+      }
+    }
+  }
+  .follow-us {
+    a {
+      display: inline-block;
+      margin: 0 0.2em 0.3em 0;
+      &:hover {
+        background: none;
+        outline: none;
+      }
+      img {
+        background-color: $dark;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        padding: 7px;
+        width: 40px;
+        transition: 0.4s ease-in-out;
+        -webkit-transition: 0.4s ease-in-out;
+        -moz-transition: 0.4s ease-in-out;
+        &:hover {
+          background: #555;
+        }
+      }
+    }
+  }
+  .newsletter {
+    color: $dark;
+    background: $green;
+    padding-top: 1.6em;
+    .news-content {
+      h3 {
+        font-size: 1.6em;
+        margin-top: 0;
+        line-height: 1;
+      }
+      .button {
+        padding: 0.3em 0.9em;
+        line-height: 1;
+        margin-top: 0.6em;
+        text-decoration: none;
+      }
+    }
+  }
+}

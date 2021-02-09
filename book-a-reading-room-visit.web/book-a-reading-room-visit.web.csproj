@@ -5,4 +5,11 @@
     <RootNamespace>book_a_reading_room_visit.web</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Shared\_Breadcrumb.cshtml" />
+  </ItemGroup>
 </Project>
