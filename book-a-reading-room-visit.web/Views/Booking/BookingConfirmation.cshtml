@@ -1,8 +1,14 @@
-﻿@{
+﻿@using book_a_reading_room_visit.web.Models;
+@{
     ViewData["Title"] = "Home Page - Page 4";
 }
+@model BookingViewModel
 
 <div class="text-center">
     <h1 class="display-4">Welcome to book a reading room visit</h1>
     <p>Page 4 of 5</p>
+
+    <div>
+        <a class="button primary" href="/@Model.OrderType.ToStringURL()/order-documents">Continue booking now</a>
+    </div>
 </div>

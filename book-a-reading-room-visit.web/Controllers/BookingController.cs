@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using book_a_reading_room_visit.web.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,26 @@ namespace book_a_reading_room_visit.web.Controllers
 {
     public class BookingController : Controller
     {
-        [Route("book-a-visit/secure-booking")]
-        public IActionResult SecureBooking()
+        public IActionResult SecureBooking(string orderType, string bookingReference)
         {
-            return View();
+            var model = new BookingViewModel
+            {
+                OrderType = orderType.ToOrderType(),
+                BookingReference = bookingReference
+            };
+                
+            return View(model);
         }
 
-        [Route("book-a-visit/booking-confirmation")]
-        public IActionResult BookingConfirmation()
+        public IActionResult BookingConfirmation(string orderType, string bookingReference)
         {
-            return View();
+            var model = new BookingViewModel
+            {
+                OrderType = orderType.ToOrderType(),
+                BookingReference = bookingReference
+            };
+
+            return View(model);
         }
     }
 }

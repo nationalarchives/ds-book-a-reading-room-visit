@@ -1,8 +1,29 @@
-﻿@{
+﻿@using book_a_reading_room_visit.web.Models;
+
+@{
     ViewData["Title"] = "Home Page - Page 2";
 }
+
+@model OrderType
 
 <div class="text-center">
     <h1 class="display-4">Welcome to book a reading room visit</h1>
     <p>Page 2 of 5</p>
+
+    @if (Model == OrderType.StandardOrderVisit)
+    {
+        <p>
+            <a class="button primary" href="/bulk-order-visit/availability">Bulk order visit availability</a>
+        </p>
+    }
+    else
+    {
+        <p>
+            <a class="button primary" href="/standard-order-visit/availability">Standard order visit availability</a>
+        </p>
+    }
+
+    <div>
+        <a class="button primary" href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Tuesday 14 February</a>
+    </div>
 </div>
