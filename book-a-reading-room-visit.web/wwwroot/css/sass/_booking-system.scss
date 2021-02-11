@@ -80,14 +80,6 @@ section.container {
     }
 }
 
-@media screen and (max-width: 992px) {
-    .order-options {
-        section.col-md-6 {
-            width: 100%;
-        }
-    }
-}
-
 .order-options + section {
     clear: both;
 }
@@ -101,7 +93,6 @@ section.container {
 
     input[type=text] {
         margin-top: 1em;
-        min-width: 400px;
     }
 
     div {
@@ -128,4 +119,35 @@ section.container {
 #booking-date {
     display: block;
     font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+    .order-options {
+        section.col-md-6 {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .reader-ticket-form {
+
+        span {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            margin-top: 1em;
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .reader-ticket-form {
+
+        input[type=text] {
+            min-width: 400px;
+        }
+    }
 }
