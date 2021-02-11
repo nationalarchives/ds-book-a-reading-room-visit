@@ -7840,6 +7840,16 @@ section.container .container-heading, section.container .container-heading-text 
   margin-top: 2em;
 }
 
+.booking-options form a, .booking-options form button {
+  min-width: 205px;
+}
+.booking-options form a:before {
+  content: "< ";
+}
+.booking-options form button:after {
+  content: " >";
+}
+
 .booking-summary {
   background-color: #eee;
   display: inline-block;
@@ -7887,6 +7897,17 @@ section.container .container-heading, section.container .container-heading-text 
 
 .prompt {
   font-weight: bold;
+}
+
+.reader-ticket-form {
+  margin: 2em 0;
+}
+.reader-ticket-form input[type=text] {
+  margin-top: 1em;
+  min-width: 400px;
+}
+.reader-ticket-form div form {
+  margin-bottom: 2em;
 }
 
 .reservation-options a.button {

@@ -17,6 +17,23 @@ section.container {
     }
 }
 
+.booking-options {
+    form {
+
+        a, button {
+            min-width: 205px
+        }
+
+        a:before {
+            content: "< ";
+        }
+
+        button:after {
+            content: " >";
+        }
+    }
+}
+
 .booking-summary {
     background-color: #eee;
     display: inline-block;
@@ -77,6 +94,22 @@ section.container {
 
 .prompt {
     font-weight: bold;
+}
+
+.reader-ticket-form {
+    margin: 2em 0;
+
+    input[type=text] {
+        margin-top: 1em;
+        min-width: 400px;
+    }
+
+    div {
+
+        form {
+            margin-bottom: 2em;
+        }
+    }
 }
 
 .reservation-options {
