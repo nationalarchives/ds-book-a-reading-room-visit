@@ -2,10 +2,31 @@
     background-color: #eee;
 }
 
+a.button {
+    margin-bottom: 1em;
+    text-decoration: none;
+}
+
 section.container {
     background-color: #fff;
     margin-top: 2.4em;
-    padding: 4em 2em 2em 2em;
+    padding: 0em 2em 2em 2em;
+
+    .container-heading, .container-heading-text {
+        margin-top: 2em;
+    }
+}
+
+.booking-summary {
+    background-color: #eee;
+    display: inline-block;
+    margin: 1em auto;
+    max-width: 70%;
+    padding: 1em 2em;
+
+    p {
+        margin: 0 0 10px;
+    }
 }
 
 .order-options {
@@ -27,11 +48,6 @@ section.container {
                         content: "- ";
                     }
                 }
-            }
-
-            a.button {
-                margin-bottom: 1em;
-                text-decoration: none;
             }
 
             .order-option-heading {
@@ -63,17 +79,7 @@ section.container {
     clear: both;
 }
 
-#booking-summary {
-    background-color: #eee;
-    display: inline-block;
-    margin: 1em auto;
-    max-width: 70%;
-    padding: 1em 2em;
-
-    div {
-
-        p {
-            margin: 0 0 10px;
-        }
-    }
+#booking-date {
+    display: block;
+    font-weight: bold;
 }

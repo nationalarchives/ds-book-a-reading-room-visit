@@ -7826,10 +7826,29 @@ main {
   background-color: #eee;
 }
 
+a.button {
+  margin-bottom: 1em;
+  text-decoration: none;
+}
+
 section.container {
   background-color: #fff;
   margin-top: 2.4em;
-  padding: 4em 2em 2em 2em;
+  padding: 0em 2em 2em 2em;
+}
+section.container .container-heading, section.container .container-heading-text {
+  margin-top: 2em;
+}
+
+.booking-summary {
+  background-color: #eee;
+  display: inline-block;
+  margin: 1em auto;
+  max-width: 70%;
+  padding: 1em 2em;
+}
+.booking-summary p {
+  margin: 0 0 10px;
 }
 
 .order-options section.col-md-6 {
@@ -7847,10 +7866,6 @@ section.container {
 }
 .order-options section.col-md-6 .card ul li:before {
   content: "- ";
-}
-.order-options section.col-md-6 .card a.button {
-  margin-bottom: 1em;
-  text-decoration: none;
 }
 .order-options section.col-md-6 .card .order-option-heading {
   min-height: 100px;
@@ -7874,15 +7889,9 @@ section.container {
   clear: both;
 }
 
-#booking-summary {
-  background-color: #eee;
-  display: inline-block;
-  margin: 1em auto;
-  max-width: 70%;
-  padding: 1em 2em;
-}
-#booking-summary div p {
-  margin: 0 0 10px;
+#booking-date {
+  display: block;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=base-sass.css.map */
