@@ -1,14 +1,50 @@
-﻿@using book_a_reading_room_visit.web.Models;
-@{
-    ViewData["Title"] = "Home Page - Page 4";
+﻿@{
+    ViewData["Title"] = "Booking confirmation";
 }
-@model BookingViewModel
+
+<h1 class="display-4">Book a visit to view our documents</h1>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>Page 4 of 5</p>
 
-    <div>
-        <a class="button primary" href="/@Model.OrderType.ToStringURL()/order-documents">Continue booking now</a>
-    </div>
+    <section class="container">
+
+        <div class="container-heading">
+            <h2>We have reserved a space for you</h2>
+        </div>
+
+        <section>
+            <div class="row">
+                <div class="booking-summary">
+                    <p>Standard order - Saturday 13 February</p>
+
+                    <p>Standard document reading room (with a camera stand) </p>
+                </div>
+                <p>
+                    You will need to specify which documents you would like to see by
+                    <span id="booking-date">11.59pm on Wednesday 10th February</span>
+                </p>
+            </div>
+        </section>
+
+        <section class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <p>
+                    We have sent you email confirming your reservation to the email address associated with your reader’s ticket.
+                    You can access the document order form at any time from the link provided in the email.
+                </p>
+            </div>
+        </section>
+
+        <section class="reservation-options col-md-6 col-md-offset-3 col-sm-offset-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="button primary" href="/book-a-visit/order-documents">Continue booking now</a>
+                </div>
+
+                <div class="col-md-6">
+                     <a class="button primary" href="/book-a-visit/availability">I'd like to continue later</a>
+                </div>
+            </div>
+        </section>
+    </section>
 </div>

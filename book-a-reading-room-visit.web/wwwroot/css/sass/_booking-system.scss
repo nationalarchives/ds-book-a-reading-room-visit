@@ -71,12 +71,22 @@ section.container {
     }
 }
 
+.order-options + section {
+    clear: both;
+}
+
 .prompt {
     font-weight: bold;
 }
 
-.order-options + section {
-    clear: both;
+.reservation-options {
+    a.button {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        max-width: 245px;
+        min-height: 70px;
+    }
 }
 
 #booking-date {
