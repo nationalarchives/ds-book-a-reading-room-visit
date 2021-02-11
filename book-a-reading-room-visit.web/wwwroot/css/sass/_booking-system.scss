@@ -113,11 +113,14 @@ section.container {
 }
 
 .reservation-options {
+    display: flex;
+    justify-content: center;
+
     a.button {
         align-items: center;
-        display: flex;
+        display: inline-flex;
         justify-content: center;
-        max-width: 245px;
+        max-width: 250px;
         min-height: 70px;
     }
 }

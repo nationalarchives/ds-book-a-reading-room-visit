@@ -7910,11 +7910,15 @@ section.container .container-heading, section.container .container-heading-text 
   margin-bottom: 2em;
 }
 
-.reservation-options a.button {
-  align-items: center;
+.reservation-options {
   display: flex;
   justify-content: center;
-  max-width: 245px;
+}
+.reservation-options a.button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  max-width: 250px;
   min-height: 70px;
 }
 
