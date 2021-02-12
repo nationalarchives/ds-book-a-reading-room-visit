@@ -7916,6 +7916,10 @@ section.container .container-heading, section.container .container-heading-text 
   min-height: 70px;
 }
 
+#availability-form div ul li {
+  list-style: none;
+}
+
 #booking-date {
   display: block;
   font-weight: bold;

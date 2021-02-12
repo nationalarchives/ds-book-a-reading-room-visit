@@ -116,6 +116,16 @@ section.container {
     }
 }
 
+#availability-form {
+    div {
+        ul {
+            li {
+                list-style: none;
+            }
+        }
+    }
+}
+
 #booking-date {
     display: block;
     font-weight: bold;
