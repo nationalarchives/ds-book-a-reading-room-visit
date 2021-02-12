@@ -7826,10 +7826,39 @@ main {
   background-color: #eee;
 }
 
+a.button {
+  margin-bottom: 1em;
+  text-decoration: none;
+}
+
 section.container {
   background-color: #fff;
   margin-top: 2.4em;
-  padding: 4em 2em 2em 2em;
+  padding: 0em 2em 2em 2em;
+}
+section.container .container-heading, section.container .container-heading-text {
+  margin-top: 2em;
+}
+
+.booking-options form a, .booking-options form button {
+  min-width: 205px;
+}
+.booking-options form a:before {
+  content: "< ";
+}
+.booking-options form button:after {
+  content: " >";
+}
+
+.booking-summary {
+  background-color: #eee;
+  display: inline-block;
+  margin: 1em auto;
+  max-width: 70%;
+  padding: 1em 2em;
+}
+.booking-summary p {
+  margin: 0 0 10px;
 }
 
 .order-options section.col-md-6 {
@@ -7848,10 +7877,6 @@ section.container {
 .order-options section.col-md-6 .card ul li:before {
   content: "- ";
 }
-.order-options section.col-md-6 .card a.button {
-  margin-bottom: 1em;
-  text-decoration: none;
-}
 .order-options section.col-md-6 .card .order-option-heading {
   min-height: 100px;
 }
@@ -7861,28 +7886,59 @@ section.container {
   padding-bottom: 1em;
 }
 
+.order-options + section {
+  clear: both;
+}
+
+.prompt {
+  font-weight: bold;
+}
+
+.reader-ticket-form {
+  margin: 2em 0;
+}
+.reader-ticket-form input[type=text] {
+  margin-top: 1em;
+}
+.reader-ticket-form div form {
+  margin-bottom: 2em;
+}
+
+.reservation-options {
+  display: flex;
+  justify-content: center;
+}
+.reservation-options a.button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  max-width: 250px;
+  min-height: 70px;
+}
+
+#booking-date {
+  display: block;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 992px) {
   .order-options section.col-md-6 {
     width: 100%;
   }
 }
-.prompt {
-  font-weight: bold;
+@media screen and (max-width: 750px) {
+  .reader-ticket-form span {
+    display: flex;
+    justify-content: center;
+  }
+  .reader-ticket-form .button {
+    margin-top: 1em;
+  }
 }
-
-.order-options + section {
-  clear: both;
-}
-
-#booking-summary {
-  background-color: #eee;
-  display: inline-block;
-  margin: 1em auto;
-  max-width: 70%;
-  padding: 1em 2em;
-}
-#booking-summary div p {
-  margin: 0 0 10px;
+@media screen and (min-width: 500px) {
+  .reader-ticket-form input[type=text] {
+    min-width: 400px;
+  }
 }
 
 /*# sourceMappingURL=base-sass.css.map */

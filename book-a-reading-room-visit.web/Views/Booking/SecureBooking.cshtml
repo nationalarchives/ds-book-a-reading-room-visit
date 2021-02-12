@@ -1,16 +1,62 @@
 ﻿@using book_a_reading_room_visit.web.Models;
 
 @{
-    ViewData["Title"] = "Home Page - Page 3";
+    ViewData["Title"] = "Secure booking";
 }
 
 @model BookingViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>Page 3 of 5</p>
+<h1 class="display-4">Book a visit to view our documents</h1>
 
-    <div>
-        <a class="button primary" href="/@Model.OrderType.ToStringURL()/booking-confirmation">Reseve your space</a>
-    </div>
+<div class="text-center">
+
+    <section class="container">
+
+        <div class="container-heading">
+            <h2>You are about to book the following space</h2>
+        </div>
+
+        <section>
+            <div class="row">
+                <div class="booking-summary">
+                    <p>Standard order - Saturday 13 February</p>
+
+                    <p>Standard document reading room (with a camera stand) </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="reader-ticket-form">
+            <div class="row">
+                <form action="/">
+                    <fieldset>
+                        <div>
+                            <label for="reader-ticket-number">To reserve your space, enter your reader's ticket number</label>
+                        </div>
+
+                        <input id="reader-ticket-number" name="reader-ticket-number" type="text" placeholder="Enter ticket number" />
+
+                        <span>
+                            <button class="button" type="submit">Check ticket details</button>
+                        </span>
+                    </fieldset>
+                </form>
+                <a href="/">How to register or renew your reader's ticket</a>
+            </div>
+        </section>
+
+        <section class="booking-options col-md-6 col-md-offset-3">
+            <div class="row">
+                <form action="/@Model.OrderType.ToStringURL()/booking-confirmation">
+                    <span class="col-md-6">
+                        <a class="button primary" href="/book-a-visit/booking-confirmation">Back</a>
+                    </span>
+
+                    <span class="col-md-6">
+                        <button type="submit" class="button primary">Reserve your space</button>
+                    </span>
+                </form>
+            </div>
+        </section>
+    </section>
 </div>
