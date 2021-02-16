@@ -13,7 +13,7 @@
     <section class="container">
         <section>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4">
                     @if (Model == OrderType.StandardOrderVisit)
                     {
                         <h2>Standard visit availability</h2>
@@ -25,7 +25,7 @@
                     }
                     </div>
 
-                <div class="col-md-8">
+                <div class="col-md-8 col-sm-8" id="visit-type-toggle">
 
                     @if (Model == OrderType.StandardOrderVisit)
                     {
@@ -43,75 +43,119 @@
 
         <section>
             <div class="row">
-                <form id="availability-form" action="/" method="GET">
-                    <div class="col-md-4">
-                        <section class="room-selection">
+                <form id="visit-customisation-form" action="/@Model.ToStringURL()/availability" method="POST">
+                    <div class="col-md-4 col-sm-4">
+                        <section id="room-selection">
                             <fieldset>
-                                <label for="standard-room">Standard reading room</label>
-                                <input name="standard-room" id="standard-room" type="radio" />
+                                <div id="room-selection-fieldset">
+                                    <label for="standard-room">Standard reading room</label>
+                                    <input name="room-type" id="standard-room" type="radio" value="standard" checked />
+                                </div>
+
+                                <div id="camera-stand-fieldset">
+                                    <label for="camera-stand">I would also like a camera stand</label>
+                                    <input name="camera-stand" id="camera-stand" type="checkbox" />
+                                </div>
                             </fieldset>
 
                             <fieldset>
                                 <label for="map-and-lg-room">Map and large document</label>
-                                <input name="map-and-lg-room" id="map-and-lg-room" type="radio" />
+                                <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
                             </fieldset>
                         </section>
-                        <section class="visit-selection">
+
+                        <section id="visit-selection">
                             <fieldset>
                                 <label for="one-day-visit">One-day visit</label>
-                                <input name="one-day-visit" id="one-day-visit" type="radio" />
+                                <input name="visit-length" id="one-day-visit" type="radio" value="one-day" checked />
                             </fieldset>
 
                             <fieldset>
                                 <label for="two-day-visit">Two-day visit</label>
-                                <input name="two-day-visit" id="two-day-visit" type="radio" />
+                                <input name="visit-length" id="two-day-visit" type="radio" value="two-day "/>
                             </fieldset>
                         </section>
-                    </div>
 
-                    <div class="col-md-8">
-                        <ul>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Tuesday 15 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary" h
-                                   ref="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Wednesday 16 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Thursday 17 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Friday 18 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Saturday 19 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Tuesday 22 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Wednesday 23 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Thursday 24 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Friday 25 February</a>
-                            </li>
-                            <li>
-                                <a class="button primary"
-                                   href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Saturday 26 February</a>
-                            </li>
-                        </ul>
+                        <button class="button" type="submit">Update</button>
+                    </div>
+                </form>
+
+                <form id="availability-form" action="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()" method="POST">
+                    <div class="col-md-8 col-sm-8 date-selection">
+
+                        <fieldset id="visit-type">
+                            <input name="room-type" type="hidden" value="something" />
+                            <input name="visit-length" type="hidden" value="something" />
+                        </fieldset>
+
+                        <fieldset id="dates">
+                            <input type="radio" id="date-1" name="date" value="something">
+
+                            <label for="date-1">
+                                <span class="col-md-6">Tuesday 15 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-2" name="date" value="something">
+
+                            <label for="date-2">
+                                <span class="col-md-6">Wednesday 16 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-3" name="date" value="something">
+
+                            <label for="date-3">
+                                <span class="col-md-6">Thursday 17 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-4" name="date" value="something">
+
+                            <label for="date-4">
+                                <span class="col-md-6">Friday 18 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-5" name="date" value="something">
+
+                            <label for="date-5">
+                                <span class="col-md-6">Saturday 19 February</span>
+                               <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-6" name="date" value="something">
+
+                            <label for="date-6">
+                                <span class="col-md-6">Tuesday 22 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-7" name="date" value="something">
+
+                            <label for="date-7">
+                                <span class="col-md-6">Wednesday 23 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-8" name="date" value="something">
+
+                            <label for="date-8">
+                                <span class="col-md-6">Thursday 24 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-9" name="date" value="something">
+
+                            <label for="date-9">
+                                <span class="col-md-6">Friday 25 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-10" name="date" value="something">
+                        </fieldset>
+
+                        <button class="button" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
