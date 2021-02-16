@@ -47,6 +47,8 @@
                     <div class="col-md-4 col-sm-4">
                         <section id="room-selection">
                             <fieldset>
+                                <legend class="sr-only">Select reading room</legend>
+
                                 <div id="room-selection-fieldset">
                                     <label for="standard-room">Standard reading room</label>
                                     <input name="room-type" id="standard-room" type="radio" value="standard" checked />
@@ -56,9 +58,7 @@
                                     <label for="camera-stand">I would also like a camera stand</label>
                                     <input name="camera-stand" id="camera-stand" type="checkbox" />
                                 </div>
-                            </fieldset>
 
-                            <fieldset>
                                 <label for="map-and-lg-room">Map and large document</label>
                                 <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
                             </fieldset>
@@ -66,13 +66,17 @@
 
                         <section id="visit-selection">
                             <fieldset>
-                                <label for="one-day-visit">One-day visit</label>
-                                <input name="visit-length" id="one-day-visit" type="radio" value="one-day" checked />
-                            </fieldset>
+                                <legend class="sr-only">Select visit length</legend>
 
-                            <fieldset>
-                                <label for="two-day-visit">Two-day visit</label>
-                                <input name="visit-length" id="two-day-visit" type="radio" value="two-day "/>
+                                <div>
+                                    <label for="one-day-visit">One-day visit</label>
+                                    <input name="visit-length" id="one-day-visit" type="radio" value="one-day" checked />
+                                </div>
+
+                                <div>
+                                    <label for="two-day-visit">Two-day visit</label>
+                                    <input name="visit-length" id="two-day-visit" type="radio" value="two-day " />
+                                </div>
                             </fieldset>
                         </section>
 
@@ -83,12 +87,12 @@
                 <form id="availability-form" action="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()" method="POST">
                     <div class="col-md-8 col-sm-8 date-selection">
 
-                        <fieldset id="visit-type">
-                            <input name="room-type" type="hidden" value="something" />
-                            <input name="visit-length" type="hidden" value="something" />
-                        </fieldset>
+                        <input name="room-type" type="hidden" value="something" />
+                        <input name="visit-length" type="hidden" value="something" />
 
                         <fieldset id="dates">
+                            <legend class="sr-only">Select date</legend>
+
                             <input type="radio" id="date-1" name="date" value="something">
 
                             <label for="date-1">
