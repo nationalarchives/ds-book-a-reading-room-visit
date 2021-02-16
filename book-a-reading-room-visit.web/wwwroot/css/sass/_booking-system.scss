@@ -284,11 +284,21 @@ section.container {
 }
 
 @media screen and (max-width: 350px) {
+    #availability-form {
+        #dates {
+            label {
+                padding-left: 0px;
+            }
+        }
+    }
+
     #visit-customisation-form {
-        fieldset {
-            div {
-                label {
-                    margin-left: .5em;
+        #room-selection, #visit-selection {
+            fieldset {
+                div {
+                    label {
+                        margin-left: .5em;
+                    }
                 }
             }
         }

@@ -8027,7 +8027,11 @@ section.container .container-heading, section.container .container-heading-text 
   }
 }
 @media screen and (max-width: 350px) {
-  #visit-customisation-form fieldset div label {
+  #availability-form #dates label {
+    padding-left: 0px;
+  }
+
+  #visit-customisation-form #room-selection fieldset div label, #visit-customisation-form #visit-selection fieldset div label {
     margin-left: 0.5em;
   }
   #visit-customisation-form .col-md-4, #visit-customisation-form .col-sm-4 {
