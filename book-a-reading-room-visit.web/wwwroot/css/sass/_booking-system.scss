@@ -282,3 +282,19 @@ section.container {
         }
     }
 }
+
+@media screen and (max-width: 350px) {
+    #visit-customisation-form {
+        fieldset {
+            div {
+                label {
+                    margin-left: .5em;
+                }
+            }
+        }
+
+        .col-md-4, .col-sm-4 {
+            padding-right: 0px;
+        }
+    }
+}

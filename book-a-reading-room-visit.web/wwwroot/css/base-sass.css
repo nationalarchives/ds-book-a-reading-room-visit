@@ -8026,5 +8026,13 @@ section.container .container-heading, section.container .container-heading-text 
     min-width: 400px;
   }
 }
+@media screen and (max-width: 350px) {
+  #visit-customisation-form fieldset div label {
+    margin-left: 0.5em;
+  }
+  #visit-customisation-form .col-md-4, #visit-customisation-form .col-sm-4 {
+    padding-right: 0px;
+  }
+}
 
 /*# sourceMappingURL=base-sass.css.map */
