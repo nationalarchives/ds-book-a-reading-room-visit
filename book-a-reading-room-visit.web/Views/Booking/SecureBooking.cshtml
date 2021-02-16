@@ -28,7 +28,7 @@
 
         <section class="reader-ticket-form">
             <div class="row">
-                <form action="/">
+                <form>
                     <fieldset>
                         <div>
                             <label for="reader-ticket-number">To reserve your space, enter your reader's ticket number</label>
@@ -49,7 +49,7 @@
             <div class="row">
                 <form action="/@Model.OrderType.ToStringURL()/booking-confirmation">
                     <span class="col-md-6">
-                        <a class="button primary" href="/book-a-visit/booking-confirmation">Back</a>
+                        <a class="button primary" href="/@Model.OrderType.ToStringURL()/availability">Back</a>
                     </span>
 
                     <span class="col-md-6">

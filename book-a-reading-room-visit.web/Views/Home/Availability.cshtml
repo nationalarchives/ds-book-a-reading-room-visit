@@ -1,29 +1,175 @@
 ﻿@using book_a_reading_room_visit.web.Models;
 
 @{
-    ViewData["Title"] = "Home Page - Page 2";
+    ViewData["Title"] = "Visit availability";
 }
 
 @model OrderType
 
+<h1 class="display-4">Welcome to book a reading room visit</h1>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>Page 2 of 5</p>
 
-    @if (Model == OrderType.StandardOrderVisit)
-    {
-        <p>
-            <a class="button primary" href="/bulk-order-visit/availability">Bulk order visit availability</a>
-        </p>
-    }
-    else
-    {
-        <p>
-            <a class="button primary" href="/standard-order-visit/availability">Standard order visit availability</a>
-        </p>
-    }
+    <section class="container">
+        <section>
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    @if (Model == OrderType.StandardOrderVisit)
+                    {
+                        <h2>Standard visit availability</h2>
+                    }
 
-    <div>
-        <a class="button primary" href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()">Tuesday 14 February</a>
-    </div>
+                    else
+                    {
+                        <h2>Bulk visit availability</h2>
+                    }
+                    </div>
+
+                <div class="col-md-8 col-sm-8" id="visit-type-toggle">
+
+                    @if (Model == OrderType.StandardOrderVisit)
+                    {
+                        <a class="button primary" href="/bulk-order-visit/availability">Bulk order visit availability</a>
+                    }
+
+                    else
+                    {
+                        <a class="button primary" href="/standard-order-visit/availability">Standard order visit availability</a>
+                    }
+
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="row">
+                <form id="visit-customisation-form" action="/@Model.ToStringURL()/availability" method="POST">
+                    <div class="col-md-4 col-sm-4">
+                        <section id="room-selection">
+                            <fieldset>
+                                <legend class="sr-only">Select reading room</legend>
+
+                                <div>
+                                    <label for="standard-room">Standard reading room</label>
+                                    <input name="room-type" id="standard-room" type="radio" value="standard" checked />
+                                </div>
+
+                                <div id="camera-stand-field">
+                                    <label for="camera-stand">I would also like a camera stand</label>
+                                    <input name="camera-stand" id="camera-stand" type="checkbox" />
+                                </div>
+
+                                <div>
+                                    <label for="map-and-lg-room">Map and large document</label>
+                                    <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
+                                </div>
+                            </fieldset>
+                        </section>
+
+                        <section id="visit-selection">
+                            <fieldset>
+                                <legend class="sr-only">Select visit length</legend>
+
+                                <div>
+                                    <label for="one-day-visit">One-day visit</label>
+                                    <input name="visit-length" id="one-day-visit" type="radio" value="one-day" checked />
+                                </div>
+
+                                <div>
+                                    <label for="two-day-visit">Two-day visit</label>
+                                    <input name="visit-length" id="two-day-visit" type="radio" value="two-day " />
+                                </div>
+                            </fieldset>
+                        </section>
+
+                        <button class="button" type="submit">Update</button>
+                    </div>
+                </form>
+
+                <form id="availability-form" action="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()" method="POST">
+                    <div class="col-md-8 col-sm-8 date-selection">
+
+                        <input name="room-type" type="hidden" value="something" />
+                        <input name="visit-length" type="hidden" value="something" />
+
+                        <fieldset id="dates">
+                            <legend class="sr-only">Select date</legend>
+
+                            <input type="radio" id="date-1" name="date" value="something">
+
+                            <label for="date-1">
+                                <span class="col-md-6">Tuesday 15 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-2" name="date" value="something">
+
+                            <label for="date-2">
+                                <span class="col-md-6">Wednesday 16 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-3" name="date" value="something">
+
+                            <label for="date-3">
+                                <span class="col-md-6">Thursday 17 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-4" name="date" value="something">
+
+                            <label for="date-4">
+                                <span class="col-md-6">Friday 18 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-5" name="date" value="something">
+
+                            <label for="date-5">
+                                <span class="col-md-6">Saturday 19 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-6" name="date" value="something">
+
+                            <label for="date-6">
+                                <span class="col-md-6">Tuesday 22 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-7" name="date" value="something">
+
+                            <label for="date-7">
+                                <span class="col-md-6">Wednesday 23 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-8" name="date" value="something">
+
+                            <label for="date-8">
+                                <span class="col-md-6">Thursday 24 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-9" name="date" value="something">
+
+                            <label for="date-9">
+                                <span class="col-md-6">Friday 25 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+
+                            <input type="radio" id="date-10" name="date" value="something">
+
+                            <label for="date-10">
+                                <span class="col-md-6">Saturday 26 February</span>
+                                <span class="col-md-6">X spaces available</span>
+                            </label>
+                        </fieldset>
+
+                        <button class="button" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </section>
 </div>
