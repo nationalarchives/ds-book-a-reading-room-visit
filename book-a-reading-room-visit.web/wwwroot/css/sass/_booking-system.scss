@@ -207,7 +207,7 @@ section.container {
     font-weight: bold;
 }
 
-#camera-stand-fieldset {
+#camera-stand-field {
     margin-left: 2em;
 
     label {
@@ -228,12 +228,22 @@ section.container {
 }
 
 #visit-customisation-form {
-    input[type=radio], input[type=checkbox] {
-        float: left;
-    }
-
     button[type=submit] {
         margin-bottom: 2em;
+    }
+
+    fieldset {
+        div {
+            text-align: left;
+
+            label {
+                margin-left: 2em;
+            }
+        }
+    }
+
+    input[type=radio], input[type=checkbox] {
+        float: left;
     }
 }
 

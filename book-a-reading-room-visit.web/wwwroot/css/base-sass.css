@@ -7971,10 +7971,10 @@ section.container .container-heading, section.container .container-heading-text 
   font-weight: bold;
 }
 
-#camera-stand-fieldset {
+#camera-stand-field {
   margin-left: 2em;
 }
-#camera-stand-fieldset label {
+#camera-stand-field label {
   width: 80%;
 }
 
@@ -7989,11 +7989,17 @@ section.container .container-heading, section.container .container-heading-text 
   padding-bottom: 1em !important;
 }
 
-#visit-customisation-form input[type=radio], #visit-customisation-form input[type=checkbox] {
-  float: left;
-}
 #visit-customisation-form button[type=submit] {
   margin-bottom: 2em;
+}
+#visit-customisation-form fieldset div {
+  text-align: left;
+}
+#visit-customisation-form fieldset div label {
+  margin-left: 2em;
+}
+#visit-customisation-form input[type=radio], #visit-customisation-form input[type=checkbox] {
+  float: left;
 }
 
 #visit-type-toggle {
