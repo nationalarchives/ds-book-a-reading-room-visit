@@ -227,6 +227,7 @@ section.container {
     fieldset {
         div {
             text-align: left;
+            margin-top: 1em;
 
             label {
                 font-size: 18px;
@@ -238,6 +239,7 @@ section.container {
 
     .form-indent {
         margin-left: 2em;
+        margin-top: 0;
 
         label {
             font-family: "Open Sans", sans-serif;

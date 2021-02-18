@@ -7987,6 +7987,7 @@ section.container .container-heading, section.container .container-heading-text 
 }
 #visit-customisation-form fieldset div {
   text-align: left;
+  margin-top: 1em;
 }
 #visit-customisation-form fieldset div label {
   font-size: 18px;
@@ -7995,6 +7996,7 @@ section.container .container-heading, section.container .container-heading-text 
 }
 #visit-customisation-form .form-indent {
   margin-left: 2em;
+  margin-top: 0;
 }
 #visit-customisation-form .form-indent label {
   font-family: "Open Sans", sans-serif;
