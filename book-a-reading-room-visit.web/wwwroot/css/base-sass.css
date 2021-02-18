@@ -7971,13 +7971,6 @@ section.container .container-heading, section.container .container-heading-text 
   font-weight: bold;
 }
 
-#camera-stand-field {
-  margin-left: 2em;
-}
-#camera-stand-field label {
-  width: 80%;
-}
-
 #room-selection {
   border-bottom: 2px solid #eee;
 }
@@ -7994,12 +7987,27 @@ section.container .container-heading, section.container .container-heading-text 
 }
 #visit-customisation-form fieldset div {
   text-align: left;
+  margin-top: 1em;
 }
 #visit-customisation-form fieldset div label {
-  margin-left: 2em;
+  font-size: 18px;
+  margin-left: 0.5em;
+  width: 80%;
 }
-#visit-customisation-form input[type=radio], #visit-customisation-form input[type=checkbox] {
+#visit-customisation-form .form-indent {
+  margin-left: 2em;
+  margin-top: 0;
+}
+#visit-customisation-form .form-indent label {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  width: 80%;
+}
+#visit-customisation-form input[type=checkbox], #visit-customisation-form input[type=radio] {
   float: left;
+}
+#visit-customisation-form input[type=radio] {
+  margin-top: 7px;
 }
 
 #visit-type-toggle {
