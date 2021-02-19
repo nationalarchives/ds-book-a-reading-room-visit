@@ -25,11 +25,11 @@ namespace book_a_reading_room_visit.api
         {
             services.AddControllers();
 
-            services.AddDbContext<DocumentOrderContext>(opt =>
-              opt.UseSqlServer(Configuration.GetConnectionString("DocumentOrderConnection")));
+            services.AddDbContext<BookingContext>(opt =>
+              opt.UseSqlServer(Configuration.GetConnectionString("KewBookingConnection")));
 
             services.AddScoped<AvailabilityService>();
-            services.AddScoped<DocumentOrderService>();
+            services.AddScoped<BookingService>();
 
             services.AddSwaggerGen(c =>
             {

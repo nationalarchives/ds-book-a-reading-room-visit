@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace book_a_reading_room_visit.data.Migrations
 {
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OrderStatus",
+                name: "BookingStatus",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -16,7 +16,7 @@ namespace book_a_reading_room_visit.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
+                    table.PrimaryKey("PK_BookingStatus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,8 +37,7 @@ namespace book_a_reading_room_visit.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Number = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    SeatTypeId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    SeatTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,19 +51,18 @@ namespace book_a_reading_room_visit.data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Bookings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    BookingReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsStandardVisit = table.Column<bool>(type: "bit", nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: true),
-                    OrderStatusId = table.Column<int>(type: "int", nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingStatusId = table.Column<int>(type: "int", nullable: true),
+                    VisitStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    VisitEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReaderTicket = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -72,15 +70,15 @@ namespace book_a_reading_room_visit.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_OrderStatus_OrderStatusId",
-                        column: x => x.OrderStatusId,
-                        principalTable: "OrderStatus",
+                        name: "FK_Bookings_BookingStatus_BookingStatusId",
+                        column: x => x.BookingStatusId,
+                        principalTable: "BookingStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Seats_SeatId",
+                        name: "FK_Bookings_Seats_SeatId",
                         column: x => x.SeatId,
                         principalTable: "Seats",
                         principalColumn: "Id",
@@ -94,7 +92,7 @@ namespace book_a_reading_room_visit.data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DocumentReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: true),
+                    BookingId = table.Column<int>(type: "int", nullable: true),
                     LetterCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ClassNumber = table.Column<int>(type: "int", nullable: false),
                     PieceId = table.Column<int>(type: "int", nullable: false),
@@ -108,49 +106,27 @@ namespace book_a_reading_room_visit.data.Migrations
                 {
                     table.PrimaryKey("PK_OrderDocuments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDocuments_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_OrderDocuments_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "OrderStatus",
-                columns: new[] { "Id", "Description" },
-                values: new object[,]
-                {
-                    { 1, "Created" },
-                    { 2, "Submitted" },
-                    { 3, "Cancelled" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SeatType",
-                columns: new[] { "Id", "Description" },
-                values: new object[,]
-                {
-                    { 1, "Standard reading room seat" },
-                    { 2, "Standard reading room seat with camera stand" },
-                    { 3, "Map and large document room seat" },
-                    { 4, "Bulk document order seat" },
-                    { 5, "Not available" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_BookingStatusId",
+                table: "Bookings",
+                column: "BookingStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDocuments_OrderId",
-                table: "OrderDocuments",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderStatusId",
-                table: "Orders",
-                column: "OrderStatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_SeatId",
-                table: "Orders",
+                name: "IX_Bookings_SeatId",
+                table: "Bookings",
                 column: "SeatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDocuments_BookingId",
+                table: "OrderDocuments",
+                column: "BookingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seats_SeatTypeId",
@@ -164,10 +140,10 @@ namespace book_a_reading_room_visit.data.Migrations
                 name: "OrderDocuments");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "OrderStatus");
+                name: "BookingStatus");
 
             migrationBuilder.DropTable(
                 name: "Seats");

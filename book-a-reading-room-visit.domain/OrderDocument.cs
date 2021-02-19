@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string DocumentReference { get; set; }
-        public Order Order { get; set; }
+        public Booking Booking { get; set; }
         public string LetterCode { get; set; }
         public int ClassNumber { get; set; }
         public int PieceId { get; set; }

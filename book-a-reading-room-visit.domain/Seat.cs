@@ -5,6 +5,5 @@
         public int Id { get; set; }
         public string Number { get; set; }
         public SeatType SeatType { get; set; }
-        public string Description { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace book_a_reading_room_visit.api.Service
 {
     public class AvailabilityService
     {
-        private readonly DocumentOrderContext _context;
+        private readonly BookingContext _context;
 
-        public AvailabilityService(DocumentOrderContext context)
+        public AvailabilityService(BookingContext context)
         {
             _context = context;
         }

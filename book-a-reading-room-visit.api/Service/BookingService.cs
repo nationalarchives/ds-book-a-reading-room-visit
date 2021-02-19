@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {
-    public class DocumentOrderService
+    public class BookingService
     {
-        private readonly DocumentOrderContext _context;
+        private readonly BookingContext _context;
 
-        public DocumentOrderService(DocumentOrderContext context)
+        public BookingService(BookingContext context)
         {
             _context = context;
         }

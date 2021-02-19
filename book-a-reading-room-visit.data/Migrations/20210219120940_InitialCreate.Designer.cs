@@ -9,9 +9,9 @@ using book_a_reading_room_visit.data;
 
 namespace book_a_reading_room_visit.data.Migrations
 {
-    [DbContext(typeof(DocumentOrderContext))]
-    [Migration("20210218150657_init")]
-    partial class init
+    [DbContext(typeof(BookingContext))]
+    [Migration("20210219120940_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,15 +21,20 @@ namespace book_a_reading_room_visit.data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("book_a_reading_room_visit.domain.Order", b =>
+            modelBuilder.Entity("book_a_reading_room_visit.domain.Booking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CompletedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("BookingReference")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("BookingStatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -37,9 +42,6 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
@@ -52,30 +54,40 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("OrderReference")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("OrderStatusId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ReaderTicket")
                         .HasColumnType("int");
 
                     b.Property<int?>("SeatId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime>("VisitEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("VisitStartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderStatusId");
+                    b.HasIndex("BookingStatusId");
 
                     b.HasIndex("SeatId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("book_a_reading_room_visit.domain.BookingStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookingStatus");
                 });
 
             modelBuilder.Entity("book_a_reading_room_visit.domain.OrderDocument", b =>
@@ -84,6 +96,9 @@ namespace book_a_reading_room_visit.data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ClassNumber")
                         .HasColumnType("int");
@@ -104,9 +119,6 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PieceId")
                         .HasColumnType("int");
 
@@ -123,51 +135,15 @@ namespace book_a_reading_room_visit.data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("BookingId");
 
                     b.ToTable("OrderDocuments");
-                });
-
-            modelBuilder.Entity("book_a_reading_room_visit.domain.OrderStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrderStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Created"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Submitted"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Cancelled"
-                        });
                 });
 
             modelBuilder.Entity("book_a_reading_room_visit.domain.Seat", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -197,57 +173,30 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SeatType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Standard reading room seat"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Standard reading room seat with camera stand"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Map and large document room seat"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Bulk document order seat"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Not available"
-                        });
                 });
 
-            modelBuilder.Entity("book_a_reading_room_visit.domain.Order", b =>
+            modelBuilder.Entity("book_a_reading_room_visit.domain.Booking", b =>
                 {
-                    b.HasOne("book_a_reading_room_visit.domain.OrderStatus", "OrderStatus")
+                    b.HasOne("book_a_reading_room_visit.domain.BookingStatus", "BookingStatus")
                         .WithMany()
-                        .HasForeignKey("OrderStatusId");
+                        .HasForeignKey("BookingStatusId");
 
                     b.HasOne("book_a_reading_room_visit.domain.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatId");
 
-                    b.Navigation("OrderStatus");
+                    b.Navigation("BookingStatus");
 
                     b.Navigation("Seat");
                 });
 
             modelBuilder.Entity("book_a_reading_room_visit.domain.OrderDocument", b =>
                 {
-                    b.HasOne("book_a_reading_room_visit.domain.Order", "Order")
+                    b.HasOne("book_a_reading_room_visit.domain.Booking", "Booking")
                         .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("BookingId");
 
-                    b.Navigation("Order");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("book_a_reading_room_visit.domain.Seat", b =>
