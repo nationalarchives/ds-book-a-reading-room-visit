@@ -22,7 +22,7 @@ section.container {
 }
 
 .bold-text {
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .booking-details {
@@ -78,6 +78,20 @@ section.container {
                     }
                 }
             }
+        }
+    }
+}
+
+.document-list {
+    margin: 2em 0 4em 0;
+
+    li {
+        margin-bottom: 2em;
+        padding-left: 1em;
+        text-align: left;
+
+        p {
+            margin-bottom: .5em;
         }
     }
 }
@@ -165,9 +179,15 @@ section.container {
 }
 
 .prompt-white {
+    border: 5px solid #ddd;
+    padding: 1em 0;
+
+    a {
+        margin-top: 1em;
+    }
+
     p {
-        border: 5px solid #ddd;
-        padding: 1em 0;
+        margin-bottom: 0;
     }
 }
 
@@ -252,7 +272,7 @@ section.container {
 
 #booking-date {
     display: block;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 #room-selection {

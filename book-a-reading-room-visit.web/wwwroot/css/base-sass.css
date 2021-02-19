@@ -7845,7 +7845,7 @@ section.container .container-heading, section.container .container-heading-text 
 }
 
 .bold-text {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .booking-details {
@@ -7880,6 +7880,18 @@ section.container .container-heading, section.container .container-heading-text 
 }
 .date-selection ul li a div p {
   margin-bottom: 0;
+}
+
+.document-list {
+  margin: 2em 0 4em 0;
+}
+.document-list li {
+  margin-bottom: 2em;
+  padding-left: 1em;
+  text-align: left;
+}
+.document-list li p {
+  margin-bottom: 0.5em;
 }
 
 .order-form fieldset {
@@ -7944,9 +7956,15 @@ section.container .container-heading, section.container .container-heading-text 
   margin: 0 0 10px;
 }
 
-.prompt-white p {
+.prompt-white {
   border: 5px solid #ddd;
   padding: 1em 0;
+}
+.prompt-white a {
+  margin-top: 1em;
+}
+.prompt-white p {
+  margin-bottom: 0;
 }
 
 .reservation-options div.col-md-6 {
@@ -8000,7 +8018,7 @@ section.container .container-heading, section.container .container-heading-text 
 
 #booking-date {
   display: block;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 #room-selection {
