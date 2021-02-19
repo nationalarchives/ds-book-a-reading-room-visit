@@ -7873,17 +7873,6 @@ section.container .container-heading, section.container .container-heading-text 
   content: " >";
 }
 
-.booking-summary {
-  background-color: #eee;
-  display: inline-block;
-  margin: 1em auto;
-  max-width: 70%;
-  padding: 1em 2em;
-}
-.booking-summary p {
-  margin: 0 0 10px;
-}
-
 .date-selection ul li a {
   background-color: #eee;
   border: 2px solid #ddd;
@@ -7904,26 +7893,27 @@ section.container .container-heading, section.container .container-heading-text 
   text-align: left;
 }
 
-.order-options section.col-md-6 {
+.order-option div.col-md-6 {
   display: inline-block;
   margin: 2em 0;
 }
-.order-options section.col-md-6 .card {
+.order-option div.col-md-6 .card {
   background-color: #eee;
   border: 2px #ddd solid;
 }
-.order-options section.col-md-6 .card ul li {
+.order-option div.col-md-6 .card ul li {
   list-style: none;
   text-align: left;
   margin-bottom: 1em;
 }
-.order-options section.col-md-6 .card ul li:before {
+.order-option div.col-md-6 .card ul li:before {
   content: "- ";
 }
-.order-options section.col-md-6 .card .order-option-heading {
+.order-option div.col-md-6 .card .order-option-heading {
   min-height: 100px;
 }
-.order-options #computer-only {
+
+#computer-only {
   background-color: #fff;
   border: 2px #ddd solid;
   padding-bottom: 1em;
@@ -7943,7 +7933,18 @@ section.container .container-heading, section.container .container-heading-text 
   margin-bottom: 2em;
 }
 
-.prompt p {
+.prompt-grey .booking-summary {
+  background-color: #eee;
+  display: inline-block;
+  margin: 1em auto;
+  max-width: 70%;
+  padding: 1em 2em;
+}
+.prompt-grey .booking-summary p {
+  margin: 0 0 10px;
+}
+
+.prompt-white p {
   border: 5px solid #ddd;
   padding: 1em 0;
 }
