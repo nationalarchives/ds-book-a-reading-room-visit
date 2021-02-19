@@ -7949,11 +7949,11 @@ section.container .container-heading, section.container .container-heading-text 
   padding: 1em 0;
 }
 
-.reservation-options {
+.reservation-options div.col-md-6 {
   display: flex;
   justify-content: center;
 }
-.reservation-options a.button {
+.reservation-options div.col-md-6 a.button {
   align-items: center;
   display: inline-flex;
   justify-content: center;

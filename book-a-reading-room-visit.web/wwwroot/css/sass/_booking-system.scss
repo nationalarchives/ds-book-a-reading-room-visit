@@ -172,15 +172,17 @@ section.container {
 }
 
 .reservation-options {
-    display: flex;
-    justify-content: center;
-
-    a.button {
-        align-items: center;
-        display: inline-flex;
+    div.col-md-6 {
+        display: flex;
         justify-content: center;
-        max-width: 250px;
-        min-height: 70px;
+
+        a.button {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            max-width: 250px;
+            min-height: 70px;
+        }
     }
 }
 
