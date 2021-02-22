@@ -4,7 +4,100 @@
 }
 @model BookingViewModel
 
+<h1 class="display-4">Book a visit to view our documents</h1>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>allow users to access the reserved booking using reader ticker</p>
+
+    <section class="container">
+
+        <div class="container-heading">
+            <h2>Confirmation of your order</h2>
+        </div>
+
+        <section class="prompt-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        You can add to or remove documents from this order <span class="bold-text">until 23:59 on Monday 16 January</span>
+                    </p>
+                    <a href="/@Model.OrderType.ToStringURL()/order-documents">Edit your order</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-details">
+            <div class="row">
+                <h3>Your booking details</h3>
+
+                <div class="col-md-6">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Booking reference</th>
+                                <td>RR23610</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seat type</th>
+                                <td>Document reading room, with camera stand</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Visit date</th>
+                                <td>20 January (one day visit)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/">Cancel this booking ></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="order-summary">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Your standard order documents</h3>
+                    <ol class="document-list">
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Your reserve documents</h3>
+                    <ol class="document-list">
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                        <li>
+                            <p class="bold-text">FCO 141/19497</p>
+                            <p>Kenya land transfer programme: Captain F L Jones…</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        <a class="button" href="/">Print this order</a>
+    </section>
 </div>

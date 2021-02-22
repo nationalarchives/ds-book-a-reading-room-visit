@@ -14,7 +14,7 @@
             <h2>We have reserved a space for you</h2>
         </div>
 
-        <section>
+        <section class="prompt-grey">
             <div class="row">
                 <div class="booking-summary">
                     <p>Standard order - Saturday 13 February</p>
@@ -28,24 +28,28 @@
             </div>
         </section>
 
-        <section class="col-md-8 col-md-offset-2">
+        <section>
             <div class="row">
-                <p>
-                    We have sent you email confirming your reservation to the email address associated with your reader’s ticket.
-                    You can access the document order form at any time from the link provided in the email.
-                </p>
+                <div class="col-md-8 col-md-offset-2">
+                    <p>
+                        We have sent you email confirming your reservation to the email address associated with your reader’s ticket.
+                        You can access the document order form at any time from the link provided in the email.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <section class="reservation-options col-md-6 col-md-offset-3">
+        <section class="reservation-options">
             <div class="row">
-                <span class="col-md-6">
-                    <a class="button primary" href="/@Model.OrderType.ToStringURL()/order-documents">Continue booking now</a>
-                </span>
+                <div class="col-md-6 col-md-offset-3">
+                    <span class="col-md-6">
+                        <a class="button primary" href="/@Model.OrderType.ToStringURL()/order-documents">Continue booking now</a>
+                    </span>
 
-                <span class="col-md-6">
-                    <a class="button primary" href="/">I'd like to continue later</a>
-                </span>
+                    <span class="col-md-6">
+                        <a class="button primary" href="/">I'd like to continue later</a>
+                    </span>
+                </div>
             </div>
         </section>
     </section>

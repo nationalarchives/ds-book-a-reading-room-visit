@@ -1,10 +1,161 @@
 ﻿@using book_a_reading_room_visit.web.Models;
+
 @{
-    ViewData["Title"] = "Home Page - Page 5";
+    ViewData["Title"] = "Order documents";
 }
+
 @model BookingViewModel
 
+<h1 class="display-4">Book a visit to view our documents</h1>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome to book a reading room visit</h1>
-    <p>Page 5 of 5</p>
+
+    <section class="container">
+
+        <div class="container-heading">
+            <h2>Order documents for your visit</h2>
+        </div>
+
+        <section class="booking-details">
+            <div class="row">
+                <h3>Your booking details</h3>
+
+                <div class="col-md-6">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Booking reference</th>
+                                <td>RR23610</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seat type</th>
+                                <td>Document reading room, with camera stand</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Visit date</th>
+                                <td>20 January (one day visit)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/">Cancel this booking ></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="prompt-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        You can add to or remove documents from this order <span class="bold-text">until 23:59 on Monday 16 January</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="order-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/@Model.OrderType.ToStringURL()/document-order/@Guid.NewGuid().ToString()" method="POST">
+
+                        <fieldset>
+                            <legend>Enter up to 12 documents</legend>
+                            <p>You will need to enter document reference numbers</p>
+
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="order-form-field">
+                                    <label for="doc-1">1</label>
+                                    <input id="doc-1" name="doc-1" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-2">2</label>
+                                    <input id="doc-2" name="doc-2" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-3">3</label>
+                                    <input id="doc-3" name="doc-3" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="order-form-field">
+                                    <label for="doc-4">4</label>
+                                    <input id="doc-4" name="doc-4" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-5">5</label>
+                                    <input id="doc-5" name="doc-5" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-6">6</label>
+                                    <input id="doc-6" name="doc-6" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="order-form-field">
+                                    <label for="doc-7">7</label>
+                                    <input id="doc-7" name="doc-7" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-8">8</label>
+                                    <input id="doc-8" name="doc-8" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-9">9</label>
+                                    <input id="doc-9" name="doc-9" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="order-form-field">
+                                    <label for="doc-10">10</label>
+                                    <input id="doc-10" name="doc-10" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-11">11</label>
+                                    <input id="doc-11" name="doc-11" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="doc-12">12</label>
+                                    <input id="doc-12" name="doc-12" type="text" />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Enter up to 3 reserve documents</legend>
+                            <p>These will be used if any of your standard order documents above are unavailable</p>
+
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="order-form-field">
+                                    <label for="reserve-1">1</label>
+                                    <input id="reserve-1" name="reserve-1" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="reserve-2">2</label>
+                                    <input id="reserve-2" name="reserve-2" type="text" />
+                                </div>
+
+                                <div class="order-form-field">
+                                    <label for="reserve-3">3</label>
+                                    <input id="reserve-3" name="reserve-3" type="text" />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <button class="button" type="submit">Add these to your order</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
 </div>
