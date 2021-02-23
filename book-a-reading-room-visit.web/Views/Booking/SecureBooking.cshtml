@@ -36,6 +36,15 @@
                             <label for="reader-ticket-number">To reserve your space, enter your reader's ticket number</label>
                         </div>
 
+                       <ul>
+                           @foreach (var seat in Model.Seats)
+                           {
+                               <li>
+                                   @seat.Number
+                               </li>
+                           }
+                       </ul>
+
                         <input id="reader-ticket-number" name="reader-ticket-number" type="text" placeholder="Enter ticket number" />
 
                         <button class="button" type="submit">Check ticket details</button>

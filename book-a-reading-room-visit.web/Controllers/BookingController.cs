@@ -1,4 +1,5 @@
 ﻿using book_a_reading_room_visit.web.Models;
+using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,20 @@ namespace book_a_reading_room_visit.web.Controllers
 {
     public class BookingController : Controller
     {
-        public IActionResult SecureBooking(string orderType, string bookingReference)
+        private readonly AvailabilityService _availabilityService;
+
+        public BookingController(AvailabilityService availabilityService)
         {
+            _availabilityService = availabilityService;
+        }
+        public async Task<IActionResult> SecureBooking(string orderType, string bookingReference)
+        {
+            var seats = await _availabilityService.GetAllSeatsAsync();
             var model = new BookingViewModel
             {
                 OrderType = orderType.ToOrderType(),
-                BookingReference = bookingReference
+                BookingReference = bookingReference,
+                Seats = seats
             };
                 
             return View(model);
