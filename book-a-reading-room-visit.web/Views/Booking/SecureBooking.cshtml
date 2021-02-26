@@ -16,7 +16,7 @@
             <h2>You are about to book the following space</h2>
         </div>
 
-        <section>
+        <section class="prompt-grey">
             <div class="row">
                 <div class="booking-summary">
                     <p>Standard order - Saturday 13 February</p>
@@ -54,17 +54,19 @@
             </div>
         </section>
 
-        <section class="booking-options col-md-6 col-md-offset-3">
+        <section class="booking-options">
             <div class="row">
-                <form action="/@Model.OrderType.ToStringURL()/booking-confirmation">
-                    <span class="col-md-6">
-                        <a class="button primary" href="/@Model.OrderType.ToStringURL()/availability">Back</a>
-                    </span>
+                <div class="col-md-6 col-md-offset-3">
+                    <form action="@Url.Action("BookingConfirmation", "Booking", new { orderType = @Model.OrderType.ToStringURL() })">
+                        <span class="col-md-6">
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() } )">Back</a>
+                        </span>
 
-                    <span class="col-md-6">
-                        <button type="submit" class="button primary">Reserve your space</button>
-                    </span>
-                </form>
+                        <span class="col-md-6">
+                            <button type="submit" class="button primary">Reserve your space</button>
+                        </span>
+                    </form>
+                </div>
             </div>
         </section>
     </section>

@@ -21,6 +21,32 @@ section.container {
     }
 }
 
+.bold-text {
+    font-weight: bolder;
+}
+
+.booking-details {
+    margin-bottom: 2em;
+    text-align: left;
+
+    div {
+        span {
+            border: 2px solid #ddd;
+        }
+    }
+
+    h3 {
+        margin-bottom: 1em;
+        padding-left: 15px;
+    }
+
+    table {
+        td, th {
+            border: 1px solid #ddd;
+        }
+    }
+}
+
 .booking-options {
     form {
 
@@ -35,18 +61,6 @@ section.container {
         button:after {
             content: " >";
         }
-    }
-}
-
-.booking-summary {
-    background-color: #eee;
-    display: inline-block;
-    margin: 1em auto;
-    max-width: 70%;
-    padding: 1em 2em;
-
-    p {
-        margin: 0 0 10px;
     }
 }
 
@@ -68,8 +82,37 @@ section.container {
     }
 }
 
-.order-options {
-    section.col-md-6 {
+.document-list {
+    margin: 2em 0 4em 0;
+
+    li {
+        margin-bottom: 2em;
+        padding-left: 1em;
+        text-align: left;
+
+        p {
+            margin-bottom: .5em;
+        }
+    }
+}
+
+.order-form {
+    fieldset {
+        margin-top: 2em;
+    }
+
+    legend, p {
+        text-align: left;
+    }
+
+    .order-form-field {
+        margin-bottom: 1em;
+        text-align: left;
+    }
+}
+
+.order-option {
+    div.col-md-6 {
         display: inline-block;
         margin: 2em 0;
 
@@ -94,20 +137,16 @@ section.container {
             }
         }
     }
+}
 
-    #computer-only {
-        background-color: #fff;
-        border: 2px #ddd solid;
-        padding-bottom: 1em;
-    }
+#computer-only {
+    background-color: #fff;
+    border: 2px #ddd solid;
+    padding-bottom: 1em;
 }
 
 .order-options + section {
     clear: both;
-}
-
-.prompt {
-    font-weight: bold;
 }
 
 .reader-ticket-form {
@@ -125,16 +164,45 @@ section.container {
     }
 }
 
-.reservation-options {
-    display: flex;
-    justify-content: center;
+.prompt-grey {
+    .booking-summary {
+        background-color: #eee;
+        display: inline-block;
+        margin: 1em auto;
+        max-width: 70%;
+        padding: 1em 2em;
 
-    a.button {
-        align-items: center;
-        display: inline-flex;
+        p {
+            margin: 0 0 10px;
+        }
+    }
+}
+
+.prompt-white {
+    border: 5px solid #ddd;
+    padding: 1em 0;
+
+    a {
+        margin-top: 1em;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.reservation-options {
+    div.col-md-6 {
+        display: flex;
         justify-content: center;
-        max-width: 250px;
-        min-height: 70px;
+
+        a.button {
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            max-width: 250px;
+            min-height: 70px;
+        }
     }
 }
 
@@ -204,7 +272,7 @@ section.container {
 
 #booking-date {
     display: block;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 #room-selection {
@@ -284,11 +352,10 @@ section.container {
     }
 }
 
-@media screen and (min-width: 500px) {
-    .reader-ticket-form {
-
-        input[type=text] {
-            min-width: 400px;
+@media screen and (max-width: 640px) {
+    .order-form {
+        .col-xs-6 {
+            width: 100%;
         }
     }
 }
@@ -315,6 +382,15 @@ section.container {
 
         .col-md-4, .col-sm-4 {
             padding-right: 0px;
+        }
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .reader-ticket-form {
+
+        input[type=text] {
+            min-width: 400px;
         }
     }
 }
