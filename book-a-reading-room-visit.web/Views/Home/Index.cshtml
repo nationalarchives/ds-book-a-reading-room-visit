@@ -35,7 +35,7 @@
                                 <li>Computer access available</li>
                             </ul>
 
-                            <a class="button primary" href="/standard-order-visit/availability">Select a date</a>
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "standard-order-visit" })">Select a date</a>
                         </div>
                     </div>
                 </section>
@@ -55,7 +55,7 @@
                                 <li>Computer access available</li>
                             </ul>
 
-                            <a class="button primary" href="/bulk-order-visit/availability">Select a date</a>
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "bulk-order-visit" })">Select a date</a>
                         </div>
                     </div>
                 </section>

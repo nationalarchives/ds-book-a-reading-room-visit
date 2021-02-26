@@ -29,12 +29,12 @@
 
                     @if (Model == OrderType.StandardOrderVisit)
                     {
-                        <a class="button primary" href="/bulk-order-visit/availability">Bulk order visit availability</a>
+                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "bulk-order-visit" })">Bulk order visit availability</a>
                     }
 
                     else
                     {
-                        <a class="button primary" href="/standard-order-visit/availability">Standard order visit availability</a>
+                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "standard-order-visit" })">Standard order visit availability</a>
                     }
 
                 </div>
@@ -43,7 +43,7 @@
 
         <section>
             <div class="row">
-                <form id="visit-customisation-form" action="/@Model.ToStringURL()/availability" method="POST">
+                <form id="visit-customisation-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.ToStringURL() } )" method="POST">
                     <div class="col-md-4 col-sm-4">
                         <section id="room-selection">
                             <fieldset>
@@ -94,7 +94,7 @@
                     </div>
                 </form>
 
-                <form id="availability-form" action="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()" method="POST">
+                <form id="availability-form" action="@Url.Action("SecureBooking", "Booking", new { orderType = @Model.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() })" method="POST">
                     <div class="col-md-8 col-sm-8 date-selection">
 
                         <input name="room-type" type="hidden" value="something" />

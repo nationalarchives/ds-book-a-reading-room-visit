@@ -20,7 +20,7 @@
                     <p>
                         You can add to or remove documents from this order <span class="bold-text">until 23:59 on Monday 16 January</span>
                     </p>
-                    <a href="/@Model.OrderType.ToStringURL()/order-documents">Edit your order</a>
+                    <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL() } )">Edit your order</a>
                 </div>
             </div>
         </section>
@@ -98,6 +98,6 @@
                 </div>
             </div>
         </section>
-        <a class="button" href="/">Print this order</a>
+        <a class="button" href="#">Print this order</a>
     </section>
 </div>

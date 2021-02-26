@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:54606",
+      "applicationUrl": "http://localhost:54606/book-a-reading-room-visit",
       "sslPort": 44397
     }
   },
