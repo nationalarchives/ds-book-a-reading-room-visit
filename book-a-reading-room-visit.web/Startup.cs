@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +47,7 @@ namespace book_a_reading_room_visit.web
 
             app.UseAuthorization();
 
+            app.UsePathBase(new PathString("/book-a-reading-room-visit"));
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

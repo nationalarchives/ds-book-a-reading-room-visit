@@ -55,7 +55,7 @@
         <section class="order-form">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="/@Model.OrderType.ToStringURL()/document-order/@Guid.NewGuid().ToString()" method="POST">
+                    <form action="@Url.Action("DocumentOrder", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() } )" method="POST">
 
                         <fieldset>
                             <legend>Enter up to 12 documents</legend>

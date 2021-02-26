@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <span class="col-md-6">
-                        <a class="button primary" href="/@Model.OrderType.ToStringURL()/order-documents">Continue booking now</a>
+                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL() } )">Continue booking now</a>
                     </span>
 
                     <span class="col-md-6">

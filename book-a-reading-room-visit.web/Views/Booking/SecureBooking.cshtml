@@ -48,9 +48,9 @@
         <section class="booking-options">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <form action="/@Model.OrderType.ToStringURL()/booking-confirmation">
+                    <form action="@Url.Action("BookingConfirmation", "Booking", new { orderType = @Model.OrderType.ToStringURL() })">
                         <span class="col-md-6">
-                            <a class="button primary" href="/@Model.OrderType.ToStringURL()/availability">Back</a>
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() } )">Back</a>
                         </span>
 
                         <span class="col-md-6">
