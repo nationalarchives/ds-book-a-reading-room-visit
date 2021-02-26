@@ -19,13 +19,13 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<List<Seat>> GetAllSeatsAsync()
         {
-            await GetStandardAvailability();
-            return await _context.Seats.ToListAsync();
-
             var bookings = from booking in _context.Set<Booking>()
                            join seat in _context.Set<Seat>().Where(s => s.SeatTypeId == 1)
                            on booking.SeatId equals seat.Id
                            select new { booking.VisitStartDate, };
+
+            await GetStandardAvailability();
+            return await _context.Seats.ToListAsync();
         }
 
         public async Task GetStandardAvailability()
