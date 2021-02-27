@@ -10,7 +10,12 @@ Download and install:
 
 ### Windows setup instructions
 1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
-
+2. To configure the local SQL database
+	- Set the book-a-reading-room-visit.api as the start up project
+	- Open the Package Manager Console (Tools -> Nuget Package Manager -> Package Manager Console) and select book-a-reading-room-visit.data as the project as shown below
+	- Run update-database command as shown below
+	
+![Configure Loacal Database](https://user-images.githubusercontent.com/40386980/109391838-fca45d80-7910-11eb-8263-12b71ff3287b.PNG)	
 
 ### Entity relationship diagram
 
