@@ -30,6 +30,7 @@ namespace book_a_reading_room_visit.api
 
             services.AddScoped<AvailabilityService>();
             services.AddScoped<BookingService>();
+            services.AddScoped<WorkingDayService>();
 
             services.AddSwaggerGen(c =>
             {

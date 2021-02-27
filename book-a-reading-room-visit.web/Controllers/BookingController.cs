@@ -18,12 +18,10 @@ namespace book_a_reading_room_visit.web.Controllers
         }
         public async Task<IActionResult> SecureBooking(string orderType, string bookingReference)
         {
-            var seats = await _availabilityService.GetAllSeatsAsync();
             var model = new BookingViewModel
             {
                 OrderType = orderType.ToOrderType(),
-                BookingReference = bookingReference,
-                Seats = seats
+                BookingReference = bookingReference
             };
                 
             return View(model);

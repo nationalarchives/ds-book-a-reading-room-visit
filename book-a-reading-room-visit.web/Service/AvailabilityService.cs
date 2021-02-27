@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using book_a_reading_room_visit.web.Models;
 
 namespace book_a_reading_room_visit.web.Service
 {
@@ -18,9 +19,9 @@ namespace book_a_reading_room_visit.web.Service
             _bookAVisitAPI = bookAVisitAPI;
         }
 
-        public async Task<List<Seat>> GetAllSeatsAsync()
+        public async Task<AvailabilitySummaryViewModel> GetAvailabilitySummaryAsync()
         {
-            var response = await _bookAVisitAPI._client.GetFromJsonAsync<List<Seat>>("/api/availability");
+            var response = await _bookAVisitAPI._client.GetFromJsonAsync<AvailabilitySummaryViewModel>("/book-a-visit-api/availability/summary");
 
             return response;
         }

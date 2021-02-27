@@ -14,8 +14,4 @@
     <ProjectReference Include="..\book-a-reading-room-visit.domain\book-a-reading-room-visit.domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
