@@ -13,7 +13,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "KBS_WebApi_URL": "https://localhost:44321/"
+        "KBS_WebApi_URL": "https://localhost:44321/",
+        "KBS_Root_Path": "/book-a-reading-room-visit"
       }
     },
     "book_a_reading_room_visit.web": {
