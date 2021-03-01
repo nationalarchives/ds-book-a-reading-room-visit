@@ -22,7 +22,8 @@ namespace book_a_reading_room_visit.test
                     new SeatType { Id = 3, Description = "Map and large document room seat" },
                     new SeatType { Id = 4, Description = "Bulk document order seat" },
                     new SeatType { Id = 5, Description = "Map and large document room seat with camera stand" },
-                    new SeatType { Id = 6, Description = "Not available" }
+                    new SeatType { Id = 6, Description = "Bulk document order seat with camera stand" },
+                    new SeatType { Id = 7, Description = "Not available" }
                 });
 
             bookingContext.Seats.AddRange(new List<Seat>

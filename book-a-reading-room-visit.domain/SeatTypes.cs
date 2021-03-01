@@ -7,6 +7,7 @@
         MandLRR = 3,
         BulkRRSeat = 4,
         MandLRRWithCamera = 5,
-        NotAvailable = 6
+        BulkRRSeatWithCamera = 6,
+        NotAvailable = 7
     }
 }
