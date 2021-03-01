@@ -1,4 +1,5 @@
-﻿using book_a_reading_room_visit.api.Service;
+﻿using book_a_reading_room_visit.api.Models;
+using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("book-a-visit-api/[controller]")]
     [ApiController]
     public class AvailabilityController : ControllerBase
     {
@@ -20,11 +21,11 @@ namespace book_a_reading_room_visit.api.Controllers
             _availabilityService = availabilityService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Seat>>> GetSamurais()
+        [HttpGet("summary")]
+        public async Task<ActionResult<AvailabilitySummaryModel>> GetAvailabilitySummary()
         {
-            var seats = await _availabilityService.GetAllSeatsAsync();
-            return Ok(seats);
+            var result = await _availabilityService.GetAvailabilitySummaryAsync();
+            return Ok(result);
         }
     }
 }

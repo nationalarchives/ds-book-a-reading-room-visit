@@ -9,7 +9,7 @@
         public int ClassNumber { get; set; }
         public int PieceId { get; set; }
         public string PieceReference { get; set; }
-        public int SubClassNumber { get; set; }
+        public int? SubClassNumber { get; set; }
         public string ItemReference { get; set; }
         public string Site { get; set; }
         public bool IsReserve { get; set; }

@@ -37,7 +37,7 @@ namespace book_a_reading_room_visit.data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Number = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    SeatTypeId = table.Column<int>(type: "int", nullable: true)
+                    SeatTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,7 +47,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         column: x => x.SeatTypeId,
                         principalTable: "SeatType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,11 +59,12 @@ namespace book_a_reading_room_visit.data.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsStandardVisit = table.Column<bool>(type: "bit", nullable: false),
-                    SeatId = table.Column<int>(type: "int", nullable: true),
-                    BookingStatusId = table.Column<int>(type: "int", nullable: true),
+                    SeatId = table.Column<int>(type: "int", nullable: false),
+                    BookingStatusId = table.Column<int>(type: "int", nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VisitStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VisitEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReaderTicket = table.Column<int>(type: "int", nullable: false),
+                    ReaderTicket = table.Column<int>(type: "int", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
@@ -76,13 +77,13 @@ namespace book_a_reading_room_visit.data.Migrations
                         column: x => x.BookingStatusId,
                         principalTable: "BookingStatus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bookings_Seats_SeatId",
                         column: x => x.SeatId,
                         principalTable: "Seats",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,7 +98,7 @@ namespace book_a_reading_room_visit.data.Migrations
                     ClassNumber = table.Column<int>(type: "int", nullable: false),
                     PieceId = table.Column<int>(type: "int", nullable: false),
                     PieceReference = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    SubClassNumber = table.Column<int>(type: "int", nullable: false),
+                    SubClassNumber = table.Column<int>(type: "int", nullable: true),
                     ItemReference = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Site = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     IsReserve = table.Column<bool>(type: "bit", nullable: false)

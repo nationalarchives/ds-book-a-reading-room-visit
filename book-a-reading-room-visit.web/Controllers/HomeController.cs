@@ -1,4 +1,5 @@
 ﻿using book_a_reading_room_visit.web.Models;
+using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +13,18 @@ namespace book_a_reading_room_visit.web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AvailabilityService _availabilityService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AvailabilityService availabilityService)
         {
             _logger = logger;
+            _availabilityService = availabilityService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await _availabilityService.GetAvailabilitySummaryAsync();
+            return View(model);
         }
 
         public IActionResult Availability(string orderType)

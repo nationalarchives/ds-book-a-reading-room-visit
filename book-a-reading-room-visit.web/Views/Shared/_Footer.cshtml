@@ -1,9 +1,9 @@
 ﻿<footer id="footer" role="contentinfo">
     <h2 class="sr-only">Footer</h2>
-        @Html.Partial("_FooterNewsletter")
+    @await Html.PartialAsync("_FooterNewsletter")
     <div class="footer-content">
         <div class="container">
-            @Html.Partial("_FooterContent")
+            @await Html.PartialAsync("_FooterContent")
         </div>
     </div>
 </footer>

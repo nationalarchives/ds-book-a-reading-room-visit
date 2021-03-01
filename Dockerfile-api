@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS base
+RUN apk add icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+WORKDIR /src
+COPY ["book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj", "book-a-reading-room-visit.api/"]
+COPY ["book-a-reading-room-visit.data/book-a-reading-room-visit.data.csproj", "book-a-reading-room-visit.data/"]
+COPY ["book-a-reading-room-visit.domain/book-a-reading-room-visit.domain.csproj", "book-a-reading-room-visit.domain/"]
+RUN dotnet restore "book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj"
+COPY . .
+WORKDIR "/src/book-a-reading-room-visit.api"
+RUN dotnet build "book-a-reading-room-visit.api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "book-a-reading-room-visit.api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "book-a-reading-room-visit.api.dll"]

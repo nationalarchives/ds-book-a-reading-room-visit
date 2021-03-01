@@ -31,8 +31,11 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("BookingStatusId")
+                    b.Property<int>("BookingStatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -52,10 +55,10 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ReaderTicket")
+                    b.Property<int?>("ReaderTicket")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeatId")
+                    b.Property<int>("SeatId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("VisitEndDate")
@@ -128,7 +131,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("SubClassNumber")
+                    b.Property<int?>("SubClassNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -148,7 +151,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("SeatTypeId")
+                    b.Property<int>("SeatTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -177,11 +180,15 @@ namespace book_a_reading_room_visit.data.Migrations
                 {
                     b.HasOne("book_a_reading_room_visit.domain.BookingStatus", "BookingStatus")
                         .WithMany()
-                        .HasForeignKey("BookingStatusId");
+                        .HasForeignKey("BookingStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("book_a_reading_room_visit.domain.Seat", "Seat")
                         .WithMany()
-                        .HasForeignKey("SeatId");
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BookingStatus");
 
@@ -201,7 +208,9 @@ namespace book_a_reading_room_visit.data.Migrations
                 {
                     b.HasOne("book_a_reading_room_visit.domain.SeatType", "SeatType")
                         .WithMany()
-                        .HasForeignKey("SeatTypeId");
+                        .HasForeignKey("SeatTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("SeatType");
                 });

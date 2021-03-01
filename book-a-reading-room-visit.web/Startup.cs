@@ -1,3 +1,4 @@
+using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,8 @@ namespace book_a_reading_room_visit.web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient<BookAVisitAPI>();
+            services.AddScoped<AvailabilityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

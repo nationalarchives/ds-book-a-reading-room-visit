@@ -112,6 +112,5 @@ INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (96, 'MR0
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (97, 'MR018' ,3)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (98, 'MR019' ,3)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (99, 'MR020' ,3)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (100, 'MR021' ,3)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (101, '1A', 4)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (102, '2A', 4)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (100, '1A', 4)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (101, '2A', 4)
