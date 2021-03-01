@@ -1,3 +1,4 @@
+using System;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,11 +41,15 @@ namespace book_a_reading_room_visit.web
                 app.UseHsts();
             }
             app.UseRouting();
-            app.Use((context, next) =>
+            var rootPath = Environment.GetEnvironmentVariable("KBS_Root_Path");
+            if (!string.IsNullOrWhiteSpace(rootPath))
             {
-                context.Request.PathBase = new PathString("/book-a-reading-room-visit");
-                return next();
-            });
+                app.Use((context, next) =>
+                {
+                    context.Request.PathBase = new PathString(rootPath);
+                    return next();
+                });
+            }
             app.UseStaticFiles();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
