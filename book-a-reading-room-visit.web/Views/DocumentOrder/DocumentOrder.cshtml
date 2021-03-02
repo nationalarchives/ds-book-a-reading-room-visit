@@ -79,23 +79,27 @@
                     </ol>
                 </div>
 
-                <div class="col-md-6">
-                    <h3>Your reserve documents</h3>
-                    <ol class="document-list">
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                    </ol>
-                </div>
+                @if (Model.OrderType == OrderType.StandardOrderVisit)
+                {
+                    <div class="col-md-6">
+                        <h3>Your reserve documents</h3>
+                        <ol class="document-list">
+                            <li>
+                                <p class="bold-text">FCO 141/19497</p>
+                                <p>Kenya land transfer programme: Captain F L Jones…</p>
+                            </li>
+                            <li>
+                                <p class="bold-text">FCO 141/19497</p>
+                                <p>Kenya land transfer programme: Captain F L Jones…</p>
+                            </li>
+                            <li>
+                                <p class="bold-text">FCO 141/19497</p>
+                                <p>Kenya land transfer programme: Captain F L Jones…</p>
+                            </li>
+                        </ol>
+                    </div>
+                }
+
             </div>
         </section>
         <a class="button" href="#">Print this order</a>
