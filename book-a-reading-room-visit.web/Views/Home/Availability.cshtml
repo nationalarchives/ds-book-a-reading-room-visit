@@ -23,20 +23,6 @@
                     {
                         <h2>Bulk visit availability</h2>
                     }
-                    </div>
-
-                <div class="col-md-8 col-sm-8" id="visit-type-toggle">
-
-                    @if (Model == OrderType.StandardOrderVisit)
-                    {
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "bulk-order-visit" })">Bulk order visit availability</a>
-                    }
-
-                    else
-                    {
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "standard-order-visit" })">Standard order visit availability</a>
-                    }
-
                 </div>
             </div>
         </section>
