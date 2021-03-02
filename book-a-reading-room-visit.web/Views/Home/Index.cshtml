@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="order-option-heading">
                                 <h2>Book a standard visit</h2>
-                                <p class="bold-text">@Model.StandardBookingAvailable spaces available</p>
+                                <p class="bold-text">@Model.StandardBookingAvailable.ToString("N0") spaces available</p>
                             </div>
 
                             <ul>
@@ -46,7 +46,7 @@
                         <div class="card">
                             <div class="order-option-heading">
                                 <h2>Book a bulk order visit</h2>
-                                <p class="bold-text">@Model.BulkBookingsAvailable spaces available</p>
+                                <p class="bold-text">@Model.BulkBookingsAvailable.ToString("N0") spaces available</p>
                             </div>
 
                             <ul>
