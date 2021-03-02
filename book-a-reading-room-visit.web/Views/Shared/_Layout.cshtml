@@ -33,16 +33,16 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    @await Html.PartialAsync("_Header")
+    @await Html.PartialAsync("Partials/_Header")
 
 
     <main role="main" class="pb-3">
         <div class="container">
-            @await Html.PartialAsync("_Breadcrumbs")
+            @await Html.PartialAsync("Partials/_Breadcrumbs")
             @RenderBody()
         </div>
     </main>
 
-    @await Html.PartialAsync("_Footer")
+    @await Html.PartialAsync("Partials/_Footer")
 </body>
 </html>

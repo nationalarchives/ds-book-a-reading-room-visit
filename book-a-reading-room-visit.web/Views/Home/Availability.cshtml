@@ -6,7 +6,7 @@
 
 @model OrderType
 
-<h1 class="display-4">Welcome to book a reading room visit</h1>
+<h1 class="display-4">1. Select a date</h1>
 
 <div class="text-center">
 
@@ -23,20 +23,6 @@
                     {
                         <h2>Bulk visit availability</h2>
                     }
-                    </div>
-
-                <div class="col-md-8 col-sm-8" id="visit-type-toggle">
-
-                    @if (Model == OrderType.StandardOrderVisit)
-                    {
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "bulk-order-visit" })">Bulk order visit availability</a>
-                    }
-
-                    else
-                    {
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = "standard-order-visit" })">Standard order visit availability</a>
-                    }
-
                 </div>
             </div>
         </section>
@@ -70,113 +56,86 @@
                             </fieldset>
                         </section>
 
-                        <section id="visit-selection">
-                            <fieldset>
-                                <legend class="sr-only">Select visit length</legend>
-
-                                <div>
-                                    <label for="one-day-visit">One-day visit</label>
-                                    <input name="visit-length" id="one-day-visit" type="radio" value="one-day" checked />
-                                </div>
-
-                                <div>
-                                    <label for="two-day-visit">Two-day visit</label>
-                                    <input name="visit-length" id="two-day-visit" type="radio" value="two-day " />
-                                </div>
-
-                                <div class="form-indent">
-                                    <p>Two consecutive days (first day must be either Tues, Weds, Thurs or Fri)</p>
-                                </div>
-                            </fieldset>
-                        </section>
-
                         <button class="button" type="submit">Update</button>
                     </div>
                 </form>
+                
+                <section id="date-selection">
+                    <div class="col-md-8 col-sm-8">
+                        <ul>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                <form id="availability-form" action="@Url.Action("SecureBooking", "Booking", new { orderType = @Model.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() })" method="POST">
-                    <div class="col-md-8 col-sm-8 date-selection">
+                                    <span class="col-md-6">Tuesday 15 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                        <input name="room-type" type="hidden" value="something" />
-                        <input name="visit-length" type="hidden" value="something" />
+                                    <span class="col-md-6">Wednesday 16 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                        <fieldset id="dates">
-                            <legend class="sr-only">Select date</legend>
+                                    <span class="col-md-6">Thursday 17 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <input type="radio" id="date-1" name="date" value="something">
+                                    <span class="col-md-6">Friday 18 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <label for="date-1">
-                                <span class="col-md-6">Tuesday 15 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
+                                    <span class="col-md-6">Saturday 19 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <input type="radio" id="date-2" name="date" value="something">
+                                    <span class="col-md-6">Tuesday 22 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <label for="date-2">
-                                <span class="col-md-6">Wednesday 16 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
+                                    <span class="col-md-6">Wednesday 23 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <input type="radio" id="date-3" name="date" value="something">
+                                    <span class="col-md-6">Thursday 24 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <label for="date-3">
-                                <span class="col-md-6">Thursday 17 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
+                                    <span class="col-md-6">Friday 25 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                            <li class="date">
+                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard&cameraStand=true">
 
-                            <input type="radio" id="date-4" name="date" value="something">
-
-                            <label for="date-4">
-                                <span class="col-md-6">Friday 18 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-5" name="date" value="something">
-
-                            <label for="date-5">
-                                <span class="col-md-6">Saturday 19 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-6" name="date" value="something">
-
-                            <label for="date-6">
-                                <span class="col-md-6">Tuesday 22 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-7" name="date" value="something">
-
-                            <label for="date-7">
-                                <span class="col-md-6">Wednesday 23 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-8" name="date" value="something">
-
-                            <label for="date-8">
-                                <span class="col-md-6">Thursday 24 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-9" name="date" value="something">
-
-                            <label for="date-9">
-                                <span class="col-md-6">Friday 25 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-
-                            <input type="radio" id="date-10" name="date" value="something">
-
-                            <label for="date-10">
-                                <span class="col-md-6">Saturday 26 February</span>
-                                <span class="col-md-6">X spaces available</span>
-                            </label>
-                        </fieldset>
-
-                        <button class="button" type="submit">Submit</button>
+                                    <span class="col-md-6">Saturday 26 February</span>
+                                    <span class="col-md-6">X places available</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                </form>
+                </section>
             </div>
         </section>
     </section>
