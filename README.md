@@ -21,7 +21,7 @@ Download and install:
 3. In SQL Server run the book-a-reading-room-visit.data\Script\look up data.sql script to populate the KewBookings tables with lookup data, e.g. seat numbers
 4. In Visual Studio right click on the sln and select Properties. Set the solution to be multiple project startup and select book-a-reading-room-visit.api and book-a-reading-room-visit.web as startup projects in that order
 ![MultipleProjectStartup](https://user-images.githubusercontent.com/25226428/109620527-e4f7ef80-7b31-11eb-81ab-dc8d3ad3e603.png)
-5. The solution should be ready to run. In VS click the STart button to run. The API will open in a browser showing the swagger page and the Web app will open in another browser window.
+5. The solution should be ready to run. In VS click the Start button to run. The API will open in a browser showing the swagger page and the Web app will open in another browser window. Note the solution by default runs under IIS Express. If you try to run the projects individually before performing step 4 and run them under their project profile rather than IIS Express the launchSettings.json will run both the projects under port 5001 and you will get a port conflict. To remedy, set each project individually as startup and run them under the IIS Express profile then perform step 4 again.
 
 
 
