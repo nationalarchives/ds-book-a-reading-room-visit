@@ -21,9 +21,11 @@
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "https://localhost:5052;http://localhost:5053",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KBS_WebApi_URL": "https://localhost:5050/",
+        "KBS_Root_Path": "/book-a-reading-room-visit"
       }
     }
   }
