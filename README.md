@@ -11,7 +11,7 @@ Download and install:
 
 ### Windows setup instructions
 1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
-2. To create the KewBookings database on the local SQL database (Note, the connectionstring data source in book-a-reading-room-visit.api/appsettings.json is (localdb)\\MSSQLLocalDB, which is the default SQL Server Express and Lite data source. If you changed the default settings or use a different local data source you will have to set this in the connectionstring. Or configure a new local server called (localdb)\\MSSQLLocalDB.)
+2. To create the KewBookings database on the local SQL database (Note, the connectionstring data source in book-a-reading-room-visit.api/appsettings.json is (localdb)\\MSSQLLocalDB, which is the default SQL Server Express data source. If you changed the default settings or use a different local data source you will have to set this in the connectionstring. Or configure a new local server called (localdb)\\MSSQLLocalDB.)
 	- Set the book-a-reading-room-visit.api as the start up project (right click on project and select Set as Startup Project)
 	- Open the Package Manager Console (Tools -> Nuget Package Manager -> Package Manager Console) and select book-a-reading-room-visit.data as the project as shown below
 	- Run update-database command as shown below
