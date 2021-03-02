@@ -57,99 +57,24 @@
                 <div class="col-md-12">
                     <form action="@Url.Action("DocumentOrder", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() } )" method="POST">
 
-                        <fieldset>
-                            <legend>Enter up to 12 documents</legend>
-                            <p>You will need to enter document reference numbers</p>
+                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        {
+                            @await Html.PartialAsync("Partials/_StandardOrderForm")
+                        }
 
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="order-form-field">
-                                    <label for="doc-1">1</label>
-                                    <input id="doc-1" name="doc-1" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-2">2</label>
-                                    <input id="doc-2" name="doc-2" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-3">3</label>
-                                    <input id="doc-3" name="doc-3" type="text" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="order-form-field">
-                                    <label for="doc-4">4</label>
-                                    <input id="doc-4" name="doc-4" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-5">5</label>
-                                    <input id="doc-5" name="doc-5" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-6">6</label>
-                                    <input id="doc-6" name="doc-6" type="text" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="order-form-field">
-                                    <label for="doc-7">7</label>
-                                    <input id="doc-7" name="doc-7" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-8">8</label>
-                                    <input id="doc-8" name="doc-8" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-9">9</label>
-                                    <input id="doc-9" name="doc-9" type="text" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="order-form-field">
-                                    <label for="doc-10">10</label>
-                                    <input id="doc-10" name="doc-10" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-11">11</label>
-                                    <input id="doc-11" name="doc-11" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="doc-12">12</label>
-                                    <input id="doc-12" name="doc-12" type="text" />
-                                </div>
-                            </div>
-                        </fieldset>
+                        else
+                        {
+                            @await Html.PartialAsync("Partials/_BulkOrderForm")
+                        }
 
                         <fieldset>
-                            <legend>Enter up to 3 reserve documents</legend>
-                            <p>These will be used if any of your standard order documents above are unavailable</p>
+                            <legend>
+                                <label for="additional-reqs">Additional access requirements or research requests</label>
+                            </legend>
 
-                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                <div class="order-form-field">
-                                    <label for="reserve-1">1</label>
-                                    <input id="reserve-1" name="reserve-1" type="text" />
-                                </div>
+                            <p>This should reflect the specific additional services we accomodate</p>
 
-                                <div class="order-form-field">
-                                    <label for="reserve-2">2</label>
-                                    <input id="reserve-2" name="reserve-2" type="text" />
-                                </div>
-
-                                <div class="order-form-field">
-                                    <label for="reserve-3">3</label>
-                                    <input id="reserve-3" name="reserve-3" type="text" />
-                                </div>
-                            </div>
+                            <textarea id="additional-reqs" name="additional-reqs"></textarea>
                         </fieldset>
 
                         <button class="button" type="submit">Add these to your order</button>
