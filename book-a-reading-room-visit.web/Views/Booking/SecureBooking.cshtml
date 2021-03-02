@@ -49,6 +49,19 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <form action="@Url.Action("BookingConfirmation", "Booking", new { orderType = @Model.OrderType.ToStringURL() })">
+                        <fieldset id="conditions">
+                            <legend class="sr-only">Please accept the following conditions to continue with your order</legend>
+
+                            <div>
+                                <label for="terms-conditions">Accept <a href="#">terms and conditions</a></label>
+                                <input id="terms-conditions" name="terms-conditions" type="checkbox" required />
+                            </div>
+                            <div>
+                                <label for="covid-charter">Accept <a href="#">COVID charter</a></label>
+                                <input id="covid-charter" name="covid-charter" type="checkbox" required />
+                            </div>
+                        </fieldset>
+
                         <span class="col-md-6">
                             <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() } )">Back</a>
                         </span>
