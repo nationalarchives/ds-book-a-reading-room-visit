@@ -7826,10 +7826,6 @@ main {
   background-color: #eee;
 }
 
-.button:focus {
-  color: #fff;
-}
-
 a.button {
   margin-bottom: 1em;
   text-decoration: none;
@@ -7842,6 +7838,12 @@ section.container {
 }
 section.container .container-heading, section.container .container-heading-text {
   margin-top: 2em;
+}
+
+form input[type=checkbox] {
+  float: left;
+  margin-top: 4px;
+  margin-right: 0.5em;
 }
 
 .bold-text {
@@ -7866,11 +7868,18 @@ section.container .container-heading, section.container .container-heading-text 
 .booking-options form a, .booking-options form button {
   min-width: 205px;
 }
-.booking-options form a:before {
+.booking-options form span a:before {
   content: "< ";
 }
-.booking-options form button:after {
+.booking-options form span button:after {
   content: " >";
+}
+.booking-options form #conditions {
+  text-align: left;
+}
+
+.button:focus {
+  color: #fff;
 }
 
 .date-selection ul li a {
@@ -7896,6 +7905,10 @@ section.container .container-heading, section.container .container-heading-text 
 
 .order-form fieldset {
   margin-top: 2em;
+  text-align: left;
+}
+.order-form fieldset:last-of-type {
+  margin-bottom: 2em !important;
 }
 .order-form legend, .order-form p {
   text-align: left;
@@ -7925,14 +7938,12 @@ section.container .container-heading, section.container .container-heading-text 
   min-height: 100px;
 }
 
-#computer-only {
-  background-color: #fff;
-  border: 2px #ddd solid;
-  padding-bottom: 1em;
-}
-
 .order-options + section {
   clear: both;
+}
+
+.primary:focus {
+  color: #000;
 }
 
 .reader-ticket-form {
@@ -7960,11 +7971,10 @@ section.container .container-heading, section.container .container-heading-text 
   border: 5px solid #ddd;
   padding: 1em 0;
 }
-.prompt-white a {
-  margin-top: 1em;
-}
 .prompt-white p {
-  margin-bottom: 0;
+  margin: 1em 0;
+  padding-left: 4em;
+  padding-right: 4em;
 }
 
 .reservation-options div.col-md-6 {
@@ -7979,11 +7989,25 @@ section.container .container-heading, section.container .container-heading-text 
   min-height: 70px;
 }
 
-#availability-form div ul li {
-  list-style: none;
-  text-align: right;
+#additional-reqs {
+  border: 2px solid #26262a;
+  min-height: 200px;
+  min-width: 50%;
+  padding: 0.6em;
 }
-#availability-form #dates label {
+
+#conditions {
+  margin-bottom: 2em !important;
+}
+#conditions input[type=checkbox] {
+  margin-top: 6px;
+}
+
+#date-selection ul li.date {
+  list-style: none;
+}
+#date-selection ul li.date a {
+  color: #000;
   display: flex;
   background-color: #eee;
   padding: 10px 20px;
@@ -7991,29 +8015,23 @@ section.container .container-heading, section.container .container-heading-text 
   font-size: 16px;
   border: 2px solid #ddd;
   margin-bottom: 1em;
+  text-decoration: none;
 }
-#availability-form #dates label:hover {
+#date-selection ul li.date a:focus {
   background-color: #000;
   color: #fff;
-  cursor: pointer;
-}
-#availability-form #dates label span:first-child {
-  text-align: left;
-}
-#availability-form #dates label span:last-child {
-  text-align: right;
-}
-#availability-form #dates input[type=radio] {
-  opacity: 0;
-  position: fixed;
-  width: 0;
-}
-#availability-form #dates input[type=radio]:focus + label {
   outline: 5px solid #1d70b8;
 }
-#availability-form #dates input[type=radio]:checked + label {
+#date-selection ul li.date a:hover {
   background-color: #000;
   color: #fff;
+  outline: none;
+}
+#date-selection ul li.date span:first-child {
+  text-align: left;
+}
+#date-selection ul li.date span:last-child {
+  text-align: right;
 }
 
 #booking-date {
@@ -8021,43 +8039,56 @@ section.container .container-heading, section.container .container-heading-text 
   font-weight: bolder;
 }
 
-#room-selection {
-  border-bottom: 2px solid #eee;
+#progress-bar {
+  margin: 2em 0;
+}
+#progress-bar ul li {
+  display: inline;
+  list-style: none;
+  margin: 1em;
 }
 
-#room-selection, #visit-selection {
+#room-selection {
   margin-top: 2em;
 }
-#room-selection fieldset:last-child, #visit-selection fieldset:last-child {
+#room-selection fieldset:last-child {
   padding-bottom: 1em !important;
 }
 
-#visit-customisation-form button[type=submit] {
-  margin-bottom: 2em;
-}
-#visit-customisation-form fieldset div {
+#room-selection-form fieldset div {
   text-align: left;
   margin-top: 1em;
 }
-#visit-customisation-form fieldset div label {
+#room-selection-form fieldset div label {
   font-size: 18px;
-  margin-left: 0.5em;
   width: 80%;
 }
-#visit-customisation-form .form-indent {
+#room-selection-form .form-indent {
   margin-left: 2em;
   margin-top: 0;
 }
-#visit-customisation-form .form-indent label {
+#room-selection-form .form-indent label {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   width: 80%;
 }
-#visit-customisation-form input[type=checkbox], #visit-customisation-form input[type=radio] {
+#room-selection-form .form-indent p {
+  margin-bottom: 0.5em;
+}
+#room-selection-form input[type=checkbox], #room-selection-form input[type=radio] {
   float: left;
 }
-#visit-customisation-form input[type=radio] {
+#room-selection-form input[type=radio] {
   margin-top: 7px;
+  margin-right: 0.5em;
+}
+#room-selection-form button[type=submit] {
+  margin-bottom: 2em;
+}
+
+#unavailable-docs {
+  display: inline-block;
+  margin-top: 1em;
 }
 
 #visit-type-toggle {
