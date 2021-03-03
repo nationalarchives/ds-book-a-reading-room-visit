@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Net.Http.Headers;
 
 namespace book_a_reading_room_visit.api
 {
@@ -28,9 +30,15 @@ namespace book_a_reading_room_visit.api
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Configuration.GetConnectionString("KewBookingConnection")));
 
+            services.AddMemoryCache();
+            services.AddHttpClient<IBankHolidayAPI, BankHolidayAPI>(c =>
+            {
+                c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("RecordCopying_WebApi_URL"));
+                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            });
+            services.AddScoped<WorkingDayService>();
             services.AddScoped<AvailabilityService>();
             services.AddScoped<BookingService>();
-            services.AddScoped<WorkingDayService>();
 
             services.AddSwaggerGen(c =>
             {

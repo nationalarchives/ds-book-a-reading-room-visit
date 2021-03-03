@@ -5,9 +5,9 @@
         StdRRSeat = 1,
         StdRRSeatWithCamera = 2,
         MandLRR = 3,
-        BulkRRSeat = 4,
+        BulkOrderSeat = 4,
         MandLRRWithCamera = 5,
-        BulkRRSeatWithCamera = 6,
+        BulkOrderSeatWithCamera = 6,
         NotAvailable = 7
     }
 }
