@@ -78,6 +78,14 @@ form {
     color: #fff;
 }
 
+.container-heading-text {
+    margin-bottom: 2em;
+
+    p {
+        margin-bottom: 0.5em;
+    }
+}
+
 .date-selection {
     ul {
         li {
@@ -280,6 +288,18 @@ form {
 #booking-date {
     display: block;
     font-weight: bolder;
+}
+
+#home {
+    .prompt-white {
+        h2 {
+            margin-top: 0;
+        }
+
+        a:after {
+            content: " >";
+        }
+    }
 }
 
 #progress-bar {

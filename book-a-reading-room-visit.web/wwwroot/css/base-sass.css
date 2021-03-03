@@ -7882,6 +7882,13 @@ form input[type=checkbox] {
   color: #fff;
 }
 
+.container-heading-text {
+  margin-bottom: 2em;
+}
+.container-heading-text p {
+  margin-bottom: 0.5em;
+}
+
 .date-selection ul li a {
   background-color: #eee;
   border: 2px solid #ddd;
@@ -8037,6 +8044,13 @@ form input[type=checkbox] {
 #booking-date {
   display: block;
   font-weight: bolder;
+}
+
+#home .prompt-white h2 {
+  margin-top: 0;
+}
+#home .prompt-white a:after {
+  content: " >";
 }
 
 #progress-bar {
