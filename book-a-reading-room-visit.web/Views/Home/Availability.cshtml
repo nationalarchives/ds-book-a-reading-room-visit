@@ -29,37 +29,39 @@
 
         <section>
             <div class="row">
-                <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.ToStringURL() } )" method="POST">
+                @if (Model == OrderType.StandardOrderVisit)
+                {
+                    <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.ToStringURL() } )" method="POST">
+                        <div class="col-md-4 col-sm-4">
+                            <section id="room-selection">
+                                <fieldset>
+                                    <legend class="sr-only">Select reading room</legend>
+
+                                    <div>
+                                        <label for="standard-room">Standard reading room</label>
+                                        <input name="room-type" id="standard-room" type="radio" value="standard" checked />
+                                    </div>
+
+                                    <div>
+                                        <label for="map-and-lg-room">Map and large document</label>
+                                        <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
+                                    </div>
+
+                                </fieldset>
+                            </section>
+
+                            <button class="button" type="submit">Update</button>
+                        </div>
+                    </form>
+                }
+
+                else
+                {
                     <div class="col-md-4 col-sm-4">
-                        <section id="room-selection">
-                            <fieldset>
-                                <legend class="sr-only">Select reading room</legend>
-
-                                <div>
-                                    <label for="standard-room">Standard reading room</label>
-                                    <input name="room-type" id="standard-room" type="radio" value="standard" checked />
-                                </div>
-
-                                <div class="form-indent">
-                                    <label for="camera-stand">I would also like a camera stand</label>
-                                    <input name="camera-stand" id="camera-stand" type="checkbox" />
-                                </div>
-
-                                <div>
-                                    <label for="map-and-lg-room">Map and large document</label>
-                                    <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
-                                </div>
-
-                                <div class="form-indent">
-                                    <p>No camera stands avaiable in this room</p>
-                                </div>
-                            </fieldset>
-                        </section>
-
-                        <button class="button" type="submit">Update</button>
+                        <h3>Standard reading room only</h3>
                     </div>
-                </form>
-                
+                }
+
                 <section id="date-selection">
                     <div class="col-md-8 col-sm-8">
                         <ul>
