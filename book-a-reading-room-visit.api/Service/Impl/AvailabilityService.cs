@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {
-    public class AvailabilityService
+    public class AvailabilityService : IAvailabilityService
     {
         private readonly BookingContext _context;
-        private readonly WorkingDayService _workingDayService;
+        private readonly IWorkingDayService _workingDayService;
         private readonly SeatTypes[] StamdardOrderSeats = new SeatTypes[] { SeatTypes.StdRRSeat, SeatTypes.StdRRSeatWithCamera, SeatTypes.MandLRR, SeatTypes.MandLRRWithCamera };
         private readonly SeatTypes[] BulkOrderSeats = new SeatTypes[] { SeatTypes.BulkOrderSeat, SeatTypes.BulkOrderSeatWithCamera };
 
-        public AvailabilityService(BookingContext context, WorkingDayService workingDayService)
+        public AvailabilityService(BookingContext context, IWorkingDayService workingDayService)
         {
             _context = context;
             _workingDayService = workingDayService;
@@ -50,16 +50,39 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<List<AvailabilityModel>> GetAvailabilityAsync(SeatTypes seatType)
         {
-            var availableDates = await _workingDayService.GetStandardOrderAvailableDatesAsync();
+            if (StamdardOrderSeats.Contains(seatType))
+            {
+                var stdSeatCount = await _context.Seats.CountAsync(s => (SeatTypes)s.SeatTypeId == seatType);
+                var standardAvailableDates = await _workingDayService.GetStandardOrderAvailableDatesAsync();
 
-            var bookings = await (from booking in _context.Set<Booking>().Where(b => availableDates.Contains(b.VisitStartDate))
+                var standardBookings = await (from booking in _context.Set<Booking>().Where(b => standardAvailableDates.Contains(b.VisitStartDate))
+                                        join seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == seatType)
+                                        on booking.SeatId equals seat.Id
+                                        group booking by booking.VisitStartDate
+                                        into g
+                                        select new AvailabilityModel { Date = g.Key, AvailableSeats = stdSeatCount - g.Count() }).ToListAsync();
+
+                return (from date in standardAvailableDates
+                        join booking in standardBookings on date equals booking.Date into gj
+                        from subbook in gj.DefaultIfEmpty()
+                        select new AvailabilityModel { Date = date, AvailableSeats = subbook?.AvailableSeats ?? stdSeatCount }).ToList();
+            }
+
+            var bulkSeatCount = await _context.Seats.CountAsync(s => (SeatTypes)s.SeatTypeId == seatType);
+            var bulkAvailableDates = await _workingDayService.GetBulkOrderAvailableDatesAsync();
+
+            var bulkbookings = await (from booking in _context.Set<Booking>().Where(b => bulkAvailableDates.Contains(b.VisitStartDate))
                                   join seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == seatType)
                                   on booking.SeatId equals seat.Id
                                   group booking by booking.VisitStartDate
                                   into g
-                                  select new AvailabilityModel { Date = g.Key, AvailableSeats = g.Count() }).ToListAsync();
+                                  select new AvailabilityModel { Date = g.Key, AvailableSeats = bulkSeatCount - g.Count() }).ToListAsync();
 
-            return bookings;
+            return (from date in bulkAvailableDates
+                    join booking in bulkbookings on date equals booking.Date into gj
+                    from subbook in gj.DefaultIfEmpty()
+                    select new AvailabilityModel { Date = date, AvailableSeats = subbook?.AvailableSeats ?? bulkSeatCount }).ToList();
+
         }
 
 

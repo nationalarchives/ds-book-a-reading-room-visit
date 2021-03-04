@@ -1,12 +1,9 @@
 ﻿using book_a_reading_room_visit.data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {
-    public class BookingService
+    public class BookingService : IBookingService
     {
         private readonly BookingContext _context;
 

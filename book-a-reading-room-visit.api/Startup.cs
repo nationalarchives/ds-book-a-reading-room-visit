@@ -36,9 +36,9 @@ namespace book_a_reading_room_visit.api
                 c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("RecordCopying_WebApi_URL"));
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
-            services.AddScoped<WorkingDayService>();
-            services.AddScoped<AvailabilityService>();
-            services.AddScoped<BookingService>();
+            services.AddScoped<IWorkingDayService, WorkingDayService>();
+            services.AddScoped<IAvailabilityService, AvailabilityService>();
+            services.AddScoped<IBookingService, BookingService>();
 
             services.AddSwaggerGen(c =>
             {

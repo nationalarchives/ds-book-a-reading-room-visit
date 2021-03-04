@@ -1,4 +1,5 @@
-﻿using book_a_reading_room_visit.web.Models;
+﻿using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,9 +14,9 @@ namespace book_a_reading_room_visit.web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly AvailabilityService _availabilityService;
+        private readonly IAvailabilityService _availabilityService;
 
-        public HomeController(ILogger<HomeController> logger, AvailabilityService availabilityService)
+        public HomeController(ILogger<HomeController> logger, IAvailabilityService availabilityService)
         {
             _logger = logger;
             _availabilityService = availabilityService;
@@ -27,13 +28,41 @@ namespace book_a_reading_room_visit.web.Controllers
             return View(model);
         }
 
-        public IActionResult Availability(string orderType)
+        [HttpGet]
+        public async Task<IActionResult> Availability(string orderType)
         {
-            var model = orderType.ToOrderType();
+            var seatType = orderType.ToOrderType() == OrderType.StandardOrderVisit ? SeatTypes.StdRRSeat : SeatTypes.BulkOrderSeat;
+            var roomType = orderType.ToOrderType() == OrderType.StandardOrderVisit ? RoomType.StandardReadingRoom : RoomType.None;
+
+            var model = new AvailabilityViewModel
+            {
+                OrderType = orderType.ToOrderType(),
+                RoomType = roomType,
+                AvailableSeats = await _availabilityService.GetAvailabilityAsync(seatType)
+            };
+                
             return View(model);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Availability(string orderType, RoomType roomType)
+        {
+            var seatType = SeatTypes.BulkOrderSeat;
+            if (orderType.ToOrderType() == OrderType.StandardOrderVisit)
+            {
+                seatType = roomType == RoomType.StandardReadingRoom  ? SeatTypes.StdRRSeat : SeatTypes.MandLRR;
+            }
+            var model = new AvailabilityViewModel
+            {
+                RoomType = roomType,
+                OrderType = orderType.ToOrderType(),
+                AvailableSeats = await _availabilityService.GetAvailabilityAsync(seatType)
+            };
+
+            return View(model);
+        }
+
+            public IActionResult Privacy()
         {
             return View();
         }

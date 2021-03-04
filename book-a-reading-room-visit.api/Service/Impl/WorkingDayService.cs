@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {
-    public class WorkingDayService
+    public class WorkingDayService : IWorkingDayService
     {
         private IMemoryCache _cache;
         private readonly IConfiguration _configuration;
