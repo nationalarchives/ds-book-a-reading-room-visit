@@ -8053,10 +8053,33 @@ form input[type=checkbox] {
 #progress-bar {
   margin: 2em 0;
 }
-#progress-bar ul li {
+#progress-bar ol {
+  padding-left: 0;
+}
+#progress-bar ol li {
   display: inline;
   list-style: none;
   margin: 1em;
+  opacity: 0.3;
+}
+#progress-bar ol li .step-number {
+  padding: 1em;
+  align-items: center;
+  border: 2px solid #000;
+  border-radius: 50%;
+  color: #000;
+  display: inline-flex;
+  font-weight: 700;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+#progress-bar ol .active {
+  opacity: 1;
+  font-weight: 700;
+}
+#progress-bar ol .active .step {
+  border-bottom: 2px solid #000;
 }
 
 #room-selection {

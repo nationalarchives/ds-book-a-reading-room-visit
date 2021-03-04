@@ -299,11 +299,36 @@ form {
 #progress-bar {
     margin: 2em 0;
 
-    ul {
+    ol {
+        padding-left: 0;
+
         li {
             display: inline;
             list-style: none;
             margin: 1em;
+            opacity: 0.3;
+
+            .step-number {
+                padding: 1em;
+                align-items: center;
+                border: 2px solid #000;
+                border-radius: 50%;
+                color: #000;
+                display: inline-flex;
+                font-weight: 700;
+                height: 24px;
+                justify-content: center;
+                width: 24px;
+            }
+        }
+
+        .active {
+            opacity: 1;
+            font-weight: 700;
+
+            .step {
+                border-bottom: 2px solid #000;
+            }
         }
     }
 }
