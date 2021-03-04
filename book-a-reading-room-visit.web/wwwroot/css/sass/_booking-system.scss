@@ -33,12 +33,6 @@ form {
     margin-bottom: 2em;
     text-align: left;
 
-    div {
-        span {
-            border: 2px solid #ddd;
-        }
-    }
-
     h3 {
         margin-bottom: 1em;
         padding-left: 15px;
@@ -76,6 +70,14 @@ form {
 
 .button:focus {
     color: #fff;
+}
+
+.container-heading-text {
+    margin-bottom: 2em;
+
+    p {
+        margin-bottom: 0.5em;
+    }
 }
 
 .date-selection {
@@ -282,14 +284,51 @@ form {
     font-weight: bolder;
 }
 
+#home {
+    .prompt-white {
+        h2 {
+            margin-top: 0;
+        }
+
+        a:after {
+            content: " >";
+        }
+    }
+}
+
 #progress-bar {
     margin: 2em 0;
 
-    ul {
+    ol {
+        padding-left: 0;
+
         li {
             display: inline;
             list-style: none;
             margin: 1em;
+            opacity: 0.3;
+
+            .step-number {
+                padding: 1em;
+                align-items: center;
+                border: 2px solid #000;
+                border-radius: 50%;
+                color: #000;
+                display: inline-flex;
+                font-weight: 700;
+                height: 24px;
+                justify-content: center;
+                width: 24px;
+            }
+        }
+
+        .active {
+            opacity: 1;
+            font-weight: 700;
+
+            .step {
+                border-bottom: 2px solid #000;
+            }
         }
     }
 }
