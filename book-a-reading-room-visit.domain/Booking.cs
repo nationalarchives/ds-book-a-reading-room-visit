@@ -8,6 +8,9 @@ namespace book_a_reading_room_visit.domain
         public DateTime CreatedDate { get; set; }
         public string BookingReference { get; set; }
         public bool IsStandardVisit { get; set; }
+        public bool IsAcceptTsAndCs { get; set; }
+        public bool IsAcceptCovidCharter { get; set; }
+        public bool IsNoShow { get; set; }
         public int SeatId { get; set; }
         public Seat Seat { get; set; }
         public int BookingStatusId { get; set; }
@@ -16,8 +19,11 @@ namespace book_a_reading_room_visit.domain
         public DateTime VisitStartDate { get; set; }
         public DateTime VisitEndDate { get; set; }
         public int? ReaderTicket { get; set; }
+        public string AdditionalRequirements { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string LastModifiedBy { get; set; }
     }
 }

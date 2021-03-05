@@ -1,10 +1,7 @@
-﻿@using book_a_reading_room_visit.web.Models;
-
+﻿@model book_a_reading_room_visit.web.Models.AvailabilityViewModel
 @{
     ViewData["Title"] = "Visit availability";
 }
-
-@model OrderType
 
 <h1 class="display-4">1. Select a date</h1>
 
@@ -29,7 +26,7 @@
         <section>
             <div class="row">
                 <div class="col-md-4 col-sm-4">
-                    @if (Model == OrderType.StandardOrderVisit)
+                    @if (Model.OrderType == OrderType.StandardOrderVisit)
                     {
                         <h2>Standard visit availability</h2>
                     }
@@ -44,9 +41,9 @@
 
         <section>
             <div class="row">
-                @if (Model == OrderType.StandardOrderVisit)
+                @if (Model.OrderType == OrderType.StandardOrderVisit)
                 {
-                    <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.ToStringURL() } )" method="POST">
+                    <form id="visit-customisation-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
                         <div class="col-md-4 col-sm-4">
                             <section id="room-selection">
                                 <fieldset>
@@ -54,14 +51,13 @@
 
                                     <div>
                                         <label for="standard-room">Standard reading room</label>
-                                        <input name="room-type" id="standard-room" type="radio" value="standard" checked />
+                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.StandardReadingRoom, new { id = "standard-room" })
                                     </div>
 
                                     <div>
-                                        <label for="map-and-lg-room">Map and large document</label>
-                                        <input name="room-type" id="map-and-lg-room" type="radio" value="map-and-lg" />
+                                        <label for="map-and-lg-room">Map and large document reading room</label>
+                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.MapAndLargeDocumentReadingRoom, new { id = "standard-room" })
                                     </div>
-
                                 </fieldset>
                             </section>
 
@@ -69,91 +65,22 @@
                         </div>
                     </form>
                 }
-
-                else
-                {
-                    <div class="col-md-4 col-sm-4">
-                        <h3>Standard reading room only</h3>
-                    </div>
-                }
-
                 <section id="date-selection">
                     <div class="col-md-8 col-sm-8">
                         <ul>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Tuesday 15 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Wednesday 16 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Thursday 17 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Friday 18 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Saturday 19 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Tuesday 22 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Wednesday 23 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Thursday 24 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Friday 25 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
-                            <li class="date">
-                                <a href="/@Model.ToStringURL()/secure-booking/@Guid.NewGuid().ToString()?orderType=@Model.ToStringURL()&readingRoom=standard">
-
-                                    <span class="col-md-6">Saturday 26 February</span>
-                                    <span class="col-md-6">X places available</span>
-                                </a>
-                            </li>
+                            @foreach (var item in Model.AvailableSeats)
+                            {
+                                <li class="date">
+                                    <a href="@Url.Action("SecureBooking", "Booking", new { orderType = Model.OrderType.ToStringURL(), roomType = Model.RoomType.ToStringURL(), bookingDate = item.ToURLDate })">
+                                        <span class="col-md-6">@item.ToDate</span>
+                                        <span class="col-md-6">@item.AvailableSeats places available</span>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </section>
-            </div>
+                </div>
         </section>
     </section>
 </div>

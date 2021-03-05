@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Headers;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,13 @@ namespace book_a_reading_room_visit.web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddHttpClient<BookAVisitAPI>();
+
+            services.AddHttpClient<IAvailabilityService, AvailabilityService>(c =>
+            {
+                c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("KBS_WebApi_URL"));
+                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            });
+
             services.AddScoped<AvailabilityService>();
         }
 
@@ -66,7 +73,7 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "secure-booking",
-                    pattern: "{ordertype}/secure-booking/{bookingreference}",
+                    pattern: "{ordertype}/secure-booking",
                     new { controller = "Booking", action = "SecureBooking" });
 
                 endpoints.MapControllerRoute(

@@ -1,11 +1,7 @@
 ﻿using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Controllers
@@ -14,9 +10,9 @@ namespace book_a_reading_room_visit.api.Controllers
     [ApiController]
     public class AvailabilityController : ControllerBase
     {
-        private readonly AvailabilityService _availabilityService;
+        private readonly IAvailabilityService _availabilityService;
 
-        public AvailabilityController(AvailabilityService availabilityService)
+        public AvailabilityController(IAvailabilityService availabilityService)
         {
             _availabilityService = availabilityService;
         }
@@ -25,6 +21,13 @@ namespace book_a_reading_room_visit.api.Controllers
         public async Task<ActionResult<AvailabilitySummaryModel>> GetAvailabilitySummary()
         {
             var result = await _availabilityService.GetAvailabilitySummaryAsync();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<AvailabilitySummaryModel>> GetAvailability(SeatTypes seatType)
+        {
+            var result = await _availabilityService.GetAvailabilityAsync(seatType);
             return Ok(result);
         }
     }

@@ -29,7 +29,7 @@ namespace book_a_reading_room_visit.test
             var responseObject = JsonConvert.DeserializeObject<AvailabilitySummaryModel>(responseString);
             // Assert
             Assert.AreEqual(1980, responseObject.StandardBookingAvailable);
-            Assert.AreEqual(20, responseObject.BulkBookingsAvailable);
+            Assert.AreEqual(32, responseObject.BulkBookingsAvailable);
         }
     }
 }

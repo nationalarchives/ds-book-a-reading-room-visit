@@ -16,12 +16,14 @@ namespace book_a_reading_room_visit.web.Controllers
         {
             _availabilityService = availabilityService;
         }
-        public async Task<IActionResult> SecureBooking(string orderType, string bookingReference)
+        public async Task<IActionResult> SecureBooking(string orderType, string roomType, DateTime bookingDate)
         {
             var model = new BookingViewModel
             {
                 OrderType = orderType.ToOrderType(),
-                BookingReference = bookingReference
+                RoomType = roomType.ToRoomType(),
+                BookingDate = bookingDate,
+                BookingReference = ""
             };
                 
             return View(model);

@@ -17,9 +17,7 @@ namespace book_a_reading_room_visit.test
         {
             builder.ConfigureServices(services =>
             {
-                var dbContext = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                        typeof(DbContextOptions<BookingContext>));
+                var dbContext = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<BookingContext>));
 
                 services.Remove(dbContext);
 
@@ -27,6 +25,11 @@ namespace book_a_reading_room_visit.test
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
+
+                var workingdayService = services.SingleOrDefault(d => d.ServiceType == typeof(IWorkingDayService));
+
+                services.Remove(workingdayService);
+                services.AddScoped<IWorkingDayService, MockWorkingDayService>();
 
                 var sp = services.BuildServiceProvider();
 

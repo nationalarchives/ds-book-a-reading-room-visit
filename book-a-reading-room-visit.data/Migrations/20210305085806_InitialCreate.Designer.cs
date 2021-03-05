@@ -10,7 +10,7 @@ using book_a_reading_room_visit.data;
 namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210220202421_InitialCreate")]
+    [Migration("20210305085806_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace book_a_reading_room_visit.data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdditionalRequirements")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookingReference")
                         .IsRequired()
@@ -50,10 +53,27 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IsAcceptCovidCharter")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAcceptTsAndCs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNoShow")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsStandardVisit")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Phone")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
