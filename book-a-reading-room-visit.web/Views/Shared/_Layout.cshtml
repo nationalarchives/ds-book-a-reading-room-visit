@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+
+    <script>document.getElementsByTagName("html")[0].className = "js";</script>
+
     <link rel='stylesheet'
           id='tna-parent-styles-css'
           href='~/css/compiled-css/base-sass.min.css'
@@ -14,7 +17,6 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
 
     <!-- Google Tag Manager -->
-    <script src="/Scripts/GoogleTagManager/discoveryServerSideGTM.min.js"></script>
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
@@ -44,5 +46,8 @@
     </main>
 
     @await Html.PartialAsync("Partials/_Footer")
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/mega-menu.js"></script>
 </body>
 </html>
