@@ -39,15 +39,21 @@ CREATE TABLE [Bookings] (
     [CreatedDate] datetime2 NOT NULL,
     [BookingReference] nvarchar(50) NOT NULL,
     [IsStandardVisit] bit NOT NULL,
+    [IsAcceptTsAndCs] bit NOT NULL,
+    [IsAcceptCovidCharter] bit NOT NULL,
+    [IsNoShow] bit NOT NULL,
     [SeatId] int NOT NULL,
     [BookingStatusId] int NOT NULL,
     [Comments] nvarchar(max) NULL,
     [VisitStartDate] datetime2 NOT NULL,
     [VisitEndDate] datetime2 NOT NULL,
     [ReaderTicket] int NULL,
+    [AdditionalRequirements] nvarchar(max) NULL,
     [Email] nvarchar(100) NULL,
+    [Phone] nvarchar(50) NULL,
     [FirstName] nvarchar(50) NULL,
     [LastName] nvarchar(50) NULL,
+    [LastModifiedBy] nvarchar(50) NULL,
     CONSTRAINT [PK_Bookings] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Bookings_BookingStatus_BookingStatusId] FOREIGN KEY ([BookingStatusId]) REFERENCES [BookingStatus] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Bookings_Seats_SeatId] FOREIGN KEY ([SeatId]) REFERENCES [Seats] ([Id]) ON DELETE CASCADE
@@ -84,7 +90,7 @@ CREATE INDEX [IX_Seats_SeatTypeId] ON [Seats] ([SeatTypeId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210220202421_InitialCreate', N'5.0.3');
+VALUES (N'20210305085806_InitialCreate', N'5.0.3');
 GO
 
 COMMIT;

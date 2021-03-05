@@ -59,15 +59,21 @@ namespace book_a_reading_room_visit.data.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsStandardVisit = table.Column<bool>(type: "bit", nullable: false),
+                    IsAcceptTsAndCs = table.Column<bool>(type: "bit", nullable: false),
+                    IsAcceptCovidCharter = table.Column<bool>(type: "bit", nullable: false),
+                    IsNoShow = table.Column<bool>(type: "bit", nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: false),
                     BookingStatusId = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VisitStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VisitEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReaderTicket = table.Column<int>(type: "int", nullable: true),
+                    AdditionalRequirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
