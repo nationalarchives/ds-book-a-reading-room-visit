@@ -1,10 +1,9 @@
-﻿@using book_a_reading_room_visit.web.Models;
+﻿@using book_a_reading_room_visit.web.Models
+@model BookingViewModel
 
 @{
     ViewData["Title"] = "Secure booking";
 }
-
-@model BookingViewModel
 
 <h1 class="display-4">2. Enter your reader's ticket</h1>
 
@@ -19,9 +18,19 @@
         <section class="prompt-grey">
             <div class="row">
                 <div class="booking-summary">
-                    <p>Standard order - Saturday 13 February</p>
+                    <p>@(Model.OrderType == OrderType.StandardOrderVisit ? "Standard order" : "Bulk order") - @($"{Model.BookingDate:dddd dd MMMM}")</p>
 
-                    <p>Standard document reading room (with a camera stand) </p>
+                    @if (Model.OrderType == OrderType.StandardOrderVisit)
+                    {
+                        if (Model.RoomType == RoomType.StandardReadingRoom)
+                        {
+                            <p>Standard document reading room</p>
+                        }
+                        else
+                        {
+                            <p>Map and large document reading room</p>
+                        }
+                    }
                 </div>
             </div>
         </section>

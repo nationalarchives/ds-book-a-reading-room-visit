@@ -73,7 +73,7 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "secure-booking",
-                    pattern: "{ordertype}/secure-booking/{bookingreference}",
+                    pattern: "{ordertype}/secure-booking",
                     new { controller = "Booking", action = "SecureBooking" });
 
                 endpoints.MapControllerRoute(

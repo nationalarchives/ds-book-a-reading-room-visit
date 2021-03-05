@@ -29,9 +29,9 @@ namespace book_a_reading_room_visit.web.Models
 
         public static RoomType ToRoomType(this string roomType)
         {
-            switch (roomType.ToLower())
+            switch (roomType?.ToLower())
             {
-                case "standard-order-visit":
+                case "standard-reading-room":
                     return RoomType.StandardReadingRoom;
                 case "map-and-large-document-reading-room":
                     return RoomType.MapAndLargeDocumentReadingRoom;

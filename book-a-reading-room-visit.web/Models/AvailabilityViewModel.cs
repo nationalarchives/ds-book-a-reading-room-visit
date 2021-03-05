@@ -23,5 +23,13 @@ namespace book_a_reading_room_visit.web.Models
                 return $"{Date:dddd dd MMMM}";
             }
         }
+
+        public string ToURLDate
+        {
+            get
+            {
+                return $"{Date:yyyy-MM-dd}";
+            }
+        }
     }
 }

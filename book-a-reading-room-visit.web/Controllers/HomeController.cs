@@ -40,7 +40,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 RoomType = roomType,
                 AvailableSeats = await _availabilityService.GetAvailabilityAsync(seatType)
             };
-                
+
             return View(model);
         }
 
@@ -50,7 +50,7 @@ namespace book_a_reading_room_visit.web.Controllers
             var seatType = SeatTypes.BulkOrderSeat;
             if (orderType.ToOrderType() == OrderType.StandardOrderVisit)
             {
-                seatType = roomType == RoomType.StandardReadingRoom  ? SeatTypes.StdRRSeat : SeatTypes.MandLRR;
+                seatType = roomType == RoomType.StandardReadingRoom ? SeatTypes.StdRRSeat : SeatTypes.MandLRR;
             }
             var model = new AvailabilityViewModel
             {
@@ -62,7 +62,7 @@ namespace book_a_reading_room_visit.web.Controllers
             return View(model);
         }
 
-            public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }

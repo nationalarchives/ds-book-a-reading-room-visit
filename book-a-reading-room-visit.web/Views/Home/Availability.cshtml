@@ -26,43 +26,45 @@
 
         <section>
             <div class="row">
-                <form id="visit-customisation-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() } )" method="POST">
-                    <div class="col-md-4 col-sm-4">
-                        <section id="room-selection">
-                            <fieldset>
-                                <legend class="sr-only">Select reading room</legend>
+                @if (Model.OrderType == OrderType.StandardOrderVisit)
+                {
+                    <form id="visit-customisation-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
+                        <div class="col-md-4 col-sm-4">
+                            <section id="room-selection">
+                                <fieldset>
+                                    <legend class="sr-only">Select reading room</legend>
 
-                                <div>
-                                    <label for="standard-room">Standard reading room</label>
-                                    @Html.RadioButtonFor(Model => Model.RoomType, RoomType.StandardReadingRoom, new { id = "standard-room" })
-                                </div>
+                                    <div>
+                                        <label for="standard-room">Standard reading room</label>
+                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.StandardReadingRoom, new { id = "standard-room" })
+                                    </div>
 
-                                <div class="form-indent">
-                                    <p>Camera stands avaiable in this room</p>
-                                </div>
+                                    <div class="form-indent">
+                                        <p>Camera stands avaiable in this room</p>
+                                    </div>
 
-                                <div>
-                                    <label for="map-and-lg-room">Map and large document</label>
-                                    @Html.RadioButtonFor(Model => Model.RoomType, RoomType.MapAndLargeDocumentReadingRoom, new { id = "standard-room" })
-                                </div>
+                                    <div>
+                                        <label for="map-and-lg-room">Map and large document reading room</label>
+                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.MapAndLargeDocumentReadingRoom, new { id = "standard-room" })
+                                    </div>
 
-                                <div class="form-indent">
-                                    <p>Camera stands avaiable in this room</p>
-                                </div>
-                            </fieldset>
-                        </section>
+                                    <div class="form-indent">
+                                        <p>Camera stands avaiable in this room</p>
+                                    </div>
+                                </fieldset>
+                            </section>
 
-                        <button class="button" type="submit">Update</button>
-                    </div>
-                </form>
-
+                            <button class="button" type="submit">Update</button>
+                        </div>
+                    </form>
+                }
                 <section id="date-selection">
                     <div class="col-md-8 col-sm-8">
                         <ul>
                             @foreach (var item in Model.AvailableSeats)
                             {
                                 <li class="date">
-                                    <a href="/@Model.OrderType.ToStringURL()/secure-booking?readingRoom=standard">
+                                    <a href="@Url.Action("SecureBooking", "Booking", new { orderType = Model.OrderType.ToStringURL(), roomType = Model.RoomType.ToStringURL(), bookingDate = item.ToURLDate })">
                                         <span class="col-md-6">@item.ToDate</span>
                                         <span class="col-md-6">@item.AvailableSeats places available</span>
                                     </a>
@@ -71,7 +73,7 @@
                         </ul>
                     </div>
                 </section>
-            </div>
+                </div>
         </section>
     </section>
 </div>
