@@ -7,7 +7,7 @@ namespace book_a_reading_room_visit.web.Models
     {
         public OrderType OrderType { get; set; }
         public RoomType RoomType { get; set; }
-        public List<AvailableSeat> AvailableSeats { get; set; }
+        public List<AvailableSeat> AvailableBookings { get; set; }
 
     }
 
