@@ -1,5 +1,9 @@
 # Book a reading room visit
 
+## Infrastructure diagram
+![KBS infrastructure](https://user-images.githubusercontent.com/40386980/110319498-e5e3c200-8006-11eb-9763-73cc9a394ea6.jpg)
+
+
 ## Prerequisite
 
 Download and install:
