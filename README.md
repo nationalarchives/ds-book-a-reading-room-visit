@@ -33,7 +33,7 @@ The application hooks into existing APIs to get "onprem" data, such as reader's 
 2. Run this script from a command prompt </br>
 	  docker run -d -p 8086:80 docker4gnanesh/kbs-dummy:1 </br>
 This will download and install the image on your local Docker. Note, when first run you will initially get the message "Unable to find image 'docker4gnanesh/kbs-dummy:1' locally", which is expected and after a few seconds the command will start pulling the image down.
-3. Set the book-a-reading-room-visit.api to use the image . In launchSettings.json under Properties set "RecordCopying_WebApi_URL": "http://localhost:8086/home/getbankholidays" for the profile you are using, most likely the IIS Express profile.
+3. Set the book-a-reading-room-visit.api to use the image . In launchSettings.json under Properties set "RecordCopying_WebApi_URL": "http://localhost:8086/home/" for the profile you are using, most likely the IIS Express profile.
 ![Screenshot 2021-03-08 160730](https://user-images.githubusercontent.com/25226428/110347459-8dbdb780-8028-11eb-801f-f0389c8323c6.png)
 
 
