@@ -17,15 +17,18 @@ namespace book_a_reading_room_visit.web.Service
 
         public async Task<AvailabilitySummaryViewModel> GetAvailabilitySummaryAsync()
         {
-            var response = await _client.GetFromJsonAsync<AvailabilitySummaryViewModel>("availability/summary");
-            return response;
+            var response = await _client.GetAsync("availability/summary");
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<AvailabilitySummaryViewModel>();
+            return result;
         }
 
         public async Task<List<AvailableSeat>> GetAvailabilityAsync(SeatTypes seatType)
         {
-            var response = await _client.GetFromJsonAsync<List<AvailableSeat>>($"availability?seatType={seatType}");
-
-            return response;
+            var response = await _client.GetAsync($"availability?seatType={seatType}");
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<List<AvailableSeat>>();
+            return result;
         }
     }
 }

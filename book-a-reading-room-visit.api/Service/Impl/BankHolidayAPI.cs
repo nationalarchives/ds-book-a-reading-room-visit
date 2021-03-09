@@ -25,7 +25,10 @@ namespace book_a_reading_room_visit.api.Service
             List<DateTime> bankHolidays = null;
             if (!_cache.TryGetValue<List<DateTime>>("BankHolidays", out bankHolidays))
             {
-                var result = await _client.GetFromJsonAsync<BankHoliday[]>("getbankholidays");
+                var response = await _client.GetAsync("getbankholidays");
+                response.EnsureSuccessStatusCode();
+                var result = await response.Content.ReadFromJsonAsync<BankHoliday[]>();
+
                 bankHolidays = result.Select(h => h.Date).ToList();
 
                 _cache.Set<List<DateTime>>("BankHolidays", bankHolidays, DateTime.Now.AddDays(1));
