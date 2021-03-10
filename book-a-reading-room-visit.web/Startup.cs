@@ -62,7 +62,10 @@ namespace book_a_reading_room_visit.web
             {
                 app.Use((context, next) =>
                 {
-                    context.Request.PathBase = new PathString(rootPath);
+                    if (context.Request.Path.StartsWithSegments(rootPath, out var remainder))
+                    {
+                        context.Request.Path = remainder;
+                    }
                     return next();
                 });
             }
