@@ -2,6 +2,8 @@
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Controllers
@@ -24,10 +26,17 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<AvailabilitySummaryModel>> GetAvailability(SeatTypes seatType)
+        [HttpGet("seats-count-by-seattype")]
+        public async Task<ActionResult<List<AvailabilityModel>>> GetAvailability(SeatTypes seatType)
         {
             var result = await _availabilityService.GetAvailabilityAsync(seatType);
+            return Ok(result);
+        }
+
+        [HttpGet("seats-by-seattype")]
+        public async Task<ActionResult<List<Seat>>> GetAvailabileSeats(SeatTypes seatType, DateTime availableOn)
+        {
+            var result = await _availabilityService.GetAvailabileSeatsAsync(seatType, availableOn);
             return Ok(result);
         }
     }

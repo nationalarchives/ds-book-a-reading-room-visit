@@ -25,7 +25,7 @@ namespace book_a_reading_room_visit.web.Service
 
         public async Task<List<AvailableSeat>> GetAvailabilityAsync(SeatTypes seatType)
         {
-            var response = await _client.GetAsync($"availability?seatType={seatType}");
+            var response = await _client.GetAsync($"availability/seats-count-by-seattype?seatType={seatType}");
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<List<AvailableSeat>>();
             return result;
