@@ -1,4 +1,8 @@
-﻿@{
+﻿@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+
+@{
     ViewData["Title"] = "Return to your booking";
 }
 
@@ -13,8 +17,9 @@
                 <div class="col-md-12">
                     <p>
                         If you have already reserved a space, you can use the form below to find your document order form.
-                        You will need to complete your document order at least <span class="bold-text">4 working days before your date of
-                        visit</span>. If you do not complete this step your visit will be automatically cancelled.
+                        You will need to complete your document order at least <span class="bold-text">
+                        4 working days before your date of visit</span>. If you do not complete this step your visit will be
+                        automatically cancelled.
                     </p>
                     <p>
                         You can return to amend or complete your document order at any point before the deadline. Once this date has
@@ -27,7 +32,7 @@
         <section class="rtn-to-booking">
             <div class="row">
                 <div class="col-md-12 align-left">
-                    <form action="@Url.Action("OrderDocuments", "DocumentOrder", "standard-order-visit")" class="rtn-to-booking-form">
+                    <form action="#" class="rtn-to-booking-form">
                         <fieldset>
                             <legend><label for="reference-number">Enter your booking reference number</label></legend>
                             <p>
