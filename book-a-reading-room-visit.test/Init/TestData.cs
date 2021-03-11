@@ -149,7 +149,7 @@ namespace book_a_reading_room_visit.test
             {
                 CreatedDate = DateTime.Now,
                 BookingReference = "B123456",
-                IsStandardVisit = true,
+                BookingTypeId = 1,
                 IsAcceptTsAndCs = true,
                 IsAcceptCovidCharter = true,
                 IsNoShow = false,
