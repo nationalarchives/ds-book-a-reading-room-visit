@@ -8038,6 +8038,10 @@ form input[type=checkbox] {
   margin-bottom: 0;
 }
 
+.visit-toggler {
+  margin-top: 1em;
+}
+
 #additional-reqs {
   border: 2px solid #26262a;
   min-height: 200px;
@@ -8128,7 +8132,7 @@ form input[type=checkbox] {
 }
 
 #room-selection-form fieldset {
-  margin-bottom: 2em !important;
+  margin-bottom: 1em !important;
 }
 #room-selection-form fieldset div {
   text-align: left;
@@ -8149,6 +8153,9 @@ form input[type=checkbox] {
 }
 #room-selection-form .form-indent p {
   margin-bottom: 0.5em;
+}
+#room-selection-form button[type=submit] {
+  margin-bottom: 1em;
 }
 #room-selection-form input[type=checkbox], #room-selection-form input[type=radio] {
   float: left;
