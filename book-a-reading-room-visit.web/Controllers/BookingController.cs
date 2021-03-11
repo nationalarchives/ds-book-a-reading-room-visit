@@ -12,11 +12,11 @@ namespace book_a_reading_room_visit.web.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly AvailabilityService _availabilityService;
+        private readonly IBookingService _bookingService;
 
-        public BookingController(AvailabilityService availabilityService)
+        public BookingController(IBookingService bookingService)
         {
-            _availabilityService = availabilityService;
+            _bookingService = bookingService;
         }
 
         [HttpPost]
@@ -29,6 +29,14 @@ namespace book_a_reading_room_visit.web.Controllers
                 BookingStartDate = DateTime.Parse(bookingDate),
                 BookingEndDate = bookingType.ToBookingType() == BookingTypes.StandardOrderVisit ? DateTime.Parse(bookingDate) : DateTime.Parse(bookingDate).AddDays(1)
             };
+
+            var result = await _bookingService.CreateBookingAsync(model);
+
+            if (!result.IsSuccess)
+            {
+
+            }
+            model.BookingReference = result.BookingReference;
 
             return View(model);
         }
