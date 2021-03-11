@@ -45,6 +45,7 @@ namespace book_a_reading_room_visit.test
                     try
                     {
                         TestData.SeedLookUpData(db);
+                        TestData.SeedBookingData(db);
                     }
                     catch (Exception ex)
                     {
