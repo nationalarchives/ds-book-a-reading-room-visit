@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Cancel your visit";
+}
+
+<h1 class="display-4">Your visit has been cancelled</h1>
+
+<div class="text-center">
+
+    <section class="container">
+
+        <section class="heading align-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        The following visit has been cancelled
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cancellation-details no-margin">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Booking reference</th>
+                                <td>RR23610</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seat type</th>
+                                <td>Document reading room, with camera stand</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Visit date</th>
+                                <td>20 January (one day visit)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="button primary no-margin" href="@Url.Action("Index", "Home")">Book another visit ></a>
+                </div>
+            </div>
+        </section>
+
+    </section>
+</div>
