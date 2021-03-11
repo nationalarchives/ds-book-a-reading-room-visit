@@ -71,12 +71,12 @@
                         <div class="visit-toggler">
                             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
-                                <a href="/bulk-order-visit/availability">Bulk visit availability ></a>
+                                <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Bulk visit availability ></a>
                             }
 
                             else
                             {
-                                <a href="/standard-order-visit/availability">Standard visit availability ></a>
+                                <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Standard visit availability ></a>
                             }
                         </div>
                     </div>
