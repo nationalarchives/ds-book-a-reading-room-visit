@@ -7836,7 +7836,7 @@ section.container {
   margin-top: 2.4em;
   padding: 0em 2em 2em 2em;
 }
-section.container .container-heading, section.container .container-heading-text {
+section.container .heading, section.container .heading-text {
   margin-top: 2em;
 }
 
@@ -7846,8 +7846,17 @@ form input[type=checkbox] {
   margin-right: 0.5em;
 }
 
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
 .bold-text {
   font-weight: bolder;
+  text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000;
 }
 
 .booking-details {
@@ -7862,6 +7871,9 @@ form input[type=checkbox] {
   border: 1px solid #ddd;
 }
 
+.booking-options {
+  margin-top: 20px;
+}
 .booking-options form a, .booking-options form button {
   min-width: 205px;
 }
@@ -7877,13 +7889,6 @@ form input[type=checkbox] {
 
 .button:focus {
   color: #fff;
-}
-
-.container-heading-text {
-  margin-bottom: 2em;
-}
-.container-heading-text p {
-  margin-bottom: 0.5em;
 }
 
 .date-selection ul li a {
@@ -7907,12 +7912,33 @@ form input[type=checkbox] {
   margin-bottom: 0.5em;
 }
 
+.heading-text {
+  margin-bottom: 2em;
+}
+.heading-text p {
+  margin-bottom: 0.5em;
+}
+
+.no-float {
+  float: none;
+}
+
+.no-margin {
+  margin: 0;
+}
+
 .order-form fieldset {
   margin-top: 2em;
   text-align: left;
 }
 .order-form fieldset:last-of-type {
   margin-bottom: 2em !important;
+}
+.order-form fieldset .col-md-3, .order-form fieldset .col-sm-6, .order-form fieldset .col-xs-6 {
+  padding-left: 0;
+}
+.order-form label {
+  min-width: 20px;
 }
 .order-form legend, .order-form p {
   text-align: left;
@@ -7930,6 +7956,10 @@ form input[type=checkbox] {
   background-color: #eee;
   border: 2px #ddd solid;
 }
+.order-option div.col-md-6 .card ul {
+  min-height: 180px;
+  padding: 0 20px;
+}
 .order-option div.col-md-6 .card ul li {
   list-style: none;
   text-align: left;
@@ -7939,15 +7969,31 @@ form input[type=checkbox] {
   content: "- ";
 }
 .order-option div.col-md-6 .card .order-option-heading {
-  min-height: 100px;
-}
-
-.order-options + section {
-  clear: both;
+  min-height: 120px;
+  padding: 0 1em;
 }
 
 .primary:focus {
   color: #000;
+}
+
+.prompt-grey {
+  background-color: #eee;
+  display: inline-block;
+  margin: 1em;
+  max-width: 70%;
+  padding: 1em 2em;
+}
+.prompt-grey p {
+  margin: 0 0 10px;
+}
+
+.prompt-white {
+  border: 5px solid #ddd;
+  padding: 1em;
+}
+.prompt-white div p {
+  margin-bottom: 1em;
 }
 
 .reader-ticket-form {
@@ -7958,27 +8004,6 @@ form input[type=checkbox] {
 }
 .reader-ticket-form div form {
   margin-bottom: 2em;
-}
-
-.prompt-grey .booking-summary {
-  background-color: #eee;
-  display: inline-block;
-  margin: 1em auto;
-  max-width: 70%;
-  padding: 1em 2em;
-}
-.prompt-grey .booking-summary p {
-  margin: 0 0 10px;
-}
-
-.prompt-white {
-  border: 5px solid #ddd;
-  padding: 1em 0;
-}
-.prompt-white p {
-  margin: 1em 0;
-  padding-left: 4em;
-  padding-right: 4em;
 }
 
 .reservation-options div.col-md-6 {
@@ -8007,10 +8032,13 @@ form input[type=checkbox] {
   margin-top: 6px;
 }
 
+#date-selection ul {
+  margin-top: 20px;
+}
 #date-selection ul li.date {
   list-style: none;
 }
-#date-selection ul li.date a {
+#date-selection ul li.date button {
   color: #000;
   display: flex;
   background-color: #eee;
@@ -8020,27 +8048,17 @@ form input[type=checkbox] {
   border: 2px solid #ddd;
   margin-bottom: 1em;
   text-decoration: none;
+  width: 100%;
 }
-#date-selection ul li.date a:focus {
+#date-selection ul li.date button:focus {
   background-color: #000;
   color: #fff;
   outline: 5px solid #1d70b8;
 }
-#date-selection ul li.date a:hover {
+#date-selection ul li.date button:hover {
   background-color: #000;
   color: #fff;
   outline: none;
-}
-#date-selection ul li.date span:first-child {
-  text-align: left;
-}
-#date-selection ul li.date span:last-child {
-  text-align: right;
-}
-
-#booking-date {
-  display: block;
-  font-weight: bolder;
 }
 
 #home .prompt-white h2 {
@@ -8057,7 +8075,7 @@ form input[type=checkbox] {
   padding-left: 0;
 }
 #progress-bar ol li {
-  display: inline;
+  display: inline-block;
   list-style: none;
   margin: 1em;
   opacity: 0.3;
@@ -8082,13 +8100,16 @@ form input[type=checkbox] {
   border-bottom: 2px solid #000;
 }
 
-#room-selection {
-  margin-top: 2em;
-}
 #room-selection fieldset:last-child {
   padding-bottom: 1em !important;
 }
+#room-selection h2 {
+  margin-bottom: 1em;
+}
 
+#room-selection-form fieldset {
+  margin-bottom: 2em !important;
+}
 #room-selection-form fieldset div {
   text-align: left;
   margin-top: 1em;
@@ -8116,8 +8137,10 @@ form input[type=checkbox] {
   margin-top: 7px;
   margin-right: 0.5em;
 }
-#room-selection-form button[type=submit] {
-  margin-bottom: 2em;
+
+#ticket-details.prompt-white small {
+  display: block;
+  margin-top: 1em;
 }
 
 #unavailable-docs {
@@ -8130,9 +8153,13 @@ form input[type=checkbox] {
   text-align: right;
 }
 
-@media screen and (max-width: 992px) {
-  .order-options section.col-md-6 {
-    width: 100%;
+@media screen and (max-width: 767px) {
+  #date-selection ul {
+    padding-left: 0;
+  }
+
+  #room-selection-form button[type=submit] {
+    margin-bottom: 2em;
   }
 }
 @media screen and (max-width: 750px) {
@@ -8144,21 +8171,41 @@ form input[type=checkbox] {
     margin-top: 1em;
   }
 }
+@media screen and (max-width: 728px) {
+  #progress-bar ol {
+    text-align: left;
+  }
+  #progress-bar ol li {
+    display: block;
+  }
+}
+@media screen and (max-width: 710px) {
+  #ticket-details.prompt-white {
+    margin: 0;
+    max-width: 100%;
+  }
+}
 @media screen and (max-width: 640px) {
   .order-form .col-xs-6 {
     width: 100%;
   }
 }
-@media screen and (max-width: 350px) {
-  #availability-form #dates label {
-    padding-left: 0px;
+@media screen and (max-width: 500px) {
+  #date-selection ul li.date button div span {
+    text-align: center !important;
+    width: 100%;
   }
-
-  #visit-customisation-form #room-selection fieldset div label, #visit-customisation-form #visit-selection fieldset div label {
-    margin-left: 0.5em;
+  #date-selection ul li.date button div span:first-child {
+    margin-bottom: 1em;
   }
-  #visit-customisation-form .col-md-4, #visit-customisation-form .col-sm-4 {
-    padding-right: 0px;
+}
+@media screen and (max-width: 325px) {
+  #progress-bar ol li {
+    margin-bottom: 2em;
+  }
+  #progress-bar ol li .step {
+    display: table;
+    margin-top: 1em;
   }
 }
 @media screen and (min-width: 500px) {

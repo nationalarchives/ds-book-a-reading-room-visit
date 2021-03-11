@@ -11,7 +11,7 @@
 
         <section id="progress-bar">
             <div class="row">
-                <div class="text-center">
+                <div class="col-md-12">
                     <ol>
                         <li class="active"><span class="step-number">1</span> <span class="step">Select a date</span></li>
                         <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
@@ -25,28 +25,22 @@
 
         <section>
             <div class="row">
-                <div class="col-md-4 col-sm-4">
-                    @if (Model.OrderType == OrderType.StandardOrderVisit)
-                    {
-                        <h2>Standard visit availability</h2>
-                    }
+                <section id="room-selection">
+                    <div class="col-md-4 col-sm-4">
+                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        {
+                            <h2 class="align-left">Standard visit availability</h2>
+                        }
 
-                    else
-                    {
-                        <h2>Bulk visit availability</h2>
-                    }
-                </div>
-            </div>
-        </section>
+                        else
+                        {
+                            <h2 class="align-left">Bulk visit availability</h2>
+                        }
 
-        <section>
-            <div class="row">
-                @if (Model.OrderType == OrderType.StandardOrderVisit)
-                {
-                    <form id="visit-customisation-form" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
-                        @Html.AntiForgeryToken()
-                        <div class="col-md-4 col-sm-4">
-                            <section id="room-selection">
+                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        {
+                            <form id="room-selection-form" class="align-left" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
+                                @Html.AntiForgeryToken()
                                 <fieldset>
                                     <legend class="sr-only">Select reading room</legend>
 
@@ -60,12 +54,13 @@
                                         @Html.RadioButtonFor(Model => Model.RoomType, RoomType.MapAndLargeDocumentReadingRoom, new { id = "map-and-lg-room" })
                                     </div>
                                 </fieldset>
-                            </section>
 
-                            <button class="button" type="submit">Update</button>
-                        </div>
-                    </form>
-                }
+                                <button class="button" type="submit">Update</button>
+                            </form>
+                        }
+                    </div>
+                </section>
+                
                 <section id="date-selection">
                     <div class="col-md-8 col-sm-8">
                         <ul>
@@ -77,8 +72,10 @@
                                         @Html.HiddenFor(Model => Model.RoomType)
                                         @Html.Hidden("bookingDate", Model.AvailableBookings[index].Date)
                                         <button class="button" type="submit">
-                                            <span class="col-md-6">@Model.AvailableBookings[index].ToDate</span>
-                                            <span class="col-md-6">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                            </div>
                                         </button>
                                     </form>
                                 </li>
