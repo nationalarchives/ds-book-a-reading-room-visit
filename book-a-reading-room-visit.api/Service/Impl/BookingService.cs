@@ -1,4 +1,10 @@
-﻿using book_a_reading_room_visit.data;
+﻿using book_a_reading_room_visit.api.Helper;
+using book_a_reading_room_visit.api.Models;
+using book_a_reading_room_visit.data;
+using book_a_reading_room_visit.domain;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
@@ -10,6 +16,34 @@ namespace book_a_reading_room_visit.api.Service
         public BookingService(BookingContext context)
         {
             _context = context;
+        }
+
+        public async Task<string> CreateBookingAsync(BookingModel bookingModel)
+        {
+            var seatId = await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == bookingModel.SeatType)
+                                join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.BookingStartDate)
+                                on seat.Id equals booking.SeatId into lj
+                                from subseat in lj.DefaultIfEmpty()
+                                select seat.Id).FirstOrDefaultAsync();
+
+            var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
+
+            var bookingReference = IdGenerator.GenerateBookingReference(bookingId);
+
+            await _context.Set<Booking>().AddAsync(new Booking
+                                                { 
+                                                    CreatedDate = DateTime.Now,
+                                                    BookingReference = bookingReference,
+                                                    IsAcceptTsAndCs = false,
+                                                    IsAcceptCovidCharter = false,
+                                                    IsNoShow = false,
+                                                    SeatId = seatId,
+                                                    BookingStatusId = (int)BookingStatuses.Created,
+                                                    VisitStartDate = bookingModel.BookingStartDate,
+                                                    VisitEndDate = bookingModel.BookingEndDate,
+                                                });
+            await _context.SaveChangesAsync();
+            return bookingReference;
         }
     }
 }

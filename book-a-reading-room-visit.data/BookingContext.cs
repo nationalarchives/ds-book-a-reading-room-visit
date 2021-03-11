@@ -11,6 +11,7 @@ namespace book_a_reading_room_visit.data
 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<SeatType> SeatType { get; set; }
+        public DbSet<BookingType> BookingType { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<BookingStatus> BookingStatus { get; set; }
         public DbSet<OrderDocument> OrderDocuments { get; set; }
@@ -22,6 +23,9 @@ namespace book_a_reading_room_visit.data
 
             modelBuilder.Entity<BookingStatus>().Property(e => e.Id).ValueGeneratedNever();
             modelBuilder.Entity<BookingStatus>().Property(e => e.Description).IsRequired().HasMaxLength(50);
+
+            modelBuilder.Entity<BookingType>().Property(e => e.Id).ValueGeneratedNever();
+            modelBuilder.Entity<BookingType>().Property(e => e.Description).IsRequired().HasMaxLength(50);
 
             modelBuilder.Entity<Seat>().Property(e => e.Id).ValueGeneratedNever();
             modelBuilder.Entity<Seat>().Property(e => e.Number).IsRequired().HasMaxLength(10);

@@ -1,4 +1,6 @@
-﻿@using book_a_reading_room_visit.web.Models;
+﻿@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+@using book_a_reading_room_visit.domain
 
 @{
     ViewData["Title"] = "Order documents";
@@ -80,9 +82,9 @@
         <section class="order-form">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@Url.Action("DocumentOrder", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() } )" method="POST">
+                    <form action="@Url.Action("DocumentOrder", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = @Guid.NewGuid().ToString() } )" method="POST">
                         @Html.AntiForgeryToken()
-                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
                             @await Html.PartialAsync("Partials/_StandardOrderForm")
                         }

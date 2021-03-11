@@ -1,4 +1,6 @@
-﻿@using book_a_reading_room_visit.web.Models;
+﻿@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+@using book_a_reading_room_visit.domain
 @{
     ViewData["Title"] = "Manage document order";
 }
@@ -37,7 +39,7 @@
 
                     <div class="col-md-6 col-md-offset-3">
                         <span class="col-md-6">
-                            <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL() } )">Edit your order</a>
+                            <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL() } )">Edit your order</a>
                         </span>
                         <span class="col-md-6">
                             <a href="#">Print your order</a>
@@ -100,7 +102,7 @@
                     </ol>
                 </div>
 
-                @if (Model.OrderType == OrderType.StandardOrderVisit)
+                @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
                     <div class="col-md-6">
                         <h3>Your reserve documents</h3>

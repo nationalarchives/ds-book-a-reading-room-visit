@@ -26,6 +26,13 @@ namespace book_a_reading_room_visit.test
                     new SeatType { Id = 7, Description = "Not available" }
                 });
 
+            bookingContext.BookingType.AddRange(new List<BookingType>
+                {
+                    new BookingType { Id = 1, Description = "Standard order visit" },
+                    new BookingType { Id = 2, Description = "Bulk order visit" },
+                    new BookingType { Id = 3, Description = "Computer use visit" }
+                });
+
             bookingContext.Seats.AddRange(new List<Seat>
                 {
                     new Seat { Id = 1, Number = "14H", SeatTypeId = 1 },

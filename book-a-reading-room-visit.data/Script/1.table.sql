@@ -18,6 +18,13 @@ CREATE TABLE [BookingStatus] (
 );
 GO
 
+CREATE TABLE [BookingType] (
+    [Id] int NOT NULL,
+    [Description] nvarchar(50) NOT NULL,
+    CONSTRAINT [PK_BookingType] PRIMARY KEY ([Id])
+);
+GO
+
 CREATE TABLE [SeatType] (
     [Id] int NOT NULL,
     [Description] nvarchar(150) NOT NULL,
@@ -38,7 +45,7 @@ CREATE TABLE [Bookings] (
     [Id] int NOT NULL IDENTITY,
     [CreatedDate] datetime2 NOT NULL,
     [BookingReference] nvarchar(50) NOT NULL,
-    [IsStandardVisit] bit NOT NULL,
+    [BookingTypeId] int NOT NULL,
     [IsAcceptTsAndCs] bit NOT NULL,
     [IsAcceptCovidCharter] bit NOT NULL,
     [IsNoShow] bit NOT NULL,
@@ -56,6 +63,7 @@ CREATE TABLE [Bookings] (
     [LastModifiedBy] nvarchar(50) NULL,
     CONSTRAINT [PK_Bookings] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Bookings_BookingStatus_BookingStatusId] FOREIGN KEY ([BookingStatusId]) REFERENCES [BookingStatus] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Bookings_BookingType_BookingTypeId] FOREIGN KEY ([BookingTypeId]) REFERENCES [BookingType] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Bookings_Seats_SeatId] FOREIGN KEY ([SeatId]) REFERENCES [Seats] ([Id]) ON DELETE CASCADE
 );
 GO
@@ -80,6 +88,9 @@ GO
 CREATE INDEX [IX_Bookings_BookingStatusId] ON [Bookings] ([BookingStatusId]);
 GO
 
+CREATE INDEX [IX_Bookings_BookingTypeId] ON [Bookings] ([BookingTypeId]);
+GO
+
 CREATE INDEX [IX_Bookings_SeatId] ON [Bookings] ([SeatId]);
 GO
 
@@ -90,7 +101,7 @@ CREATE INDEX [IX_Seats_SeatTypeId] ON [Seats] ([SeatTypeId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210305085806_InitialCreate', N'5.0.3');
+VALUES (N'20210311111937_InitialCreate', N'5.0.3');
 GO
 
 COMMIT;

@@ -20,6 +20,18 @@ namespace book_a_reading_room_visit.data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookingType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SeatType",
                 columns: table => new
                 {
@@ -58,7 +70,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    IsStandardVisit = table.Column<bool>(type: "bit", nullable: false),
+                    BookingTypeId = table.Column<int>(type: "int", nullable: false),
                     IsAcceptTsAndCs = table.Column<bool>(type: "bit", nullable: false),
                     IsAcceptCovidCharter = table.Column<bool>(type: "bit", nullable: false),
                     IsNoShow = table.Column<bool>(type: "bit", nullable: false),
@@ -82,6 +94,12 @@ namespace book_a_reading_room_visit.data.Migrations
                         name: "FK_Bookings_BookingStatus_BookingStatusId",
                         column: x => x.BookingStatusId,
                         principalTable: "BookingStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Bookings_BookingType_BookingTypeId",
+                        column: x => x.BookingTypeId,
+                        principalTable: "BookingType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -126,6 +144,11 @@ namespace book_a_reading_room_visit.data.Migrations
                 column: "BookingStatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_BookingTypeId",
+                table: "Bookings",
+                column: "BookingTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_SeatId",
                 table: "Bookings",
                 column: "SeatId");
@@ -151,6 +174,9 @@ namespace book_a_reading_room_visit.data.Migrations
 
             migrationBuilder.DropTable(
                 name: "BookingStatus");
+
+            migrationBuilder.DropTable(
+                name: "BookingType");
 
             migrationBuilder.DropTable(
                 name: "Seats");
