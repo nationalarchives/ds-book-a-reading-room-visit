@@ -1,4 +1,7 @@
-﻿@model book_a_reading_room_visit.web.Models.AvailabilityViewModel
+﻿@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+@using book_a_reading_room_visit.domain
+@model AvailabilityViewModel
 @{
     ViewData["Title"] = "Visit availability";
 }
@@ -27,7 +30,7 @@
             <div class="row">
                 <section id="room-selection">
                     <div class="col-md-4 col-sm-4">
-                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
                             <h2 class="align-left">Standard visit availability</h2>
                         }
@@ -37,21 +40,21 @@
                             <h2 class="align-left">Bulk visit availability</h2>
                         }
 
-                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
-                            <form id="room-selection-form" class="align-left" action="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
+                            <form id="room-selection-form" class="align-left" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
                                 @Html.AntiForgeryToken()
                                 <fieldset>
                                     <legend class="sr-only">Select reading room</legend>
 
                                     <div>
                                         <label for="standard-room">Standard reading room</label>
-                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.StandardReadingRoom, new { id = "standard-room" })
+                                        @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.StdRRSeat, new { id = "standard-room" })
                                     </div>
 
                                     <div>
                                         <label for="map-and-lg-room">Map and large document reading room</label>
-                                        @Html.RadioButtonFor(Model => Model.RoomType, RoomType.MapAndLargeDocumentReadingRoom, new { id = "map-and-lg-room" })
+                                        @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.MandLRR, new { id = "map-and-lg-room" })
                                     </div>
                                 </fieldset>
 
@@ -60,16 +63,16 @@
                         }
                     </div>
                 </section>
-                
+
                 <section id="date-selection">
                     <div class="col-md-8 col-sm-8">
                         <ul>
                             @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                             {
                                 <li class="date">
-                                    <form action="@Url.Action("SecureBooking", "Booking", new { orderType = @Model.OrderType.ToStringURL() })" method="POST">
+                                    <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
                                         @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(Model => Model.RoomType)
+                                        @Html.HiddenFor(Model => Model.SeatType)
                                         @Html.Hidden("bookingDate", Model.AvailableBookings[index].Date)
                                         <button class="button" type="submit">
                                             <div class="col-md-12 col-sm-12 col-xs-12">

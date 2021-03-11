@@ -2,8 +2,6 @@
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -22,11 +20,14 @@ namespace book_a_reading_room_visit.api.Controllers
 
         [HttpGet("search")]
         public async Task<ActionResult<Booking>> GetBookings([FromQuery]BookingSearchModel bookingSearchModel)
-
-        [HttpPost("summary")]
-        public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
         {
             var result = await _bookingService.GetBookingSummaryAsync(bookingSearchModel);
+            return Ok(result);
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
+        {
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }

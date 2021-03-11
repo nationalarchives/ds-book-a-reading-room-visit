@@ -1,4 +1,6 @@
-﻿@using book_a_reading_room_visit.web.Models
+﻿@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
 @model BookingViewModel
 
 @{
@@ -37,11 +39,11 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="prompt-grey">
-                        <p>@(Model.OrderType == OrderType.StandardOrderVisit ? "Standard order" : "Bulk order") - @($"{Model.BookingDate:dddd dd MMMM}")</p>
+                        <p>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order" : "Bulk order") - @($"{Model.BookingStartDate:dddd dd MMMM}")</p>
 
-                        @if (Model.OrderType == OrderType.StandardOrderVisit)
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
-                            if (Model.RoomType == RoomType.StandardReadingRoom)
+                            if (Model.SeatType == SeatTypes.StdRRSeat)
                             {
                                 <p>Standard document reading room</p>
                             }
@@ -92,7 +94,7 @@
         <section class="booking-options">
             <div class="row">
                 <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-                    <form action="@Url.Action("BookingConfirmation", "Booking", new { orderType = @Model.OrderType.ToStringURL() })">
+                    <form action="@Url.Action("BookingConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })">
                         <fieldset id="conditions">
                             <legend class="sr-only">Please accept the following conditions to continue with your order</legend>
 
@@ -107,7 +109,7 @@
                         </fieldset>
 
                         <span class="col-md-6 col-sm-6">
-                            <a class="button primary" href="@Url.Action("Availability", "Home", new { orderType = @Model.OrderType.ToStringURL() } )">Back</a>
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() } )">Back</a>
                         </span>
 
                         <span class="col-md-6 col-sm-6">

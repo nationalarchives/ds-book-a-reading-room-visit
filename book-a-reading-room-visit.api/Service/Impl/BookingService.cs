@@ -4,6 +4,7 @@ using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,20 +19,20 @@ namespace book_a_reading_room_visit.api.Service
             _context = context;
         }
 
-        public async Task<IList<Booking>> GetBookingSummaryAsync(BookingSearchModel bs)
+        public async Task<List<Booking>> GetBookingSummaryAsync(BookingSearchModel bookingSearchModel)
         {
             DateTime? dateComponent = null;
 
-            if(bs.Date.HasValue)
+            if(bookingSearchModel.Date.HasValue)
             {
-                dateComponent = bs.Date.Value.Date;
+                dateComponent = bookingSearchModel.Date.Value.Date;
             }
 
             var bookings = await _context.Bookings.Where(b =>
-                (bs.BookingReference == null || bs.BookingReference  == b.BookingReference) &&
-                (bs.ReadersTicket == null || bs.ReadersTicket == b.ReaderTicket) &&
-                (dateComponent == null || dateComponent == b.VisitStartDate.Date)
-                ).TagWith<Booking>("Search of Bookings").ToListAsync();
+                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference  == b.BookingReference) &&
+                                            (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
+                                            (dateComponent == null || dateComponent == b.VisitStartDate.Date)
+                                            ).TagWith<Booking>("Search of Bookings").ToListAsync();
             
             return bookings;
         }
