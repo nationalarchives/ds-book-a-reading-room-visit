@@ -105,6 +105,21 @@ namespace book_a_reading_room_visit.web
                     name: "document-order",
                     pattern: "{bookingtype}/document-order/{bookingreference}",
                     new { controller = "DocumentOrder", action = "DocumentOrder" });
+
+                endpoints.MapControllerRoute(
+                    name: "cancel-booking",
+                    pattern: "cancel-booking",
+                    new { controller = "Booking", action = "CancelBooking" });
+
+                endpoints.MapControllerRoute(
+                    name: "cancellation-confirmation",
+                    pattern: "cancellation-confirmation",
+                    new { controller = "Booking", action = "CancellationConfirmation" });
+
+                endpoints.MapControllerRoute(
+                    name: "return-to-booking",
+                    pattern: "return-to-booking",
+                    new { controller = "Home", action = "ReturnToBooking" });
             });
         }
     }
