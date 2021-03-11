@@ -55,6 +55,11 @@ namespace book_a_reading_room_visit.web.Controllers
             return View(model);
         }
 
+        public IActionResult ReturnToBooking()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
