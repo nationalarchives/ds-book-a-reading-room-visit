@@ -7859,15 +7859,15 @@ form input[type=checkbox] {
   text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000;
 }
 
-.booking-details {
+.booking-details, .cancellation-details {
   margin-bottom: 2em;
   text-align: left;
 }
-.booking-details h3 {
+.booking-details h3, .cancellation-details h3 {
   margin-bottom: 1em;
   padding-left: 15px;
 }
-.booking-details table td, .booking-details table th {
+.booking-details table td, .booking-details table th, .cancellation-details table td, .cancellation-details table th {
   border: 1px solid #ddd;
 }
 
@@ -7889,6 +7889,11 @@ form input[type=checkbox] {
 
 .button:focus {
   color: #fff;
+}
+
+.cancellation-form legend {
+  font-size: 20px;
+  margin-bottom: 1.5em;
 }
 
 .date-selection ul li a {
@@ -7923,8 +7928,12 @@ form input[type=checkbox] {
   float: none;
 }
 
+.no-left-padding {
+  padding-left: 0;
+}
+
 .no-margin {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .order-form fieldset {
@@ -8016,6 +8025,17 @@ form input[type=checkbox] {
   justify-content: center;
   max-width: 250px;
   min-height: 70px;
+}
+
+.rtn-to-booking-form button {
+  margin-top: 2em;
+}
+.rtn-to-booking-form fieldset {
+  margin-bottom: 2em !important;
+}
+.rtn-to-booking-form legend {
+  font-size: 20px;
+  margin-bottom: 0;
 }
 
 #additional-reqs {

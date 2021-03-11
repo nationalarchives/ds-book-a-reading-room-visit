@@ -38,7 +38,7 @@ form {
     text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000
 }
 
-.booking-details {
+.booking-details, .cancellation-details {
     margin-bottom: 2em;
     text-align: left;
 
@@ -81,6 +81,13 @@ form {
 
 .button:focus {
     color: #fff;
+}
+
+.cancellation-form {
+    legend {
+        font-size: 20px;
+        margin-bottom: 1.5em;
+    }
 }
 
 .date-selection {
@@ -127,8 +134,12 @@ form {
     float: none;
 }
 
+.no-left-padding {
+    padding-left: 0;
+}
+
 .no-margin {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .order-form {
@@ -245,6 +256,21 @@ form {
             max-width: 250px;
             min-height: 70px;
         }
+    }
+}
+
+.rtn-to-booking-form {
+    button{
+        margin-top: 2em;
+    }
+
+    fieldset {
+        margin-bottom: 2em !important;
+    }
+
+    legend {
+        font-size: 20px;
+        margin-bottom: 0;
     }
 }
 
