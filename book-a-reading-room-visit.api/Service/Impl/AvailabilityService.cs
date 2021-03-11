@@ -63,8 +63,8 @@ namespace book_a_reading_room_visit.api.Service
                                         select new AvailabilityModel { Date = g.Key, AvailableSeats = stdSeatCount - g.Count() }).ToListAsync();
 
                 return (from date in standardAvailableDates
-                        join booking in standardBookings on date equals booking.Date into gj
-                        from subbook in gj.DefaultIfEmpty()
+                        join booking in standardBookings on date equals booking.Date into lj
+                        from subbook in lj.DefaultIfEmpty()
                         select new AvailabilityModel { Date = date, AvailableSeats = subbook?.AvailableSeats ?? stdSeatCount }).ToList();
             }
 
@@ -79,12 +79,19 @@ namespace book_a_reading_room_visit.api.Service
                                   select new AvailabilityModel { Date = g.Key, AvailableSeats = bulkSeatCount - g.Count() }).ToListAsync();
 
             return (from date in bulkAvailableDates
-                    join booking in bulkbookings on date equals booking.Date into gj
-                    from subbook in gj.DefaultIfEmpty()
+                    join booking in bulkbookings on date equals booking.Date into lj
+                    from subbook in lj.DefaultIfEmpty()
                     select new AvailabilityModel { Date = date, AvailableSeats = subbook?.AvailableSeats ?? bulkSeatCount }).ToList();
 
         }
 
-
+        public async Task<List<Seat>> GetAvailabileSeatsAsync(SeatTypes seatType, DateTime availableOn)
+        {
+            return await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == seatType)
+                        join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
+                        on seat.Id equals booking.SeatId into lj
+                        from subseat in lj.DefaultIfEmpty()
+                        select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
+        }
     }
 }

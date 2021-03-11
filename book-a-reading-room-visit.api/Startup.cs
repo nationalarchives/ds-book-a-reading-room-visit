@@ -26,6 +26,8 @@ namespace book_a_reading_room_visit.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
 
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Configuration.GetConnectionString("KewBookingConnection")));
@@ -55,13 +57,9 @@ namespace book_a_reading_room_visit.api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book a reading room visit-api v1"));
             }
-
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
             app.UseRouting();
-
-            app.UseAuthorization();
-
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

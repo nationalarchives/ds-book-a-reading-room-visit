@@ -22,6 +22,7 @@ namespace book_a_reading_room_visit.web.Controllers
             _availabilityService = availabilityService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = await _availabilityService.GetAvailabilitySummaryAsync();
@@ -38,7 +39,7 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 OrderType = orderType.ToOrderType(),
                 RoomType = roomType,
-                AvailableSeats = await _availabilityService.GetAvailabilityAsync(seatType)
+                AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
             };
 
             return View(model);
@@ -56,7 +57,7 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 RoomType = roomType,
                 OrderType = orderType.ToOrderType(),
-                AvailableSeats = await _availabilityService.GetAvailabilityAsync(seatType)
+                AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
             };
 
             return View(model);

@@ -1,5 +1,6 @@
 ﻿using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.domain;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,5 +10,6 @@ namespace book_a_reading_room_visit.api.Service
     {
         Task<AvailabilitySummaryModel> GetAvailabilitySummaryAsync();
         Task<List<AvailabilityModel>> GetAvailabilityAsync(SeatTypes seatType);
+        Task<List<Seat>> GetAvailabileSeatsAsync(SeatTypes seatType, DateTime availableOn);
     }
 }
