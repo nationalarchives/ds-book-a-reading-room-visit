@@ -12,7 +12,7 @@ section.container {
     margin-top: 2.4em;
     padding: 0em 2em 2em 2em;
 
-    .container-heading, .container-heading-text {
+    .heading, .heading-text {
         margin-top: 2em;
     }
 }
@@ -25,8 +25,17 @@ form {
     }
 }
 
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
 .bold-text {
     font-weight: bolder;
+    text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000
 }
 
 .booking-details {
@@ -46,6 +55,8 @@ form {
 }
 
 .booking-options {
+    margin-top: 20px;
+
     form {
 
         a, button {
@@ -70,14 +81,6 @@ form {
 
 .button:focus {
     color: #fff;
-}
-
-.container-heading-text {
-    margin-bottom: 2em;
-
-    p {
-        margin-bottom: 0.5em;
-    }
 }
 
 .date-selection {
@@ -112,6 +115,22 @@ form {
     }
 }
 
+.heading-text {
+    margin-bottom: 2em;
+
+    p {
+        margin-bottom: 0.5em;
+    }
+}
+
+.no-float {
+    float: none;
+}
+
+.no-margin {
+    margin: 0;
+}
+
 .order-form {
     fieldset {
         margin-top: 2em;
@@ -120,6 +139,14 @@ form {
         &:last-of-type {
             margin-bottom: 2em !important;
         }
+
+        .col-md-3, .col-sm-6, .col-xs-6 {
+            padding-left: 0;
+        }
+    }
+
+    label {
+        min-width: 20px;
     }
 
     legend, p {
@@ -142,6 +169,9 @@ form {
             border: 2px #ddd solid;
 
             ul {
+                min-height: 180px;
+                padding: 0 20px;
+
                 li {
                     list-style: none;
                     text-align: left;
@@ -154,20 +184,39 @@ form {
             }
 
             .order-option-heading {
-                min-height: 100px;
+                min-height: 120px;
+                padding: 0 1em;
             }
         }
     }
-}
-
-.order-options + section {
-    clear: both;
 }
 
 .primary:focus {
     color: #000;
 }
 
+.prompt-grey {
+    background-color: #eee;
+    display: inline-block;
+    margin: 1em;
+    max-width: 70%;
+    padding: 1em 2em;
+
+    p {
+        margin: 0 0 10px;
+    }
+}
+
+.prompt-white {
+    border: 5px solid #ddd;
+    padding: 1em;
+
+    div {
+        p {
+            margin-bottom: 1em;
+        }
+    }
+}
 
 .reader-ticket-form {
     margin: 2em 0;
@@ -181,31 +230,6 @@ form {
         form {
             margin-bottom: 2em;
         }
-    }
-}
-
-.prompt-grey {
-    .booking-summary {
-        background-color: #eee;
-        display: inline-block;
-        margin: 1em auto;
-        max-width: 70%;
-        padding: 1em 2em;
-
-        p {
-            margin: 0 0 10px;
-        }
-    }
-}
-
-.prompt-white {
-    border: 5px solid #ddd;
-    padding: 1em 0;
-
-    p {
-        margin: 1em 0;
-        padding-left: 4em;
-        padding-right: 4em;
     }
 }
 
@@ -241,10 +265,12 @@ form {
 
 #date-selection {
     ul {
+        margin-top: 20px;
+
         li.date {
             list-style: none;
 
-            a {
+            button {
                 color: #000;
                 display: flex;
                 background-color: #eee;
@@ -254,6 +280,7 @@ form {
                 border: 2px solid #ddd;
                 margin-bottom: 1em;
                 text-decoration: none;
+                width: 100%;
 
                 &:focus {
                     background-color: #000;
@@ -267,21 +294,8 @@ form {
                     outline: none;
                 }
             }
-
-            span:first-child {
-                text-align: left;
-            }
-
-            span:last-child {
-                text-align: right;
-            }
         }
     }
-}
-
-#booking-date {
-    display: block;
-    font-weight: bolder;
 }
 
 #home {
@@ -303,7 +317,7 @@ form {
         padding-left: 0;
 
         li {
-            display: inline;
+            display: inline-block;
             list-style: none;
             margin: 1em;
             opacity: 0.3;
@@ -334,15 +348,19 @@ form {
 }
 
 #room-selection {
-    margin-top: 2em;
-
     fieldset:last-child {
         padding-bottom: 1em !important;
+    }
+
+    h2 {
+        margin-bottom: 1em;
     }
 }
 
 #room-selection-form {
     fieldset {
+        margin-bottom: 2em !important;
+
         div {
             text-align: left;
             margin-top: 1em;
@@ -377,9 +395,12 @@ form {
         margin-top: 7px;
         margin-right: 0.5em;
     }
+}
 
-    button[type=submit] {
-        margin-bottom: 2em;
+#ticket-details.prompt-white {
+    small {
+        display: block;
+        margin-top: 1em;
     }
 }
 
@@ -393,10 +414,16 @@ form {
     text-align: right;
 }
 
-@media screen and (max-width: 992px) {
-    .order-options {
-        section.col-md-6 {
-            width: 100%;
+@media screen and (max-width: 767px) {
+    #date-selection {
+        ul {
+            padding-left: 0;
+        }
+    }
+
+    #room-selection-form {
+        button[type=submit] {
+            margin-bottom: 2em;
         }
     }
 }
@@ -415,6 +442,25 @@ form {
     }
 }
 
+@media screen and (max-width: 728px) {
+    #progress-bar {
+        ol {
+            text-align: left;
+
+            li {
+                display: block;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 710px) {
+    #ticket-details.prompt-white {
+        margin: 0;
+        max-width: 100%;
+    }
+}
+
 @media screen and (max-width: 640px) {
     .order-form {
         .col-xs-6 {
@@ -423,28 +469,39 @@ form {
     }
 }
 
-@media screen and (max-width: 350px) {
-    #availability-form {
-        #dates {
-            label {
-                padding-left: 0px;
-            }
-        }
-    }
+@media screen and (max-width: 500px) {
+    #date-selection {
+        ul {
+            li.date {
+                button {
+                    div {
+                        span {
+                            text-align: center !important;
+                            width: 100%;
 
-    #visit-customisation-form {
-        #room-selection, #visit-selection {
-            fieldset {
-                div {
-                    label {
-                        margin-left: .5em;
+                            &:first-child {
+                                margin-bottom: 1em;
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+}
 
-        .col-md-4, .col-sm-4 {
-            padding-right: 0px;
+
+@media screen and (max-width: 325px) {
+    #progress-bar {
+        ol {
+            li {
+                margin-bottom: 2em;
+
+                .step {
+                    display: table;
+                    margin-top: 1em;
+                }
+            }
         }
     }
 }
