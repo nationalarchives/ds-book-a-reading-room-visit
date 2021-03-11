@@ -1,5 +1,6 @@
 ﻿using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
+using System;
 using System.Collections.Generic;
 
 namespace book_a_reading_room_visit.test
@@ -139,6 +140,30 @@ namespace book_a_reading_room_visit.test
                     new Seat { Id = 102, Number = "Bulk3", SeatTypeId = 4 },
                     new Seat { Id = 103, Number = "Bulk4", SeatTypeId = 4 }
                 });
+            bookingContext.SaveChanges();
+        }
+
+        public static void SeedBookingData(BookingContext bookingContext)
+        {
+            var booking = new Booking()
+            {
+                CreatedDate = DateTime.Now,
+                BookingReference = "B123456",
+                IsStandardVisit = true,
+                IsAcceptTsAndCs = true,
+                IsAcceptCovidCharter = true,
+                IsNoShow = false,
+                SeatId = 1,
+                BookingStatusId = 1,
+                VisitStartDate = DateTime.Parse("2021-03-15"),
+                VisitEndDate = DateTime.Parse("2021-03-15"),
+                ReaderTicket = 9497920,
+                Email = "kbstest@nationalarchives.gov.uk",
+                FirstName = "Bilbo",
+                LastName = "Baggins"
+            };
+
+            bookingContext.Bookings.Add(booking);
             bookingContext.SaveChanges();
         }
     }

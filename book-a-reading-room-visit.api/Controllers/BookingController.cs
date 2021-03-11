@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace book_a_reading_room_visit.api.Controllers
 {
     [Route("book-a-visit-api/[controller]")]
@@ -19,10 +20,13 @@ namespace book_a_reading_room_visit.api.Controllers
             _bookingService = bookingService;
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<Booking>> GetBookings([FromQuery]BookingSearchModel bookingSearchModel)
 
         [HttpPost("summary")]
         public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
         {
+            var result = await _bookingService.GetBookingSummaryAsync(bookingSearchModel);
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }

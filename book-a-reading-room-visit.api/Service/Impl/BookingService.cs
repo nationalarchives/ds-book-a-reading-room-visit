@@ -18,6 +18,24 @@ namespace book_a_reading_room_visit.api.Service
             _context = context;
         }
 
+        public async Task<IList<Booking>> GetBookingSummaryAsync(BookingSearchModel bs)
+        {
+            DateTime? dateComponent = null;
+
+            if(bs.Date.HasValue)
+            {
+                dateComponent = bs.Date.Value.Date;
+            }
+
+            var bookings = await _context.Bookings.Where(b =>
+                (bs.BookingReference == null || bs.BookingReference  == b.BookingReference) &&
+                (bs.ReadersTicket == null || bs.ReadersTicket == b.ReaderTicket) &&
+                (dateComponent == null || dateComponent == b.VisitStartDate.Date)
+                ).TagWith<Booking>("Search of Bookings").ToListAsync();
+            
+            return bookings;
+        }
+
         public async Task<string> CreateBookingAsync(BookingModel bookingModel)
         {
             var seatId = await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == bookingModel.SeatType)

@@ -13,7 +13,7 @@
 
         <section id="progress-bar">
             <div class="row">
-                <div class="text-center">
+                <div class="col-md-12">
                     <ol>
                         <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
                         <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
@@ -25,21 +25,24 @@
             </div>
         </section>
 
-        <div class="container-heading">
+        <section class="heading">
             <h2>We have reserved a space for you</h2>
-        </div>
+        </section>
 
-        <section class="prompt-grey">
+        <section class="booking-summary">
             <div class="row">
-                <div class="booking-summary">
-                    <p>Standard order - Saturday 13 February</p>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="prompt-grey">
+                        <p>Standard order - Saturday 13 February</p>
 
-                    <p>Standard document reading room (with a camera stand) </p>
+                        <p>Standard document reading room (with a camera stand) </p>
+
+                        <p>
+                            You will need to specify which documents you would like to see by
+                            <span class="bold-text">11.59pm on Wednesday 10th February</span>
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    You will need to specify which documents you would like to see by
-                    <span id="booking-date">11.59pm on Wednesday 10th February</span>
-                </p>
             </div>
         </section>
 
@@ -56,7 +59,7 @@
 
         <section class="reservation-options">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-8 col-md-offset-2">
                     <span class="col-md-6">
                         <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL() } )">Continue booking now</a>
                     </span>
