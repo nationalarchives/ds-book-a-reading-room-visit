@@ -7840,6 +7840,10 @@ section.container .heading, section.container .heading-text {
   margin-top: 2em;
 }
 
+small {
+  display: block;
+}
+
 form input[type=checkbox] {
   float: left;
   margin-top: 4px;
@@ -7855,8 +7859,7 @@ form input[type=checkbox] {
 }
 
 .bold-text {
-  font-weight: bolder;
-  text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000;
+  font-weight: bold;
 }
 
 .booking-details, .cancellation-details {

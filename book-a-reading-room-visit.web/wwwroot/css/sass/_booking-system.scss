@@ -17,6 +17,10 @@ section.container {
     }
 }
 
+small {
+    display: block;
+}
+
 form {
     input[type=checkbox] {
         float: left;
@@ -34,8 +38,7 @@ form {
 }
 
 .bold-text {
-    font-weight: bolder;
-    text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000
+    font-weight: bold;
 }
 
 .booking-details, .cancellation-details {
