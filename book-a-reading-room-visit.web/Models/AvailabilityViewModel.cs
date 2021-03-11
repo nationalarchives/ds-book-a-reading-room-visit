@@ -1,12 +1,13 @@
-﻿using System;
+﻿using book_a_reading_room_visit.domain;
+using System;
 using System.Collections.Generic;
 
 namespace book_a_reading_room_visit.web.Models
 {
     public class AvailabilityViewModel
     {
-        public OrderType OrderType { get; set; }
-        public RoomType RoomType { get; set; }
+        public BookingTypes BookingType { get; set; }
+        public SeatTypes SeatType { get; set; }
         public List<AvailableSeat> AvailableBookings { get; set; }
 
     }
@@ -21,14 +22,6 @@ namespace book_a_reading_room_visit.web.Models
             get
             {
                 return $"{Date:dddd dd MMMM}";
-            }
-        }
-
-        public string ToURLDate
-        {
-            get
-            {
-                return $"{Date:yyyy-MM-dd}";
             }
         }
     }

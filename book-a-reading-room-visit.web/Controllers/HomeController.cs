@@ -1,12 +1,10 @@
 ﻿using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Controllers
@@ -30,15 +28,14 @@ namespace book_a_reading_room_visit.web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Availability(string orderType)
+        public async Task<IActionResult> Availability(string bookingType)
         {
-            var seatType = orderType.ToOrderType() == OrderType.StandardOrderVisit ? SeatTypes.StdRRSeat : SeatTypes.BulkOrderSeat;
-            var roomType = orderType.ToOrderType() == OrderType.StandardOrderVisit ? RoomType.StandardReadingRoom : RoomType.None;
+            var seatType = bookingType.ToBookingType() == BookingTypes.StandardOrderVisit ? SeatTypes.StdRRSeat : SeatTypes.BulkOrderSeat;
 
             var model = new AvailabilityViewModel
             {
-                OrderType = orderType.ToOrderType(),
-                RoomType = roomType,
+                BookingType = bookingType.ToBookingType(),
+                SeatType = seatType,
                 AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
             };
 
@@ -46,17 +43,12 @@ namespace book_a_reading_room_visit.web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Availability(string orderType, RoomType roomType)
+        public async Task<IActionResult> Availability(string bookingType, SeatTypes seatType)
         {
-            var seatType = SeatTypes.BulkOrderSeat;
-            if (orderType.ToOrderType() == OrderType.StandardOrderVisit)
-            {
-                seatType = roomType == RoomType.StandardReadingRoom ? SeatTypes.StdRRSeat : SeatTypes.MandLRR;
-            }
             var model = new AvailabilityViewModel
             {
-                RoomType = roomType,
-                OrderType = orderType.ToOrderType(),
+                BookingType = bookingType.ToBookingType(),
+                SeatType = seatType,
                 AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
             };
 

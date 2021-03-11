@@ -10,7 +10,7 @@ using book_a_reading_room_visit.data;
 namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210305085806_InitialCreate")]
+    [Migration("20210311111937_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.Property<int>("BookingStatusId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BookingTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,9 +63,6 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsNoShow")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsStandardVisit")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
@@ -93,6 +93,8 @@ namespace book_a_reading_room_visit.data.Migrations
 
                     b.HasIndex("BookingStatusId");
 
+                    b.HasIndex("BookingTypeId");
+
                     b.HasIndex("SeatId");
 
                     b.ToTable("Bookings");
@@ -111,6 +113,21 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BookingStatus");
+                });
+
+            modelBuilder.Entity("book_a_reading_room_visit.domain.BookingType", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookingType");
                 });
 
             modelBuilder.Entity("book_a_reading_room_visit.domain.OrderDocument", b =>
@@ -206,6 +223,12 @@ namespace book_a_reading_room_visit.data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("book_a_reading_room_visit.domain.BookingType", "BookingType")
+                        .WithMany()
+                        .HasForeignKey("BookingTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("book_a_reading_room_visit.domain.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatId")
@@ -213,6 +236,8 @@ namespace book_a_reading_room_visit.data.Migrations
                         .IsRequired();
 
                     b.Navigation("BookingStatus");
+
+                    b.Navigation("BookingType");
 
                     b.Navigation("Seat");
                 });

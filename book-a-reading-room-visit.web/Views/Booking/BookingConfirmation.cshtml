@@ -1,4 +1,6 @@
-﻿@using book_a_reading_room_visit.web.Models;
+﻿@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
 @{
     ViewData["Title"] = "Booking confirmation";
 }
@@ -60,7 +62,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <span class="col-md-6">
-                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", new { orderType = @Model.OrderType.ToStringURL() } )">Continue booking now</a>
+                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL() } )">Continue booking now</a>
                     </span>
 
                     <span class="col-md-6">

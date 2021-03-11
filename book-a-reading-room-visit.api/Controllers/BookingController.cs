@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.api.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
-        private IBookingService _bookingService;
+        private readonly IBookingService _bookingService;
 
         public BookingController(IBookingService bookingService)
         {
@@ -22,6 +22,13 @@ namespace book_a_reading_room_visit.api.Controllers
         public async Task<ActionResult<Booking>> GetBookings([FromQuery]BookingSearchModel bookingSearchModel)
         {
             var result = await _bookingService.GetBookingSummaryAsync(bookingSearchModel);
+            return Ok(result);
+        }
+
+        [HttpPost("create")]
+        public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
+        {
+            var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }
     }

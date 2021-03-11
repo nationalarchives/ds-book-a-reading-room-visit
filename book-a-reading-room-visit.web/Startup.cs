@@ -77,27 +77,27 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "availability",
-                    pattern: "{ordertype}/availability",
+                    pattern: "{bookingtype}/availability",
                     new { controller = "Home", action = "Availability" });
 
                 endpoints.MapControllerRoute(
                     name: "secure-booking",
-                    pattern: "{ordertype}/secure-booking",
+                    pattern: "{bookingtype}/secure-booking",
                     new { controller = "Booking", action = "SecureBooking" });
 
                 endpoints.MapControllerRoute(
                     name: "booking-confirmation",
-                    pattern: "{ordertype}/booking-confirmation",
+                    pattern: "{bookingtype}/booking-confirmation",
                     new { controller = "Booking", action = "BookingConfirmation" });
 
                 endpoints.MapControllerRoute(
                     name: "order-documents",
-                    pattern: "{ordertype}/order-documents",
+                    pattern: "{bookingtype}/order-documents",
                     new { controller = "DocumentOrder", action = "OrderDocuments" });
 
                 endpoints.MapControllerRoute(
                     name: "document-order",
-                    pattern: "{ordertype}/document-order/{bookingreference}",
+                    pattern: "{bookingtype}/document-order/{bookingreference}",
                     new { controller = "DocumentOrder", action = "DocumentOrder" });
             });
         }

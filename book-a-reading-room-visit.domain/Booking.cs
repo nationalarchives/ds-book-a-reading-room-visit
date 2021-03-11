@@ -7,7 +7,8 @@ namespace book_a_reading_room_visit.domain
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public string BookingReference { get; set; }
-        public bool IsStandardVisit { get; set; }
+        public int BookingTypeId { get; set; }
+        public BookingType BookingType { get; set; }
         public bool IsAcceptTsAndCs { get; set; }
         public bool IsAcceptCovidCharter { get; set; }
         public bool IsNoShow { get; set; }
