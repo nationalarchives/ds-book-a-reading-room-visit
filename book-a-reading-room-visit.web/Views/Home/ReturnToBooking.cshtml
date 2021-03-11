@@ -1,0 +1,61 @@
+﻿@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+
+@{
+    ViewData["Title"] = "Return to your booking";
+}
+
+<h1 class="display-4">Return to your booking</h1>
+
+<div class="text-center">
+
+    <section class="container">
+
+        <section class="heading align-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        If you have already reserved a space, you can use the form below to find your document order form.
+                        You will need to complete your document order at least <span class="bold-text">
+                        4 working days before your date of visit</span>. If you do not complete this step your visit will be
+                        automatically cancelled.
+                    </p>
+                    <p>
+                        You can return to amend or complete your document order at any point before the deadline. Once this date has
+                        passed, you can't change your document order as we will begin preparing your order for your visit.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="rtn-to-booking">
+            <div class="row">
+                <div class="col-md-12 align-left">
+                    <form action="#" class="rtn-to-booking-form">
+                        <fieldset>
+                            <legend><label for="reference-number">Enter your booking reference number</label></legend>
+                            <p>
+                                This will have been shown on screen when you reserved your space or sent in your confirmation email, e.g. 1234567
+                            </p>
+
+                            <input id="reference-number" name="reference-number" type="text" />
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><label for="reader-ticket-number">Enter your reader’s ticket number</label></legend>
+                            <p>
+                                This can be found on your reader’s ticket, e.g. 102087
+                            </p>
+
+                            <input id="reader-ticket-number" name="reader-ticket-number" type="text" />
+                        </fieldset>
+
+                        <button type="submit" class="button">Return to your form ></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </section>
+</div>
