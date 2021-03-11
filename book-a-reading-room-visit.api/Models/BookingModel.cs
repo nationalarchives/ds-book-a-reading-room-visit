@@ -9,7 +9,7 @@ namespace book_a_reading_room_visit.api.Models
     public class BookingModel
     {
         public string BookingReference { get; set; }
-        public bool IsStandardVisit  { get; set; }
+        public BookingTypes BookingType  { get; set; }
         public SeatTypes SeatType { get; set; }
         public DateTime BookingStartDate { get; set; }
         public DateTime BookingEndDate { get; set; }

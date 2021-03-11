@@ -26,7 +26,7 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
+        public async Task<ActionResult<BookingResponseModel>> CreateBooking(BookingModel bookingModel)
         {
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);

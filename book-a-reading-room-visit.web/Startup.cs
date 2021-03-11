@@ -36,6 +36,12 @@ namespace book_a_reading_room_visit.web
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
 
+            services.AddHttpClient<IBookingService, BookingService>(c =>
+            {
+                c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("KBS_WebApi_URL"));
+                c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            });
+
             services.AddScoped<AvailabilityService>();
             services.AddMvc(options =>
             {
