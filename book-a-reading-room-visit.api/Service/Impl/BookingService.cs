@@ -46,6 +46,7 @@ namespace book_a_reading_room_visit.api.Service
                                         join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.BookingStartDate)
                                         on seat.Id equals booking.SeatId into lj
                                         from subseat in lj.DefaultIfEmpty()
+                                        where subseat == null
                                         select seat).FirstOrDefaultAsync();
 
             if (seatAvailable?.Id == null)
