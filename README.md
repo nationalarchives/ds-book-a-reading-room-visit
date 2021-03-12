@@ -12,6 +12,7 @@ Download and install:
 - .NET Core 5.0
 - Docker Desktop
 - SQL Server Express version at least
+- Azure Data Studio (for Mac users, optional)
 
 ### Windows setup instructions
 1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
