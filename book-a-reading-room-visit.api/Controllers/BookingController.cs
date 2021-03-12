@@ -31,5 +31,20 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Booking>> Get(int bookingId)
+        {
+            var booking = await _bookingService.GetBookingById(bookingId);
+
+            if (booking != null)
+            {
+                return Ok(booking);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
