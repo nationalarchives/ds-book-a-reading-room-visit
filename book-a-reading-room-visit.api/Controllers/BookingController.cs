@@ -46,5 +46,21 @@ namespace book_a_reading_room_visit.api.Controllers
                 return NotFound();
             }
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int bookingId)
+        {
+            bool result = await _bookingService.DeleteBooking(bookingId);
+
+            if(result)
+            {
+                return Ok($"Booking with ID {bookingId} deleted successfully.");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }            
+
     }
 }

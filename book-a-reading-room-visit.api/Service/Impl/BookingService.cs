@@ -2,9 +2,11 @@
 using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -76,6 +78,17 @@ namespace book_a_reading_room_visit.api.Service
                 .FirstOrDefaultAsync(b => b.BookingReference == bookingReference);
 
             return booking;
+        }
+
+        public async Task<bool> DeleteBooking(int bookingId)
+        {
+            var output = new SqlParameter();
+            output.ParameterName = "@deleteCount";
+            output.SqlDbType = SqlDbType.Int;
+            output.Direction = ParameterDirection.Output;
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"EXEC dbo.proc_delete_booking_by_id @bookingId={bookingId},@deleteCount={output} OUT");
+            return Convert.ToInt32(output.Value) == 1;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace book_a_reading_room_visit.api.Service
         Task<string> CreateBookingAsync(BookingModel bookingModel);
         Task<List<Booking>> GetBookingSummaryAsync(BookingSearchModel bookingSearchModel);
         Task<Booking> GetBookingByReference(string bookingReference);
+
+        Task<bool> DeleteBooking(int bookingId);
     }
 }
