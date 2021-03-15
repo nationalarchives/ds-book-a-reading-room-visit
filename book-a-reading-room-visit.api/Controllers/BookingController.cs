@@ -32,10 +32,25 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Booking>> Get(string bookingReference)
+        [HttpGet("FindByReference")]
+        public async Task<ActionResult<Booking>> FindByReference(string bookingReference)
         {
             var booking = await _bookingService.GetBookingByReference(bookingReference);
+
+            if (booking != null)
+            {
+                return Ok(booking);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Booking>> Get(int bookingId)
+        {
+            var booking = await _bookingService.GetBookingById(bookingId);
 
             if (booking != null)
             {
