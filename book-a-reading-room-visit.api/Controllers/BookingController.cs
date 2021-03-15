@@ -48,6 +48,7 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet]
+        [Route("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
         {
             var booking = await _bookingService.GetBookingById(bookingId);
