@@ -66,14 +66,14 @@ namespace book_a_reading_room_visit.api.Service
             return bookingReference;
         }
 
-        public async Task<Booking> GetBookingById(int bookingId)
+        public async Task<Booking> GetBookingByReference(string bookingReference)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
                 .Include(b => b.Seat).ThenInclude(s => s.SeatType)
-                //.Include(b => b.OrderDocuments)
+                .Include(b => b.OrderDocuments)
                 .TagWith<Booking>("Find Booking by ID")
-                .FirstOrDefaultAsync(b => b.Id == bookingId);
+                .FirstOrDefaultAsync(b => b.BookingReference == bookingReference);
 
             return booking;
         }
