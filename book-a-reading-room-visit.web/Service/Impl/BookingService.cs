@@ -21,5 +21,13 @@ namespace book_a_reading_room_visit.web.Service
             var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
             return result;
         }
+
+        public async Task<BookingResponseModel> UpdateBookingAsync(BookingViewModel bookingViewModel)
+        {
+            var response = await _client.PostAsJsonAsync("booking/update-reader-ticket", bookingViewModel);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
+            return result;
+        }
     }
 }

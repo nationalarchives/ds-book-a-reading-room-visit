@@ -1,10 +1,12 @@
 using System;
 using System.Net.Http.Headers;
+using System.ServiceModel;
+using System.Xml;
+using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +28,10 @@ namespace book_a_reading_room_visit.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new BookingModelBinderProvider());
+            });
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-Web/DataProtection");
 
@@ -41,6 +46,9 @@ namespace book_a_reading_room_visit.web
                 c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("KBS_WebApi_URL"));
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
+
+            var wcfEndPoint = Configuration.GetSection("Services:AdvanceServiceEndPoint").Value;
+            services.AddSingleton(s => new ChannelFactory<IAdvancedOrderService>(new BasicHttpBinding(), new EndpointAddress(wcfEndPoint)));
 
             services.AddScoped<AvailabilityService>();
             services.AddMvc(options =>
@@ -92,19 +100,24 @@ namespace book_a_reading_room_visit.web
                     new { controller = "Booking", action = "SecureBooking" });
 
                 endpoints.MapControllerRoute(
+                    name: "check-ticket",
+                    pattern: "{bookingtype}/secure-booking/check-ticket",
+                    new { controller = "Booking", action = "CheckReaderTicket" });
+
+                endpoints.MapControllerRoute(
                     name: "booking-confirmation",
                     pattern: "{bookingtype}/booking-confirmation",
                     new { controller = "Booking", action = "BookingConfirmation" });
 
                 endpoints.MapControllerRoute(
                     name: "order-documents",
-                    pattern: "{bookingtype}/order-documents",
+                    pattern: "{bookingtype}/order-documents/{readerticket}/{bookingreference}",
                     new { controller = "DocumentOrder", action = "OrderDocuments" });
 
                 endpoints.MapControllerRoute(
                     name: "document-order",
-                    pattern: "{bookingtype}/document-order/{bookingreference}",
-                    new { controller = "DocumentOrder", action = "DocumentOrder" });
+                    pattern: "{bookingtype}/document-order/{readerticket}/{bookingreference}",
+                    new { controller = "DocumentOrder", action = "OrderComplete" });
 
                 endpoints.MapControllerRoute(
                     name: "cancel-booking",

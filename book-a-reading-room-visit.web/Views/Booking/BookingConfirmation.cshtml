@@ -34,9 +34,19 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="prompt-grey">
-                        <p>Standard order - Saturday 13 February</p>
+                        <p>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order" : "Bulk order") - @($"{Model.BookingStartDate:dddd dd MMMM}")</p>
 
-                        <p>Standard document reading room (with a camera stand) </p>
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            if (Model.SeatType == SeatTypes.StdRRSeat)
+                            {
+                                <p>Standard document reading room</p>
+                            }
+                            else
+                            {
+                                <p>Map and large document reading room</p>
+                            }
+                        }
 
                         <p>
                             You will need to specify which documents you would like to see by
@@ -51,7 +61,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <p>
-                        We have sent you email confirming your reservation to the email address associated with your reader’s ticket.
+                        We have sent you email confirming your reservation to @Model.Email.
                         You can access the document order form at any time from the link provided in the email.
                     </p>
                 </div>
@@ -62,7 +72,8 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <span class="col-md-6">
-                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL() } )">Continue booking now</a>
+                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder", 
+                                                new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReadingTicket } )">Continue booking now</a>
                     </span>
 
                     <span class="col-md-6">

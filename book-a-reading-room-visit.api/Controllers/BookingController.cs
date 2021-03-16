@@ -19,9 +19,9 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<Booking>> GetBookings([FromQuery]BookingSearchModel bookingSearchModel)
+        public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
         {
-            var result = await _bookingService.GetBookingSummaryAsync(bookingSearchModel);
+            var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
         }
 
@@ -29,6 +29,13 @@ namespace book_a_reading_room_visit.api.Controllers
         public async Task<ActionResult<BookingResponseModel>> CreateBooking(BookingModel bookingModel)
         {
             var result = await _bookingService.CreateBookingAsync(bookingModel);
+            return Ok(result);
+        }
+
+        [HttpPost("update-reader-ticket")]
+        public async Task<ActionResult<BookingResponseModel>> UpdateReaderTicket(BookingModel bookingModel)
+        {
+            var result = await _bookingService.UpdateReaderTicketAsync(bookingModel);
             return Ok(result);
         }
     }
