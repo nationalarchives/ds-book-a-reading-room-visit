@@ -93,5 +93,15 @@ namespace book_a_reading_room_visit.api.Service
                         from subseat in lj.DefaultIfEmpty()
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
+
+        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn)
+        {
+            return await(from seat in _context.Set<Seat>()
+                         join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
+                         on seat.Id equals booking.SeatId into lj
+                         from subseat in lj.DefaultIfEmpty()
+                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
+
+        }
     }
 }

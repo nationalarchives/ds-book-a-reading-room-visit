@@ -39,5 +39,12 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _availabilityService.GetAvailabileSeatsAsync(seatType, availableOn);
             return Ok(result);
         }
+
+        [HttpGet("all-seats")]
+        public async Task<ActionResult<List<Seat>>> GetAllAvailabileSeats(DateTime availableOn)
+        {
+            var result = await _availabilityService.GetAllAvailabileSeatsAsync(availableOn);
+            return Ok(result);
+        }
     }
 }
