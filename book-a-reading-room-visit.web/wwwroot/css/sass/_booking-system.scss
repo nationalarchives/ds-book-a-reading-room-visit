@@ -17,6 +17,10 @@ section.container {
     }
 }
 
+small {
+    display: block;
+}
+
 form {
     input[type=checkbox] {
         float: left;
@@ -34,11 +38,10 @@ form {
 }
 
 .bold-text {
-    font-weight: bolder;
-    text-shadow: -0.05px 0 #000, 0 0.05px #000, 0.05px 0 #000, 0 -0.05px #000, -0.05px -0.05px #000, 0.05px 0.05px #000, -0.05px 0.05px #000, 0.05px -0.05px #000
+    font-weight: bold;
 }
 
-.booking-details {
+.booking-details, .cancellation-details {
     margin-bottom: 2em;
     text-align: left;
 
@@ -81,6 +84,13 @@ form {
 
 .button:focus {
     color: #fff;
+}
+
+.cancellation-form {
+    legend {
+        font-size: 20px;
+        margin-bottom: 1.5em;
+    }
 }
 
 .date-selection {
@@ -127,8 +137,12 @@ form {
     float: none;
 }
 
+.no-left-padding {
+    padding-left: 0;
+}
+
 .no-margin {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .order-form {
@@ -248,6 +262,25 @@ form {
     }
 }
 
+.rtn-to-booking-form {
+    button{
+        margin-top: 2em;
+    }
+
+    fieldset {
+        margin-bottom: 2em !important;
+    }
+
+    legend {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+}
+
+.visit-toggler {
+    margin-top: 1em;
+}
+
 #additional-reqs {
     border: 2px solid #26262a;
     min-height: 200px;
@@ -359,7 +392,7 @@ form {
 
 #room-selection-form {
     fieldset {
-        margin-bottom: 2em !important;
+        margin-bottom: 1em !important;
 
         div {
             text-align: left;
@@ -385,6 +418,10 @@ form {
         p {
             margin-bottom: 0.5em
         }
+    }
+
+    button[type=submit] {
+        margin-bottom: 1em;
     }
 
     input[type=checkbox], input[type=radio] {

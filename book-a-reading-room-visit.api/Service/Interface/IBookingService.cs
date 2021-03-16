@@ -7,8 +7,9 @@ namespace book_a_reading_room_visit.api.Service
 {
     public interface IBookingService
     {
-        Task<string> CreateBookingAsync(BookingModel bookingModel);
-        Task<List<Booking>> GetBookingSummaryAsync(BookingSearchModel bookingSearchModel);
+        Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel);
+        Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
+        Task<BookingResponseModel> UpdateReaderTicketAsync(BookingModel bookingModel);
         Task<Booking> GetBookingByReference(string bookingReference);
         Task<Booking> GetBookingById(int bookingId);
     }

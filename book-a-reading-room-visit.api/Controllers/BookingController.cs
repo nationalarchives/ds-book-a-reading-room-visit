@@ -19,14 +19,14 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<Booking>> GetBookings([FromQuery]BookingSearchModel bookingSearchModel)
+        public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
         {
-            var result = await _bookingService.GetBookingSummaryAsync(bookingSearchModel);
+            var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<string>> CreateBooking(BookingModel bookingModel)
+        public async Task<ActionResult<BookingResponseModel>> CreateBooking(BookingModel bookingModel)
         {
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
@@ -61,6 +61,13 @@ namespace book_a_reading_room_visit.api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost("update-reader-ticket")]
+        public async Task<ActionResult<BookingResponseModel>> UpdateReaderTicket(BookingModel bookingModel)
+        {
+            var result = await _bookingService.UpdateReaderTicketAsync(bookingModel);
+            return Ok(result);
         }
     }
 }

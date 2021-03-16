@@ -1,0 +1,47 @@
+﻿@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+
+@{
+    ViewData["Title"] = "Cancel your visit";
+}
+
+<h1 class="display-4">Cancel your visit</h1>
+
+<div class="text-center">
+
+    <section class="container">
+
+        <section class="heading align-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        You can cancel your booking any time before your date of visit. If you need to re-book for a different date,
+                        you will need to cancel your current visit and make a new booking.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cancellation">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="@Url.Action("CancellationConfirmation", "Booking")" class="cancellation-form align-left">
+                        <fieldset>
+                            <legend>Are you sure you want to cancel your visit for Monday 30 March 2021?</legend>
+
+                            <span class="col-md-4 col-sm-6 no-left-padding">
+                                <a class="button primary" href="#">No - take me to the order form</a>
+                            </span>
+
+                            <span class="col-md-4 col-sm-6 no-left-padding">
+                                <button type="submit" class="button">Yes - cancel my visit</button>
+                            </span>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </section>
+</div>

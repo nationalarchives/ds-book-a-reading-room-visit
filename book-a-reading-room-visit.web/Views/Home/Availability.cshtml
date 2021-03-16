@@ -28,7 +28,7 @@
 
         <section>
             <div class="row">
-                <section id="room-selection">
+                <section id="room-selection" class="align-left">
                     <div class="col-md-4 col-sm-4">
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
@@ -40,10 +40,14 @@
                             <h2 class="align-left">Bulk visit availability</h2>
                         }
 
+                        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                        {
+                            <span>@Model.ErrorMessage</span>
+                        }
+
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
-                            <form id="room-selection-form" class="align-left" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                @Html.AntiForgeryToken()
+                            <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
                                 <fieldset>
                                     <legend class="sr-only">Select reading room</legend>
 
@@ -61,7 +65,26 @@
                                 <button class="button" type="submit">Update</button>
                             </form>
                         }
+
+                        <div class="prompt-white">
+                            <p class="no-margin">
+                                Camera stands are now provided for all seats in our reading rooms
+                            </p>
+                        </div>
+
+                        <div class="visit-toggler">
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Bulk visit availability ></a>
+                            }
+
+                            else
+                            {
+                                <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Standard visit availability ></a>
+                            }
+                        </div>
                     </div>
+
                 </section>
 
                 <section id="date-selection">
@@ -70,17 +93,27 @@
                             @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                             {
                                 <li class="date">
-                                    <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                        @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(Model => Model.SeatType)
-                                        @Html.Hidden("bookingDate", Model.AvailableBookings[index].Date)
-                                        <button class="button" type="submit">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                                <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                            </div>
-                                        </button>
-                                    </form>
+                                    @if (Model.AvailableBookings[index].AvailableSeats == 0)
+                                    {
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                            <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(Model => Model.SeatType)
+                                            @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date)
+                                            <button class="button" type="submit">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    }
                                 </li>
                             }
                         </ul>
