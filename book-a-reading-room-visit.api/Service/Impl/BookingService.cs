@@ -29,12 +29,13 @@ namespace book_a_reading_room_visit.api.Service
                 dateComponent = bookingSearchModel.Date.Value.Date;
             }
 
-            var bookings = await _context.Bookings.Where(b =>
-                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference == b.BookingReference) &&
+            var bookings = await _context.Bookings.AsNoTracking<Booking>().Where(b =>
+                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference  == b.BookingReference) &&
                                             (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
                                             (dateComponent == null || dateComponent == b.VisitStartDate.Date)
-                                            ).TagWith<Booking>("Search of Bookings").ToListAsync();
-
+                                            ).Include(b => b.BookingStatus).Include(b => b.Seat).ThenInclude(s => s.SeatType)
+                                            .TagWith<Booking>("Search of Bookings").ToListAsync();
+            
             return bookings;
         }
 
