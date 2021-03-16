@@ -72,10 +72,11 @@ namespace book_a_reading_room_visit.api.Service
                 .Include(b => b.BookingStatus)
                 .Include(b => b.Seat).ThenInclude(s => s.SeatType)
                 .Include(b => b.OrderDocuments)
-                .TagWith<Booking>("Find Booking by ID")
+                .TagWith<Booking>("Find Booking by Reference")
                 .FirstOrDefaultAsync(b => b.BookingReference == bookingReference);
 
-            return booking;
+            var bookingToReturn = GetSerialisedBooking(booking);
+            return bookingToReturn;
         }
 
         public async Task<Booking> GetBookingById(int bookingId)
@@ -87,7 +88,63 @@ namespace book_a_reading_room_visit.api.Service
                 .TagWith<Booking>("Find Booking by ID")
                 .FirstOrDefaultAsync(b => b.Id == bookingId);
 
-            return booking;
+            var bookingToReturn = GetSerialisedBooking(booking);
+            return bookingToReturn;
+        }
+
+        /// <summary>
+        /// Creates a booking with the circular reference from OrderDocument back to booking removed.
+        /// This works around an issue with the default Json serializer.
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        private Booking GetSerialisedBooking(Booking booking)
+        {
+            var result = new Booking()
+            {
+                Id = booking.Id,
+                BookingReference = booking.BookingReference,
+                BookingStatus = booking.BookingStatus,
+                BookingStatusId = booking.BookingStatusId,
+                AdditionalRequirements = booking.AdditionalRequirements,
+                Comments = booking.Comments,
+                BookingType = booking.BookingType,
+                BookingTypeId = booking.BookingTypeId,
+                Email = booking.Email,
+                Phone = booking.Phone,
+                FirstName = booking.FirstName,
+                LastName = booking.LastName,
+                ReaderTicket = booking.ReaderTicket,
+                VisitStartDate = booking.VisitStartDate,
+                VisitEndDate = booking.VisitEndDate,
+                SeatId = booking.SeatId,
+                Seat = booking.Seat,
+                IsAcceptCovidCharter = booking.IsAcceptCovidCharter,
+                IsAcceptTsAndCs = booking.IsAcceptTsAndCs,
+                IsNoShow = booking.IsNoShow,
+                CreatedDate = booking.CreatedDate,
+                LastModifiedBy = booking.LastModifiedBy,
+                OrderDocuments = new List<OrderDocument>()
+            };
+
+            foreach (OrderDocument o in booking.OrderDocuments)
+            {
+                result.OrderDocuments.Add(new OrderDocument()
+                {
+                    ClassNumber = o.ClassNumber,
+                    DocumentReference = o.DocumentReference,
+                    Id = o.Id,
+                    IsReserve = o.IsReserve,
+                    ItemReference = o.ItemReference,
+                    LetterCode = o.LetterCode,
+                    PieceId = o.PieceId,
+                    PieceReference = o.PieceReference,
+                    Site = o.Site,
+                    SubClassNumber = o.SubClassNumber
+                });
+            }
+
+            return result;
         }
     }
 }

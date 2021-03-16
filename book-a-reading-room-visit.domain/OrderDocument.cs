@@ -6,8 +6,6 @@ namespace book_a_reading_room_visit.domain
     {
         public int Id { get; set; }
         public string DocumentReference { get; set; }
-
-        [JsonIgnore]
         public Booking Booking { get; set; }
         public string LetterCode { get; set; }
         public int ClassNumber { get; set; }
