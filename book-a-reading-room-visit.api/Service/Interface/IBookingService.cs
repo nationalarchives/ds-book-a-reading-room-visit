@@ -9,6 +9,6 @@ namespace book_a_reading_room_visit.api.Service
     {
         Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel);
         Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
-        Task<BookingResponseModel> UpdateReaderTicketAsync(BookingModel bookingModel);
+        Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel);
     }
 }

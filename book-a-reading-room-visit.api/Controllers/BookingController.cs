@@ -32,10 +32,10 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("update-reader-ticket")]
-        public async Task<ActionResult<BookingResponseModel>> UpdateReaderTicket(BookingModel bookingModel)
+        [HttpPost("confirm")]
+        public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
         {
-            var result = await _bookingService.UpdateReaderTicketAsync(bookingModel);
+            var result = await _bookingService.ConfirmBookingAsync(bookingModel);
             return Ok(result);
         }
     }
