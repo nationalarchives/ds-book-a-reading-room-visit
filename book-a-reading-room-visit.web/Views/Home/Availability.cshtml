@@ -40,10 +40,14 @@
                             <h2 class="align-left">Bulk visit availability</h2>
                         }
 
+                        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                        {
+                            <span>@Model.ErrorMessage</span>
+                        }
+
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
-                            <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                @Html.AntiForgeryToken()
+                            <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
                                 <fieldset>
                                     <legend class="sr-only">Select reading room</legend>
 
@@ -89,17 +93,27 @@
                             @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                             {
                                 <li class="date">
-                                    <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                        @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(Model => Model.SeatType)
-                                        @Html.Hidden("bookingDate", Model.AvailableBookings[index].Date)
-                                        <button class="button" type="submit">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                                <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                            </div>
-                                        </button>
-                                    </form>
+                                    @if (Model.AvailableBookings[index].AvailableSeats == 0)
+                                    {
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                            <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(Model => Model.SeatType)
+                                            @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date)
+                                            <button class="button" type="submit">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                                </div>
+                                            </button>
+                                        </form>
+                                    }
                                 </li>
                             }
                         </ul>

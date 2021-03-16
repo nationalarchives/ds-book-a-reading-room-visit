@@ -30,13 +30,15 @@ namespace book_a_reading_room_visit.api
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
 
             services.AddDbContext<BookingContext>(opt =>
-              opt.UseSqlServer(Configuration.GetConnectionString("KewBookingConnection")));
+              opt.UseSqlServer(Configuration.GetConnectionString("KewBookingConnection"))
+                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddMemoryCache();
             services.AddHttpClient<IBankHolidayAPI, BankHolidayAPI>(c =>
             {
                 c.BaseAddress = new Uri(Environment.GetEnvironmentVariable("RecordCopying_WebApi_URL"));
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                c.DefaultRequestHeaders.Host = Environment.GetEnvironmentVariable("RecordCopying_Header");
             });
             services.AddScoped<IWorkingDayService, WorkingDayService>();
             services.AddScoped<IAvailabilityService, AvailabilityService>();

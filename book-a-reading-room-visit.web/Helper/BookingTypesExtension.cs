@@ -19,7 +19,7 @@ namespace book_a_reading_room_visit.web.Helper
 
         public static BookingTypes ToBookingType(this string bookingTypes)
         {
-            switch (bookingTypes.ToLower())
+            switch (bookingTypes?.ToLower())
             {
                 case "bulk-order-visit":
                     return BookingTypes.BulkOrderVisit;

@@ -28,30 +28,19 @@ namespace book_a_reading_room_visit.web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Availability(string bookingType)
+        public async Task<IActionResult> Availability(BookingTypes bookingType, SeatTypes seatType, string errorMessage)
         {
-            var seatType = bookingType.ToBookingType() == BookingTypes.StandardOrderVisit ? SeatTypes.StdRRSeat : SeatTypes.BulkOrderSeat;
-
+            if (seatType == default(SeatTypes))
+            {
+                seatType = bookingType == BookingTypes.StandardOrderVisit ? SeatTypes.StdRRSeat : SeatTypes.BulkOrderSeat;
+            }
             var model = new AvailabilityViewModel
             {
-                BookingType = bookingType.ToBookingType(),
+                BookingType = bookingType,
                 SeatType = seatType,
-                AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
+                AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType),
+                ErrorMessage = errorMessage
             };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Availability(string bookingType, SeatTypes seatType)
-        {
-            var model = new AvailabilityViewModel
-            {
-                BookingType = bookingType.ToBookingType(),
-                SeatType = seatType,
-                AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType)
-            };
-
             return View(model);
         }
 

@@ -1,5 +1,7 @@
 ﻿using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.web.Helper;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace book_a_reading_room_visit.web.Models
 {
@@ -10,5 +12,24 @@ namespace book_a_reading_room_visit.web.Models
         public SeatTypes SeatType { get; set; }
         public DateTime BookingStartDate { get; set; }
         public DateTime BookingEndDate { get; set; }
+        public bool AcceptTsAndCs { get; set; }
+        public bool AcceptCovidCharter { get; set; }
+        public string Ticket { get; set; }
+
+        public int ReadingTicket { 
+            get
+            {
+                if (int.TryParse(Ticket?.ToLower()?.Replace("t", "-"), out int ticket))
+                {
+                    return ticket;
+                }
+                return 0;
+            }
+        }
+        [EmailAddress]
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

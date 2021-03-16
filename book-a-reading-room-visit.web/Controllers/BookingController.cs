@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Controllers
@@ -13,43 +14,85 @@ namespace book_a_reading_room_visit.web.Controllers
     public class BookingController : Controller
     {
         private readonly IBookingService _bookingService;
+        private IAdvancedOrderService _advancedOrderService;
+        private readonly IAvailabilityService _availabilityService;
 
-        public BookingController(IBookingService bookingService)
+        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService, ChannelFactory<IAdvancedOrderService> channelFactory)
         {
             _bookingService = bookingService;
+            _availabilityService = availabilityService;
+            _advancedOrderService = channelFactory.CreateChannel();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SecureBooking(string bookingType, SeatTypes seatType, string bookingDate)
+        public async Task<IActionResult> SecureBooking(BookingViewModel bookingViewModel)
         {
-            var model = new BookingViewModel
-            {
-                BookingType = bookingType.ToBookingType(),
-                SeatType = seatType,
-                BookingStartDate = DateTime.Parse(bookingDate),
-                BookingEndDate = bookingType.ToBookingType() == BookingTypes.StandardOrderVisit ? DateTime.Parse(bookingDate) : DateTime.Parse(bookingDate).AddDays(1)
-            };
+            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ? 
+                                              bookingViewModel.BookingStartDate : bookingViewModel.BookingStartDate.AddDays(1);
 
-            var result = await _bookingService.CreateBookingAsync(model);
+            var result = await _bookingService.CreateBookingAsync(bookingViewModel);
 
             if (!result.IsSuccess)
             {
-
+                var routeValues = new { 
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(), 
+                    seattype = bookingViewModel.SeatType, 
+                    errormessage = "There is no seat available for the given date, please choose a different date" 
+                };
+                return RedirectToAction("Availability", "Home", routeValues);
             }
-            model.BookingReference = result.BookingReference;
+            bookingViewModel.BookingReference = result.BookingReference;
 
-            return View(model);
+            return View(bookingViewModel);
         }
 
-        public IActionResult BookingConfirmation(string bookingType, string bookingReference)
+        [HttpPost]
+        public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel, string submitbutton)
         {
-            var model = new BookingViewModel
+            if (submitbutton == "cancel")
             {
-                BookingType = bookingType.ToBookingType(),
-                BookingReference = bookingReference
-            };
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
+                    seattype = bookingViewModel.SeatType
+                };
+                return RedirectToAction("Availability", "Home", routeValues);
+            }
 
-            return View(model);
+            if (bookingViewModel.ReadingTicket == 0)
+            {
+                ModelState.AddModelError("Ticket", "Valid reader ticket required.");
+            }
+
+            var visitorDetails = _advancedOrderService.GetVisitorDetailsByTicketNo(bookingViewModel.ReadingTicket.ToString());
+            if (visitorDetails?.ReaderTicket == null)
+            {
+                ModelState.AddModelError("Ticket", "Valid reader ticket required.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("SecureBooking", bookingViewModel);
+            }
+
+            bookingViewModel.FirstName = visitorDetails.Firstname;
+            bookingViewModel.LastName = visitorDetails.Lastname;
+            bookingViewModel.Phone = visitorDetails.Phone;
+
+            var result = await _bookingService.UpdateBookingAsync(bookingViewModel);
+
+            if (!result.IsSuccess)
+            {
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
+                    seattype = bookingViewModel.SeatType,
+                    errormessage = "There is no seat available for the given date, please choose a different date"
+                };
+                return RedirectToAction("Availability", "Home", routeValues);
+            }
+
+            return View(bookingViewModel);
         }
 
         public IActionResult CancelBooking()
