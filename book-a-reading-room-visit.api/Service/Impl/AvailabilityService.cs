@@ -1,4 +1,5 @@
-﻿using book_a_reading_room_visit.api.Models;
+﻿using book_a_reading_room_visit.api.Helper;
+using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
 using Microsoft.EntityFrameworkCore;
@@ -94,9 +95,25 @@ namespace book_a_reading_room_visit.api.Service
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
-        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn)
+        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, int visitDuration)
         {
-            return await(from seat in _context.Set<Seat>()
+            if(visitDuration != 1 && visitDuration != 2)
+            {
+                return new List<Seat>();
+            }
+
+            List<int> seatTypes;
+
+            if(visitDuration == 1)
+            {
+                seatTypes = SeatTypeHelper.OneDayVisit.Select(s => (int)s).ToList();
+            }
+            else
+            {
+                seatTypes = SeatTypeHelper.TwoDayVisit.Select(s => (int)s).ToList();
+            }
+
+            return await(from seat in _context.Set<Seat>().Where(s => seatTypes.Contains(s.SeatTypeId))
                          join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
                          on seat.Id equals booking.SeatId into lj
                          from subseat in lj.DefaultIfEmpty()

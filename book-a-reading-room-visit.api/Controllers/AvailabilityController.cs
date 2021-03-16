@@ -41,9 +41,9 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("all-seats")]
-        public async Task<ActionResult<List<Seat>>> GetAllAvailabileSeats(DateTime availableOn)
+        public async Task<ActionResult<List<Seat>>> GetAllAvailabileSeats(DateTime availableOn, int visitDuration)
         {
-            var result = await _availabilityService.GetAllAvailabileSeatsAsync(availableOn);
+            var result = await _availabilityService.GetAllAvailabileSeatsAsync(availableOn, visitDuration);
             return Ok(result);
         }
     }
