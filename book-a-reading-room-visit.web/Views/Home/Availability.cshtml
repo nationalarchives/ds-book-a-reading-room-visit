@@ -103,13 +103,13 @@
                                 {
                                     <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
                                         @Html.AntiForgeryToken()
-                                        @Html.HiddenFor(Model => Model.SeatType)
-                                        @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date)
+                                        @Html.HiddenFor(Model => Model.SeatType, new { id = "" })
+                                        @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date, new { id = "" })
                                         <button class="button" type="submit">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <span class="col-md-12 col-sm-12 col-xs-12">
                                                 <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
                                                 <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                            </div>
+                                            </span>
                                         </button>
                                     </form>
                                 }
