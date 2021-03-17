@@ -32,7 +32,7 @@ Download and install:
 1. Open Visual Studio 2019 for Mac and clone the ds-book-a-reading-room-visit repository
 2. Download SQL Server (detailed instructions here: https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash)
 	- Pull and run the SQL Server 2019 container image by running the following command in the terminal: `sudo docker pull mcr.microsoft.com/mssql/server:2019-latest`
-	- To run the container image with Docker, run the following command
+	- To run the container image with Docker, run the following command (replacing `<InsertPassword>` with your password)
 	`sudo docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<InsertPassword>" \ -p 1433:1433 --name sql1 -h sql1 \ -d mcr.microsoft.com/mssql/server:2019-latest`
 	- To view your Docker containers, run the docker ps command `sudo docker ps -a`
 	- To start a bash shell within your docker container, run `sudo docker exec -it sql1 "bash"`
