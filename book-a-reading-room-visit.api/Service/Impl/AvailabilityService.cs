@@ -92,6 +92,7 @@ namespace book_a_reading_room_visit.api.Service
                         join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
                         on seat.Id equals booking.SeatId into lj
                         from subseat in lj.DefaultIfEmpty()
+                        where subseat == null
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
@@ -102,23 +103,25 @@ namespace book_a_reading_room_visit.api.Service
                 return new List<Seat>();
             }
 
-            List<int> seatTypes;
+            List<int> seatTypesForDuration;
 
             if(visitDuration == 1)
             {
-                seatTypes = SeatTypeHelper.OneDayVisit.Select(s => (int)s).ToList();
+                seatTypesForDuration = SeatTypeHelper.OneDayVisit.Select(s => (int)s).ToList();
             }
             else
             {
-                seatTypes = SeatTypeHelper.TwoDayVisit.Select(s => (int)s).ToList();
+                seatTypesForDuration = SeatTypeHelper.TwoDayVisit.Select(s => (int)s).ToList();
             }
 
-            return await(from seat in _context.Set<Seat>().Where(s => seatTypes.Contains(s.SeatTypeId))
+            var availableSeats = await(from seat in _context.Set<Seat>().Where(s => seatTypesForDuration.Contains(s.SeatTypeId))
                          join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
                          on seat.Id equals booking.SeatId into lj
                          from subseat in lj.DefaultIfEmpty()
+                         where subseat == null
                          select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
 
+            return availableSeats;
         }
     }
 }
