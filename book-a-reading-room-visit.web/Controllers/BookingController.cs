@@ -79,7 +79,7 @@ namespace book_a_reading_room_visit.web.Controllers
             bookingViewModel.LastName = visitorDetails.Lastname;
             bookingViewModel.Phone = visitorDetails.Phone;
 
-            var result = await _bookingService.UpdateBookingAsync(bookingViewModel);
+            var result = await _bookingService.ReserveSpaceAsync(bookingViewModel);
 
             if (!result.IsSuccess)
             {
@@ -87,7 +87,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 {
                     bookingtype = bookingViewModel.BookingType.ToStringURL(),
                     seattype = bookingViewModel.SeatType,
-                    errormessage = "There is no seat available for the given date, please choose a different date"
+                    errormessage = "The selected seat is no longer available, please select again."
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }

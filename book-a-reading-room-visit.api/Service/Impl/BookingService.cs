@@ -79,7 +79,7 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
-        public async Task<BookingResponseModel> UpdateReaderTicketAsync(BookingModel bookingModel)
+        public async Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
 
