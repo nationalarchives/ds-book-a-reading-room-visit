@@ -87,7 +87,7 @@ Download and install:
 	- book-a-reading-room-visit.web changes
 		- BookingController.cs (book-a-reading-room-visit.web > Controllers > BookingController.cs)
 			- Comment out `private IAdvancedOrderService _advancedOrderService` on line 17, `_advancedOrderService = channelFactory.CreateChannel()` on line 24, and `var visitorDetails = _advancedOrderService.GetVisitorDetailsByTicketNo(bookingViewModel.ReadingTicket.ToString())` to `bookingViewModel.Phone = visitorDetails.Phone` on lines 67 - 80
-			- Remove the `ChannelFactory<IAdvancedOrderService> channelFactory` parameter for the BookingController method on line 20
+			- Remove the `ChannelFactory<IAdvancedOrderService> channelFactory` parameter from the BookingController method on line 20
 		- launchSettings.json (book-a-reading-room-visit.web > Properties > launchSettings.json) 
 			- Change the values of all instances of `KBS_Root_Path` to "" (empty string)
 		- Startup.cs (book-a-reading-room-visit.web > Startup.cs)
