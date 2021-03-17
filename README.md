@@ -44,7 +44,7 @@ Download and install:
 3. Run database migration
 	- Add dotnet tools to your PATH with export with `PATH="$PATH:/Users/gwyn/.dotnet/tools"` (replacing `gwyn` with your username)
 	- Install the dotnet-ef tool globally by running `dotnet tool install --global dotnet-ef --version 5.0.4` in the terminal
-	- Run a database migration by running `dotnet ef migrations add ‘migration-name’` (you can put any text where it says `migration-name`)
+	- From the `ds-book-a-reading-room-visit/book-a-reading-room-visit.data` directory run a database migration by running `dotnet ef migrations add ‘migration-name’` (you can put any text where it says `migration-name`)
 	- Update the database by running `dotnet ef database update`
 4. Download Azure Data Studio (https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
 	- Open Azure Data Studio and select localhost
