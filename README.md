@@ -48,8 +48,8 @@ Download and install:
 	- In the Username field, enter `SA`
 	- In the Password field, enter the password you entered when you created the docker image
 	- Click 'Connect'
-	- Navigate to your database on the lefthand pane (localhost > Databases > <Your database>)
-	- Right click on <Your database>
+	- Navigate to your database on the lefthand pane (localhost > Databases > [Your database])
+	- Right click on [Your database]
 	- Click 'New Query'
 	- In Visual Studio, copy and paste the contents of 1.table.sql (book-a-reading-room-visit.data > Script > 1.table.sql) into the query tab in Azure Data Studio
 	- Click 'Run'
