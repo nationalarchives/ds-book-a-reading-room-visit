@@ -12,7 +12,7 @@ Download and install:
 - .NET Core 5.0
 - Docker Desktop
 - SQL Server Express version at least
-- Azure Data Studio (for Mac users, optional)
+- Azure Data Studio (for Mac users)
 
 ### Windows setup instructions
 1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
@@ -42,19 +42,23 @@ Download and install:
 	- To end your sqlcmd session, type `QUIT`
 	- To exit the interactive command-prompt in your container, type `exit`. Your container continues to run after you exit the interactive bash shell
 3. Run database migration
-	- Add dotnet tools to your PATH with export with `PATH="$PATH:/Users/gwyn/.dotnet/tools"` (replacing `gwyn` with your username)
-	- Install the dotnet-ef tool globally by running `dotnet tool install --global dotnet-ef --version 5.0.4` in the terminal
-	- From the `ds-book-a-reading-room-visit/book-a-reading-room-visit.data` directory run a database migration by running `dotnet ef migrations add ‘migration-name’` (you can put any text where it says `migration-name`)
-	- Update the database by running `dotnet ef database update`
-4. Download Azure Data Studio (https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
-	- Open Azure Data Studio and select localhost
-	- Log in using the credentials created in step 2.5
-	- Navigate to the database (localhost > Databases)
+	- Download Azure Data Studio (https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15)
+	- Open Azure Data Studio and select 'New connection'
+	- In the Server field, enter `localhost`
+	- In the Username field, enter `SA`
+	- In the Password field, enter the password you entered when you created the docker image
+	- Click 'Connect'
+	- Navigate to your database on the lefthand pane (localhost > Databases > <Your database>)
+	- Right click on <Your database>
 	- Click 'New Query'
-	- In Visual Studio, copy and paste the contents of 2.look up data.sql (book-a-reading-room-visit.data > Script > 2.look up data.sql) into the SQLQuery_1 tab in Azure Data Studio
+	- In Visual Studio, copy and paste the contents of 1.table.sql (book-a-reading-room-visit.data > Script > 1.table.sql) into the query tab in Azure Data Studio
+	- Click 'Run'
+	- The database should now have the necessary tables (now they need to be populated)
+	- Click 'New Query'
+	- In Visual Studio, copy and paste the contents of 2.look up data.sql (book-a-reading-room-visit.data > Script > 2.look up data.sql) into the query tab in Azure Data Studio
 	- Click 'Run'
 	- The database should now be populated
-5. Connect to the database from within Visual Studio
+4. Connect to the database from within Visual Studio
 	- Navigate to book-a-reading-room-visit.api > appsettings.json > appsettings.Development.json
 	- Paste the following code after the Logging object on line 2:
 ```
@@ -68,12 +72,26 @@ Download and install:
   },
   "AllowedHosts": "*"
   ```
-6. Setup startup projects
-	- 6.1 In Visual Studio, from the toolpane, navigate to Project > Set Startup Projects
-	- 6.2 Navigate to Run and click 'New'
-	- 6.3 Name the startup project
-	- 6.4 Double click on the newly created startup project and select book-a-reading-room-visit.api and book-a-reading-room-visit.web
-	- 6.5 The solution should be ready to run. In VS click the Start button to run. The API will open in a browser showing the swagger page and the Web app will open in another browser window.
+5. Setup startup projects
+	- In Visual Studio, from the toolpane, navigate to Project > Set Startup Projects
+	- Navigate to Run and click 'New'
+	- Name the startup project
+	- Double click on the newly created startup project and select book-a-reading-room-visit.api and book-a-reading-room-visit.web
+	- The solution should be ready to run. In VS click the Start button to run. The API will open in a browser showing the swagger page and the Web app will open in another browser window.
+6. Additional steps for Mac users
+	- book-a-reading-room-visit.api changes
+		- launchSettings.json (book-a-reading-room-visit.api > Properties > launchSettings.json) 
+			- Change the values of all instances of `RecordCopying_WebApi_URL` to `http://localhost:8086/home/`
+		- Startup.cs (book-a-reading-room-visit.api > Startup.cs) 
+			- Comment out `services.AddDefaultAWSOptions(Configuration.GetAWSOptions())` on line 29 and `services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection")` on line 30
+	- book-a-reading-room-visit.web changes
+		- BookingController.cs (book-a-reading-room-visit.web > Controllers > BookingController.cs)
+			- Comment out `private IAdvancedOrderService _advancedOrderService` on line 17, `_advancedOrderService = channelFactory.CreateChannel()` on line 24, and `var visitorDetails = _advancedOrderService.GetVisitorDetailsByTicketNo(bookingViewModel.ReadingTicket.ToString())` to `bookingViewModel.Phone = visitorDetails.Phone` on lines 67 - 80
+			- Remove the `ChannelFactory<IAdvancedOrderService> channelFactory` parameter for the BookingController method on line 20
+		- launchSettings.json (book-a-reading-room-visit.web > Properties > launchSettings.json) 
+			- Change the values of all instances of `KBS_Root_Path` to "" (empty string)
+		- Startup.cs (book-a-reading-room-visit.web > Startup.cs)
+			- Comment out `services.AddDefaultAWSOptions(Configuration.GetAWSOptions())` on line 35 and `services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection")` on line 36
 
 ### Dummy data setup instructions
 The application hooks into existing APIs to get "onprem" data, such as reader's ticket data and DSD holidays. By default the code is set to get the data through the APIs hosted on the on-prem application servers, which for security reasons are only available from the TNA network so not available from home etc. The dummy data and API for DSD holidays has been created in a docker image on a public docker hub. If working offsite you will have to follow these steps to run the application locally.
