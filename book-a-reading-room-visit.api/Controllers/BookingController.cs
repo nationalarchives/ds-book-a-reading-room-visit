@@ -35,7 +35,7 @@ namespace book_a_reading_room_visit.api.Controllers
         [HttpGet("FindByReference")]
         public async Task<ActionResult<Booking>> FindByReference(string bookingReference)
         {
-            var booking = await _bookingService.GetBookingByReference(bookingReference);
+            var booking = await _bookingService.GetBookingByReferenceAsync(bookingReference);
 
             if (booking != null)
             {
@@ -51,7 +51,7 @@ namespace book_a_reading_room_visit.api.Controllers
         [Route("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
         {
-            var booking = await _bookingService.GetBookingById(bookingId);
+            var booking = await _bookingService.GetBookingByIdAsync(bookingId);
 
             if (booking != null)
             {
@@ -68,6 +68,22 @@ namespace book_a_reading_room_visit.api.Controllers
         {
             var result = await _bookingService.UpdateReaderTicketAsync(bookingModel);
             return Ok(result);
+        }
+
+        [HttpPost("update-reserved-seat")]
+        public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
+        {
+            BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId);
+
+            if(result.IsSuccess)
+            {
+                return Ok();
+            }
+            else
+            {
+                return Conflict(result.ErrorMessage);
+            }
+            
         }
     }
 }

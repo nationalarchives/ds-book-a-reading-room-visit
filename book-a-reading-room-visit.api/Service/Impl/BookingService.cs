@@ -79,6 +79,36 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
+        public async Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId)
+        {
+            var response = new BookingResponseModel { IsSuccess = true };
+
+            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingId);
+
+            if (booking == null)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"There is no booking found for the booking id {bookingId}";
+                return response;
+            }
+
+            bool seatTaken = await _context.Set<Booking>().Where(b => b.VisitStartDate == booking.VisitStartDate && b.SeatId == newSeatId && b.Id != bookingId).AnyAsync();
+
+            if (seatTaken)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"The requested seat is not available on {booking.VisitStartDate:dd-MM-yyyy}";
+                return response;
+            }
+
+            _context.Attach(booking);
+            booking.SeatId = newSeatId;
+            _context.SaveChanges();
+
+            return response;
+
+        }
+
         public async Task<BookingResponseModel> UpdateReaderTicketAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
@@ -106,7 +136,7 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
-        public async Task<Booking> GetBookingByReference(string bookingReference)
+        public async Task<Booking> GetBookingByReferenceAsync(string bookingReference)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
@@ -119,7 +149,7 @@ namespace book_a_reading_room_visit.api.Service
             return bookingToReturn;
         }
 
-        public async Task<Booking> GetBookingById(int bookingId)
+        public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
