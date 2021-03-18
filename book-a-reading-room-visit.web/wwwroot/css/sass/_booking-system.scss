@@ -7,7 +7,7 @@ a.button {
     text-decoration: none;
 }
 
-section.container {
+.content-wrapper {
     background-color: #fff;
     margin-top: 2.4em;
     padding: 0em 2em 2em 2em;
@@ -16,6 +16,8 @@ section.container {
         margin-top: 2em;
     }
 }
+
+
 
 small {
     display: block;
@@ -80,10 +82,6 @@ form {
             text-align: left;
         }
     }
-}
-
-.button:focus {
-    color: #fff;
 }
 
 .cancellation-form {
@@ -353,7 +351,6 @@ form {
             display: inline-block;
             list-style: none;
             margin: 1em;
-            opacity: 0.3;
 
             .step-number {
                 padding: 1em;
@@ -370,7 +367,6 @@ form {
         }
 
         .active {
-            opacity: 1;
             font-weight: 700;
 
             .step {

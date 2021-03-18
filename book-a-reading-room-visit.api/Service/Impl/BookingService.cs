@@ -20,25 +20,6 @@ namespace book_a_reading_room_visit.api.Service
             _context = context;
         }
 
-        public async Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel)
-        {
-            DateTime? dateComponent = null;
-
-            if (bookingSearchModel.Date.HasValue)
-            {
-                dateComponent = bookingSearchModel.Date.Value.Date;
-            }
-
-            var bookings = await _context.Bookings.AsNoTracking<Booking>().Where(b =>
-                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference  == b.BookingReference) &&
-                                            (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
-                                            (dateComponent == null || dateComponent == b.VisitStartDate.Date)
-                                            ).Include(b => b.BookingStatus).Include(b => b.Seat).ThenInclude(s => s.SeatType)
-                                            .TagWith<Booking>("Search of Bookings").ToListAsync();
-            
-            return bookings;
-        }
-
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true };
@@ -78,6 +59,33 @@ namespace book_a_reading_room_visit.api.Service
             await _context.SaveChangesAsync();
             return response;
         }
+        
+        public async Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel)
+        {
+            var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
+
+            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
+
+            if (booking == null)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"There is no booking found for the booking reference {bookingModel.BookingReference}";
+                return response;
+            }
+
+            booking.ReaderTicket = bookingModel.ReadingTicket;
+            booking.Email = bookingModel.Email;
+            booking.FirstName = bookingModel.FirstName;
+            booking.LastName = bookingModel.LastName;
+            booking.Phone = bookingModel.Phone;
+            booking.IsAcceptTsAndCs = bookingModel.AcceptTsAndCs;
+            booking.IsAcceptCovidCharter = bookingModel.AcceptCovidCharter;
+
+            _context.Entry(booking).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+            return response;
+        }
 
         public async Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId)
         {
@@ -109,33 +117,6 @@ namespace book_a_reading_room_visit.api.Service
 
         }
 
-        public async Task<BookingResponseModel> UpdateReaderTicketAsync(BookingModel bookingModel)
-        {
-            var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
-
-            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
-
-            if (booking == null)
-            {
-                response.IsSuccess = false;
-                response.ErrorMessage = $"There is no booking found for the booking reference {bookingModel.BookingReference}";
-                return response;
-            }
-
-            booking.ReaderTicket = bookingModel.ReadingTicket;
-            booking.Email = bookingModel.Email;
-            booking.FirstName = bookingModel.FirstName;
-            booking.LastName = bookingModel.LastName;
-            booking.Phone = bookingModel.Phone;
-            booking.IsAcceptTsAndCs = bookingModel.AcceptTsAndCs;
-            booking.IsAcceptCovidCharter = bookingModel.AcceptCovidCharter;
-
-            _context.Entry(booking).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
-            return response;
-        }
-
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
@@ -147,6 +128,25 @@ namespace book_a_reading_room_visit.api.Service
 
             var bookingToReturn = GetSerialisedBooking(booking);
             return bookingToReturn;
+        }
+
+        public async Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel)
+        {
+            DateTime? dateComponent = null;
+
+            if (bookingSearchModel.Date.HasValue)
+            {
+                dateComponent = bookingSearchModel.Date.Value.Date;
+            }
+
+            var bookings = await _context.Bookings.AsNoTracking<Booking>().Where(b =>
+                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference  == b.BookingReference) &&
+                                            (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
+                                            (dateComponent == null || dateComponent == b.VisitStartDate.Date)
+                                            ).Include(b => b.BookingStatus).Include(b => b.Seat).ThenInclude(s => s.SeatType)
+                                            .TagWith<Booking>("Search of Bookings").ToListAsync();
+            
+            return bookings;
         }
 
         /// <summary>

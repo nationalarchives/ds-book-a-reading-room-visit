@@ -7,13 +7,13 @@
     ViewData["Title"] = "Secure booking";
 }
 
-<h1 class="display-4">2. Enter your reader's ticket</h1>
+<h1 class="display-4">2. Enter your reader's tickets</h1>
 
 <div class="text-center">
 
-    <section class="container">
+    <div class="container content-wrapper">
 
-        <section id="progress-bar">
+        <div id="progress-bar">
             <div class="row">
                 <div class="col-md-12">
                     <ol>
@@ -25,17 +25,17 @@
                     </ol>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="heading">
+        <div class="heading">
             <div class="row">
                 <div class="col-md-12">
                     <h2>You are about to book the following space</h2>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="booking-summary">
+        <div class="booking-summary">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="prompt-grey">
@@ -55,10 +55,10 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <form action="@Url.Action("BookingConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-            <section class="reader-ticket-form">
+            <div class="reader-ticket-form">
                 <div class="row">
                     <div class="col-md-12">
                         @Html.AntiForgeryToken()
@@ -89,9 +89,9 @@
                         </fieldset>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="booking-options">
+            <div class="booking-options">
                 <div class="row">
                     <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
                         <fieldset id="conditions">
@@ -116,7 +116,7 @@
                         </span>
                     </div>
                 </div>
-            </section>
+            </div>
         </form>
-    </section>
+    </div>
 </div>
