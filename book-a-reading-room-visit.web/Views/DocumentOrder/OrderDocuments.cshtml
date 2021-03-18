@@ -12,9 +12,9 @@
 
 <div class="text-center">
 
-    <section class="container">
+    <div class="container content-wrapper">
 
-        <section id="progress-bar">
+        <div id="progress-bar">
             <div class="row">
                 <div class="col-md-12">
                     <ol>
@@ -26,9 +26,9 @@
                     </ol>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="heading align-left">
+        <div class="heading align-left">
             <div class="row">
                 <div class="col-md-12">
                     <p>
@@ -46,9 +46,9 @@
                     </p>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="booking-details">
+        <div class="booking-details">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Your reservation details</h2>
@@ -71,9 +71,9 @@
                     <a href="@Url.Action("CancelBooking", "Booking")">Cancel this booking ></a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section>
+        <div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="prompt-white">
@@ -83,9 +83,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="order-form">
+        <div class="order-form">
             <div class="row">
                 <div class="col-md-12">
                     <form action="@Url.Action("OrderComplete", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReadingTicket, bookingReference = Model.BookingReference } )" method="POST">
@@ -114,6 +114,6 @@
                     </form>
                 </div>
             </div>
-        </section>
-    </section>
+        </div>
+    </div>
 </div>

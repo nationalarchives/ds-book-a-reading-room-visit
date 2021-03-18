@@ -39,9 +39,8 @@
     @await Html.PartialAsync("Partials/_Header")
 
 
-    <main role="main" class="pb-3">
+    <main class="pb-3" id="main-content">
         <div class="container">
-            @*@await Html.PartialAsync("Partials/_Breadcrumbs")*@
             @RenderBody()
         </div>
     </main>
