@@ -63,7 +63,7 @@
                     <div class="col-md-12">
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.HiddenFor(Model => Model.SeatType)
+                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                         @Html.HiddenFor(Model => Model.BookingStartDate)
                         <fieldset>
                             <legend class="sr-only">Enter reader ticket number</legend>

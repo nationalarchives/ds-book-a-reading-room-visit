@@ -30,7 +30,7 @@ namespace book_a_reading_room_visit.web
         {
             services.AddControllersWithViews(options =>
             {
-                options.ModelBinderProviders.Insert(0, new BookingModelBinderProvider());
+                options.ModelBinderProviders.Insert(0, new EnumModelBinderProvider());
             });
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-Web/DataProtection");

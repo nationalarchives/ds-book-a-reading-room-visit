@@ -36,8 +36,8 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 var routeValues = new { 
                     bookingtype = bookingViewModel.BookingType.ToStringURL(), 
-                    seattype = bookingViewModel.SeatType, 
-                    errormessage = "There is no seat available for the given date, please choose a different date" 
+                    seattype = bookingViewModel.SeatType.ToStringURL(),
+                    errorcode = ErrorCode.seat_unavailable
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
@@ -54,20 +54,20 @@ namespace book_a_reading_room_visit.web.Controllers
                 var routeValues = new
                 {
                     bookingtype = bookingViewModel.BookingType.ToStringURL(),
-                    seattype = bookingViewModel.SeatType
+                    seattype = bookingViewModel.SeatType.ToStringURL()
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
 
             if (bookingViewModel.ReadingTicket == 0)
             {
-                ModelState.AddModelError("Ticket", "Valid reader ticket required.");
+                ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
 
             var visitorDetails = _advancedOrderService.GetVisitorDetailsByTicketNo(bookingViewModel.ReadingTicket.ToString());
             if (visitorDetails?.ReaderTicket == null)
             {
-                ModelState.AddModelError("Ticket", "Valid reader ticket required.");
+                ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
 
             if (!ModelState.IsValid)
@@ -86,8 +86,8 @@ namespace book_a_reading_room_visit.web.Controllers
                 var routeValues = new
                 {
                     bookingtype = bookingViewModel.BookingType.ToStringURL(),
-                    seattype = bookingViewModel.SeatType,
-                    errormessage = "The selected seat is no longer available, please select again."
+                    seattype = bookingViewModel.SeatType.ToStringURL(),
+                    errorcode = ErrorCode.reserved_time_expired
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
