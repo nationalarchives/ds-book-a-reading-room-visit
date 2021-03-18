@@ -10,6 +10,7 @@ namespace book_a_reading_room_visit.api.Service
         Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel);
         Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel);
         Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId);
+        Task<BookingResponseModel> CancelBookingAsync(int bookingId);
         Task<Booking> GetBookingByIdAsync(int bookingId);
         Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
     }
