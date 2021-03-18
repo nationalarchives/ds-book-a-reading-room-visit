@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace book_a_reading_room_visit.domain
 {
@@ -26,5 +27,6 @@ namespace book_a_reading_room_visit.domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string LastModifiedBy { get; set; }
+        public List<OrderDocument> OrderDocuments { get; set; } = new List<OrderDocument>();
     }
 }

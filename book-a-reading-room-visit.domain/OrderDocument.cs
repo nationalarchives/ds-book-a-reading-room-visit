@@ -1,4 +1,6 @@
-﻿namespace book_a_reading_room_visit.domain
+﻿using System.Text.Json.Serialization;
+
+namespace book_a_reading_room_visit.domain
 {
     public class OrderDocument
     {
