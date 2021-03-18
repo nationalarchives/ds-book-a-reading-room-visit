@@ -10,9 +10,9 @@
 
 <div class="text-center">
 
-    <section class="container">
+    <div class="container content-wrapper">
 
-        <section id="progress-bar">
+        <div id="progress-bar">
             <div class="row">
                 <div class="col-md-12">
                     <ol>
@@ -24,102 +24,100 @@
                     </ol>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section>
-            <div class="row">
-                <section id="room-selection" class="align-left">
-                    <div class="col-md-4 col-sm-4">
+        <div class="row">
+            <div id="room-selection" class="align-left">
+                <div class="col-md-4 col-sm-4">
+                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                    {
+                        <h2 class="align-left">Standard visit availability</h2>
+                    }
+
+                    else
+                    {
+                        <h2 class="align-left">Bulk visit availability</h2>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                    {
+                        <span>@Model.ErrorMessage</span>
+                    }
+
+                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                    {
+                        <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
+                            <fieldset>
+                                <legend class="sr-only">Select reading room</legend>
+
+                                <div>
+                                    <label for="standard-room">Standard reading room</label>
+                                    @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.StdRRSeat, new { id = "standard-room" })
+                                </div>
+
+                                <div>
+                                    <label for="map-and-lg-room">Map and large document reading room</label>
+                                    @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.MandLRR, new { id = "map-and-lg-room" })
+                                </div>
+                            </fieldset>
+
+                            <button class="button" type="submit">Update</button>
+                        </form>
+                    }
+
+                    <div class="prompt-white">
+                        <p class="no-margin">
+                            Camera stands are now provided for all seats in our reading rooms
+                        </p>
+                    </div>
+
+                    <div class="visit-toggler">
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
-                            <h2 class="align-left">Standard visit availability</h2>
+                            <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Bulk visit availability ></a>
                         }
 
                         else
                         {
-                            <h2 class="align-left">Bulk visit availability</h2>
+                            <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Standard visit availability ></a>
                         }
-
-                        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-                        {
-                            <span>@Model.ErrorMessage</span>
-                        }
-
-                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                        {
-                            <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
-                                <fieldset>
-                                    <legend class="sr-only">Select reading room</legend>
-
-                                    <div>
-                                        <label for="standard-room">Standard reading room</label>
-                                        @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.StdRRSeat, new { id = "standard-room" })
-                                    </div>
-
-                                    <div>
-                                        <label for="map-and-lg-room">Map and large document reading room</label>
-                                        @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.MandLRR, new { id = "map-and-lg-room" })
-                                    </div>
-                                </fieldset>
-
-                                <button class="button" type="submit">Update</button>
-                            </form>
-                        }
-
-                        <div class="prompt-white">
-                            <p class="no-margin">
-                                Camera stands are now provided for all seats in our reading rooms
-                            </p>
-                        </div>
-
-                        <div class="visit-toggler">
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
-                                <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Bulk visit availability ></a>
-                            }
-
-                            else
-                            {
-                                <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Standard visit availability ></a>
-                            }
-                        </div>
                     </div>
+                </div>
 
-                </section>
-
-                <section id="date-selection">
-                    <div class="col-md-8 col-sm-8">
-                        <ul>
-                            @for (var index = 0; index < Model.AvailableBookings.Count; index++)
-                            {
-                                <li class="date">
-                                    @if (Model.AvailableBookings[index].AvailableSeats == 0)
-                                    {
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                            @Html.AntiForgeryToken()
-                                            @Html.HiddenFor(Model => Model.SeatType)
-                                            @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date)
-                                            <button class="button" type="submit">
-                                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                                </div>
-                                            </button>
-                                        </form>
-                                    }
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </section>
             </div>
-        </section>
-    </section>
+
+            <div id="date-selection">
+                <div class="col-md-8 col-sm-8">
+                    <ul>
+                        @for (var index = 0; index < Model.AvailableBookings.Count; index++)
+                        {
+                            <li class="date">
+                                @if (Model.AvailableBookings[index].AvailableSeats == 0)
+                                {
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                        <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(Model => Model.SeatType, new { id = "" })
+                                        @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date, new { id = "" })
+                                        <button class="button" type="submit">
+                                            <span class="col-md-12 col-sm-12 col-xs-12">
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                            </span>
+                                        </button>
+                                    </form>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
