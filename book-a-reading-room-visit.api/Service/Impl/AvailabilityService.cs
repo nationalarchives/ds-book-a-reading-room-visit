@@ -12,9 +12,6 @@ namespace book_a_reading_room_visit.api.Service
 {
     public class AvailabilityService : IAvailabilityService
     {
-        private const int ONE_DAY = 1;
-        private const int TWO_DAY = 2;
-
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
         private readonly SeatTypes[] StandardOrderSeats = new SeatTypes[] { SeatTypes.StdRRSeat, SeatTypes.StdRRSeatWithCamera, SeatTypes.MandLRR, SeatTypes.MandLRRWithCamera };
@@ -99,32 +96,17 @@ namespace book_a_reading_room_visit.api.Service
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
-        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, int bookingType)
+        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType)
         {
-            int visitDuration = ((BookingTypes)bookingType).NumberOfDays();
-
-            if(visitDuration != ONE_DAY && visitDuration != TWO_DAY)
-            {
-                return new List<Seat>();
-            }
-
-            List<int> seatTypesForDuration;
-
-            if(visitDuration == ONE_DAY)
-            {
-                seatTypesForDuration = StandardOrderSeats.Select(s => (int)s).ToList<int>();
-            }
-            else
-            {
-                seatTypesForDuration = BulkOrderSeats.Select(s => (int)s).ToList<int>();
-            }
+            var seatTypes = bookingType == BookingTypes.StandardOrderVisit ? StandardOrderSeats.Select(s => (int)s).ToList() 
+                                                                           : BulkOrderSeats.Select(s => (int)s).ToList();
             
-            var availableSeats = await(from seat in _context.Set<Seat>().Where(s => seatTypesForDuration.Contains(s.SeatTypeId))
-                         join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
-                         on seat.Id equals booking.SeatId into lj
-                         from subseat in lj.DefaultIfEmpty()
-                         where subseat == null
-                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
+            var availableSeats = await (from seat in _context.Set<Seat>().Where(s => seatTypes.Contains(s.SeatTypeId))
+                                         join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
+                                         on seat.Id equals booking.SeatId into lj
+                                         from subseat in lj.DefaultIfEmpty()
+                                         where subseat == null
+                                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
 
             return availableSeats;
         }
