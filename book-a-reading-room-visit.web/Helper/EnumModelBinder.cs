@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Helper
 {
-    public class BookingModelBinderProvider : IModelBinderProvider
+    public class EnumModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
@@ -22,6 +22,10 @@ namespace book_a_reading_room_visit.web.Helper
             if (context.Metadata?.Name.ToLower() == "bookingtype")
             {
                 return new BinderTypeModelBinder(typeof(BookingTypeModelBinder));
+            }
+            if (context.Metadata?.Name.ToLower() == "seattype")
+            {
+                return new BinderTypeModelBinder(typeof(SeatTypeModelBinder));
             }
             return null;
         }
@@ -38,6 +42,20 @@ namespace book_a_reading_room_visit.web.Helper
                 throw new ArgumentNullException(nameof(bindingContext));
             }
             var model = bindingContext.ValueProvider.GetValue("bookingtype").FirstOrDefault()?.ToBookingType();
+            bindingContext.Result = ModelBindingResult.Success(model);
+            return Task.CompletedTask;
+        }
+    }
+
+    public class SeatTypeModelBinder : IModelBinder
+    {
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            if (bindingContext == null)
+            {
+                throw new ArgumentNullException(nameof(bindingContext));
+            }
+            var model = bindingContext.ValueProvider.GetValue("seattype").FirstOrDefault()?.ToSeatType() ?? default(SeatTypes);
             bindingContext.Result = ModelBindingResult.Success(model);
             return Task.CompletedTask;
         }

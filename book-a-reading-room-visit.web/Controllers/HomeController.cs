@@ -28,7 +28,7 @@ namespace book_a_reading_room_visit.web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Availability(BookingTypes bookingType, SeatTypes seatType, string errorMessage)
+        public async Task<IActionResult> Availability(BookingTypes bookingType, SeatTypes seatType, ErrorCode errorCode)
         {
             if (seatType == default(SeatTypes))
             {
@@ -39,7 +39,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 BookingType = bookingType,
                 SeatType = seatType,
                 AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType),
-                ErrorMessage = errorMessage
+                ErrorMessage = errorCode.ToMessage()
             };
             return View(model);
         }
