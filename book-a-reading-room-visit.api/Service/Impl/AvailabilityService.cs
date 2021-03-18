@@ -99,8 +99,10 @@ namespace book_a_reading_room_visit.api.Service
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
-        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, int visitDuration)
+        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, int bookingType)
         {
+            int visitDuration = ((BookingTypes)bookingType).NumberOfDays();
+
             if(visitDuration != ONE_DAY && visitDuration != TWO_DAY)
             {
                 return new List<Seat>();
