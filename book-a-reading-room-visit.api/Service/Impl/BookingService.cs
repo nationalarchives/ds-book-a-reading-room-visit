@@ -117,6 +117,26 @@ namespace book_a_reading_room_visit.api.Service
 
         }
 
+        public async Task<BookingResponseModel> CancelBookingAsync(int bookingId)
+        {
+            var response = new BookingResponseModel { IsSuccess = true };
+
+            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingId);
+
+            if (booking == null)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"There is no booking found for the booking id {bookingId}";
+                return response;
+            }
+
+            _context.Attach(booking);
+            booking.BookingStatusId = (int)BookingStatuses.Cancelled;
+            _context.SaveChanges();
+
+            return response;
+        }
+
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()

@@ -48,7 +48,29 @@ namespace book_a_reading_room_visit.api.Controllers
             }
             
         }
-        
+
+        [HttpPost("cancel-booking")]
+        public async Task<ActionResult<BookingResponseModel>> CancelBooking([FromBody]BookingCancellationModel bookingCancellationModel)
+        {
+            BookingResponseModel result = await _bookingService.CancelBookingAsync(bookingCancellationModel.BookingId);
+
+            if (result.IsSuccess)
+            {
+                return Ok();
+            }
+            else
+            {
+                if(result.ErrorMessage.Contains("no booking found"))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return StatusCode(500);
+                }
+            }
+        }
+
         [HttpGet]
         [Route("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
