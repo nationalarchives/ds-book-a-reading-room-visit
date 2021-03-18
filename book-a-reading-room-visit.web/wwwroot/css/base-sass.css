@@ -7831,12 +7831,12 @@ a.button {
   text-decoration: none;
 }
 
-section.container {
+.content-wrapper {
   background-color: #fff;
   margin-top: 2.4em;
   padding: 0em 2em 2em 2em;
 }
-section.container .heading, section.container .heading-text {
+.content-wrapper .heading, .content-wrapper .heading-text {
   margin-top: 2em;
 }
 
@@ -8105,7 +8105,6 @@ form input[type=checkbox] {
   display: inline-block;
   list-style: none;
   margin: 1em;
-  opacity: 0.3;
 }
 #progress-bar ol li .step-number {
   padding: 1em;
@@ -8120,7 +8119,6 @@ form input[type=checkbox] {
   width: 24px;
 }
 #progress-bar ol .active {
-  opacity: 1;
   font-weight: 700;
 }
 #progress-bar ol .active .step {
