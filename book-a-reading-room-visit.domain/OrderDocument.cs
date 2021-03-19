@@ -1,11 +1,10 @@
-﻿using System.Text.Json.Serialization;
-
-namespace book_a_reading_room_visit.domain
+﻿namespace book_a_reading_room_visit.domain
 {
     public class OrderDocument
     {
         public int Id { get; set; }
         public string DocumentReference { get; set; }
+        public int BookingId { get; set; }
         public Booking Booking { get; set; }
         public string LetterCode { get; set; }
         public int ClassNumber { get; set; }

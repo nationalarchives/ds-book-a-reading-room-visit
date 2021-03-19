@@ -44,10 +44,12 @@ GO
 CREATE TABLE [Bookings] (
     [Id] int NOT NULL IDENTITY,
     [CreatedDate] datetime2 NOT NULL,
+    [CompleteByDate] datetime2 NULL,
     [BookingReference] nvarchar(50) NOT NULL,
     [BookingTypeId] int NOT NULL,
     [IsAcceptTsAndCs] bit NOT NULL,
     [IsAcceptCovidCharter] bit NOT NULL,
+    [IsNoFaceCovering] bit NOT NULL,
     [IsNoShow] bit NOT NULL,
     [SeatId] int NOT NULL,
     [BookingStatusId] int NOT NULL,
@@ -71,7 +73,7 @@ GO
 CREATE TABLE [OrderDocuments] (
     [Id] int NOT NULL IDENTITY,
     [DocumentReference] nvarchar(50) NOT NULL,
-    [BookingId] int NULL,
+    [BookingId] int NOT NULL,
     [LetterCode] nvarchar(20) NULL,
     [ClassNumber] int NOT NULL,
     [PieceId] int NOT NULL,
@@ -81,7 +83,7 @@ CREATE TABLE [OrderDocuments] (
     [Site] nvarchar(20) NULL,
     [IsReserve] bit NOT NULL,
     CONSTRAINT [PK_OrderDocuments] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_OrderDocuments_Bookings_BookingId] FOREIGN KEY ([BookingId]) REFERENCES [Bookings] ([Id]) ON DELETE NO ACTION
+    CONSTRAINT [FK_OrderDocuments_Bookings_BookingId] FOREIGN KEY ([BookingId]) REFERENCES [Bookings] ([Id]) ON DELETE CASCADE
 );
 GO
 
@@ -101,9 +103,8 @@ CREATE INDEX [IX_Seats_SeatTypeId] ON [Seats] ([SeatTypeId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210311111937_InitialCreate', N'5.0.3');
+VALUES (N'20210319111726_InitialCreate', N'5.0.3');
 GO
 
 COMMIT;
 GO
-
