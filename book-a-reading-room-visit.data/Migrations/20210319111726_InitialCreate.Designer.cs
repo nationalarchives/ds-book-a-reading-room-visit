@@ -10,7 +10,7 @@ using book_a_reading_room_visit.data;
 namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210311111937_InitialCreate")]
+    [Migration("20210319111726_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CompleteByDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -60,6 +63,9 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsAcceptTsAndCs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNoFaceCovering")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsNoShow")
@@ -137,7 +143,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookingId")
+                    b.Property<int>("BookingId")
                         .HasColumnType("int");
 
                     b.Property<int>("ClassNumber")
@@ -245,8 +251,10 @@ namespace book_a_reading_room_visit.data.Migrations
             modelBuilder.Entity("book_a_reading_room_visit.domain.OrderDocument", b =>
                 {
                     b.HasOne("book_a_reading_room_visit.domain.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId");
+                        .WithMany("OrderDocuments")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Booking");
                 });
@@ -260,6 +268,11 @@ namespace book_a_reading_room_visit.data.Migrations
                         .IsRequired();
 
                     b.Navigation("SeatType");
+                });
+
+            modelBuilder.Entity("book_a_reading_room_visit.domain.Booking", b =>
+                {
+                    b.Navigation("OrderDocuments");
                 });
 #pragma warning restore 612, 618
         }

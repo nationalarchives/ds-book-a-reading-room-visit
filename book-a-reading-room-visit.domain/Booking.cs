@@ -7,11 +7,13 @@ namespace book_a_reading_room_visit.domain
     {
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
+        public DateTime? CompleteByDate { get; set; }
         public string BookingReference { get; set; }
         public int BookingTypeId { get; set; }
         public BookingType BookingType { get; set; }
         public bool IsAcceptTsAndCs { get; set; }
         public bool IsAcceptCovidCharter { get; set; }
+        public bool IsNoFaceCovering { get; set; }
         public bool IsNoShow { get; set; }
         public int SeatId { get; set; }
         public Seat Seat { get; set; }
@@ -27,6 +29,6 @@ namespace book_a_reading_room_visit.domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string LastModifiedBy { get; set; }
-        public List<OrderDocument> OrderDocuments { get; set; } = new List<OrderDocument>();
+        public List<OrderDocument> OrderDocuments { get; set; }
     }
 }

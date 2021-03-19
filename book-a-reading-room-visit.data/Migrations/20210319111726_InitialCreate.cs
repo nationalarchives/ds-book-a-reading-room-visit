@@ -69,10 +69,12 @@ namespace book_a_reading_room_visit.data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompleteByDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     BookingReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     BookingTypeId = table.Column<int>(type: "int", nullable: false),
                     IsAcceptTsAndCs = table.Column<bool>(type: "bit", nullable: false),
                     IsAcceptCovidCharter = table.Column<bool>(type: "bit", nullable: false),
+                    IsNoFaceCovering = table.Column<bool>(type: "bit", nullable: false),
                     IsNoShow = table.Column<bool>(type: "bit", nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: false),
                     BookingStatusId = table.Column<int>(type: "int", nullable: false),
@@ -117,7 +119,7 @@ namespace book_a_reading_room_visit.data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DocumentReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    BookingId = table.Column<int>(type: "int", nullable: true),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
                     LetterCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ClassNumber = table.Column<int>(type: "int", nullable: false),
                     PieceId = table.Column<int>(type: "int", nullable: false),
@@ -135,7 +137,7 @@ namespace book_a_reading_room_visit.data.Migrations
                         column: x => x.BookingId,
                         principalTable: "Bookings",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
