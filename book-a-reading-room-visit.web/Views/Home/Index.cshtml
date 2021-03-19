@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="prompt-white">
+        <section class="prompt-white">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Before you book</h2>
@@ -30,50 +30,52 @@
                     <a href="#">Register or renew a reader’s ticket</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="row">
-            <section class="order-option">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="order-option-heading">
-                            <h2>Book a standard visit</h2>
-                            <p class="bold-text">@Model.StandardBookingAvailable.ToString("N0") spaces available</p>
+        <section>
+            <h2 class="sr-only">Book a visit</h2>
+            <div class="row">
+                <div class="order-option">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="order-option-heading">
+                                <h3 class="display-4">Book a standard visit</h3>
+                                <p class="bold-text">@Model.StandardBookingAvailable.ToString("N0") spaces available</p>
+                            </div>
+
+                            <ul>
+                                <li>Documents can be from <span class="bold-text">multiple series</span>, e.g. ADM 22 and C 142</li>
+                                <li>1-day visit</li>
+                                <li>Up to 12 documents</li>
+                                <li>Computer access available</li>
+                            </ul>
+
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Select a date</a>
                         </div>
-
-                        <ul>
-                            <li>Documents can be from <span class="bold-text">multiple series</span>, e.g. ADM 22 and C 142</li>
-                            <li>1-day visit</li>
-                            <li>Up to 12 documents</li>
-                            <li>Computer access available</li>
-                        </ul>
-
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Select a date</a>
                     </div>
                 </div>
-            </section>
 
-            <section class="order-option">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="card">
-                        <div class="order-option-heading">
-                            <h2>Book a bulk order visit</h2>
-                            <p class="bold-text">@Model.BulkBookingsAvailable.ToString("N0") spaces available</p>
+                <div class="order-option">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="order-option-heading">
+                                <h3 class="display-4">Book a bulk order visit</h3>
+                                <p class="bold-text">@Model.BulkBookingsAvailable.ToString("N0") spaces available</p>
+                            </div>
+
+                            <ul>
+                                <li>Documents have to be from <span class="bold-text">one series</span>, e.g. ADM 22</li>
+                                <li>2-day visit</li>
+                                <li>Between 20 - 40 documents</li>
+                                <li>Computer access available</li>
+                            </ul>
+
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Select a date</a>
                         </div>
-
-                        <ul>
-                            <li>Documents have to be from <span class="bold-text">one series</span>, e.g. ADM 22</li>
-                            <li>2-day visit</li>
-                            <li>Between 20 - 40 documents</li>
-                            <li>Computer access available</li>
-                        </ul>
-
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Select a date</a>
                     </div>
                 </div>
-            </section>
-        </div>
-
+            </div>
+        </section>
         <section class="prompt">
             <div class="row">
                 <div class="col-md-12">
