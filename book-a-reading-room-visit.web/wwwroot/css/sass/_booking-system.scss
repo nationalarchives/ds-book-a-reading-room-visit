@@ -1,4 +1,8 @@
-﻿main {
+﻿[aria-current] {
+    @extend .active; 
+}
+
+main {
     background-color: #eee;
 }
 
