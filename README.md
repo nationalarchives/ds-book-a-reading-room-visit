@@ -41,4 +41,4 @@ This will download and install the image on your local Docker. Note, when first 
 
 ### Entity relationship diagram
 
-![Kew booking system](https://user-images.githubusercontent.com/40386980/110785186-8da8fc00-8262-11eb-98e3-d6b74c9b897e.jpg)
+![Kew booking system](https://user-images.githubusercontent.com/40386980/111790915-9d57be80-88ba-11eb-8286-7fac43205847.jpg)
