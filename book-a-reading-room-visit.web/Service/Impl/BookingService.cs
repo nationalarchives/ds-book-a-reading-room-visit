@@ -29,5 +29,25 @@ namespace book_a_reading_room_visit.web.Service
             var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
             return result;
         }
+
+        public async Task<BookingViewModel> GetBookingAsync(int readerTicket, string bookingReference)
+        {
+            var response = await _client.GetAsync($"booking/{readerTicket}/{bookingReference}");
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<BookingViewModel>();
+            return result;
+        }
+
+        public async Task DeleteBookingAsync(string bookingReference)
+        {
+            var response = await _client.DeleteAsync($"booking/{bookingReference}");
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task CancelBookingAsync(CancelViewModel cancelViewModel)
+        {
+            var response = await _client.PostAsJsonAsync("booking/cancel", cancelViewModel);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

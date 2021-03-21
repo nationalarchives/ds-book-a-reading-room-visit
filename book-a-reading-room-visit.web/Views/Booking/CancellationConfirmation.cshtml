@@ -1,6 +1,6 @@
-﻿@using book_a_reading_room_visit.domain
-@using book_a_reading_room_visit.web.Helper
+﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Models
+@model CancelViewModel
 
 @{
     ViewData["Title"] = "Cancel your visit";
@@ -29,15 +29,31 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Booking reference</th>
-                                <td>RR23610</td>
+                                <td>@Model.BookingReference</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Seat type</th>
-                                <td>Document reading room, with camera stand</td>
-                            </tr>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                <tr>
+                                    <th scope="row">Reading room</th>
+                                    <td>
+                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                        {
+                                            <p>Standard document reading room</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Map and large document reading room</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <th scope="row">Visit date</th>
-                                <td>20 January (one day visit)</td>
+                                <td>@Model.BookingStartDate.ToString("dddd dd MMMM yyyy")</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seat number</th>
+                                <td>@Model.SeatNumber</td>
                             </tr>
                         </tbody>
                     </table>

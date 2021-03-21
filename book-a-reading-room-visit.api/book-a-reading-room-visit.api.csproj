@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\book-a-reading-room-visit.data\book-a-reading-room-visit.data.csproj" />
     <ProjectReference Include="..\book-a-reading-room-visit.domain\book-a-reading-room-visit.domain.csproj" />
+    <ProjectReference Include="..\book-a-reading-room-visit.model\book-a-reading-room-visit.model.csproj" />
   </ItemGroup>
 
 </Project>

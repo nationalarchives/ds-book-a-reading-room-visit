@@ -2,8 +2,8 @@
 using System.Net.Http.Json;
 using book_a_reading_room_visit.web.Models;
 using System.Net.Http;
-using book_a_reading_room_visit.domain;
 using System.Collections.Generic;
+using book_a_reading_room_visit.model;
 
 namespace book_a_reading_room_visit.web.Service
 {

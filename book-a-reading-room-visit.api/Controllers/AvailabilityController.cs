@@ -1,6 +1,7 @@
 ﻿using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

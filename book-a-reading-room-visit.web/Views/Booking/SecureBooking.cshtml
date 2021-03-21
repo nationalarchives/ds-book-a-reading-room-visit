@@ -1,4 +1,4 @@
-﻿@using book_a_reading_room_visit.domain
+﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @model BookingViewModel
@@ -30,32 +30,57 @@
         <div class="heading">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>You are about to book the following space</h2>
+                    <h2>You are about to provisionally book this visit</h2>
                 </div>
             </div>
         </div>
 
-        <div class="booking-summary">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="prompt-grey">
-                        <p>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order" : "Bulk order") - @($"{Model.BookingStartDate:dddd dd MMMM}")</p>
+        <p>Your booking is provisional at this stage. It will be confirmed when you submit a document order.</p>
 
-                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+        <table>
+            <tr>
+                <td>
+                    <span class="bold-text">Visit type</span>
+                </td>
+                <td>
+                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="bold-text">Visit date</span>
+                </td>
+                <td>
+                    @($"{Model.BookingStartDate:dddd dd MMMM yyyy}")
+                </td>
+            </tr>
+            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+            {
+                <tr>
+                    <td>
+                        <span class="bold-text">Reading room</span>
+                    </td>
+                    <td>
+                        @if (Model.SeatType == SeatTypes.StdRRSeat)
                         {
-                            if (Model.SeatType == SeatTypes.StdRRSeat)
-                            {
-                                <p>Standard document reading room</p>
-                            }
-                            else
-                            {
-                                <p>Map and large document reading room</p>
-                            }
+                            <p>Standard document reading room</p>
                         }
-                    </div>
-                </div>
-            </div>
-        </div>
+                        else
+                        {
+                            <p>Map and large document reading room</p>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <p>Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you cancel your existing booking.</p>
+        <form action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(Model => Model.BookingReference)
+            @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+            <button type="submit" class="btn-link">Cancel and choose a different date</button>
+        </form>
 
         <form action="@Url.Action("BookingConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
             <div class="reader-ticket-form">
@@ -66,26 +91,61 @@
                         @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                         @Html.HiddenFor(Model => Model.BookingStartDate)
                         <fieldset>
-                            <legend class="sr-only">Enter reader ticket number</legend>
+                            <h3>Enter your reader’s ticket number</h3>
 
                             <div>
-                                <label for="ticket">To reserve your space, enter your reader's ticket number</label>
+                                <label for="ticket">
+                                    <p>You can find this below the barcode on the back of your reader’s ticket card. </p>
+                                    If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
+                                </label>
+                            </div>
+
+                            <span id="ticket-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.Ticket)</span>
+                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
+
+                            <div>
+                                <p>Don’t have a valid reader’s ticket or temporary reader’s ticket number?</p>
+                                <a href="/">Register for or renew a reader's ticket</a>
+                            </div>
+
+                            <h3>Enter your first name and last name</h3>
+
+                            <div>
+                                <label for="name">This should be the same as the name on your reader’s ticket card</label>
                             </div>
 
                             <div>
-                                <span id="ticket-error" class="emphasis-error">@Html.ValidationMessage("ticket", new { @class = "emphasis-error" })</span>
+                                <span id="firstname-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.FirstName)</span>
+                                @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
                             </div>
-                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter  ticket number", required = true })
+                            
                             <div>
-                                <a href="/">How to register or renew your reader's ticket</a>
+                                <span id="lastname-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.LastName)</span>
+                                @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
                             </div>
+
+                            <hr />
+
+                            <h3>Enter your email address or telephone number so we can contact you.</h3>
+                            <h3>Email address</h3>
                             <div>
-                                <label for="email">To receive the email correspondent, enter your email address</label>
+                                <label for="email">You can use this to re-enter the booking system and to receive a reservation confirmation.</label>
+                                <span id="phone-error" class="emphasis-error">@Html.ValidationMessage("phone", new { @class = "emphasis-error" })</span>
                             </div>
                             <div>
                                 <span id="email-error" class="emphasis-error">@Html.ValidationMessage("email", new { @class = "emphasis-error" })</span>
+                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
                             </div>
-                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
+
+                            <h3>Telephone number</h3>
+                            <div>
+                                <label for="name">If you provide a telephone number only, remember to safely note your booking reference. For international numbers include the country code.</label>
+                            </div>
+
+                            <div>
+                                @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Enter telephone number" })
+                            </div>
+
                         </fieldset>
                     </div>
                 </div>
@@ -98,21 +158,20 @@
                             <legend class="sr-only">Please accept the following conditions to continue with your order</legend>
 
                             <div>
-                                <label for="terms-conditions">Accept <a href="#">terms and conditions</a></label>
+                                <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
                                 @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
                             </div>
                             <div>
-                                <label for="covid-charter">Accept <a href="#">COVID charter</a></label>
+                                <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a></label>
                                 @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
                             </div>
+                            <div>
+                                <label for="face-covering">I have a legitimate reason to <a href="#">not wear a face covering</a>. This information won’t be shared with the NHS Test and Trace service.</label>
+                                @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
+                            </div>
                         </fieldset>
-
                         <span class="col-md-6 col-sm-6">
-                            <button type="submit" formnovalidate class="button primary" name="submitbutton" value="cancel">Cancel and choose a different date</button>
-                        </span>
-
-                        <span class="col-md-6 col-sm-6">
-                            <button type="submit" class="button primary" name="submitbutton" value="reserve">Reserve your space</button>
+                            <button type="submit" class="button primary">Complete provisional booking</button>
                         </span>
                     </div>
                 </div>

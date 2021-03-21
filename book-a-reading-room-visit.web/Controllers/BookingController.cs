@@ -1,11 +1,8 @@
-﻿using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -47,37 +44,42 @@ namespace book_a_reading_room_visit.web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel, string submitbutton)
+        public async Task<IActionResult> CancelProvision(BookingViewModel bookingViewModel)
         {
-            if (submitbutton == "cancel")
+            await _bookingService.DeleteBookingAsync(bookingViewModel.BookingReference);
+            var routeValues = new
             {
-                var routeValues = new
-                {
-                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
-                    seattype = bookingViewModel.SeatType.ToStringURL()
-                };
-                return RedirectToAction("Availability", "Home", routeValues);
-            }
+                bookingtype = bookingViewModel.BookingType.ToStringURL(),
+                seattype = bookingViewModel.SeatType.ToStringURL()
+            };
+            return RedirectToAction("Availability", "Home", routeValues);
+        }
 
-            if (bookingViewModel.ReadingTicket == 0)
+        [HttpPost]
+        public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel)
+        {
+            if (bookingViewModel.ReadingTicket == 0 ||
+                !_advancedOrderService.IsReaderTicketValid(bookingViewModel.ReadingTicket.ToString()))
             {
                 ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
-
-            var visitorDetails = _advancedOrderService.GetVisitorDetailsByTicketNo(bookingViewModel.ReadingTicket.ToString());
-            if (visitorDetails?.ReaderTicket == null)
+            if (string.IsNullOrWhiteSpace(bookingViewModel.FirstName))
             {
-                ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
+                ModelState.AddModelError("Firstname", Constants.Firstname_Required);
+            }
+            if (string.IsNullOrWhiteSpace(bookingViewModel.LastName))
+            {
+                ModelState.AddModelError("Lastname", Constants.Lastname_Required);
+            }
+            if (string.IsNullOrWhiteSpace(bookingViewModel.Phone) && string.IsNullOrWhiteSpace(bookingViewModel.Email))
+            {
+                ModelState.AddModelError("Phone", Constants.Phone_Or_Email_Required);
             }
 
             if (!ModelState.IsValid)
             {
                 return View("SecureBooking", bookingViewModel);
             }
-
-            bookingViewModel.FirstName = visitorDetails.Firstname;
-            bookingViewModel.LastName = visitorDetails.Lastname;
-            bookingViewModel.Phone = visitorDetails.Phone;
 
             var result = await _bookingService.ReserveSpaceAsync(bookingViewModel);
 
@@ -91,17 +93,22 @@ namespace book_a_reading_room_visit.web.Controllers
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
+            bookingViewModel.CompleteByDate = result.CompleteByDate;
+            bookingViewModel.SeatNumber = result.SeatNumber;
 
             return View(bookingViewModel);
         }
 
-        public IActionResult CancelBooking()
+        [HttpPost]
+        public IActionResult CancelBooking(CancelViewModel cancelViewModel)
         {
-            return View();
+            return View(cancelViewModel);
         }
 
-        public IActionResult CancellationConfirmation()
+        [HttpPost]
+        public async Task<IActionResult> CancellationConfirmation(CancelViewModel cancelViewModel)
         {
+            await _bookingService.CancelBookingAsync(cancelViewModel);
             return View();
         }
     }

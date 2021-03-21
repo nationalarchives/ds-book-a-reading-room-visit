@@ -1,6 +1,6 @@
-﻿@using book_a_reading_room_visit.domain
-@using book_a_reading_room_visit.web.Helper
+﻿@using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
+@model CancelViewModel
 
 @{
     ViewData["Title"] = "Cancel your visit";
@@ -26,9 +26,15 @@
         <div class="cancellation">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@Url.Action("CancellationConfirmation", "Booking")" class="cancellation-form align-left">
+                    <form action="@Url.Action("CancellationConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" class="cancellation-form align-left" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(Model => Model.BookingReference)
+                        @Html.HiddenFor(Model => Model.ReaderTicket)
+                        @Html.HiddenFor(Model => Model.SeatType)
+                        @Html.HiddenFor(Model => Model.BookingStartDate)
+                        @Html.HiddenFor(Model => Model.SeatNumber)
                         <fieldset>
-                            <legend>Are you sure you want to cancel your visit for Monday 30 March 2021?</legend>
+                            <legend>Are you sure you want to cancel your visit for @Model.BookingStartDate.ToString("dddd dd MMMM yyyy")?</legend>
 
                             <span class="col-md-4 col-sm-6 no-left-padding">
                                 <a class="button primary" href="#">No - take me to the order form</a>

@@ -21,6 +21,11 @@ namespace book_a_reading_room_visit.test
             return dates;
         }
 
+        public Task<DateTime> GetCompleteByDateAsync(DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<DateTime> GetNextBulkOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
             throw new NotImplementedException();

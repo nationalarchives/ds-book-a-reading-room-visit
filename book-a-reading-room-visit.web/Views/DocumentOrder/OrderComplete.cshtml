@@ -1,4 +1,4 @@
-﻿@using book_a_reading_room_visit.domain
+﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @{
@@ -40,7 +40,7 @@
 
                         <div class="col-md-6 col-xs-12 col-md-offset-3 no-float">
                             <span class="col-md-6 col-xs-12 no-float">
-                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL() } )">Edit your order</a>
+                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReadingTicket, bookingReference = @Model.BookingReference })">Edit your order</a>
                             </span>
                             <span class="col-md-6 col-xs-12 no-float">
                                 <a href="#">Print your order</a>
@@ -71,7 +71,15 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="@Url.Action("CancelBooking", "Booking")">Cancel this booking ></a>
+                    <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(Model => Model.BookingReference)
+                        @Html.HiddenFor(Model => Model.ReadingTicket)
+                        @Html.HiddenFor(Model => Model.SeatType)
+                        @Html.HiddenFor(Model => Model.BookingStartDate)
+                        @Html.HiddenFor(Model => Model.SeatNumber)
+                        <button type="submit" class="btn-link">Cancel this booking ></button>
+                    </form>
                 </div>
             </div>
         </section>

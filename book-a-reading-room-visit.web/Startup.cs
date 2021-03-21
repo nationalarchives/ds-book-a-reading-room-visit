@@ -110,6 +110,21 @@ namespace book_a_reading_room_visit.web
                     new { controller = "Booking", action = "BookingConfirmation" });
 
                 endpoints.MapControllerRoute(
+                    name: "cancel-provision",
+                    pattern: "{bookingtype}/cancel-provision",
+                    new { controller = "Booking", action = "CancelProvision" });
+
+                endpoints.MapControllerRoute(
+                    name: "cancel-booking",
+                    pattern: "{bookingtype}/cancel-booking", 
+                    new { controller = "Booking", action = "CancelBooking" });
+
+                endpoints.MapControllerRoute(
+                    name: "cancellation-confirmation", 
+                    pattern: "{bookingtype}/cancellation-confirmation",
+                    new { controller = "Booking", action = "CancellationConfirmation" });
+
+                endpoints.MapControllerRoute(
                     name: "order-documents",
                     pattern: "{bookingtype}/order-documents/{readerticket}/{bookingreference}",
                     new { controller = "DocumentOrder", action = "OrderDocuments" });
@@ -118,16 +133,6 @@ namespace book_a_reading_room_visit.web
                     name: "document-order",
                     pattern: "{bookingtype}/document-order/{readerticket}/{bookingreference}",
                     new { controller = "DocumentOrder", action = "OrderComplete" });
-
-                endpoints.MapControllerRoute(
-                    name: "cancel-booking",
-                    pattern: "cancel-booking",
-                    new { controller = "Booking", action = "CancelBooking" });
-
-                endpoints.MapControllerRoute(
-                    name: "cancellation-confirmation",
-                    pattern: "cancellation-confirmation",
-                    new { controller = "Booking", action = "CancellationConfirmation" });
 
                 endpoints.MapControllerRoute(
                     name: "return-to-booking",

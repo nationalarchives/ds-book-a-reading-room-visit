@@ -103,5 +103,19 @@ namespace book_a_reading_room_visit.api.Service
             }
             return dateToReturn;
         }
+
+        public async Task<DateTime> GetCompleteByDateAsync(DateTime dateTime)
+        {
+            int daysToDeduct = int.Parse(_configuration.GetSection("BookingTimeLine:CompleteBy").Value);
+            var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
+            var dateToReturn = dateTime;
+            while (daysToDeduct > 0)
+            {
+                dateToReturn = dateToReturn.AddDays(-1);
+                if (WorkingWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
+                    daysToDeduct--;
+            }
+            return DateTime.Parse($"{dateToReturn:dd/MM/yyyy} 23:59:00");
+        }
     }
 }
