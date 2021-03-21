@@ -115,7 +115,7 @@ namespace book_a_reading_room_visit.api.Service
                 if (WorkingWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
                     daysToDeduct--;
             }
-            return DateTime.Parse($"{dateToReturn:dd/MM/yyyy} 23:59:00");
+            return dateToReturn.AddMinutes(-1);
         }
     }
 }
