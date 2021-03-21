@@ -87,6 +87,13 @@
                                 <th scope="row">Visit date</th>
                                 <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Seat number</th>
+                                <td>
+                                    @Model.SeatNumber
+                                    <p>Based on availability, we may need to change your seat on the date of your visit.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">

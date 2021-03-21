@@ -37,41 +37,37 @@
 
         <p>Your booking is provisional at this stage. It will be confirmed when you submit a document order.</p>
 
-        <table>
-            <tr>
-                <td>
-                    <span class="bold-text">Visit type</span>
-                </td>
-                <td>
-                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="bold-text">Visit date</span>
-                </td>
-                <td>
-                    @($"{Model.BookingStartDate:dddd dd MMMM yyyy}")
-                </td>
-            </tr>
-            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-            {
+        <table class="table">
+            <tbody>
                 <tr>
+                    <th scope="row">Visit type</th>
                     <td>
-                        <span class="bold-text">Reading room</span>
-                    </td>
-                    <td>
-                        @if (Model.SeatType == SeatTypes.StdRRSeat)
-                        {
-                            <p>Standard document reading room</p>
-                        }
-                        else
-                        {
-                            <p>Map and large document reading room</p>
-                        }
+                        @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
                     </td>
                 </tr>
-            }
+                <tr>
+                    <th scope="row">Visit date</th>
+                    <td>
+                        @($"{Model.BookingStartDate:dddd dd MMMM yyyy}")
+                    </td>
+                </tr>
+                @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                {
+                    <tr>
+                        <th scope="row">Reading room</th>
+                        <td>
+                            @if (Model.SeatType == SeatTypes.StdRRSeat)
+                            {
+                                <p>Standard document reading room</p>
+                            }
+                            else
+                            {
+                                <p>Map and large document reading room</p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
 
         <p>Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you cancel your existing booking.</p>
