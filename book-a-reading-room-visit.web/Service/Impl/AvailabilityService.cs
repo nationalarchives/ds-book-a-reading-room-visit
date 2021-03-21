@@ -15,11 +15,11 @@ namespace book_a_reading_room_visit.web.Service
             _client = client;
         }
 
-        public async Task<AvailabilitySummaryViewModel> GetAvailabilitySummaryAsync()
+        public async Task<AvailabilitySummaryModel> GetAvailabilitySummaryAsync()
         {
             var response = await _client.GetAsync("availability/summary");
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<AvailabilitySummaryViewModel>();
+            var result = await response.Content.ReadFromJsonAsync<AvailabilitySummaryModel>();
             return result;
         }
 

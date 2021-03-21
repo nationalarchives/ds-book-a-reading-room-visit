@@ -1,4 +1,4 @@
-﻿namespace book_a_reading_room_visit.api.Models
+﻿namespace book_a_reading_room_visit.model
 {
     public class KewBookingSeatUpdateModel
     {

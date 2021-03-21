@@ -37,7 +37,8 @@
                             <legend>Are you sure you want to cancel your visit for @Model.BookingStartDate.ToString("dddd dd MMMM yyyy")?</legend>
 
                             <span class="col-md-4 col-sm-6 no-left-padding">
-                                <a class="button primary" href="#">No - take me to the order form</a>
+                                <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
+                                                new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No - take me to the order form</a>
                             </span>
 
                             <span class="col-md-4 col-sm-6 no-left-padding">

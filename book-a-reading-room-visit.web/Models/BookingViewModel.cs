@@ -18,7 +18,7 @@ namespace book_a_reading_room_visit.web.Models
         public bool NoFaceCovering { get; set; }
         public string Ticket { get; set; }
 
-        public int ReadingTicket { 
+        public int ReaderTicket { 
             get
             {
                 if (int.TryParse(Ticket?.ToLower()?.Replace("t", "-"), out int ticket))

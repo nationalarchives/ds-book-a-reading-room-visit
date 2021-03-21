@@ -27,7 +27,15 @@ namespace book_a_reading_room_visit.web.Controllers
             bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ? 
                                               bookingViewModel.BookingStartDate : bookingViewModel.BookingStartDate.AddDays(1);
 
-            var result = await _bookingService.CreateBookingAsync(bookingViewModel);
+            var model = new BookingModel
+            {
+                BookingType = bookingViewModel.BookingType,
+                SeatType = bookingViewModel.SeatType,
+                VisitStartDate = bookingViewModel.BookingStartDate,
+                VisitEndDate = bookingViewModel.BookingEndDate
+            };
+
+            var result = await _bookingService.CreateBookingAsync(model);
 
             if (!result.IsSuccess)
             {
@@ -58,8 +66,8 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel)
         {
-            if (bookingViewModel.ReadingTicket == 0 ||
-                !_advancedOrderService.IsReaderTicketValid(bookingViewModel.ReadingTicket.ToString()))
+            if (bookingViewModel.ReaderTicket == 0 ||
+                !_advancedOrderService.IsReaderTicketValid(bookingViewModel.ReaderTicket.ToString()))
             {
                 ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
@@ -81,7 +89,20 @@ namespace book_a_reading_room_visit.web.Controllers
                 return View("SecureBooking", bookingViewModel);
             }
 
-            var result = await _bookingService.ReserveSpaceAsync(bookingViewModel);
+            var model = new BookingModel
+            {
+                BookingReference = bookingViewModel.BookingReference,
+                ReaderTicket = bookingViewModel.ReaderTicket,
+                FirstName = bookingViewModel.FirstName,
+                LastName = bookingViewModel.LastName,
+                Email = bookingViewModel.Email,
+                Phone = bookingViewModel.Phone,
+                IsAcceptTsAndCs = bookingViewModel.AcceptTsAndCs,
+                IsAcceptCovidCharter = bookingViewModel.AcceptCovidCharter,
+                IsNoFaceCovering = bookingViewModel.NoFaceCovering,
+            };
+
+            var result = await _bookingService.ReserveSpaceAsync(model);
 
             if (!result.IsSuccess)
             {
@@ -108,8 +129,43 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> CancellationConfirmation(CancelViewModel cancelViewModel)
         {
-            await _bookingService.CancelBookingAsync(cancelViewModel);
+            var model = new BookingCancellationModel
+            {
+                ReaderTicket = cancelViewModel.ReaderTicket,
+                BookingReference = cancelViewModel.BookingReference,
+                CancelledBy = "visitor"
+            };
+            await _bookingService.CancelBookingAsync(model);
+            return View(cancelViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult ReturnToBooking()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReturnToBooking(BookingViewModel bookingViewModel)
+        {
+            if (bookingViewModel.ReaderTicket == 0 || string.IsNullOrWhiteSpace(bookingViewModel.BookingReference))
+            {
+                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
+                return View();
+            }
+            var model = await _bookingService.GetBookingAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingReference);
+            if (model == null)
+            {
+                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
+                return View();
+            }
+            var routeValues = new
+            {
+                bookingType = model.BookingType.ToStringURL(),
+                bookingReference = model.BookingReference,
+                readerTicket = model.ReaderTicket
+            };
+            return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
         }
     }
 }

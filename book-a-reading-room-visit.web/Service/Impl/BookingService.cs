@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http.Json;
-using book_a_reading_room_visit.web.Models;
+using System.Net;
 using System.Net.Http;
-using book_a_reading_room_visit.domain;
-using System.Collections.Generic;
+using book_a_reading_room_visit.model;
 
 namespace book_a_reading_room_visit.web.Service
 {
@@ -14,27 +13,31 @@ namespace book_a_reading_room_visit.web.Service
         {
             _client = client;
         }
-        public async Task<BookingResponseModel> CreateBookingAsync(BookingViewModel bookingViewModel)
+        public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
         {
-            var response = await _client.PostAsJsonAsync("booking/create", bookingViewModel);
+            var response = await _client.PostAsJsonAsync("booking/create", bookingModel);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
             return result;
         }
 
-        public async Task<BookingResponseModel> ReserveSpaceAsync(BookingViewModel bookingViewModel)
+        public async Task<BookingResponseModel> ReserveSpaceAsync(BookingModel bookingModel)
         {
-            var response = await _client.PostAsJsonAsync("booking/confirm", bookingViewModel);
+            var response = await _client.PostAsJsonAsync("booking/confirm", bookingModel);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
             return result;
         }
 
-        public async Task<BookingViewModel> GetBookingAsync(int readerTicket, string bookingReference)
+        public async Task<BookingModel> GetBookingAsync(int readerTicket, string bookingReference)
         {
             var response = await _client.GetAsync($"booking/{readerTicket}/{bookingReference}");
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadFromJsonAsync<BookingViewModel>();
+            var result = await response.Content.ReadFromJsonAsync<BookingModel>();
             return result;
         }
 
@@ -44,9 +47,9 @@ namespace book_a_reading_room_visit.web.Service
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task CancelBookingAsync(CancelViewModel cancelViewModel)
+        public async Task CancelBookingAsync(BookingCancellationModel bookingCancellationModel)
         {
-            var response = await _client.PostAsJsonAsync("booking/cancel", cancelViewModel);
+            var response = await _client.PostAsJsonAsync("booking/cancel", bookingCancellationModel);
             response.EnsureSuccessStatusCode();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace book_a_reading_room_visit.web.Models
+namespace book_a_reading_room_visit.model
 {
     public class BookingResponseModel
     {

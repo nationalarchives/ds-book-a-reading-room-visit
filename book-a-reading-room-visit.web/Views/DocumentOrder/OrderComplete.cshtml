@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="prompt-white">
                         <p>
-                            You can add to or remove documents from this order <span class="bold-text">until 23:59 on Monday 16 January</span>
+                            You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
                         </p>
                         <p>
                             Return to this form at any time before the deadline using the link below or from your confirmation email. Once the date
@@ -40,7 +40,7 @@
 
                         <div class="col-md-6 col-xs-12 col-md-offset-3 no-float">
                             <span class="col-md-6 col-xs-12 no-float">
-                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReadingTicket, bookingReference = @Model.BookingReference })">Edit your order</a>
+                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = @Model.BookingReference })">Edit your order</a>
                             </span>
                             <span class="col-md-6 col-xs-12 no-float">
                                 <a href="#">Print your order</a>
@@ -59,22 +59,40 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Booking reference</th>
-                                <td>RR23610</td>
+                                <td>@Model.BookingReference</td>
                             </tr>
                             <tr>
-                                <th scope="row">Seat type</th>
-                                <td>Document reading room, with camera stand</td>
+                                <th scope="row">Visit type</th>
+                                <td>
+                                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                                </td>
                             </tr>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                <tr>
+                                    <th scope="row">Reading room</th>
+                                    <td>
+                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                        {
+                                            <p>Standard document reading room</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Map and large document reading room</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <th scope="row">Visit date</th>
-                                <td>20 January (one day visit)</td>
+                                <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
                             </tr>
                         </tbody>
                     </table>
                     <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.HiddenFor(Model => Model.ReadingTicket)
+                        @Html.HiddenFor(Model => Model.ReaderTicket)
                         @Html.HiddenFor(Model => Model.SeatType)
                         @Html.HiddenFor(Model => Model.BookingStartDate)
                         @Html.HiddenFor(Model => Model.SeatNumber)

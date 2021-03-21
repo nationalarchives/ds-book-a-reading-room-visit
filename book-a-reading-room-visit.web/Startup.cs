@@ -137,7 +137,7 @@ namespace book_a_reading_room_visit.web
                 endpoints.MapControllerRoute(
                     name: "return-to-booking",
                     pattern: "return-to-booking",
-                    new { controller = "Home", action = "ReturnToBooking" });
+                    new { controller = "Booking", action = "ReturnToBooking" });
             });
         }
     }

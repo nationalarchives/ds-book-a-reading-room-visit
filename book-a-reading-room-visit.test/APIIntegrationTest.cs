@@ -1,4 +1,4 @@
-﻿using book_a_reading_room_visit.api.Models;
+﻿using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;

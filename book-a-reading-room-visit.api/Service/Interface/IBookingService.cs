@@ -1,5 +1,5 @@
-﻿using book_a_reading_room_visit.api.Models;
-using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,8 +11,8 @@ namespace book_a_reading_room_visit.api.Service
         Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel);
         Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId);
         Task<BookingResponseModel> CancelBookingAsync(BookingCancellationModel bookingCancellationModel);
-        Task<Booking> GetBookingByIdAsync(int bookingId);
-        Task<Booking> GetBookingByReferenceAsync(int readerTicket, string bookingReference);
+        Task<BookingModel> GetBookingByIdAsync(int bookingId);
+        Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference);
         Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
         Task<bool> DeleteBookingAsync(string bookingReference);
     }

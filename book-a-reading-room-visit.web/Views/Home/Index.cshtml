@@ -1,4 +1,4 @@
-﻿@model book_a_reading_room_visit.web.Models.AvailabilitySummaryViewModel
+﻿@model book_a_reading_room_visit.model.AvailabilitySummaryModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -79,7 +79,7 @@
                 <div class="col-md-12">
                     <h2>Return to your booking</h2>
                     <p>You can view your order details for an existing visit using your booking reference number</p>
-                    <a href="@Url.Action("ReturnToBooking", "Home")">Find your existing visit</a>
+                    <a href="@Url.Action("ReturnToBooking", "Booking")">Find your existing visit</a>
                 </div>
             </div>
         </section>
