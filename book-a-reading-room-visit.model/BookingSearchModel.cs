@@ -9,5 +9,7 @@ namespace book_a_reading_room_visit.model
         public string BookingReference { get; set; }
 
         public int? ReadersTicket { get; set; }
+
+        public string LastName { get; set; }
     }
 }
