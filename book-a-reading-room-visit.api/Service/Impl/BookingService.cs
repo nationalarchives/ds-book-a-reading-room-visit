@@ -78,6 +78,7 @@ namespace book_a_reading_room_visit.api.Service
             response.CompleteByDate = await _workingDayService.GetCompleteByDateAsync(booking.VisitStartDate);
             response.SeatNumber = booking.Seat.Number;
 
+            _context.Attach(booking);
             booking.CompleteByDate = response.CompleteByDate;
             booking.ReaderTicket = bookingModel.ReaderTicket;
             booking.FirstName = bookingModel.FirstName;
@@ -87,8 +88,6 @@ namespace book_a_reading_room_visit.api.Service
             booking.IsAcceptTsAndCs = bookingModel.IsAcceptTsAndCs;
             booking.IsAcceptCovidCharter = bookingModel.IsAcceptCovidCharter;
             booking.IsNoFaceCovering = bookingModel.IsNoFaceCovering;
-
-            _context.Entry(booking).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
             return response;
@@ -139,10 +138,9 @@ namespace book_a_reading_room_visit.api.Service
                 return response;
             }
 
+            _context.Attach(booking);
             booking.BookingStatusId = (int)BookingStatuses.Cancelled;
             booking.LastModifiedBy = bookingCancellationModel.CancelledBy;
-            _context.Entry(booking).State = EntityState.Modified;
-
             await _context.SaveChangesAsync();
             return response;
         }
