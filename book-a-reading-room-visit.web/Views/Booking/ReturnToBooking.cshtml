@@ -1,8 +1,4 @@
-﻿@using book_a_reading_room_visit.domain
-@using book_a_reading_room_visit.web.Helper
-@using book_a_reading_room_visit.web.Models
-
-@{
+﻿@{
     ViewData["Title"] = "Return to your booking";
 }
 
@@ -32,14 +28,16 @@
         <div class="rtn-to-booking">
             <div class="row">
                 <div class="col-md-12 align-left">
-                    <form action="#" class="rtn-to-booking-form">
+                    <form action="@Url.Action("ReturnToBooking", "Booking")" class="rtn-to-booking-form" method="post">
+                        @Html.ValidationSummary()
+                        @Html.AntiForgeryToken()
                         <fieldset>
                             <legend><label for="reference-number">Enter your booking reference number</label></legend>
                             <p>
-                                This will have been shown on screen when you reserved your space or sent in your confirmation email, e.g. 1234567
+                                This will have been shown on screen when you reserved your space or sent in your confirmation email, e.g. RR811-260-2036X
                             </p>
 
-                            <input id="reference-number" name="reference-number" type="text" />
+                            <input id="reference-number" name="bookingReference" type="text" placeholder="Enter booking reference" required />
                         </fieldset>
 
                         <fieldset>
@@ -48,7 +46,7 @@
                                 This can be found on your reader’s ticket, e.g. 102087
                             </p>
 
-                            <input id="reader-ticket-number" name="reader-ticket-number" type="text" />
+                            <input id="reader-ticket-number" name="ticket" type="text" placeholder="Enter ticket number" required />
                         </fieldset>
 
                         <button type="submit" class="button">Return to your form ></button>

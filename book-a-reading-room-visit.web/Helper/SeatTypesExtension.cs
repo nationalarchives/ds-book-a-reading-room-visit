@@ -1,4 +1,4 @@
-﻿using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.model;
 
 namespace book_a_reading_room_visit.web.Helper
 {

@@ -1,11 +1,11 @@
-﻿using book_a_reading_room_visit.api.Models;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using book_a_reading_room_visit.model;
 
 namespace book_a_reading_room_visit.api.Service
 {

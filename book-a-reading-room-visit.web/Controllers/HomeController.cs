@@ -1,4 +1,4 @@
-﻿using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
@@ -42,11 +42,6 @@ namespace book_a_reading_room_visit.web.Controllers
                 ErrorMessage = errorCode.ToMessage()
             };
             return View(model);
-        }
-
-        public IActionResult ReturnToBooking()
-        {
-            return View();
         }
 
         public IActionResult Privacy()

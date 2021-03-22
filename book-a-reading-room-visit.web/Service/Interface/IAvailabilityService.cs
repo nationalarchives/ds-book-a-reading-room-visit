@@ -1,4 +1,4 @@
-﻿using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace book_a_reading_room_visit.web.Service
 {
     public interface IAvailabilityService
     {
-        Task<AvailabilitySummaryViewModel> GetAvailabilitySummaryAsync();
+        Task<AvailabilitySummaryModel> GetAvailabilitySummaryAsync();
         Task<List<AvailableSeat>> GetAvailabilityAsync(SeatTypes seatType);
     }
 }

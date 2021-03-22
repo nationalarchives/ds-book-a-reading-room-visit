@@ -1,7 +1,6 @@
-﻿using book_a_reading_room_visit.api.Helper;
-using book_a_reading_room_visit.api.Models;
-using book_a_reading_room_visit.data;
+﻿using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

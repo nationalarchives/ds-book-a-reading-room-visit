@@ -1,11 +1,8 @@
-﻿using book_a_reading_room_visit.domain;
-using book_a_reading_room_visit.web.Models;
+﻿using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Helper

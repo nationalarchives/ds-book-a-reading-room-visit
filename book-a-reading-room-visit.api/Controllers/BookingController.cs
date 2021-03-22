@@ -1,6 +1,6 @@
-﻿using book_a_reading_room_visit.api.Models;
-using book_a_reading_room_visit.api.Service;
+﻿using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -27,7 +27,6 @@ namespace book_a_reading_room_visit.api.Controllers
         
         [HttpPost("confirm")]
         public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
-
         {
             var result = await _bookingService.ConfirmBookingAsync(bookingModel);
             return Ok(result);
@@ -49,10 +48,10 @@ namespace book_a_reading_room_visit.api.Controllers
             
         }
 
-        [HttpPost("cancel-booking")]
-        public async Task<ActionResult<BookingResponseModel>> CancelBooking([FromBody]BookingCancellationModel bookingCancellationModel)
+        [HttpPost("cancel")]
+        public async Task<ActionResult<BookingResponseModel>> CancelBooking(BookingCancellationModel bookingCancellationModel)
         {
-            BookingResponseModel result = await _bookingService.CancelBookingAsync(bookingCancellationModel.BookingId);
+            var result = await _bookingService.CancelBookingAsync(bookingCancellationModel);
 
             if (result.IsSuccess)
             {
@@ -87,11 +86,35 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("{readerticket}/{bookingreference}")]
+        public async Task<ActionResult<Booking>> GetByReference(int readerTicket, string bookingReference)
+        {
+            var booking = await _bookingService.GetBookingByReferenceAsync(readerTicket, bookingReference);
+
+            if (booking != null)
+            {
+                return Ok(booking);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpGet("search")]
         public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
         {
             var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{bookingreference}")]
+        public async Task<IActionResult> DeleteBooking(string bookingreference)
+        {
+            var result = await _bookingService.DeleteBookingAsync(bookingreference);
+            return result ? NoContent() : NotFound();
         }
     }
 }

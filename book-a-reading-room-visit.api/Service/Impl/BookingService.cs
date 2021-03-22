@@ -1,7 +1,7 @@
 ﻿using book_a_reading_room_visit.api.Helper;
-using book_a_reading_room_visit.api.Models;
 using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
+using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,11 +13,13 @@ namespace book_a_reading_room_visit.api.Service
     public class BookingService : IBookingService
     {
         private readonly BookingContext _context;
+        private readonly IWorkingDayService _workingDayService;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService)
         {
             _context = context;
+            _workingDayService = workingDayService;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -25,7 +27,7 @@ namespace book_a_reading_room_visit.api.Service
             var response = new BookingResponseModel { IsSuccess = true };
 
             var seatAvailable = await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == bookingModel.SeatType)
-                                       join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.BookingStartDate)
+                                       join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.VisitStartDate && b.BookingStatusId != (int)BookingStatuses.Cancelled)
                                        on seat.Id equals booking.SeatId into lj
                                        from subseat in lj.DefaultIfEmpty()
                                        where subseat == null
@@ -34,7 +36,7 @@ namespace book_a_reading_room_visit.api.Service
             if (seatAvailable?.Id == null)
             {
                 response.IsSuccess = false;
-                response.ErrorMessage = $"There is no seat available for the given seat type {bookingModel.SeatType.ToString()} and date {bookingModel.BookingStartDate:dd-MM-yyyy}";
+                response.ErrorMessage = $"There is no seat available for the given seat type {bookingModel.SeatType.ToString()} and date {bookingModel.VisitStartDate:dd-MM-yyyy}";
                 return response;
             }
 
@@ -49,22 +51,23 @@ namespace book_a_reading_room_visit.api.Service
                 BookingTypeId = (int)bookingModel.BookingType,
                 IsAcceptTsAndCs = false,
                 IsAcceptCovidCharter = false,
+                IsNoFaceCovering = false,
                 IsNoShow = false,
                 SeatId = seatAvailable.Id,
                 BookingStatusId = (int)BookingStatuses.Created,
-                VisitStartDate = bookingModel.BookingStartDate,
-                VisitEndDate = bookingModel.BookingEndDate,
+                VisitStartDate = bookingModel.VisitStartDate,
+                VisitEndDate = bookingModel.VisitEndDate,
                 LastModifiedBy = Modified_By
             });
             await _context.SaveChangesAsync();
             return response;
         }
-        
+
         public async Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
 
-            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
+            var booking = await _context.Set<Booking>().Include(b => b.Seat).FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
 
             if (booking == null)
             {
@@ -72,14 +75,18 @@ namespace book_a_reading_room_visit.api.Service
                 response.ErrorMessage = $"There is no booking found for the booking reference {bookingModel.BookingReference}";
                 return response;
             }
+            response.CompleteByDate = await _workingDayService.GetCompleteByDateAsync(booking.VisitStartDate);
+            response.SeatNumber = booking.Seat.Number;
 
-            booking.ReaderTicket = bookingModel.ReadingTicket;
-            booking.Email = bookingModel.Email;
+            booking.CompleteByDate = response.CompleteByDate;
+            booking.ReaderTicket = bookingModel.ReaderTicket;
             booking.FirstName = bookingModel.FirstName;
             booking.LastName = bookingModel.LastName;
+            booking.Email = bookingModel.Email;
             booking.Phone = bookingModel.Phone;
-            booking.IsAcceptTsAndCs = bookingModel.AcceptTsAndCs;
-            booking.IsAcceptCovidCharter = bookingModel.AcceptCovidCharter;
+            booking.IsAcceptTsAndCs = bookingModel.IsAcceptTsAndCs;
+            booking.IsAcceptCovidCharter = bookingModel.IsAcceptCovidCharter;
+            booking.IsNoFaceCovering = bookingModel.IsNoFaceCovering;
 
             _context.Entry(booking).State = EntityState.Modified;
 
@@ -117,27 +124,30 @@ namespace book_a_reading_room_visit.api.Service
 
         }
 
-        public async Task<BookingResponseModel> CancelBookingAsync(int bookingId)
+        public async Task<BookingResponseModel> CancelBookingAsync(BookingCancellationModel bookingCancellationModel)
         {
             var response = new BookingResponseModel { IsSuccess = true };
 
-            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingId);
+            var booking = bookingCancellationModel.BookingId > 0 ? await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingCancellationModel.BookingId)
+                                                                 : await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingCancellationModel.BookingReference && 
+                                                                                                                          b.ReaderTicket == bookingCancellationModel.ReaderTicket);
 
             if (booking == null)
             {
                 response.IsSuccess = false;
-                response.ErrorMessage = $"There is no booking found for the booking id {bookingId}";
+                response.ErrorMessage = $"There is no booking found for the booking id {bookingCancellationModel.BookingId}";
                 return response;
             }
 
-            _context.Attach(booking);
             booking.BookingStatusId = (int)BookingStatuses.Cancelled;
-            _context.SaveChanges();
+            booking.LastModifiedBy = bookingCancellationModel.CancelledBy;
+            _context.Entry(booking).State = EntityState.Modified;
 
+            await _context.SaveChangesAsync();
             return response;
         }
 
-        public async Task<Booking> GetBookingByIdAsync(int bookingId)
+        public async Task<BookingModel> GetBookingByIdAsync(int bookingId)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
@@ -146,6 +156,21 @@ namespace book_a_reading_room_visit.api.Service
                 .TagWith<Booking>("Find Booking by ID")
                 .FirstOrDefaultAsync(b => b.Id == bookingId);
 
+            var bookingToReturn = GetSerialisedBooking(booking);
+            return bookingToReturn;
+        }
+
+        public async Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference)
+        {
+            var booking = await _context.Bookings
+                .Include(b => b.Seat)
+                .Include(b => b.OrderDocuments)
+                .FirstOrDefaultAsync(b => b.ReaderTicket == readerTicket && b.BookingReference == bookingReference);
+
+            if (booking == null)
+            {
+                return null;
+            }
             var bookingToReturn = GetSerialisedBooking(booking);
             return bookingToReturn;
         }
@@ -160,12 +185,12 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             var bookings = await _context.Bookings.AsNoTracking<Booking>().Where(b =>
-                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference  == b.BookingReference) &&
+                                            (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference == b.BookingReference) &&
                                             (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
                                             (dateComponent == null || dateComponent == b.VisitStartDate.Date)
                                             ).Include(b => b.BookingStatus).Include(b => b.Seat).ThenInclude(s => s.SeatType)
                                             .TagWith<Booking>("Search of Bookings").ToListAsync();
-            
+
             return bookings;
         }
 
@@ -175,18 +200,16 @@ namespace book_a_reading_room_visit.api.Service
         /// </summary>
         /// <param name="booking"></param>
         /// <returns></returns>
-        private Booking GetSerialisedBooking(Booking booking)
+        private BookingModel GetSerialisedBooking(Booking booking)
         {
-            var result = new Booking()
+            var result = new BookingModel()
             {
                 Id = booking.Id,
                 BookingReference = booking.BookingReference,
-                BookingStatus = booking.BookingStatus,
-                BookingStatusId = booking.BookingStatusId,
+                BookingStatus = (BookingStatuses)booking.BookingStatusId,
                 AdditionalRequirements = booking.AdditionalRequirements,
                 Comments = booking.Comments,
-                BookingType = booking.BookingType,
-                BookingTypeId = booking.BookingTypeId,
+                BookingType = (BookingTypes)booking.BookingTypeId,
                 Email = booking.Email,
                 Phone = booking.Phone,
                 FirstName = booking.FirstName,
@@ -194,34 +217,50 @@ namespace book_a_reading_room_visit.api.Service
                 ReaderTicket = booking.ReaderTicket,
                 VisitStartDate = booking.VisitStartDate,
                 VisitEndDate = booking.VisitEndDate,
-                SeatId = booking.SeatId,
-                Seat = booking.Seat,
+                CompleteByDate = booking.CompleteByDate ?? default(DateTime),
+                SeatType = (SeatTypes)booking.Seat.SeatTypeId,
+                SeatNumber = booking.Seat.Number,
                 IsAcceptCovidCharter = booking.IsAcceptCovidCharter,
                 IsAcceptTsAndCs = booking.IsAcceptTsAndCs,
                 IsNoShow = booking.IsNoShow,
+                IsNoFaceCovering = booking.IsNoFaceCovering,
                 CreatedDate = booking.CreatedDate,
                 LastModifiedBy = booking.LastModifiedBy,
-                OrderDocuments = new List<OrderDocument>()
+                OrderDocuments = new List<OrderDocumentModel>()
             };
 
-            foreach (OrderDocument o in booking.OrderDocuments)
+            foreach (var document in booking.OrderDocuments)
             {
-                result.OrderDocuments.Add(new OrderDocument()
+                result.OrderDocuments.Add(new OrderDocumentModel()
                 {
-                    ClassNumber = o.ClassNumber,
-                    DocumentReference = o.DocumentReference,
-                    Id = o.Id,
-                    IsReserve = o.IsReserve,
-                    ItemReference = o.ItemReference,
-                    LetterCode = o.LetterCode,
-                    PieceId = o.PieceId,
-                    PieceReference = o.PieceReference,
-                    Site = o.Site,
-                    SubClassNumber = o.SubClassNumber
+                    ClassNumber = document.ClassNumber,
+                    DocumentReference = document.DocumentReference,
+                    Id = document.Id,
+                    IsReserve = document.IsReserve,
+                    ItemReference = document.ItemReference,
+                    LetterCode = document.LetterCode,
+                    PieceId = document.PieceId,
+                    PieceReference = document.PieceReference,
+                    Site = document.Site,
+                    SubClassNumber = document.SubClassNumber
                 });
             }
 
             return result;
+        }
+
+        public async Task<bool> DeleteBookingAsync(string bookingReference)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.BookingReference == bookingReference);
+            if (booking == null)
+            {
+                return false;
+            }
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

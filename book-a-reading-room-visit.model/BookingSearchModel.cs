@@ -1,7 +1,6 @@
-﻿using book_a_reading_room_visit.domain;
-using System;
+﻿using System;
 
-namespace book_a_reading_room_visit.api.Models
+namespace book_a_reading_room_visit.model
 {
     public class BookingSearchModel
     {

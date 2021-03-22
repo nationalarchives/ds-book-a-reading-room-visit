@@ -1,4 +1,4 @@
-﻿namespace book_a_reading_room_visit.domain
+﻿namespace book_a_reading_room_visit.model
 {
     public enum BookingTypes
     {

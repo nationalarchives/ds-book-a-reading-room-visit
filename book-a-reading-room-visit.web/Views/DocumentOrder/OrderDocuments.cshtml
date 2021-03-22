@@ -1,6 +1,6 @@
 ﻿@using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
-@using book_a_reading_room_visit.domain
+@using book_a_reading_room_visit.model
 
 @{
     ViewData["Title"] = "Order documents";
@@ -36,9 +36,9 @@
                         documents held by The National Archives.
                     </p>
                     <p>
-                        If you do not complete this step by <span class="bold-text">23:59 BST on Monday 30 March</span> your visit will be automatically cancelled.
+                        If you do not complete this step by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. your visit will be automatically cancelled.
                         A direct link to this form is also in your confirmation email, so you can return to amend or complete your
-                        document order at any point before <span class="bold-text">23:59 BST on Monday 30 March</span>. Check your spam and junk email folders.
+                        document order at any point before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. Check your spam and junk email folders.
                     </p>
                     <p>
                         Once this date has passed, you can't change your document order as we will begin preparing your order for your
@@ -56,19 +56,52 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Booking reference</th>
-                                <td>RR23610</td>
+                                <td>@Model.BookingReference</td>
                             </tr>
                             <tr>
-                                <th scope="row">Seat type</th>
-                                <td>Document reading room, with camera stand</td>
+                                <th scope="row">Visit type</th>
+                                <td>
+                                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                                </td>
                             </tr>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                <tr>
+                                    <th scope="row">Reading room</th>
+                                    <td>
+                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                        {
+                                            <p>Standard document reading room</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Map and large document reading room</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <th scope="row">Visit date</th>
-                                <td>20 January (one day visit)</td>
+                                <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Seat number</th>
+                                <td>
+                                    @Model.SeatNumber
+                                    <p>Based on availability, we may need to change your seat on the date of your visit.</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                    <a href="@Url.Action("CancelBooking", "Booking")">Cancel this booking ></a>
+                    <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(Model => Model.BookingReference)
+                        @Html.Hidden("readerticket", Model.ReaderTicket)
+                        @Html.HiddenFor(Model => Model.SeatType)
+                        @Html.HiddenFor(Model => Model.BookingStartDate)
+                        @Html.HiddenFor(Model => Model.SeatNumber)
+                        <button type="submit" class="btn-link">Cancel this booking ></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -78,7 +111,7 @@
                 <div class="col-md-12">
                     <div class="prompt-white">
                         <p class="no-margin">
-                            You can add to or remove documents from this order <span class="bold-text">until 23:59 on Monday 16 January</span>
+                            You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
                         </p>
                     </div>
                 </div>
@@ -88,7 +121,7 @@
         <div class="order-form">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@Url.Action("OrderComplete", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReadingTicket, bookingReference = Model.BookingReference } )" method="POST">
+                    <form action="@Url.Action("OrderComplete", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = Model.BookingReference } )" method="POST">
                         @Html.AntiForgeryToken()
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                         {
