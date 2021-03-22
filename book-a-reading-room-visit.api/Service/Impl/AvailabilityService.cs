@@ -95,7 +95,7 @@ namespace book_a_reading_room_visit.api.Service
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
-        public async Task<List<Seat>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType)
+        public async Task<List<SeatModel>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType)
         {
             var seatTypes = bookingType == BookingTypes.StandardOrderVisit ? StandardOrderSeats.Select(s => (int)s).ToList() 
                                                                            : BulkOrderSeats.Select(s => (int)s).ToList();
@@ -107,7 +107,9 @@ namespace book_a_reading_room_visit.api.Service
                                          where subseat == null
                                          select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
 
-            return availableSeats;
+            var seatModels = availableSeats.Select(s => new SeatModel() { Id = s.Id, Number = s.Number, SeatType = (SeatTypes)s.SeatType.Id }).ToList();
+
+            return seatModels;
         }
     }
 }

@@ -175,7 +175,7 @@ namespace book_a_reading_room_visit.api.Service
             return bookingToReturn;
         }
 
-        public async Task<List<Booking>> BookingSearchAsync(BookingSearchModel bookingSearchModel)
+        public async Task<List<BookingModel>> BookingSearchAsync(BookingSearchModel bookingSearchModel)
         {
             DateTime? dateComponent = null;
 
@@ -188,10 +188,67 @@ namespace book_a_reading_room_visit.api.Service
                                             (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference == b.BookingReference) &&
                                             (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
                                             (dateComponent == null || dateComponent == b.VisitStartDate.Date)
-                                            ).Include(b => b.BookingStatus).Include(b => b.Seat).ThenInclude(s => s.SeatType)
+                                            ).Include(b => b.BookingType).Include(b => b.BookingStatus)
+                                            .Include(b => b.Seat).ThenInclude(s => s.SeatType)
+                                            .Include(b => b.OrderDocuments)
                                             .TagWith<Booking>("Search of Bookings").ToListAsync();
 
-            return bookings;
+            var bookingModels = bookings.Select(b => new BookingModel() 
+            { 
+                 Id = b.Id,
+                 BookingReference = b.BookingReference,
+                 BookingType = (BookingTypes)b.BookingType.Id,
+                 BookingStatus = (BookingStatuses)b.BookingStatusId,
+                 FirstName = b.FirstName,
+                 LastName = b.LastName,
+                 Email = b.Email,
+                 Phone = b.Phone,
+                 CreatedDate = b.CreatedDate, 
+                 CompleteByDate = b.CompleteByDate,
+                 AdditionalRequirements = b.AdditionalRequirements,
+                 Comments = b.Comments,
+                 IsAcceptCovidCharter = b.IsAcceptCovidCharter,
+                 IsAcceptTsAndCs = b.IsAcceptTsAndCs,
+                 IsNoFaceCovering = b.IsNoFaceCovering,
+                 IsNoShow = b.IsNoShow,
+                 ReaderTicket = b.ReaderTicket,
+                 SeatId = b.SeatId,
+                 SeatNumber = b.Seat.Number,
+                 SeatType = (SeatTypes)b.Seat.SeatTypeId,
+                 SeatTypeDescription = b.Seat.SeatType.Description,
+                 VisitStartDate = b.VisitStartDate,
+                 VisitEndDate = b.VisitEndDate,
+                 LastModifiedBy = b.LastModifiedBy,
+                 OrderDocuments = AddOrderDocuments(b)
+            });
+
+            return bookingModels.ToList();
+
+            List<OrderDocumentModel> AddOrderDocuments(Booking b)
+            {
+                var orderDocumentList = new List<OrderDocumentModel>();
+
+                foreach (Booking booking in bookings)
+                {
+                    foreach (OrderDocument od in booking.OrderDocuments)
+                    {
+                        orderDocumentList.Add(new OrderDocumentModel()
+                        { Id = od.Id,
+                         DocumentReference = od.DocumentReference,
+                         PieceId = od.PieceId,
+                         PieceReference = od.PieceReference,
+                         ItemReference = od.ItemReference,
+                         ClassNumber = od.ClassNumber,
+                         SubClassNumber = od.SubClassNumber,
+                         LetterCode = od.LetterCode,
+                         IsReserve = od.IsReserve,
+                         Site = od.Site
+                        });
+                    }
+                }
+
+                return orderDocumentList;
+            }
         }
 
         /// <summary>

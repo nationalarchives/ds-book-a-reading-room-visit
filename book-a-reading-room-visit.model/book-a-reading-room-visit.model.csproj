@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>book_a_reading_room_visit.model</RootNamespace>
+    <Description>Shared model for the Kew Booking System</Description>
+    <Product>ds-book-a-reading-room-visit.model</Product>
+    <Company>The National Archives</Company>
+    <Authors>The National Archives</Authors>
+    <Version>1.3.0</Version>
+    <RepositoryUrl>https://github.com/nationalarchives/ds-book-a-reading-room-visit</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
   </PropertyGroup>
 
 </Project>
