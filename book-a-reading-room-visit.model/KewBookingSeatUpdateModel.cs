@@ -5,5 +5,7 @@
         public int BookingId { get; set; }
 
         public int NewSeatId { get; set; }
+
+        public string UpdatedBy { get; set; }
     }
 }
