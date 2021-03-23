@@ -118,6 +118,16 @@ form {
     }
 }
 
+.error-message {
+    color: #000;
+    display: block;
+    padding: 3px 7px;
+    background: #f9f7e2;
+    width: 100%;
+    max-width: 480px;
+    margin-left: 40px;
+}
+
 .helper-text {
     color: #555;
 }

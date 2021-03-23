@@ -54,11 +54,6 @@
             <div class="col-md-4 col-sm-4">
                 <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Select a preferred reading room" : "Room information")</h3>
 
-                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-                {
-                    <span class="form-error">@Model.ErrorMessage</span>
-                }
-
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
                     <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
@@ -130,6 +125,11 @@
         <div id="date-selection">
             <div class="col-md-8 col-sm-8">
                 <h3>Available dates</h3>
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <span class="error-message">@Model.ErrorMessage</span>
+                }
+
                 <ul>
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {
