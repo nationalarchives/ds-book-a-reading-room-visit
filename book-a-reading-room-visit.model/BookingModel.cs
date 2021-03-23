@@ -7,14 +7,16 @@ namespace book_a_reading_room_visit.model
     {
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime CompleteByDate { get; set; }
+        public DateTime? CompleteByDate { get; set; }
         public string BookingReference { get; set; }
         public BookingTypes BookingType { get; set; }
         public bool IsAcceptTsAndCs { get; set; }
         public bool IsAcceptCovidCharter { get; set; }
         public bool IsNoFaceCovering { get; set; }
         public bool IsNoShow { get; set; }
+        public int SeatId { get; set; }
         public SeatTypes SeatType { get; set; }
+        public string SeatTypeDescription { get; set; }
         public string   SeatNumber { get; set; }
         public BookingStatuses BookingStatus { get; set; }
         public string Comments { get; set; }
