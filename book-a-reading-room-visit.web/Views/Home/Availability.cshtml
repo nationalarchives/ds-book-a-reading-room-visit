@@ -4,7 +4,7 @@
 
 @model AvailabilityViewModel
 @{
-ViewData["Title"] = "Visit availability";
+    ViewData["Title"] = "Visit availability";
 }
 
 <h1 class="display-4">1. Select a date</h1>
@@ -17,7 +17,7 @@ ViewData["Title"] = "Visit availability";
             <div class="col-md-12">
                 <ol>
                     <li aria-current="page" class="active"><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                    <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
+                    <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
                     <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
                     <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
                     <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
@@ -56,7 +56,7 @@ ViewData["Title"] = "Visit availability";
 
                 @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
                 {
-                    <span class="form-error">Error</span>
+                    <span class="form-error">@Model.ErrorMessage</span>
                 }
 
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
@@ -67,13 +67,13 @@ ViewData["Title"] = "Visit availability";
 
                             <div>
                                 <label for="standard-room">Standard reading room</label>
-                                @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.StdRRSeat, new { id = "standard-room" })
+                                @Html.RadioButton("seattype", SeatTypes.StdRRSeat.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.StdRRSeat.ToStringURL(), new { id = "standard-room" })
                                 <p class="helper-text">All seats will have a camera stand provided</p>
                             </div>
 
                             <div class="border-top">
                                 <label for="map-and-lg-room">Map and large document reading room</label>
-                                @Html.RadioButtonFor(Model => Model.SeatType, SeatTypes.MandLRR, new { id = "map-and-lg-room" })
+                                @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
                                 <p class="helper-text">
                                     Some camera stands are available. If you need one, please tell us in the 'Additional access requirements
                                     or research requests' box when you complete your document order
@@ -145,7 +145,7 @@ ViewData["Title"] = "Visit availability";
                             {
                                 <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
                                     @Html.AntiForgeryToken()
-                                    @Html.HiddenFor(Model => Model.SeatType, new { id = "" })
+                                    @Html.Hidden("seattype", Model.SeatType.ToStringURL(), new { id = "" })
                                     @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date, new { id = "" })
                                     <button class="button" type="submit">
                                         <span class="col-md-12 col-sm-12 col-xs-12">
