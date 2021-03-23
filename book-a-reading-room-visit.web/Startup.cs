@@ -143,6 +143,11 @@ namespace book_a_reading_room_visit.web
                     name: "continue-later",
                     pattern: "continue-later",
                     new { controller = "Booking", action = "ContinueLater" });
+
+                endpoints.MapControllerRoute(
+                   name: "thank-you",
+                   pattern: "thank-you",
+                   new { controller = "Booking", action = "ThankYou" });
             });
         }
     }
