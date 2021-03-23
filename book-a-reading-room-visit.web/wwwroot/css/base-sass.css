@@ -8017,6 +8017,9 @@ form input[type=checkbox] {
   margin-bottom: 1em;
 }
 
+.reader-ticket-form legend {
+  font-size: 16px;
+}
 .reader-ticket-form input[type=text] {
   display: block;
   margin-top: 1em;

@@ -104,7 +104,7 @@
                     @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                     @Html.HiddenFor(Model => Model.BookingStartDate)
                     <fieldset>
-                        <legend class="sr-only">Enter your details to reserve a place</legend>
+                        <legend class="sr-only">Enter your reader’s ticket number</legend>
 
                         <div class="form-row">
                             <label for="ticket">Enter your reader’s ticket number</label>
@@ -122,8 +122,12 @@
                             </div>
                         </div>
 
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Enter your first name and last name</legend>
+
                         <div class="form-row">
-                            <p class="bold-text">Enter your first name and last name</p>
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
 
                             <label for="firstname" class="sr-only">First name</label>
@@ -133,8 +137,11 @@
                             <label for="lastname" class="sr-only">Last name</label>
                             @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
                             <span id="lastname-error" class="form-error">@Html.ValidationMessageFor(Model => Model.LastName)</span>
-
                         </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="sr-only">Enter your email address and/or telephone number</legend>
 
                         <div class="form-row">
                             <label for="email">Email address</label>
@@ -158,6 +165,10 @@
                             @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
                             <span id="phone-error" class="emphasis-error">@Html.ValidationMessage("phone", new { @class = "emphasis-error" })</span>
                         </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="sr-only">Please complete the following checkboxes</legend>
 
                         <div class="form-row checkbox">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
@@ -176,11 +187,11 @@
                                 This information won’t be shared with the NHS Test and Trace service.
                             </label>
                         </div>
-
-                        <div class="form-row">
-                            <button type="submit" class="button" name="submitbutton" value="reserve">Complete provisional booking ></button>
-                        </div>
                     </fieldset>
+
+                    <div class="form-row">
+                        <button type="submit" class="button" name="submitbutton" value="reserve">Complete provisional booking ></button>
+                    </div>
                 </div>
             </div>
         </div>
