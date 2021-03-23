@@ -28,7 +28,7 @@ namespace book_a_reading_room_visit.api.Service
             if (!_cache.TryGetValue<List<DateTime>>("StandardOrderAvailableDates", out availableDates))
             {
                 availableDates = new List<DateTime>();
-                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:AvailabilityFrom").Value);
+                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
                 var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:StandardAvailabilityDatesToShow").Value);
 
                 var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
@@ -38,7 +38,7 @@ namespace book_a_reading_room_visit.api.Service
                     startDate = await GetNextStandardOrderOpeningDayAsync(startDate, 1);
                     availableDates.Add(startDate);
                 }
-                _cache.Set<List<DateTime>>("StandardOrderAvailableDates", availableDates, DateTime.Now.AddDays(1));
+                _cache.Set("StandardOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             }
             return availableDates;
         }
@@ -49,7 +49,7 @@ namespace book_a_reading_room_visit.api.Service
             if (!_cache.TryGetValue<List<DateTime>>("BulkOrderAvailableDates", out availableDates))
             {
                 availableDates = new List<DateTime>();
-                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:AvailabilityFrom").Value);
+                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
                 var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:BulkAvailabilityDatesToShow").Value);
 
                 var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
@@ -59,7 +59,7 @@ namespace book_a_reading_room_visit.api.Service
                     startDate = await GetNextBulkOrderOpeningDayAsync(startDate, 1);
                     availableDates.Add(startDate);
                 }
-                _cache.Set<List<DateTime>>("BulkOrderAvailableDates", availableDates, DateTime.Now.AddDays(1));
+                _cache.Set("BulkOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             }
             return availableDates;
         }
@@ -68,7 +68,8 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<DateTime> GetNextWorkingDayAsync(DateTime dateTime, int daysToAdd)
         {
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
-            var dateToReturn = dateTime;
+            //1 day added for visitor to add documents
+            var dateToReturn = dateTime.AddDays(1);
             while (daysToAdd > 0)
             {
                 dateToReturn = dateToReturn.AddDays(1);
@@ -106,7 +107,7 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<DateTime> GetCompleteByDateAsync(DateTime dateTime)
         {
-            int daysToDeduct = int.Parse(_configuration.GetSection("BookingTimeLine:CompleteBy").Value);
+            int daysToDeduct = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
             var dateToReturn = dateTime;
             while (daysToDeduct > 0)

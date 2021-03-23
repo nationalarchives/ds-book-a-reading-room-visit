@@ -31,7 +31,7 @@ namespace book_a_reading_room_visit.api.Service
 
                 bankHolidays = result.Select(h => h.Date).ToList();
 
-                _cache.Set<List<DateTime>>("BankHolidays", bankHolidays, DateTime.Now.AddDays(1));
+                _cache.Set("BankHolidays", bankHolidays, DateTime.Today.AddDays(1));
             }
             return bankHolidays;
         }
