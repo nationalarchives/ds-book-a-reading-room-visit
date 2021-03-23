@@ -167,5 +167,10 @@ namespace book_a_reading_room_visit.web.Controllers
             };
             return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
         }
+
+        public IActionResult ContinueLater()
+        {
+            return View();
+        }
     }
 }
