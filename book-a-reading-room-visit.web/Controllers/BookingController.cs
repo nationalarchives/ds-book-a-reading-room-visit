@@ -172,5 +172,10 @@ namespace book_a_reading_room_visit.web.Controllers
         {
             return View();
         }
+
+        public IActionResult ThankYou()
+        {
+            return View();
+        }
     }
 }
