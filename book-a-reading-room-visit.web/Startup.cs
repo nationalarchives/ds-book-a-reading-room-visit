@@ -138,6 +138,11 @@ namespace book_a_reading_room_visit.web
                     name: "return-to-booking",
                     pattern: "return-to-booking",
                     new { controller = "Booking", action = "ReturnToBooking" });
+
+                endpoints.MapControllerRoute(
+                    name: "continue-later",
+                    pattern: "continue-later",
+                    new { controller = "Booking", action = "ContinueLater" });
             });
         }
     }
