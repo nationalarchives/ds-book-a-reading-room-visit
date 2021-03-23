@@ -2,110 +2,112 @@
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @{
-    ViewData["Title"] = "Booking confirmation";
+ViewData["Title"] = "Booking confirmation";
 }
 @model BookingViewModel
 
 <h1 class="display-4">3. Reservation confirmation</h1>
 
-<div class="text-center">
+<div class="container content-wrapper">
 
-    <div class="container content-wrapper">
-
+    <div class="text-center">
         <div id="progress-bar">
             <div class="row">
                 <div class="col-md-12">
                     <ol>
                         <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                        <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
-                        <li class="active"><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                        <li class="active"><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
+                        <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
                         <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
                         <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
                     </ol>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="heading">
-            <h2>You have made a provisional booking to visit the reading rooms</h2>
-        </div>
+    <div class="heading">
+        <h2>You have made a provisional booking to visit the reading rooms</h2>
+    </div>
 
-        <div class="booking-summary">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="prompt-grey">
-                        <p>
-                            <span class="bold-text">Your booking reference is @Model.BookingReference. Keep a note of this number for future reference.</span>
-                            To confirm your booking, complete the document order form by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST).</span>
-                        </p>
-                    </div>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Visit type</th>
-                                <td>
-                                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Visit date</th>
-                                <td>
-                                    @($"{Model.BookingStartDate:dddd dd MMMM yyyy}")
-                                </td>
-                            </tr>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
-                                <tr>
-                                    <th scope="row">Reading room</th>
-                                    <td>
-                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
-                                        {
-                                            <p>Standard document reading room</p>
-                                        }
-                                        else
-                                        {
-                                            <p>Map and large document reading room</p>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                            <tr>
-                                <th scope="row">Seat number</th>
-                                <td>
-                                    @Model.SeatNumber
-                                    <p>Based on availability, we may need to change your seat on the date of your visit.</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+    <div class="booking-summary text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="prompt-grey full-width">
+                    <p class="bold-text">Your booking reference is @(Model.BookingReference). Keep a note of this number for future reference.</p>
                     <p>
-                        A direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
-                        <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you can’t see the reservation confirmation email in your inbox,
-                        check your spam and junk email folders.
+                        To confirm your booking, complete the document order form by
+                        <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST).</span>
                     </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="reservation-options">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <span class="col-md-6">
-                        <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
-                                                new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Continue booking now</a>
-                    </span>
+    <div class="booking-details">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reading room</th>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Standard document reading room</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
 
-                    <span class="col-md-6">
-                        <a class="button primary" href="#">I'd like to continue later</a>
-                    </span>
-                </div>
+                            }
+                        </tr>
+                        <tr>
+                            <th scope="row">Seat number</th>
+                            <td>
+                                @Model.SeatNumber
+                                <p class="helper-text">Based on availability, we may need to change your seat on the date of your visit.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    A direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
+                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you can’t see the reservation confirmation email in your inbox,
+                    check your spam and junk email folders.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="reservation-options">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="col-lg-4 col-md-4">
+                    <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
+                                            new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Continue booking now</a>
+                </span>
+
+                <span class="col-lg-4 col-md-4">
+                    <a class="button primary" href="#">I'd like to continue later</a>
+                </span>
             </div>
         </div>
     </div>
