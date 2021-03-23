@@ -1,0 +1,113 @@
+﻿@using book_a_reading_room_visit.model
+@using book_a_reading_room_visit.web.Helper
+@using book_a_reading_room_visit.web.Models
+
+@{
+    ViewData["Title"] = "Reservation confirmation";
+}
+
+<h1 class="display-4">Before you leave</h1>
+
+<div class="container">
+
+    <div class="heading">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    You have a provisional booking for:
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="booking-details">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Booking ref</th>
+                            <td>
+                                @(Model.BookingReference)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reading room</th>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                            {
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Standard document reading room</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
+
+                            }
+                        </tr>
+                        <tr>
+                            <th scope="row">Seat number</th>
+                            <td>
+                                @Model.SeatNumber
+                                <p class="helper-text">Based on availability, we may need to change your seat on the date of your visit.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="prompt-white">
+                    <p>
+                        If you did not provide an email address as part of your booking, safely note these booking details
+                        or future reference. Return to your booking at this link before <span class="bold-text">
+                            Monday 13
+                            February 2021 at 11.59pm British Summer Time (BST)
+                        </span>:
+                    </p>
+                    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+
+                    <p>
+                        If you provided an email address as part of your booking, a direct link to this form is also in
+                        your reservation confirmation email, so you can return to your document order at any point before
+                        <span class="bold-text">Monday 13 February 2021 at 11.59pm British Summer Time (BST)</span>. If you
+                        can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
+                    </p>
+
+                    <p>Complete your document order form at any point before the deadline otherwise your visit will be cancelled.</p>
+
+                    <p>You will need your booking reference and reader's ticket number to return to this booking.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="reservation-options">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Are you sure you want to continue later?</h2>
+                    <span class="col-lg-4 col-md-4">
+                        <a class="button primary" href="@Url.Action("Booking", "ThankYou")">Yes, I'd like to continue later</a>
+                    </span>
+
+                    <span class="col-lg-4 col-md-4">
+                        <a class="button primary" href="#">No, take me to the order form</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
