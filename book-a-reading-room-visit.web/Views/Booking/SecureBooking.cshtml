@@ -9,169 +9,190 @@
 
 <h1 class="display-4">2. Enter your reader's tickets</h1>
 
-<div class="text-center">
+<div class="container content-wrapper">
 
-    <div class="container content-wrapper">
+    <div class="text-center">
+        <section class="row" id="progress-bar">
+            <h2 class="sr-only">Progress</h2>
+            <div class="col-md-12">
+                <ol>
+                    <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
+                    <li aria-current="page" class="active"><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
+                    <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                    <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
+                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+                </ol>
+            </div>
+        </section>
+    </div>
 
-        <div id="progress-bar">
-            <div class="row">
-                <div class="col-md-12">
-                    <ol>
-                        <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                        <li class="active"><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
-                        <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
-                        <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                        <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
-                    </ol>
-                </div>
+    <div class="heading">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>You are about to provisionally book this visit</h2>
+                <p class="no-margin">Your booking will be confirmed when you submit a document order.</p>
             </div>
         </div>
+    </div>
 
-        <div class="heading">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>You are about to provisionally book this visit</h2>
-                </div>
-            </div>
-        </div>
-
-        <p>Your booking is provisional at this stage. It will be confirmed when you submit a document order.</p>
-
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th scope="row">Visit type</th>
-                    <td>
-                        @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Visit date</th>
-                    <td>
-                        @($"{Model.BookingStartDate:dddd dd MMMM yyyy}")
-                    </td>
-                </tr>
-                @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                {
-                    <tr>
-                        <th scope="row">Reading room</th>
-                        <td>
-                            @if (Model.SeatType == SeatTypes.StdRRSeat)
+    <div class="booking-details">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reading room</th>
+                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
-                                <p>Standard document reading room</p>
-                            }
-                            else
-                            {
-                                <p>Map and large document reading room</p>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
-        <p>Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you cancel your existing booking.</p>
-        <form action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(Model => Model.BookingReference)
-            @Html.Hidden("seattype", Model.SeatType.ToStringURL())
-            <button type="submit" class="btn-link">Cancel and choose a different date</button>
-        </form>
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Standard document reading room</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
+                            }
+                        </tr>
+                    </tbody>
+                </table>
 
-        <form action="@Url.Action("BookingConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-            <div class="reader-ticket-form">
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="text-center">
+                    <p class="no-margin">
+                        Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you
+                        cancel your existing booking.
+                    </p>
+                    <form class="margin-bottom" action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(Model => Model.BookingReference)
                         @Html.Hidden("seattype", Model.SeatType.ToStringURL())
-                        @Html.HiddenFor(Model => Model.BookingStartDate)
-                        <fieldset>
-                            <h3>Enter your reader’s ticket number</h3>
-
-                            <div>
-                                <label for="ticket">
-                                    <p>You can find this below the barcode on the back of your reader’s ticket card. </p>
-                                    If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
-                                </label>
-                            </div>
-
-                            <span id="ticket-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.Ticket)</span>
-                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
-
-                            <div>
-                                <p>Don’t have a valid reader’s ticket or temporary reader’s ticket number?</p>
-                                <a href="/">Register for or renew a reader's ticket</a>
-                            </div>
-
-                            <h3>Enter your first name and last name</h3>
-
-                            <div>
-                                <label for="name">This should be the same as the name on your reader’s ticket card</label>
-                            </div>
-
-                            <div>
-                                <span id="firstname-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.FirstName)</span>
-                                @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
-                            </div>
-                            
-                            <div>
-                                <span id="lastname-error" class="emphasis-error">@Html.ValidationMessageFor(Model => Model.LastName)</span>
-                                @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
-                            </div>
-
-                            <hr />
-
-                            <h3>Enter your email address or telephone number so we can contact you.</h3>
-                            <h3>Email address</h3>
-                            <div>
-                                <label for="email">You can use this to re-enter the booking system and to receive a reservation confirmation.</label>
-                                <span id="phone-error" class="emphasis-error">@Html.ValidationMessage("phone", new { @class = "emphasis-error" })</span>
-                            </div>
-                            <div>
-                                <span id="email-error" class="emphasis-error">@Html.ValidationMessage("email", new { @class = "emphasis-error" })</span>
-                                @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
-                            </div>
-
-                            <h3>Telephone number</h3>
-                            <div>
-                                <label for="name">If you provide a telephone number only, remember to safely note your booking reference. For international numbers include the country code.</label>
-                            </div>
-
-                            <div>
-                                @Html.TextBoxFor(Model => Model.Phone, new { placeholder = "Enter telephone number" })
-                            </div>
-
-                        </fieldset>
-                    </div>
+                        <button type="submit" class="btn-link">Cancel and choose a different date</button>
+                    </form>
                 </div>
             </div>
-
-            <div class="booking-options">
-                <div class="row">
-                    <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-                        <fieldset id="conditions">
-                            <legend class="sr-only">Please accept the following conditions to continue with your order</legend>
-
-                            <div>
-                                <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
-                                @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
-                            </div>
-                            <div>
-                                <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a></label>
-                                @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
-                            </div>
-                            <div>
-                                <label for="face-covering">I have a legitimate reason to <a href="#">not wear a face covering</a>. This information won’t be shared with the NHS Test and Trace service.</label>
-                                @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
-                            </div>
-                        </fieldset>
-                        <span class="col-md-6 col-sm-6">
-                            <button type="submit" class="button primary">Complete provisional booking</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
+
+    <div class="text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="prompt-grey full-width">
+                    <p class="bold-text">You have 20 minutes to complete your provisional booking by</p>
+                    <span id="timer">TIMER</span>
+                    <small>If you do not complete the form by this time we will cancel your seat and you will need to start the process again.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form action="@Url.Action("BookingConfirmation", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+        <div class="reader-ticket-form">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(Model => Model.BookingReference)
+                    @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+                    @Html.HiddenFor(Model => Model.BookingStartDate)
+                    <fieldset>
+                        <legend class="sr-only">Enter your reader’s ticket number</legend>
+
+                        <div class="form-row">
+                            <label for="ticket">Enter your reader’s ticket number</label>
+                            <p class="helper-text">
+                                You can find this below the barcode on the back of your reader’s ticket card.
+                                If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
+                            </p>
+
+                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
+                            <span id="ticket-error" class="form-error">@Html.ValidationMessageFor(Model => Model.Ticket)</span>
+
+                            <div class="prompt-white max-width-480 margin-top">
+                                <p>If you don’t have a valid reader’s ticket or temporary reader’s ticket number, you won’t be able to proceed.</p>
+                                <a href="/">Register for or renew a reader’s ticket ></a>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Enter your first name and last name</legend>
+
+                        <div class="form-row">
+                            <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
+
+                            <label for="firstname" class="sr-only">First name</label>
+                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
+                            <span id="firstname-error" class="form-error">@Html.ValidationMessageFor(Model => Model.FirstName)</span>
+
+                            <label for="lastname" class="sr-only">Last name</label>
+                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
+                            <span id="lastname-error" class="form-error">@Html.ValidationMessageFor(Model => Model.LastName)</span>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="sr-only">Enter your email address and/or telephone number</legend>
+
+                        <div class="form-row">
+                            <label for="email">Email address</label>
+                            <p class="helper-text">
+                                We will use this to send you a booking confirmation email with a link to
+                                your document order form and a reminder email before your visit.
+                            </p>
+
+                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
+                            <span id="email-error" class="form-error">@Html.ValidationMessage("email", new { @class = "emphasis-error" })</span>
+
+                        </div>
+
+                        <div class="form-row">
+                            <label for="phone">Telephone number</label>
+                            <p class="helper-text">
+                                If you provide a telephone number only, you will need to note down the
+                                booking reference we are about to give you on the next page.
+                            </p>
+
+                            @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
+                            <span id="phone-error" class="emphasis-error">@Html.ValidationMessage("phone", new { @class = "emphasis-error" })</span>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="sr-only">Please complete the following checkboxes</legend>
+
+                        <div class="form-row checkbox">
+                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
+                            <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
+                        </div>
+
+                        <div class="form-row checkbox">
+                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
+                            <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
+                        </div>
+
+                        <div class="form-row checkbox">
+                            @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
+                            <label for="face-covering">
+                                I have a legitimate reason to <a href="#">not wear a face covering</a>.
+                                This information won’t be shared with the NHS Test and Trace service.
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-row">
+                        <button type="submit" class="button" name="submitbutton" value="reserve">Complete provisional booking ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

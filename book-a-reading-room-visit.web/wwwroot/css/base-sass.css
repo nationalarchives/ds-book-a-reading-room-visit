@@ -7836,8 +7836,9 @@ a.button {
   margin-top: 2.4em;
   padding: 0em 2em 2em 2em;
 }
-.content-wrapper .heading, .content-wrapper .heading-text {
+.content-wrapper .heading {
   margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 small {
@@ -7863,7 +7864,6 @@ form input[type=checkbox] {
 }
 
 .booking-details, .cancellation-details {
-  margin-bottom: 2em;
   text-align: left;
 }
 .booking-details h3, .cancellation-details h3 {
@@ -7890,18 +7890,23 @@ form input[type=checkbox] {
   text-align: left;
 }
 
+.border-top {
+  border-top: 2px solid #eee;
+  padding-top: 1.6em;
+}
+
+.btn-link {
+  color: #134571;
+  text-decoration: underline;
+}
+.btn-link:hover {
+  background-color: #134571;
+  color: #fff;
+}
+
 .cancellation-form legend {
   font-size: 20px;
   margin-bottom: 1.5em;
-}
-
-.date-selection ul li a {
-  background-color: #eee;
-  border: 2px solid #ddd;
-  width: 80%;
-}
-.date-selection ul li a div p {
-  margin-bottom: 0;
 }
 
 .document-list {
@@ -7916,11 +7921,20 @@ form input[type=checkbox] {
   margin-bottom: 0.5em;
 }
 
-.heading-text {
-  margin-bottom: 2em;
+.helper-text {
+  color: #555;
 }
-.heading-text p {
-  margin-bottom: 0.5em;
+
+.margin-bottom {
+  margin-bottom: 1em;
+}
+
+.margin-top {
+  margin-top: 1em;
+}
+
+.max-width-480 {
+  max-width: 480px;
 }
 
 .no-float {
@@ -7988,8 +8002,7 @@ form input[type=checkbox] {
 .prompt-grey {
   background-color: #eee;
   display: inline-block;
-  margin: 1em;
-  max-width: 70%;
+  margin-bottom: 2em;
   padding: 1em 2em;
 }
 .prompt-grey p {
@@ -8004,26 +8017,15 @@ form input[type=checkbox] {
   margin-bottom: 1em;
 }
 
-.reader-ticket-form {
-  margin: 2em 0;
+.reader-ticket-form legend {
+  font-size: 16px;
 }
 .reader-ticket-form input[type=text] {
+  display: block;
   margin-top: 1em;
 }
 .reader-ticket-form div form {
   margin-bottom: 2em;
-}
-
-.reservation-options div.col-md-6 {
-  display: flex;
-  justify-content: center;
-}
-.reservation-options div.col-md-6 a.button {
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-  max-width: 250px;
-  min-height: 70px;
 }
 
 .rtn-to-booking-form button {
@@ -8038,7 +8040,8 @@ form input[type=checkbox] {
 }
 
 .visit-toggler {
-  margin-top: 1em;
+  margin-top: 20px;
+  text-align: right;
 }
 
 #additional-reqs {
@@ -8055,6 +8058,9 @@ form input[type=checkbox] {
   margin-top: 6px;
 }
 
+#date-selection h3 {
+  padding-left: 40px;
+}
 #date-selection ul {
   margin-top: 20px;
 }
@@ -8086,13 +8092,11 @@ form input[type=checkbox] {
 
 #home .prompt-white h2 {
   margin-top: 0;
-}
-#home .prompt-white a:after {
-  content: " >";
+  margin-bottom: 0.5em;
 }
 
 #progress-bar {
-  margin: 2em 0;
+  margin-top: 2em;
 }
 #progress-bar ol {
   padding-left: 0;
@@ -8121,15 +8125,17 @@ form input[type=checkbox] {
   border-bottom: 2px solid #000;
 }
 
-#room-selection fieldset:last-child {
-  padding-bottom: 1em !important;
-}
 #room-selection h2 {
   margin-bottom: 1em;
 }
+#room-selection .prompt-white {
+  margin: 1em 0;
+}
 
 #room-selection-form fieldset {
+  border: 2px solid #eee !important;
   margin-bottom: 1em !important;
+  padding: 1em !important;
 }
 #room-selection-form fieldset div {
   text-align: left;
@@ -8151,6 +8157,9 @@ form input[type=checkbox] {
 #room-selection-form .form-indent p {
   margin-bottom: 0.5em;
 }
+#room-selection-form .helper-text {
+  padding-left: 1.3em;
+}
 #room-selection-form button[type=submit] {
   margin-bottom: 1em;
 }
@@ -8162,9 +8171,10 @@ form input[type=checkbox] {
   margin-right: 0.5em;
 }
 
-#ticket-details.prompt-white small {
+#timer {
   display: block;
-  margin-top: 1em;
+  font-size: 20px;
+  margin-bottom: 0.5em;
 }
 
 #unavailable-docs {
@@ -8172,13 +8182,13 @@ form input[type=checkbox] {
   margin-top: 1em;
 }
 
-#visit-type-toggle {
-  margin-top: 2em;
-  text-align: right;
+@media screen and (max-width: 991px) {
+  .visit-toggler {
+    text-align: left;
+  }
 }
-
 @media screen and (max-width: 767px) {
-  #date-selection ul {
+  #date-selection ul, #date-selection h3 {
     padding-left: 0;
   }
 
@@ -8236,6 +8246,10 @@ form input[type=checkbox] {
   .reader-ticket-form input[type=text] {
     min-width: 400px;
   }
+}
+.full-width {
+  display: block;
+  max-width: none;
 }
 
 /*# sourceMappingURL=base-sass.css.map */

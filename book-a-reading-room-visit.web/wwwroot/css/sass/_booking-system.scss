@@ -12,12 +12,11 @@ a.button {
     margin-top: 2.4em;
     padding: 0em 2em 2em 2em;
 
-    .heading, .heading-text {
+    .heading {
         margin-top: 2em;
+        margin-bottom: 2em;
     }
 }
-
-
 
 small {
     display: block;
@@ -44,7 +43,6 @@ form {
 }
 
 .booking-details, .cancellation-details {
-    margin-bottom: 2em;
     text-align: left;
 
     h3 {
@@ -84,28 +82,25 @@ form {
     }
 }
 
+.border-top {
+    border-top: 2px solid #eee;
+    padding-top: 1.6em;
+}
+
+.btn-link {
+    color: #134571;
+    text-decoration: underline;
+
+    &:hover {
+        background-color: #134571;
+        color: #fff;
+    }
+}
+
 .cancellation-form {
     legend {
         font-size: 20px;
         margin-bottom: 1.5em;
-    }
-}
-
-.date-selection {
-    ul {
-        li {
-            a {
-                background-color: #eee;
-                border: 2px solid #ddd;
-                width: 80%;
-
-                div {
-                    p {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -123,12 +118,20 @@ form {
     }
 }
 
-.heading-text {
-    margin-bottom: 2em;
+.helper-text {
+    color: #555;
+}
 
-    p {
-        margin-bottom: 0.5em;
-    }
+.margin-bottom {
+    margin-bottom: 1em;
+}
+
+.margin-top {
+    margin-top: 1em;
+}
+
+.max-width-480 {
+    max-width: 480px;
 }
 
 .no-float {
@@ -210,8 +213,7 @@ form {
 .prompt-grey {
     background-color: #eee;
     display: inline-block;
-    margin: 1em;
-    max-width: 70%;
+    margin-bottom: 2em;
     padding: 1em 2em;
 
     p {
@@ -231,9 +233,12 @@ form {
 }
 
 .reader-ticket-form {
-    margin: 2em 0;
+    legend {
+        font-size: 16px;
+    }
 
     input[type=text] {
+        display: block;
         margin-top: 1em;
     }
 
@@ -245,23 +250,8 @@ form {
     }
 }
 
-.reservation-options {
-    div.col-md-6 {
-        display: flex;
-        justify-content: center;
-
-        a.button {
-            align-items: center;
-            display: inline-flex;
-            justify-content: center;
-            max-width: 250px;
-            min-height: 70px;
-        }
-    }
-}
-
 .rtn-to-booking-form {
-    button{
+    button {
         margin-top: 2em;
     }
 
@@ -276,7 +266,8 @@ form {
 }
 
 .visit-toggler {
-    margin-top: 1em;
+    margin-top: 20px;
+    text-align: right;
 }
 
 #additional-reqs {
@@ -295,6 +286,10 @@ form {
 }
 
 #date-selection {
+    h3 {
+        padding-left: 40px;
+    }
+
     ul {
         margin-top: 20px;
 
@@ -333,16 +328,13 @@ form {
     .prompt-white {
         h2 {
             margin-top: 0;
-        }
-
-        a:after {
-            content: " >";
+            margin-bottom: .5em;
         }
     }
 }
 
 #progress-bar {
-    margin: 2em 0;
+    margin-top: 2em;
 
     ol {
         padding-left: 0;
@@ -377,18 +369,20 @@ form {
 }
 
 #room-selection {
-    fieldset:last-child {
-        padding-bottom: 1em !important;
-    }
-
     h2 {
         margin-bottom: 1em;
+    }
+
+    .prompt-white {
+        margin: 1em 0;
     }
 }
 
 #room-selection-form {
     fieldset {
+        border: 2px solid #eee !important;
         margin-bottom: 1em !important;
+        padding: 1em !important;
 
         div {
             text-align: left;
@@ -416,6 +410,10 @@ form {
         }
     }
 
+    .helper-text {
+        padding-left: 1.3em;
+    }
+
     button[type=submit] {
         margin-bottom: 1em;
     }
@@ -430,11 +428,10 @@ form {
     }
 }
 
-#ticket-details.prompt-white {
-    small {
-        display: block;
-        margin-top: 1em;
-    }
+#timer {
+    display: block;
+    font-size: 20px;
+    margin-bottom: .5em;
 }
 
 #unavailable-docs {
@@ -442,14 +439,15 @@ form {
     margin-top: 1em;
 }
 
-#visit-type-toggle {
-    margin-top: 2em;
-    text-align: right;
+@media screen and (max-width: 991px) {
+    .visit-toggler {
+        text-align: left;
+    }
 }
 
 @media screen and (max-width: 767px) {
     #date-selection {
-        ul {
+        ul, h3 {
             padding-left: 0;
         }
     }
@@ -546,4 +544,9 @@ form {
             min-width: 400px;
         }
     }
+}
+
+.full-width {
+    display: block;
+    max-width: none;
 }
