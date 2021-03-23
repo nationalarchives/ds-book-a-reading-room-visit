@@ -297,16 +297,9 @@ form {
             list-style: none;
 
             button {
-                color: #000;
-                display: flex;
-                background-color: #eee;
-                padding: 10px 20px;
-                font-family: "Roboto Mono",sans-serif;
-                font-size: 16px;
-                border: 2px solid #ddd;
-                margin-bottom: 1em;
-                text-decoration: none;
-                width: 100%;
+
+                @include availability-list-item;
+                background-color: #fff;
 
                 &:focus {
                     background-color: #000;
@@ -319,6 +312,12 @@ form {
                     color: #fff;
                     outline: none;
                 }
+            }
+
+            .no-availability {
+
+                @include availability-list-item;
+                background-color: #eee;
             }
         }
     }
