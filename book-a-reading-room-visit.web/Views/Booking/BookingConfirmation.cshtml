@@ -11,19 +11,18 @@ ViewData["Title"] = "Booking confirmation";
 <div class="container content-wrapper">
 
     <div class="text-center">
-        <div id="progress-bar">
-            <div class="row">
-                <div class="col-md-12">
-                    <ol>
-                        <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                        <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
-                        <li class="active"><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
-                        <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                        <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
-                    </ol>
-                </div>
+        <section class="row" id="progress-bar">
+            <h2 class="sr-only">Progress</h2>
+            <div class="col-md-12">
+                <ol>
+                    <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
+                    <li><span class="step-number">2</span> <span class="step">Enter your reader's ticket</span></li>
+                    <li aria-current="page" class="active"><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                    <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
+                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+                </ol>
             </div>
-        </div>
+        </section>
     </div>
 
     <div class="heading">
