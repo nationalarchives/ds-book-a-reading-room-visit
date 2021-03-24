@@ -54,11 +54,6 @@
             <div class="col-md-4 col-sm-4">
                 <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Select a preferred reading room" : "Room information")</h3>
 
-                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-                {
-                    <span class="form-error">@Model.ErrorMessage</span>
-                }
-
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
                     <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
@@ -66,33 +61,35 @@
                             <legend class="sr-only">Select reading room</legend>
 
                             <div>
-                                <label for="standard-room">Standard reading room</label>
+                                <label for="standard-room">Document reading room</label>
                                 @Html.RadioButton("seattype", SeatTypes.StdRRSeat.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.StdRRSeat.ToStringURL(), new { id = "standard-room" })
-                                <p class="helper-text">All seats will have a camera stand provided</p>
+                                <p class="helper-text">All seats will have a camera stand provided.</p>
                             </div>
 
                             <div class="border-top">
                                 <label for="map-and-lg-room">Map and large document reading room</label>
                                 @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
-                                <p class="helper-text">
-                                    Some camera stands are available. If you need one, please tell us in the 'Additional access requirements
-                                    or research requests' box when you complete your document order
-                                </p>
+                            <p class="helper-text">
+                                Some camera stands are available. If you need one, please tell us in the 'Access needs and
+                                research requests' box when you complete your document order.
+                            </p>
                             </div>
 
                             <div class="border-top">
-                                <p class="helper-text">
-                                    We will ensure you are in the most appropriate reading for the documents that you order.
-                                    If you are unsure which room you need, select Document reading room.
+                                <p class="bold-text">Not sure which room you need?</p>
+                                <p class="helper-text no-margin no-left-padding">
+                                    Choose the Map and large document reading room if you know the documents you are ordering
+                                    are large or are dated pre-16th Century. If you are unsure, choose the Document reading
+                                    room.
                                 </p>
                             </div>
                         </fieldset>
 
                         <div class="prompt-white">
                             <p class="bold-text">Are accessible seats available?</p>
-                            <p class="helper-text no-margin">
-                                All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
-                                documents in step 4.
+                            <p class="helper-text no-margin no-left-padding">
+                                All seats in our reading rooms are accessible. You can tell us about your access needs when
+                                you order your documents in step 4.
                             </p>
                         </div>
 
@@ -104,22 +101,22 @@
                 {
                     <div class="prompt-white">
                         <p class="bold-text">Which room will I be in?</p>
-                        <p class="helper-text no-margin">All of our bulk orders are in the Map and Large document reading room</p>
+                        <p class="helper-text no-margin">All of our bulk orders are in the Map and Large document reading room.</p>
                     </div>
 
                     <div class="prompt-white">
                         <p class="bold-text">Are camera stands available?</p>
                         <p class="helper-text no-margin">
-                            Some camera stands are available. If you need one, please tell us in the 'Additional access requirements or
-                            research requests' box when you complete your document order
+                            Some camera stands are available. If you need one, please tell us in the 'Access needs and
+                            research requests' box when you complete your document order.
                         </p>
                     </div>
 
                     <div class="prompt-white">
                         <p class="bold-text">Are accessible seats available?</p>
                         <p class="helper-text no-margin">
-                            All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
-                            documents in step 4.
+                            All seats in our reading rooms are accessible. You can tell us about your access needs when you
+                            order your documents in step 4.
                         </p>
                     </div>
                 }
@@ -130,16 +127,21 @@
         <div id="date-selection">
             <div class="col-md-8 col-sm-8">
                 <h3>Available dates</h3>
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <span class="error-message">@Model.ErrorMessage</span>
+                }
+
                 <ul>
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {
                         <li class="date">
                             @if (Model.AvailableBookings[index].AvailableSeats == 0)
                             {
-                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
                                     <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
                                     <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
-                                </div>
+                                </span>
                             }
                             else
                             {
