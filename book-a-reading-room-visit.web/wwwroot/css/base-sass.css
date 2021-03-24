@@ -7921,6 +7921,16 @@ form input[type=checkbox] {
   margin-bottom: 0.5em;
 }
 
+.error-message {
+  color: #000;
+  display: block;
+  padding: 3px 7px;
+  background: #f9f7e2;
+  width: 100%;
+  max-width: 480px;
+  margin-left: 40px;
+}
+
 .helper-text {
   color: #555;
 }
@@ -7942,7 +7952,7 @@ form input[type=checkbox] {
 }
 
 .no-left-padding {
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 
 .no-margin {
@@ -8070,14 +8080,20 @@ form input[type=checkbox] {
 #date-selection ul li.date button {
   color: #000;
   display: flex;
-  background-color: #eee;
-  padding: 10px 20px;
+  padding: 15px;
   font-family: "Roboto Mono", sans-serif;
   font-size: 16px;
   border: 2px solid #ddd;
   margin-bottom: 1em;
   text-decoration: none;
   width: 100%;
+  background-color: #fff;
+}
+#date-selection ul li.date button span {
+  padding: 0;
+}
+#date-selection ul li.date button span span {
+  padding: 0;
 }
 #date-selection ul li.date button:focus {
   background-color: #000;
@@ -8088,6 +8104,24 @@ form input[type=checkbox] {
   background-color: #000;
   color: #fff;
   outline: none;
+}
+#date-selection ul li.date .no-availability {
+  color: #000;
+  display: flex;
+  padding: 15px;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  margin-bottom: 1em;
+  text-decoration: none;
+  width: 100%;
+  background-color: #eee;
+}
+#date-selection ul li.date .no-availability span {
+  padding: 0;
+}
+#date-selection ul li.date .no-availability span span {
+  padding: 0;
 }
 
 #home .prompt-white h2 {
