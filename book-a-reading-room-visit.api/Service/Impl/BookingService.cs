@@ -94,7 +94,7 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
-        public async Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId)
+        public async Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId, string comment, string updatedBy)
         {
             var response = new BookingResponseModel { IsSuccess = true };
 
@@ -117,6 +117,14 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             _context.Attach(booking);
+            if(!String.IsNullOrWhiteSpace(booking.Comments))
+            {
+                booking.Comments += " " + comment;
+            }
+            else
+            {
+                booking.Comments = comment;
+            }
             booking.SeatId = newSeatId;
             _context.SaveChanges();
 

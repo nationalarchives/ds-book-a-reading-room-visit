@@ -35,7 +35,7 @@ namespace book_a_reading_room_visit.api.Controllers
         [HttpPost("update-reserved-seat")]
         public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
         {
-            BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId);
+            BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId, model.Comment, model.UpdatedBy);
 
             if(result.IsSuccess)
             {
