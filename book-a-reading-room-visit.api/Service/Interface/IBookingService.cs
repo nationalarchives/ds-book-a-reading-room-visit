@@ -11,6 +11,7 @@ namespace book_a_reading_room_visit.api.Service
         Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel);
         Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId, string comment, string updatedBy);
         Task<BookingResponseModel> CancelBookingAsync(BookingCancellationModel bookingCancellationModel);
+        Task<bool> UpdateBookingCommentsAsync(BookingCommentsModel bookingCommentsModel);
         Task<BookingModel> GetBookingByIdAsync(int bookingId);
         Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference);
         Task<List<BookingModel>> BookingSearchAsync(BookingSearchModel bookingSearchModel);

@@ -125,7 +125,9 @@ namespace book_a_reading_room_visit.api.Service
                 booking.Comments = comment;
             }
             booking.SeatId = newSeatId;
-            _context.SaveChanges();
+            booking.LastModifiedBy = updatedBy;
+
+            await _context.SaveChangesAsync();
 
             return response;
 
@@ -162,8 +164,15 @@ namespace book_a_reading_room_visit.api.Service
                 .TagWith<Booking>("Find Booking by ID")
                 .FirstOrDefaultAsync(b => b.Id == bookingId);
 
-            var bookingToReturn = GetSerialisedBooking(booking);
-            return bookingToReturn;
+            if (booking != null)
+            {
+                var bookingToReturn = GetSerialisedBooking(booking);
+                return bookingToReturn; 
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference)
@@ -321,6 +330,22 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateBookingCommentsAsync(BookingCommentsModel bookingCommentsModel)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == bookingCommentsModel.BookingId);
+            if (booking == null)
+            {
+                return false;
+            }
+
+            _context.Attach(booking);
+            booking.Comments = bookingCommentsModel.Comments;
+            booking.LastModifiedBy = bookingCommentsModel.UpdatedBy;
             await _context.SaveChangesAsync();
 
             return true;

@@ -70,6 +70,13 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
+        [HttpPost("update-comments")]
+        public async Task<ActionResult<bool>> UpdateComments([FromBody]BookingCommentsModel bookingCommentsModel)
+        {
+            bool result = await _bookingService.UpdateBookingCommentsAsync(bookingCommentsModel);
+            return result;
+        }
+
         [HttpGet]
         [Route("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
