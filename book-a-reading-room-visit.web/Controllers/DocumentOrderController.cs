@@ -26,6 +26,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 BookingReference = bookingModel.BookingReference,
                 BookingStartDate = bookingModel.VisitStartDate,
                 CompleteByDate = bookingModel.CompleteByDate,
+                SeatType = bookingModel.SeatType,
                 SeatNumber = bookingModel.SeatNumber
             };
 
@@ -43,6 +44,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 BookingReference = bookingModel.BookingReference,
                 BookingStartDate = bookingModel.VisitStartDate,
                 CompleteByDate = bookingModel.CompleteByDate,
+                SeatType = bookingModel.SeatType,
                 SeatNumber = bookingModel.SeatNumber
             };
             return View(model);

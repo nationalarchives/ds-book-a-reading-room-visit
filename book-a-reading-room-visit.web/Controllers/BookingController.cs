@@ -3,6 +3,7 @@ using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -13,12 +14,15 @@ namespace book_a_reading_room_visit.web.Controllers
         private readonly IBookingService _bookingService;
         private IAdvancedOrderService _advancedOrderService;
         private readonly IAvailabilityService _availabilityService;
+        private readonly IConfiguration _configuration;
 
-        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService, ChannelFactory<IAdvancedOrderService> channelFactory)
+        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService, 
+                                    ChannelFactory<IAdvancedOrderService> channelFactory, IConfiguration configuration)
         {
             _bookingService = bookingService;
             _availabilityService = availabilityService;
             _advancedOrderService = channelFactory.CreateChannel();
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -47,6 +51,8 @@ namespace book_a_reading_room_visit.web.Controllers
                 return RedirectToAction("Availability", "Home", routeValues);
             }
             bookingViewModel.BookingReference = result.BookingReference;
+            var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
+            bookingViewModel.ExpiredBy = result.CreatedDate.AddMinutes(elapsedTime);
 
             return View(bookingViewModel);
         }

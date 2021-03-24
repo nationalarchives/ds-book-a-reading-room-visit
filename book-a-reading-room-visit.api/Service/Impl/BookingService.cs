@@ -43,10 +43,11 @@ namespace book_a_reading_room_visit.api.Service
             var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
 
             response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
+            response.CreatedDate = DateTime.Now;
 
             await _context.Set<Booking>().AddAsync(new Booking
             {
-                CreatedDate = DateTime.Now,
+                CreatedDate = response.CreatedDate,
                 BookingReference = response.BookingReference,
                 BookingTypeId = (int)bookingModel.BookingType,
                 IsAcceptTsAndCs = false,
