@@ -24,20 +24,20 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }
-        
+
         [HttpPost("confirm")]
         public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
         {
             var result = await _bookingService.ConfirmBookingAsync(bookingModel);
             return Ok(result);
-        }        
+        }
 
         [HttpPost("update-reserved-seat")]
         public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
         {
             BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId, model.Comment, model.UpdatedBy);
 
-            if(result.IsSuccess)
+            if (result.IsSuccess)
             {
                 return Ok();
             }
@@ -45,7 +45,7 @@ namespace book_a_reading_room_visit.api.Controllers
             {
                 return Conflict(result.ErrorMessage);
             }
-            
+
         }
 
         [HttpPost("cancel")]
@@ -59,7 +59,7 @@ namespace book_a_reading_room_visit.api.Controllers
             }
             else
             {
-                if(result.ErrorMessage.Contains("no booking found"))
+                if (result.ErrorMessage.Contains("no booking found"))
                 {
                     return NotFound();
                 }
@@ -71,10 +71,31 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpPost("update-comments")]
-        public async Task<ActionResult<bool>> UpdateComments([FromBody]BookingCommentsModel bookingCommentsModel)
+        public async Task<ActionResult<bool>> UpdateComments([FromBody] BookingCommentsModel bookingCommentsModel)
         {
             bool result = await _bookingService.UpdateBookingCommentsAsync(bookingCommentsModel);
-            return result;
+            if (result)
+            {
+               return Ok() ;
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost("toggle-no-show")]
+        public async Task<ActionResult<bool>> ToggleNoShow ([FromBody]int bookingId)
+        {
+            bool result = await _bookingService.ToggleNoShowAsync(bookingId);
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]

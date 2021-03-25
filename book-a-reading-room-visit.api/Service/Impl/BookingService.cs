@@ -156,6 +156,21 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
+        public async Task<bool> ToggleNoShowAsync(int bookingId)
+        {
+            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingId);
+
+            if (booking == null)
+            {
+                return false;
+            }
+
+            _context.Attach(booking);
+            booking.IsNoShow = !booking.IsNoShow;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<BookingModel> GetBookingByIdAsync(int bookingId)
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
