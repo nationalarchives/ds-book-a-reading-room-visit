@@ -160,6 +160,7 @@ namespace book_a_reading_room_visit.api.Service
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
+                .Include(b=> b.BookingType)
                 .Include(b => b.Seat).ThenInclude(s => s.SeatType)
                 .Include(b => b.OrderDocuments)
                 .TagWith<Booking>("Find Booking by ID")
@@ -283,6 +284,7 @@ namespace book_a_reading_room_visit.api.Service
                 AdditionalRequirements = booking.AdditionalRequirements,
                 Comments = booking.Comments,
                 BookingType = (BookingTypes)booking.BookingTypeId,
+                BookingTypeDescription = booking.BookingType.Description,
                 Email = booking.Email,
                 Phone = booking.Phone,
                 FirstName = booking.FirstName,
