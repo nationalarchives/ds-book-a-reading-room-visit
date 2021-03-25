@@ -1,4 +1,5 @@
-﻿using book_a_reading_room_visit.api.Helper;
+﻿using AdvanceOrderServiceReference;
+using book_a_reading_room_visit.api.Helper;
 using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
@@ -14,12 +15,14 @@ namespace book_a_reading_room_visit.api.Service
     {
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
+        private readonly IAdvancedOrderService _advanceOrderService;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IAdvancedOrderService advanceOrderService)
         {
             _context = context;
             _workingDayService = workingDayService;
+            _advanceOrderService = advanceOrderService;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -162,8 +165,12 @@ namespace book_a_reading_room_visit.api.Service
                 .Include(b => b.BookingStatus)
                 .Include(b => b.Seat).ThenInclude(s => s.SeatType)
                 .Include(b => b.OrderDocuments)
+                
                 .TagWith<Booking>("Find Booking by ID")
                 .FirstOrDefaultAsync(b => b.Id == bookingId);
+
+            ReaderDetails readerDetails = await _advanceOrderService.GetReaderDetailsByTicketNoAsync(Convert.ToString(booking.ReaderTicket));
+            booking.ReaderName = readerDetails.Name;
 
             if (booking != null)
             {
@@ -287,6 +294,7 @@ namespace book_a_reading_room_visit.api.Service
                 Phone = booking.Phone,
                 FirstName = booking.FirstName,
                 LastName = booking.LastName,
+                ReaderName = booking.ReaderName,
                 ReaderTicket = booking.ReaderTicket,
                 VisitStartDate = booking.VisitStartDate,
                 VisitEndDate = booking.VisitEndDate,

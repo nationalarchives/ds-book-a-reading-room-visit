@@ -1,3 +1,4 @@
+using AdvanceOrderServiceReference;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.data;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,7 @@ namespace book_a_reading_room_visit.api
             services.AddScoped<IWorkingDayService, WorkingDayService>();
             services.AddScoped<IAvailabilityService, AvailabilityService>();
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IAdvancedOrderService, AdvancedOrderServiceClient>();
 
             services.AddSwaggerGen(c =>
             {
