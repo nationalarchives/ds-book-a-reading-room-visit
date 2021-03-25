@@ -10,6 +10,7 @@ namespace book_a_reading_room_visit.model
         public DateTime? CompleteByDate { get; set; }
         public string BookingReference { get; set; }
         public BookingTypes BookingType { get; set; }
+        public string BookingTypeDescription { get; set; }
         public bool IsAcceptTsAndCs { get; set; }
         public bool IsAcceptCovidCharter { get; set; }
         public bool IsNoFaceCovering { get; set; }
