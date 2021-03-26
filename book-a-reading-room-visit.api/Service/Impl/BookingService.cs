@@ -284,7 +284,7 @@ namespace book_a_reading_room_visit.api.Service
                 AdditionalRequirements = booking.AdditionalRequirements,
                 Comments = booking.Comments,
                 BookingType = (BookingTypes)booking.BookingTypeId,
-                BookingTypeDescription = booking.BookingType.Description,
+                BookingTypeDescription = booking.BookingType?.Description,
                 Email = booking.Email,
                 Phone = booking.Phone,
                 FirstName = booking.FirstName,
