@@ -116,7 +116,7 @@
                                 If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
+                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number" })
                             <span id="ticket-error" class="form-error">@Html.ValidationMessageFor(Model => Model.Ticket)</span>
 
                             <div class="prompt-white max-width-480 margin-top">
@@ -134,18 +134,18 @@
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
 
                             <label for="firstname" class="sr-only">First name</label>
-                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
+                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name" })
                             <span id="firstname-error" class="form-error">@Html.ValidationMessageFor(Model => Model.FirstName)</span>
 
                             <label for="lastname" class="sr-only">Last name</label>
-                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
+                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name" })
                             <span id="lastname-error" class="form-error">@Html.ValidationMessageFor(Model => Model.LastName)</span>
                         </div>
                     </fieldset>
 
                     <fieldset>
                         <legend class="sr-only">Enter your email address and/or telephone number</legend>
-
+                        
                         <div class="form-row">
                             <label for="email">Email address</label>
                             <p class="helper-text">
@@ -154,8 +154,8 @@
                             </p>
 
                             @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
-                            <span id="email-error" class="form-error">@Html.ValidationMessage("email", new { @class = "emphasis-error" })</span>
-
+                            <span id="email-error" class="form-error">@Html.ValidationMessageFor(Model => Model.Email)</span>
+                            <span id="email-phone-error" class="emphasis-error">@Html.ValidationMessage("email-phone")</span>
                         </div>
 
                         <div class="form-row">
@@ -166,7 +166,7 @@
                             </p>
 
                             @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
-                            <span id="phone-error" class="emphasis-error">@Html.ValidationMessage("phone", new { @class = "emphasis-error" })</span>
+                            <span id="email-phone-error" class="emphasis-error">@Html.ValidationMessage("email-phone")</span>
                         </div>
                     </fieldset>
 
@@ -174,13 +174,15 @@
                         <legend class="sr-only">Please complete the following checkboxes</legend>
 
                         <div class="form-row checkbox">
-                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
+                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions" })
                             <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
+                            <span id="terms-conditions-error" class="form-error">@Html.ValidationMessageFor(Model => Model.AcceptTsAndCs)</span>
                         </div>
 
                         <div class="form-row checkbox">
-                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
+                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter" })
                             <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
+                            <span id="covid-charter-error" class="form-error">@Html.ValidationMessageFor(Model => Model.AcceptCovidCharter)</span>
                         </div>
 
                         <div class="form-row checkbox">

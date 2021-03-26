@@ -53,6 +53,7 @@ namespace book_a_reading_room_visit.web.Controllers
             bookingViewModel.BookingReference = result.BookingReference;
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
             bookingViewModel.ExpiredBy = result.CreatedDate.AddMinutes(elapsedTime);
+            ModelState.Clear();
 
             return View(bookingViewModel);
         }
@@ -77,17 +78,9 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
-            if (string.IsNullOrWhiteSpace(bookingViewModel.FirstName))
-            {
-                ModelState.AddModelError("Firstname", Constants.Firstname_Required);
-            }
-            if (string.IsNullOrWhiteSpace(bookingViewModel.LastName))
-            {
-                ModelState.AddModelError("Lastname", Constants.Lastname_Required);
-            }
             if (string.IsNullOrWhiteSpace(bookingViewModel.Phone) && string.IsNullOrWhiteSpace(bookingViewModel.Email))
             {
-                ModelState.AddModelError("Phone", Constants.Phone_Or_Email_Required);
+                ModelState.AddModelError("email-phone", Constants.Phone_Or_Email_Required);
             }
 
             if (!ModelState.IsValid)
