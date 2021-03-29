@@ -7,9 +7,9 @@
             switch (errorCode)
             {
                 case ErrorCode.seat_unavailable:
-                    return "The selected date is no longer available to book, please select another date";
+                    return "This date is no longer available. Select another date";
                 case ErrorCode.reserved_time_expired:
-                    return "The reserved time elapsed, please select date again.";
+                    return "Your booking has timed out. Choose a date of visit again.";
                 default:
                     return string.Empty;
             }
