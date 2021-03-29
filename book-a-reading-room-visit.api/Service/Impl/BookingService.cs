@@ -204,7 +204,8 @@ namespace book_a_reading_room_visit.api.Service
             var bookings = await _context.Bookings.AsNoTracking<Booking>().Where(b =>
                                             (bookingSearchModel.BookingReference == null || bookingSearchModel.BookingReference == b.BookingReference) &&
                                             (bookingSearchModel.ReadersTicket == null || bookingSearchModel.ReadersTicket == b.ReaderTicket) &&
-                                            (dateComponent == null || dateComponent == b.VisitStartDate.Date)
+                                            (dateComponent == null || dateComponent == b.VisitStartDate.Date) &&
+                                            (String.IsNullOrEmpty(bookingSearchModel.LastName) || b.LastName.Contains(bookingSearchModel.LastName))
                                             ).Include(b => b.BookingType).Include(b => b.BookingStatus)
                                             .Include(b => b.Seat).ThenInclude(s => s.SeatType)
                                             .Include(b => b.OrderDocuments)
