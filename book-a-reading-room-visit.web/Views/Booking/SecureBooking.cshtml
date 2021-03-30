@@ -116,7 +116,7 @@
                                 If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number" })
+                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
 
                             @if (ViewData.ModelState["Ticket"]?.Errors.Count() > 0)
                             {
@@ -138,15 +138,15 @@
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
 
                             <label for="firstname" class="sr-only">First name</label>
-                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name" })
+                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
 
                             @if (ViewData.ModelState["FirstName"]?.Errors.Count() > 0)
                             {
-                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error" })
+                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error"})
                             }
 
                             <label for="lastname" class="sr-only">Last name</label>
-                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name" })
+                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
 
                             @if (ViewData.ModelState["LastName"]?.Errors.Count() > 0)
                             {
@@ -165,7 +165,7 @@
                                 your document order form and a reminder email before your visit.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address" })
+                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address"})
 
                             @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
                             {
@@ -198,7 +198,7 @@
                         <legend class="sr-only">Please complete the following checkboxes</legend>
 
                         <div class="form-row checkbox">
-                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions" })
+                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
                             <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
@@ -208,7 +208,7 @@
                         </div>
 
                         <div class="form-row checkbox">
-                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter" })
+                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
                             <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
