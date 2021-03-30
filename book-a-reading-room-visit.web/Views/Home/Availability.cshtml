@@ -129,7 +129,7 @@
                 <h3>Available dates</h3>
                 @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
                 {
-                    <span class="error-message">@Model.ErrorMessage</span>
+                    @Html.ValidationMessageFor(Model => Model.ErrorMessage, "", new { @class = "form-error" })
                 }
 
                 <ul>
