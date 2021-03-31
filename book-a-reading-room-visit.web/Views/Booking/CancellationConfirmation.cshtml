@@ -31,22 +31,17 @@
                                 <th scope="row">Booking reference</th>
                                 <td>@Model.BookingReference</td>
                             </tr>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
-                                <tr>
-                                    <th scope="row">Reading room</th>
-                                    <td>
-                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
-                                        {
-                                            <p>Standard document reading room</p>
-                                        }
-                                        else
-                                        {
-                                            <p>Map and large document reading room</p>
-                                        }
-                                    </td>
-                                </tr>
-                            }
+                            <tr>
+                                <th scope="row">Reading room</th>
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Document reading room (All seats have camera stands)</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
+                            </tr>
                             <tr>
                                 <th scope="row">Visit date</th>
                                 <td>@Model.BookingStartDate.ToString("dddd dd MMMM yyyy")</td>
