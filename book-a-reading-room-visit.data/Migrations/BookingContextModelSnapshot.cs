@@ -170,6 +170,9 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool?>("Requisitioned")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Site")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
