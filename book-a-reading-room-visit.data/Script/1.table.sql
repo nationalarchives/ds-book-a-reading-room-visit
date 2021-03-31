@@ -82,6 +82,7 @@ CREATE TABLE [OrderDocuments] (
     [ItemReference] nvarchar(20) NULL,
     [Site] nvarchar(20) NULL,
     [IsReserve] bit NOT NULL,
+    [Requisitioned] bit NULL,
     CONSTRAINT [PK_OrderDocuments] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_OrderDocuments_Bookings_BookingId] FOREIGN KEY ([BookingId]) REFERENCES [Bookings] ([Id]) ON DELETE CASCADE
 );
@@ -103,7 +104,7 @@ CREATE INDEX [IX_Seats_SeatTypeId] ON [Seats] ([SeatTypeId]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210319111726_InitialCreate', N'5.0.3');
+VALUES (N'20210331095949_InitialCreate', N'5.0.3');
 GO
 
 COMMIT;

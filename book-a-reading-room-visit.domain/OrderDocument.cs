@@ -14,5 +14,6 @@
         public string ItemReference { get; set; }
         public string Site { get; set; }
         public bool IsReserve { get; set; }
+        public bool? Requisitioned { get; set; }
     }
 }

@@ -127,7 +127,8 @@ namespace book_a_reading_room_visit.data.Migrations
                     SubClassNumber = table.Column<int>(type: "int", nullable: true),
                     ItemReference = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Site = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsReserve = table.Column<bool>(type: "bit", nullable: false)
+                    IsReserve = table.Column<bool>(type: "bit", nullable: false),
+                    Requisitioned = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
