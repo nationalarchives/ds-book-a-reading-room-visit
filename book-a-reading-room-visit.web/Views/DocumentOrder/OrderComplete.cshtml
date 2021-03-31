@@ -8,110 +8,165 @@
 
 <h1 class="display-4">5. Order complete</h1>
 
-<div class="text-center">
+<div class="container content-wrapper">
 
-    <div class="container content-wrapper">
+    <<section class="row" id="progress-bar">
+        <h2 class="sr-only">Progress</h2>
+        <div class="col-md-12">
+            <ol>
+                <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
+                <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
+                <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
+                <li aria-current="page" class="active"><span class="step-number">5</span> <span class="step">Order complete</span></li>
+            </ol>
+        </div>
+    </section>
 
-        <<section class="row" id="progress-bar">
-            <h2 class="sr-only">Progress</h2>
+    <div class="heading">
+        <div class="row">
             <div class="col-md-12">
-                <ol>
-                    <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                    <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
-                    <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
-                    <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                    <li aria-current="page" class="active"><span class="step-number">5</span> <span class="step">Order complete</span></li>
-                </ol>
-            </div>
-        </section>
+                <div class="prompt-grey full-width success-panel mb-lg">
+                    <h2>Your document order has been submitted and your visit is confirmed</h2>
+                    <p>
+                        You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+                    </p>
 
-        <div class="heading">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="prompt-white">
-                        <p>
-                            You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
-                        </p>
-                        <p>
-                            Return to this form at any time before the deadline using the link below or from your confirmation email. Once the date
-                            has passed, further amendments won’t be possible as we will begin preparing your order ready for your visit.
-                        </p>
-
-                        <div class="col-md-6 col-xs-12 col-md-offset-3 no-float">
-                            <span class="col-md-6 col-xs-12 no-float">
-                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = @Model.BookingReference })">Edit your order</a>
-                            </span>
-                            <span class="col-md-6 col-xs-12 no-float">
-                                <a href="#">Print your order</a>
-                            </span>
-                        </div>
-                    </div>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = @Model.BookingReference })">
+                                Edit
+                                your document order
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">Print your order</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
-        <section class="booking-details">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Your booking details</h2>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Booking reference</th>
-                                <td>@Model.BookingReference</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Visit type</th>
-                                <td>
-                                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
-                                </td>
-                            </tr>
+    <section>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    If you provided an email address as part of your booking, you will receive a copy of the
+                    final document order on <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+                    If you can’t see this email in your inbox, check your spam and junk email folders.
+                </p>
+                <p>
+                    If you did not provide an email address as part of your booking, safely note these
+                    booking details for future reference. Return to your booking at this link before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>:<br>
+                    <a target="_blank" rel="noreferrer noopener"
+                       href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="booking-details">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Your booking details</h2>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Booking reference</th>
+                            <td>@Model.BookingReference</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>
+                                @($"{Model.BookingStartDate:dddd dd MMMM yyyy}") (<a target="_blank" rel="noreferrer noopenner"
+                                                                                     href="#prepare-for-your-visit" role="button">
+                                    See our visitor
+                                    information
+                                </a>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reading room</th>
                             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
-                                <tr>
-                                    <th scope="row">Reading room</th>
-                                    <td>
-                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
-                                        {
-                                            <p>Standard document reading room</p>
-                                        }
-                                        else
-                                        {
-                                            <p>Map and large document reading room</p>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                            <tr>
-                                <th scope="row">Visit date</th>
-                                <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Seat number</th>
-                                <td>
-                                    @Model.SeatNumber
-                                    <p>Based on availability, we may need to change your seat on the date of your visit.</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.HiddenFor(Model => Model.ReaderTicket)
-                        @Html.HiddenFor(Model => Model.SeatType)
-                        @Html.HiddenFor(Model => Model.BookingStartDate)
-                        @Html.HiddenFor(Model => Model.SeatNumber)
-                        <button type="submit" class="btn-link">Cancel this booking ></button>
-                    </form>
-                </div>
-            </div>
-        </section>
 
-        <section class="order-summary">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Your standard order documents</h3>
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Document reading room (All seats have camera stands)</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
+                            }
+                            else
+                            {
+                                <td>Map and large document reading room</td>
+                            }
+                        </tr>
+                        <tr>
+                            <th scope="row">Seat number</th>
+                            <td>
+                                @Model.SeatNumber
+                                <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(Model => Model.BookingReference)
+                    @Html.HiddenFor(Model => Model.ReaderTicket)
+                    @Html.HiddenFor(Model => Model.SeatType)
+                    @Html.HiddenFor(Model => Model.BookingStartDate)
+                    @Html.HiddenFor(Model => Model.SeatNumber)
+                    <button type="submit" class="button">Cancel this booking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="order-summary">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Your standard order documents</h3>
+                <ol class="document-list">
+                    <li>
+                        <p class="bold-text">FCO 141/19497</p>
+                        <p>Kenya land transfer programme: Captain F L Jones…</p>
+                    </li>
+                    <li>
+                        <p class="bold-text">FCO 141/19497</p>
+                        <p>Kenya land transfer programme: Captain F L Jones…</p>
+                    </li>
+                    <li>
+                        <p class="bold-text">FCO 141/19497</p>
+                        <p>Kenya land transfer programme: Captain F L Jones…</p>
+                    </li>
+                    <li>
+                        <p class="bold-text">FCO 141/19497</p>
+                        <p>Kenya land transfer programme: Captain F L Jones…</p>
+                    </li>
+                    <li>
+                        <p class="bold-text">FCO 141/19497</p>
+                        <p>Kenya land transfer programme: Captain F L Jones…</p>
+                    </li>
+                </ol>
+            </div>
+
+            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+            {
+                <section class="col-md-6">
+                    <h3>Your reserve documents</h3>
                     <ol class="document-list">
                         <li>
                             <p class="bold-text">FCO 141/19497</p>
@@ -125,40 +180,68 @@
                             <p class="bold-text">FCO 141/19497</p>
                             <p>Kenya land transfer programme: Captain F L Jones…</p>
                         </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
                     </ol>
-                </div>
+                </section>
+            }
 
-                @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                {
-                    <section class="col-md-6">
-                        <h3>Your reserve documents</h3>
-                        <ol class="document-list">
-                            <li>
-                                <p class="bold-text">FCO 141/19497</p>
-                                <p>Kenya land transfer programme: Captain F L Jones…</p>
-                            </li>
-                            <li>
-                                <p class="bold-text">FCO 141/19497</p>
-                                <p>Kenya land transfer programme: Captain F L Jones…</p>
-                            </li>
-                            <li>
-                                <p class="bold-text">FCO 141/19497</p>
-                                <p>Kenya land transfer programme: Captain F L Jones…</p>
-                            </li>
-                        </ol>
-                    </section>
-                }
+        </div>
+    </section>
 
-            </div>
-        </section>
-        <a class="button" href="#">Print this order</a>
-    </div>
+    <section class="order-summary">
+        <div class="row">
+            <h2 id="prepare-for-your-visit">Prepare for your visit</h2>
+
+            <p>
+                Our building is COVID-19 secure. See our COVID-19 Charter for more:<br>
+                <a href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf"
+                   target="_blank" rel="noreferrer noopener">https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf</a>
+            </p>
+
+            <p>
+                We have introduced a number of measures to ensure the safety of our visitors and staff. These
+                include:
+            </p>
+
+            <ul>
+                <li>One-way systems and capacity controls in frequently used areas</li>
+                <li>Floor markers and temporary signage to help with social distancing</li>
+                <li>Rigorous cleaning during and at the end of each day</li>
+                <li>Easier access to sinks for hand washing and provision of hand sanitiser.</li>
+            </ul>
+
+            <p>
+                Watch a video to find out more about what to expect when you visit:<br>
+                <a href="https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s" target="_blank"
+                   rel="noreferrer noopener">https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s</a>
+            </p>
+
+            <p>
+                Our website provides more information about our opening times, how to get here, what you can
+                take into the reading rooms and the facilities that are available during your visit:<br>
+                <a href="https://www.nationalarchives.gov.uk/about/visit-us" target="_blank"
+                   rel="noreferrer noopener">https://www.nationalarchives.gov.uk/about/visit-us</a>
+            </p>
+
+
+            <h4>Address</h4>
+
+            <p>
+                The National Archives<br>
+                Kew<br>
+                Richmond<br>
+                Surrey<br>
+                TW9 4DU
+            </p>
+
+            <p>For sat navs use the postcode TW9 4AD (Bessant Drive).</p>
+
+            <p>
+                Contact us:<br>
+                <a href="https://www.nationalarchives.gov.uk/contact-us" target="_blank"
+                   rel="noreferrer noopener">https://www.nationalarchives.gov.uk/contact-us</a>
+            </p>
+
+        </div>
+    </section>
+    <a class="button" href="#">Print this order</a>
 </div>
