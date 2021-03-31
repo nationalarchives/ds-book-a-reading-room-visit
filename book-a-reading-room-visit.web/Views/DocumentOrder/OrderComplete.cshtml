@@ -137,8 +137,8 @@
 
     <section class="order-summary">
         <div class="row">
-            <div class="col-md-6">
-                <h3>Your standard order documents</h3>
+            <div class="col-md-12">
+                <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order documents" : "Your bulk order documents")</h3>
                 <ol class="document-list">
                     <li>
                         <p class="bold-text">FCO 141/19497</p>
@@ -165,7 +165,7 @@
 
             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
             {
-                <section class="col-md-6">
+                <section class="col-md-12">
                     <h3>Your reserve documents</h3>
                     <ol class="document-list">
                         <li>
