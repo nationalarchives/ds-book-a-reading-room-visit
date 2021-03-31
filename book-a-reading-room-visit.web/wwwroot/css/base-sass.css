@@ -8461,6 +8461,14 @@ form input[type=checkbox] {
   margin-top: 25px !important;
 }
 
+.mb-med {
+  margin-bottom: 15px !important;
+}
+
+.mb-lg {
+  margin-bottom: 25px !important;
+}
+
 .secondary-info {
   font-size: 1em;
   display: block;
@@ -8470,6 +8478,10 @@ form input[type=checkbox] {
 
 .no-padding {
   padding: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /*# sourceMappingURL=base-sass.css.map */
