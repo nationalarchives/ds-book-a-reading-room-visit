@@ -5959,7 +5959,7 @@ body .kbs .button {
 body .kbs .button:hover {
   background: #000;
 }
-body .kbs .order-option a.button.primary, body .kbs .reservation-options a.button.primary {
+body .kbs .order-option a.button.primary, body .kbs .reservation-options a.button.primary, body .kbs .cancellation-form a.button.primary, body .kbs .cancellation-details a.button.primary {
   color: #fff !important;
 }
 body .kbs .secondary {
