@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>
