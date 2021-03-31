@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>You are about to provisionally book this visit</h2>
-                <p class="no-margin">Your booking will be confirmed when you submit a document order.</p>
+                <p>Your booking will be confirmed when you submit a document order.</p>
             </div>
         </div>
     </div>
@@ -41,12 +41,12 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th scope="row">Visit type</th>
-                            <td>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")</td>
-                        </tr>
-                        <tr>
                             <th scope="row">Visit date</th>
                             <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")</td>
                         </tr>
                         <tr>
                             <th scope="row">Reading room</th>
@@ -55,7 +55,7 @@
 
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Standard document reading room</td>
+                                    <td>Document reading room (All seats have camera stands)</td>
                                 }
                                 else
                                 {
@@ -69,29 +69,26 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="text-center">
-                    <p class="no-margin">
-                        Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you
-                        cancel your existing booking.
-                    </p>
-                    <form class="margin-bottom" action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
-                        <button type="submit" class="btn-link">Cancel and choose a different date</button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
 
+    <p class="no-margin">
+        Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you cancel your existing booking.
+    </p>
+
+    <form class="margin-bottom" action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(Model => Model.BookingReference)
+        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+    </form>
+
     <div class="text-center">
         <div class="row">
             <div class="col-md-12">
-                <div class="prompt-grey full-width">
-                    <p class="bold-text">You have 20 minutes to enter your details.</p>
-                    <span id="timer">Enter your details by @($"{Model.ExpiredBy:hh:mm tt}") British Summer Time (BST).</span>
+                <div id="enter-your-details-timer" class="prompt-grey full-width warning-panel">
+                    <h3>@(ViewData.ModelState.IsValid ? "You have 20 minutes to enter your details." : "Enter your details")</h3>
+                    <span id="timer">Complete this page by @($"{Model.ExpiredBy:hh:mm tt}") British Summer Time (BST).</span>
                     <small>If you do not complete the form by this time we will cancel your seat and you will need to start the process again.</small>
                 </div>
             </div>
@@ -110,29 +107,25 @@
                         <legend class="sr-only">Enter your reader’s ticket number</legend>
 
                         <div class="form-row">
-                            <label for="ticket">Enter your reader’s ticket number</label>
+                            <label for="ticket" class="mt-lg">Enter your reader’s ticket number</label>
                             <p class="helper-text">
-                                You can find this below the barcode on the back of your reader’s ticket card.
-                                If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
+                                You can find this below the barcode on the back of your reader’s ticket card. If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Ticket, new { placeholder = "Enter ticket number", required = true })
+                            @Html.TextBoxFor(Model => Model.Ticket, new { required = true })
 
                             @if (ViewData.ModelState["Ticket"]?.Errors.Count() > 0)
                             {
                                 @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
                             }
 
-                            <div class="prompt-white max-width-480 margin-top">
-                                <p>If you don’t have a valid reader’s ticket or temporary reader’s ticket number, you won’t be able to proceed.</p>
-                                <a href="/">Register for or renew a reader’s ticket ></a>
-                            </div>
+                            <p class="helper-text mt-med">Don’t have a valid reader’s ticket or temporary reader’s ticket number?<br><a href="/">Register for or renew a reader’s ticket</a></p>
                         </div>
 
                     </fieldset>
 
                     <fieldset>
-                        <legend>Enter your first name and last name</legend>
+                        <legend class="mt-lg">Enter your first name and last name</legend>
 
                         <div class="form-row">
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
@@ -142,7 +135,7 @@
 
                             @if (ViewData.ModelState["FirstName"]?.Errors.Count() > 0)
                             {
-                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error"})
+                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error" })
                             }
 
                             <label for="lastname" class="sr-only">Last name</label>
@@ -156,16 +149,15 @@
                     </fieldset>
 
                     <fieldset>
-                        <legend class="sr-only">Enter your email address and/or telephone number</legend>
-                        
+                        <legend>Enter your email address or telephone number so we can contact you.</legend>
+
                         <div class="form-row">
-                            <label for="email">Email address</label>
+                            <label for="email" class="mt-lg">Email address</label>
                             <p class="helper-text">
-                                We will use this to send you a booking confirmation email with a link to
-                                your document order form and a reminder email before your visit.
+                                We will use this to send you a booking confirmation email with a link to your document order form and a reminder email before your visit.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Email, new { placeholder = "Enter email address"})
+                            @Html.TextBoxFor(Model => Model.Email)
 
                             @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
                             {
@@ -179,10 +171,9 @@
                         </div>
 
                         <div class="form-row">
-                            <label for="phone">Telephone number</label>
+                            <label for="phone" class="mt-lg">Telephone number</label>
                             <p class="helper-text">
-                                If you provide a telephone number only, you will need to note down the
-                                booking reference we are about to give you on the next page.
+                                If you provide a telephone number only, you will need to note down the booking reference we are about to give you on the next page.
                             </p>
 
                             @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
@@ -199,7 +190,7 @@
 
                         <div class="form-row checkbox">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
-                            <label for="terms-conditions">Accept our <a href="#">terms of use</a></label>
+                            <label for="terms-conditions">Accept our <a target="_blank" rel="noopener noreferrer" href="http://www.nationalarchives.gov.uk/legal/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a></label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
                             {
@@ -209,7 +200,7 @@
 
                         <div class="form-row checkbox">
                             @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
-                            <label for="covid-charter">Accept our <a href="#">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
+                            <label for="covid-charter">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
                             {
@@ -220,14 +211,14 @@
                         <div class="form-row checkbox">
                             @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
                             <label for="face-covering">
-                                I have a legitimate reason to <a href="#">not wear a face covering</a>.
+                                I have a legitimate reason to <a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">not wear a face covering</a>.
                                 This information won’t be shared with the NHS Test and Trace service.
                             </label>
                         </div>
                     </fieldset>
 
                     <div class="form-row">
-                        <button type="submit" class="button" name="submitbutton" value="reserve">Complete provisional booking ></button>
+                        <button type="submit" class="button" name="submitbutton" value="reserve">Complete provisional booking</button>
                     </div>
                 </div>
             </div>

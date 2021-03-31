@@ -2,7 +2,7 @@
 @using book_a_reading_room_visit.web.Models
 
 @{
-    ViewData["Title"] = "Reservation confirmation";
+    ViewData["Title"] = "Continue later";
 }
 
 <h1 class="display-4">Before you leave</h1>
@@ -12,7 +12,7 @@
     <div class="heading">
         <div class="row">
             <div class="col-md-12">
-                <p class="no-margin">
+                <p>
                     You have a provisional booking for:
                 </p>
             </div>
@@ -58,27 +58,26 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="prompt-white">
-                    <p>
-                        If you did not provide an email address as part of your booking, safely note these booking details
-                        or future reference. Return to your booking at this link before <span class="bold-text">
-                            Monday 13
-                            February 2021 at 11.59pm British Summer Time (BST)
-                        </span>:
-                    </p>
-                    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                <p>
+                    If you did not provide an email address as part of your booking, safely note these booking details
+                    or future reference. Return to your booking at this link before <span class="bold-text">
+                        Monday 13
+                        February 2021 at 11.59pm British Summer Time (BST)
+                    </span>:
+                    <br />
+                    <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                </p>
 
-                    <p>
-                        If you provided an email address as part of your booking, a direct link to this form is also in
-                        your reservation confirmation email, so you can return to your document order at any point before
-                        <span class="bold-text">Monday 13 February 2021 at 11.59pm British Summer Time (BST)</span>. If you
-                        can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
-                    </p>
+                <p>
+                    If you provided an email address as part of your booking, a direct link to this form is also in
+                    your reservation confirmation email, so you can return to your document order at any point before
+                    <span class="bold-text">Monday 13 February 2021 at 11.59pm British Summer Time (BST)</span>. If you
+                    can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
+                </p>
 
-                    <p>Complete your document order form at any point before the deadline otherwise your visit will be cancelled.</p>
+                <p>Complete your document order form at any point before the deadline otherwise your visit will be cancelled.</p>
 
-                    <p class="no-margin">You will need your booking reference and reader's ticket number to return to this booking.</p>
-                </div>
+                <p class="no-margin">You will need your booking reference and reader's ticket number to return to this booking.</p>
             </div>
         </div>
 
@@ -86,18 +85,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Are you sure you want to continue later?</h2>
-                    <div class="margin-top">
-                        <span class="col-lg-4 col-md-4">
-                            <a class="button primary" href="@Url.Action("Booking", "ThankYou")">Yes, I'd like to continue later</a>
-                        </span>
 
-                        <span class="col-lg-4 col-md-4">
-                            <a class="button primary" href="#">No, take me to the order form</a>
-                        </span>
-                    </div>
+                    <a class="button primary" href="@Url.Action("Booking", "ThankYou")">Yes, I'd like to continue later</a>
+                    <a class="button secondary" href="@Url.Action("Booking", "ContinueLater")">No, take me to the order form</a>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
