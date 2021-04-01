@@ -11,6 +11,8 @@ INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (4, 'Bulk docume
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (5, 'Map and large document room seat with camera stand')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (6, 'Bulk document order seat with camera stand')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (7, 'Not available')
+INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (8, 'Managerial Discretion')
+	
 
 --[dbo].[BookingType]
 INSERT INTO [dbo].[BookingType] ([Id], [Description]) VALUES (1, 'Standard order visit')
@@ -121,3 +123,5 @@ INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (100, 'Bu
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (101, 'Bulk2', 4)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (102, 'Bulk3', 4)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (103, 'Bulk4', 4)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (104, 'MD1', 8)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (105, 'MD2', 8)
