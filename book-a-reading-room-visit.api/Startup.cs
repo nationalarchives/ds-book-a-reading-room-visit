@@ -30,7 +30,7 @@ namespace book_a_reading_room_visit.api
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
 
             services.AddDbContext<BookingContext>(opt =>
-              opt.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = KewBooking")
+              opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
                  .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddMemoryCache();
