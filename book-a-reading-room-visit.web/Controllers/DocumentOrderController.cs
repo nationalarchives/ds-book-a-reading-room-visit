@@ -31,9 +31,9 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> OrderDocuments(DocumentOrderViewModel model)
         {
-            if (_validateDocumentOrder.IsValid(ModelState, model))
+            if (_validateDocumentOrder.IsValid(ModelState, model, out var validatedDocs))
             {
-                var bookingModel = model.MapToBookingModel();
+                var bookingModel = model.MapToBookingModel(validatedDocs);
                 var response = await _bookingService.UpsertDocumentAsync(bookingModel);
 
                 if (response.IsSuccess)
@@ -54,17 +54,7 @@ namespace book_a_reading_room_visit.web.Controllers
         public async Task<IActionResult> OrderComplete(BookingTypes bookingType, int readerticket, string bookingReference)
         {
             var bookingModel = await _bookingService.GetBookingAsync(readerticket, bookingReference);
-
-            var model = new OrderCompleteViewModel
-            {
-                BookingType = bookingModel.BookingType,
-                ReaderTicket = bookingModel.ReaderTicket,
-                BookingReference = bookingModel.BookingReference,
-                BookingStartDate = bookingModel.VisitStartDate,
-                CompleteByDate = bookingModel.CompleteByDate,
-                SeatType = bookingModel.SeatType,
-                SeatNumber = bookingModel.SeatNumber
-            };
+            var model = bookingModel.MapToOrderCompleteViewModel();
             return View(model);
         }
     }

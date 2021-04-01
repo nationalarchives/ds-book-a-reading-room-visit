@@ -21,55 +21,60 @@ namespace book_a_reading_room_visit.web.Helper
                 SeatType = model.SeatType,
                 SeatNumber = model.SeatNumber,
                 AdditionalRequirements = model.AdditionalRequirements,
-                Series = "To Fill"
+                Series = ""
             };
-            if (model.OrderDocuments.Any())
-            {
-                returnModel.DocumentReference1 = model.OrderDocuments[0]?.DocumentReference;
-                returnModel.DocumentReference2 = model.OrderDocuments[1]?.DocumentReference;
-                returnModel.DocumentReference3 = model.OrderDocuments[2]?.DocumentReference;
-                returnModel.DocumentReference4 = model.OrderDocuments[3]?.DocumentReference;
-                returnModel.DocumentReference5 = model.OrderDocuments[4]?.DocumentReference;
-                returnModel.DocumentReference6 = model.OrderDocuments[5]?.DocumentReference;
-                returnModel.DocumentReference7 = model.OrderDocuments[6]?.DocumentReference;
-                returnModel.DocumentReference8 = model.OrderDocuments[7]?.DocumentReference;
-                returnModel.DocumentReference9 = model.OrderDocuments[8]?.DocumentReference;
-                returnModel.DocumentReference10 = model.OrderDocuments[9]?.DocumentReference;
-                returnModel.DocumentReference11 = model.OrderDocuments[10]?.DocumentReference;
-                returnModel.DocumentReference12 = model.OrderDocuments[11]?.DocumentReference;
-                returnModel.DocumentReference13 = model.OrderDocuments[12]?.DocumentReference;
-                returnModel.DocumentReference14 = model.OrderDocuments[13]?.DocumentReference;
-                returnModel.DocumentReference15 = model.OrderDocuments[14]?.DocumentReference;
-                returnModel.DocumentReference16 = model.OrderDocuments[15]?.DocumentReference;
-                returnModel.DocumentReference17 = model.OrderDocuments[16]?.DocumentReference;
-                returnModel.DocumentReference18 = model.OrderDocuments[17]?.DocumentReference;
-                returnModel.DocumentReference19 = model.OrderDocuments[18]?.DocumentReference;
-                returnModel.DocumentReference20 = model.OrderDocuments[19]?.DocumentReference;
-                returnModel.DocumentReference21 = model.OrderDocuments[20]?.DocumentReference;
-                returnModel.DocumentReference22 = model.OrderDocuments[21]?.DocumentReference;
-                returnModel.DocumentReference23 = model.OrderDocuments[22]?.DocumentReference;
-                returnModel.DocumentReference24 = model.OrderDocuments[23]?.DocumentReference;
-                returnModel.DocumentReference25 = model.OrderDocuments[24]?.DocumentReference;
-                returnModel.DocumentReference26 = model.OrderDocuments[25]?.DocumentReference;
-                returnModel.DocumentReference27 = model.OrderDocuments[26]?.DocumentReference;
-                returnModel.DocumentReference28 = model.OrderDocuments[27]?.DocumentReference;
-                returnModel.DocumentReference29 = model.OrderDocuments[28]?.DocumentReference;
-                returnModel.DocumentReference30 = model.OrderDocuments[29]?.DocumentReference;
-                returnModel.DocumentReference31 = model.OrderDocuments[30]?.DocumentReference;
-                returnModel.DocumentReference32 = model.OrderDocuments[31]?.DocumentReference;
-                returnModel.DocumentReference33 = model.OrderDocuments[32]?.DocumentReference;
-                returnModel.DocumentReference34 = model.OrderDocuments[33]?.DocumentReference;
-                returnModel.DocumentReference35 = model.OrderDocuments[34]?.DocumentReference;
-                returnModel.DocumentReference36 = model.OrderDocuments[35]?.DocumentReference;
-                returnModel.DocumentReference37 = model.OrderDocuments[36]?.DocumentReference;
-                returnModel.DocumentReference38 = model.OrderDocuments[37]?.DocumentReference;
-                returnModel.DocumentReference39 = model.OrderDocuments[38]?.DocumentReference;
-                returnModel.DocumentReference40 = model.OrderDocuments[39]?.DocumentReference;
-            }
+            var documents = model.OrderDocuments.Where(d => !d.IsReserve).ToList();
+            var reserveDocuments = model.OrderDocuments.Where(d => d.IsReserve).ToList();
+
+            returnModel.DocumentReference1 = documents.Count > 0 ? documents[0]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference2 = documents.Count > 1 ? documents[1]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference3 = documents.Count > 2 ? documents[2]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference4 = documents.Count > 3 ? documents[3]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference5 = documents.Count > 4 ? documents[4]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference6 = documents.Count > 5 ? documents[5]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference7 = documents.Count > 6 ? documents[6]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference8 = documents.Count > 7 ? documents[7]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference9 = documents.Count > 8 ? documents[8]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference10 = documents.Count > 9 ? documents[9]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference11 = documents.Count > 10 ? documents[10]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference12 = documents.Count > 11 ? documents[11]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference13 = documents.Count > 12 ? documents[12]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference14 = documents.Count > 13 ? documents[13]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference15 = documents.Count > 14 ? documents[14]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference16 = documents.Count > 15 ? documents[15]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference17 = documents.Count > 16 ? documents[16]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference18 = documents.Count > 17 ? documents[17]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference19 = documents.Count > 18 ? documents[18]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference20 = documents.Count > 19 ? documents[19]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference21 = documents.Count > 20 ? documents[20]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference22 = documents.Count > 21 ? documents[21]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference23 = documents.Count > 22 ? documents[22]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference24 = documents.Count > 23 ? documents[23]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference25 = documents.Count > 24 ? documents[24]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference26 = documents.Count > 25 ? documents[25]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference27 = documents.Count > 26 ? documents[26]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference28 = documents.Count > 27 ? documents[27]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference29 = documents.Count > 28 ? documents[28]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference30 = documents.Count > 29 ? documents[29]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference31 = documents.Count > 30 ? documents[30]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference32 = documents.Count > 31 ? documents[31]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference33 = documents.Count > 32 ? documents[32]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference34 = documents.Count > 33 ? documents[33]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference35 = documents.Count > 34 ? documents[34]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference36 = documents.Count > 35 ? documents[35]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference37 = documents.Count > 36 ? documents[36]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference38 = documents.Count > 37 ? documents[37]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference39 = documents.Count > 38 ? documents[38]?.DocumentReference : string.Empty;
+            returnModel.DocumentReference40 = documents.Count > 39 ? documents[39]?.DocumentReference : string.Empty;
+
+            returnModel.ReserveDocumentReference1 = reserveDocuments.Count > 0 ? reserveDocuments[0]?.DocumentReference : string.Empty;
+            returnModel.ReserveDocumentReference2 = reserveDocuments.Count > 1 ? reserveDocuments[1]?.DocumentReference : string.Empty;
+            returnModel.ReserveDocumentReference3 = reserveDocuments.Count > 2 ? reserveDocuments[2]?.DocumentReference : string.Empty;
+
             return returnModel;
         }
 
-        public static BookingModel MapToBookingModel(this DocumentOrderViewModel model)
+        public static BookingModel MapToBookingModel(this DocumentOrderViewModel model, List<ValidatedDocViewModel> validatedDocuments)
         {
             var returnModel = new BookingModel
             {
@@ -83,65 +88,43 @@ namespace book_a_reading_room_visit.web.Helper
                 AdditionalRequirements = model.AdditionalRequirements,
                 OrderDocuments = new List<OrderDocumentModel>()
             };
-            if (model.OrderDocuments.Any())
+            foreach (var document in validatedDocuments)
             {
-                returnModel.DocumentReference1 = model.OrderDocuments[0]?.DocumentReference;
-                returnModel.DocumentReference2 = model.OrderDocuments[1]?.DocumentReference;
-                returnModel.DocumentReference3 = model.OrderDocuments[2]?.DocumentReference;
-                returnModel.DocumentReference4 = model.OrderDocuments[3]?.DocumentReference;
-                returnModel.DocumentReference5 = model.OrderDocuments[4]?.DocumentReference;
-                returnModel.DocumentReference6 = model.OrderDocuments[5]?.DocumentReference;
-                returnModel.DocumentReference7 = model.OrderDocuments[6]?.DocumentReference;
-                returnModel.DocumentReference8 = model.OrderDocuments[7]?.DocumentReference;
-                returnModel.DocumentReference9 = model.OrderDocuments[8]?.DocumentReference;
-                returnModel.DocumentReference10 = model.OrderDocuments[9]?.DocumentReference;
-                returnModel.DocumentReference11 = model.OrderDocuments[10]?.DocumentReference;
-                returnModel.DocumentReference12 = model.OrderDocuments[11]?.DocumentReference;
-                returnModel.DocumentReference13 = model.OrderDocuments[12]?.DocumentReference;
-                returnModel.DocumentReference14 = model.OrderDocuments[13]?.DocumentReference;
-                returnModel.DocumentReference15 = model.OrderDocuments[14]?.DocumentReference;
-                returnModel.DocumentReference16 = model.OrderDocuments[15]?.DocumentReference;
-                returnModel.DocumentReference17 = model.OrderDocuments[16]?.DocumentReference;
-                returnModel.DocumentReference18 = model.OrderDocuments[17]?.DocumentReference;
-                returnModel.DocumentReference19 = model.OrderDocuments[18]?.DocumentReference;
-                returnModel.DocumentReference20 = model.OrderDocuments[19]?.DocumentReference;
-                returnModel.DocumentReference21 = model.OrderDocuments[20]?.DocumentReference;
-                returnModel.DocumentReference22 = model.OrderDocuments[21]?.DocumentReference;
-                returnModel.DocumentReference23 = model.OrderDocuments[22]?.DocumentReference;
-                returnModel.DocumentReference24 = model.OrderDocuments[23]?.DocumentReference;
-                returnModel.DocumentReference25 = model.OrderDocuments[24]?.DocumentReference;
-                returnModel.DocumentReference26 = model.OrderDocuments[25]?.DocumentReference;
-                returnModel.DocumentReference27 = model.OrderDocuments[26]?.DocumentReference;
-                returnModel.DocumentReference28 = model.OrderDocuments[27]?.DocumentReference;
-                returnModel.DocumentReference29 = model.OrderDocuments[28]?.DocumentReference;
-                returnModel.DocumentReference30 = model.OrderDocuments[29]?.DocumentReference;
-                returnModel.DocumentReference31 = model.OrderDocuments[30]?.DocumentReference;
-                returnModel.DocumentReference32 = model.OrderDocuments[31]?.DocumentReference;
-                returnModel.DocumentReference33 = model.OrderDocuments[32]?.DocumentReference;
-                returnModel.DocumentReference34 = model.OrderDocuments[33]?.DocumentReference;
-                returnModel.DocumentReference35 = model.OrderDocuments[34]?.DocumentReference;
-                returnModel.DocumentReference36 = model.OrderDocuments[35]?.DocumentReference;
-                returnModel.DocumentReference37 = model.OrderDocuments[36]?.DocumentReference;
-                returnModel.DocumentReference38 = model.OrderDocuments[37]?.DocumentReference;
-                returnModel.DocumentReference39 = model.OrderDocuments[38]?.DocumentReference;
-                returnModel.DocumentReference40 = model.OrderDocuments[39]?.DocumentReference;
+                returnModel.OrderDocuments.Add(new OrderDocumentModel()
+                { 
+                    DocumentReference = document.DocumentReference,
+                    LetterCode = "",
+                    ClassNumber = 0,
+                    PieceId = document.PieceId,
+                    PieceReference = "",
+                    SubClassNumber = 0,
+                    ItemReference = "",
+                    Site = document.DocumentIsOffsite ? "offsite" : "kew",
+                    IsReserve = document.IsReserved
+                });
             }
             return returnModel;
         }
 
-        public static OrderCompleteViewModel MapToOrderCompleteViewModel(this DocumentOrderViewModel model)
+        public static OrderCompleteViewModel MapToOrderCompleteViewModel(this BookingModel model)
         {
             return new OrderCompleteViewModel
             {
                 BookingType = model.BookingType,
                 ReaderTicket = model.ReaderTicket,
                 BookingReference = model.BookingReference,
-                BookingStartDate = model.BookingStartDate,
+                BookingStartDate = model.VisitStartDate,
                 CompleteByDate = model.CompleteByDate,
                 SeatType = model.SeatType,
                 SeatNumber = model.SeatNumber,
                 AdditionalRequirements = model.AdditionalRequirements,
-                Documents = new List<DocumentViewModel>()
+                Documents = (from document in model.OrderDocuments
+                            select new DocumentViewModel
+                            {
+                                Reference = document.DocumentReference,
+                                Description = "",
+                                IsReserved = document.IsReserve
+                            }).ToList()
             };
         }
     }

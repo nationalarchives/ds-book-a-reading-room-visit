@@ -1,9 +1,7 @@
 ﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
-@{
-    ViewData["Title"] = "Manage document order";
-}
+@{ ViewData["Title"] = "Manage document order"; }
 @model OrderCompleteViewModel
 
 <h1 class="display-4">5. Order complete</h1>
@@ -67,7 +65,6 @@
         </div>
     </section>
 
-
     <section class="booking-details">
         <div class="row">
             <div class="col-md-12">
@@ -99,14 +96,14 @@
                             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
 
-                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>Document reading room (All seats have camera stands)</td> 
                                 }
                                 else
                                 {
                                     <td>Map and large document reading room</td>
-                                }
+                                 } 
                             }
                             else
                             {
@@ -126,7 +123,7 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(Model => Model.BookingReference)
                     @Html.HiddenFor(Model => Model.ReaderTicket)
-                    @Html.HiddenFor(Model => Model.SeatType)
+                    @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                     @Html.HiddenFor(Model => Model.BookingStartDate)
                     @Html.HiddenFor(Model => Model.SeatNumber)
                     <button type="submit" class="button">Cancel this booking</button>
@@ -140,26 +137,13 @@
             <div class="col-md-12">
                 <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order documents" : "Your bulk order documents")</h3>
                 <ol class="document-list">
-                    <li>
-                        <p class="bold-text">FCO 141/19497</p>
-                        <p>Kenya land transfer programme: Captain F L Jones…</p>
-                    </li>
-                    <li>
-                        <p class="bold-text">FCO 141/19497</p>
-                        <p>Kenya land transfer programme: Captain F L Jones…</p>
-                    </li>
-                    <li>
-                        <p class="bold-text">FCO 141/19497</p>
-                        <p>Kenya land transfer programme: Captain F L Jones…</p>
-                    </li>
-                    <li>
-                        <p class="bold-text">FCO 141/19497</p>
-                        <p>Kenya land transfer programme: Captain F L Jones…</p>
-                    </li>
-                    <li>
-                        <p class="bold-text">FCO 141/19497</p>
-                        <p>Kenya land transfer programme: Captain F L Jones…</p>
-                    </li>
+                    @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
+                    {
+                        <li>
+                            <p class="bold-text">@document.Reference</p>
+                            <p>@document.Description</p>
+                        </li>
+                    }
                 </ol>
             </div>
 
@@ -168,22 +152,16 @@
                 <section class="col-md-12">
                     <h3>Your reserve documents</h3>
                     <ol class="document-list">
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
-                        <li>
-                            <p class="bold-text">FCO 141/19497</p>
-                            <p>Kenya land transfer programme: Captain F L Jones…</p>
-                        </li>
+                        @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
+                        {
+                            <li>
+                                <p class="bold-text">@document.Reference</p>
+                                <p>@document.Description</p>
+                            </li>
+                        }
                     </ol>
-                </section>
+                </section>  
             }
-
         </div>
     </section>
 

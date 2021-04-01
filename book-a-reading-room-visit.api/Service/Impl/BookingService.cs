@@ -109,8 +109,7 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<BookingResponseModel> UpsertDocumentsAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
-
-            var booking = await _context.Set<Booking>().Include(b => b.OrderDocuments).FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
+            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
 
             if (booking == null)
             {
@@ -122,38 +121,26 @@ namespace book_a_reading_room_visit.api.Service
             _context.Attach(booking);
             booking.AdditionalRequirements = bookingModel.AdditionalRequirements;
 
-            foreach (var document in bookingModel.OrderDocuments)
-            {
-                if (document.Id > 0)
-                {
-                    var documentToUpdate = booking.OrderDocuments.FirstOrDefault(d => d.Id == document.Id);
-                    documentToUpdate.DocumentReference = document.DocumentReference;
-                    documentToUpdate.BookingId = booking.Id;
-                    documentToUpdate.LetterCode = document.LetterCode;
-                    documentToUpdate.ClassNumber = document.ClassNumber;
-                    documentToUpdate.PieceId = document.PieceId;
-                    documentToUpdate.PieceReference = document.PieceReference;
-                    documentToUpdate.SubClassNumber = document.SubClassNumber;
-                    documentToUpdate.ItemReference = document.ItemReference;
-                    documentToUpdate.Site = document.Site;
-                }
-                else
-                {
-                    await _context.Set<OrderDocument>().AddAsync(new OrderDocument
-                    {
-                        DocumentReference = document.DocumentReference,
-                        BookingId = booking.Id,
-                        LetterCode = document.LetterCode,
-                        ClassNumber = document.ClassNumber,
-                        PieceId = document.PieceId,
-                        PieceReference = document.PieceReference,
-                        SubClassNumber = document.SubClassNumber,
-                        ItemReference = document.ItemReference,
-                        Site = document.Site,
-                        IsReserve = document.IsReserve
-                    });
-                }
-            }
+            var documents = await _context.Set<OrderDocument>().Where(d => d.BookingId == booking.Id).ToListAsync();
+            _context.Set<OrderDocument>().RemoveRange(documents);
+
+            var orderDocuments = (from document in bookingModel.OrderDocuments
+                                    select new OrderDocument
+                                    {
+                                        DocumentReference = document.DocumentReference,
+                                        BookingId = booking.Id,
+                                        LetterCode = document.LetterCode,
+                                        ClassNumber = document.ClassNumber,
+                                        PieceId = document.PieceId,
+                                        PieceReference = document.PieceReference,
+                                        SubClassNumber = document.SubClassNumber,
+                                        ItemReference = document.ItemReference,
+                                        Site = document.Site,
+                                        IsReserve = document.IsReserve
+                                    }).ToList();
+
+            await _context.Set<OrderDocument>().AddRangeAsync(orderDocuments);
+
             await _context.SaveChangesAsync();
             return response;
         }
