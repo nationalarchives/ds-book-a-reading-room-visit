@@ -10,112 +10,124 @@
 
 <h1 class="display-4">4. Order documents for your visit</h1>
 
-<div class="text-center">
+<div class="container content-wrapper">
 
-    <div class="container content-wrapper">
+    <section class="row" id="progress-bar">
+        <h2 class="sr-only">Progress</h2>
+        <div class="col-md-12">
+            <ol>
+                <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
+                <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
+                <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                <li aria-current="page" class="active"><span class="step-number">4</span> <span class="step">Order documents</span></li>
+                <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+            </ol>
+        </div>
+    </section>
 
-        <section class="row" id="progress-bar">
-            <h2 class="sr-only">Progress</h2>
+    <div class="heading align-left">
+        <div class="row">
             <div class="col-md-12">
-                <ol>
-                    <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
-                    <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
-                    <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
-                    <li aria-current="page" class="active"><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
-                </ol>
-            </div>
-        </section>
-
-        <div class="heading align-left">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        You have a provisional reservation for a visit to the reading rooms. Complete this form to pre-order original
-                        documents held by The National Archives.
-                    </p>
-                    <p>
-                        If you do not complete this step by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. your visit will be automatically cancelled.
-                        A direct link to this form is also in your confirmation email, so you can return to amend or complete your
-                        document order at any point before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. Check your spam and junk email folders.
-                    </p>
-                    <p>
-                        Once this date has passed, you can't change your document order as we will begin preparing your order for your
-                        visit.
-                    </p>
-                </div>
+                <h2>Tell us which documents you would like to see</h2>
+                <p>
+                    You have a provisional reservation for a visit to the reading rooms. Complete this form
+                    to order original documents held by The National Archives.
+                </p>
+                <p>
+                    If you do not complete this step by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>
+                    your visit will be automatically cancelled.
+                </p>
+                <p>
+                    If you provided an email address as part of your booking, a direct link to this form is
+                    also in your reservation confirmation email, so you can return to edit or cancel your
+                    document order at any point before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+                    If you can’t see the reservation confirmation email in your inbox, check your spam and
+                    junk email folders.
+                </p>
+                <p>
+                    If you did not provide an email address, use the <a target="_blank"
+                                                                        rel="noreferrer noopenner"
+                                                                        href="/book-a-reading-room-visit/return-to-booking">
+                        Return
+                        to booking form
+                    </a> to complete your document order at any point before the deadline.
+                </p>
+                <p>
+                    Once this date has passed, you can't change your document order as we will begin
+                    preparing your order for your visit.
+                </p>
             </div>
         </div>
+    </div>
 
-        <div class="booking-details">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Your reservation details</h2>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Booking reference</th>
-                                <td>@Model.BookingReference</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Visit type</th>
-                                <td>
-                                    @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
-                                </td>
-                            </tr>
+    <div class="booking-details">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Your reservation details</h2>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Booking reference</th>
+                            <td>
+                                @Model.BookingReference <span class="secondary-info">A copy of this has been emailed to you. If you didn't provide your email address as part of the booking process, you need to safely note your booking reference.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit type</th>
+                            <td>
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reading room</th>
                             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
-                                <tr>
-                                    <th scope="row">Reading room</th>
-                                    <td>
-                                        @if (Model.SeatType == SeatTypes.StdRRSeat)
-                                        {
-                                            <p>Standard document reading room</p>
-                                        }
-                                        else
-                                        {
-                                            <p>Map and large document reading room</p>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                            <tr>
-                                <th scope="row">Visit date</th>
-                                <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Seat number</th>
-                                <td>
-                                    @Model.SeatNumber
-                                    <p>Based on availability, we may need to change your seat on the date of your visit.</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.Hidden("readerticket", Model.ReaderTicket)
-                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
-                        @Html.HiddenFor(Model => Model.BookingStartDate)
-                        @Html.HiddenFor(Model => Model.SeatNumber)
-                        <button type="submit" class="btn-link">Cancel this booking ></button>
-                    </form>
-                </div>
-            </div>
-        </div>
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
+                                {
+                                    <td>Document reading room (All seats have camera stands)</td>
+                                }
+                                else
+                                {
+                                    <td>Map and large document reading room</td>
+                                }
 
-        <div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="prompt-white">
-                        <p class="no-margin">
-                            You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
-                        </p>
-                    </div>
-                </div>
+                            }
+                            else
+                            {
+                                <td>Map and large document reading room</td>
+                            }
+                        </tr>
+                        <tr>
+                            <th scope="row">Seat number</th>
+                            <td>
+                                @Model.SeatNumber
+                                <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(Model => Model.BookingReference)
+                    @Html.Hidden("readerticket", Model.ReaderTicket)
+                    @Html.HiddenFor(Model => Model.SeatType)
+                    @Html.HiddenFor(Model => Model.BookingStartDate)
+                    @Html.HiddenFor(Model => Model.SeatNumber)
+                    <button type="submit" class="button">Cancel this booking</button>
+                </form>
             </div>
         </div>
+    </div>
+
+    <div class="prompt-grey full-width warning-panel">
+        <p class="no-margin">
+            You can add or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+        </p>
+    </div>
 
         <div class="order-form">
             <div class="row">
@@ -137,19 +149,27 @@
                             @await Html.PartialAsync("Partials/_BulkOrderForm", Model)
                         }
 
-                        <fieldset>
-                            <legend>
-                                <label for="additional-reqs">Additional access requirements or research requests</label>
-                            </legend>
+                    <fieldset>
+                        <legend>
+                            <label for="additional-reqs">Access needs and research requests</label>
+                        </legend>
 
-                            <p>This should reflect the specific additional services we accomodate</p>
+                        <p class="helper-text">
+                            Tell us about your access needs, including if you have
+                            mobility access requirements. You can also use this space to tell us your
+                            research requests, including library materials, microfilm/microfiche, or
+                            finding/preservation aids that are normally available on self-service.
+                        </p>
 
-                            <textarea id="additional-reqs" name="additional-reqs"></textarea>
-                        </fieldset>
+                        <p class="helper-text">
+                            We cannot guarantee that all of the research materials will
+                            be available.
+                        </p>
+                        <textarea id="additional-reqs" name="additional-reqs"></textarea>
+                    </fieldset>
 
-                        <button class="button" type="submit">Add these to your order</button>
-                    </form>
-                </div>
+                    <button class="button" type="submit">Save and review</button>
+                </form>
             </div>
         </div>
     </div>

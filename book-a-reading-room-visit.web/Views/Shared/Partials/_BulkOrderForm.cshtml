@@ -1,8 +1,14 @@
 ﻿@model DocumentOrderViewModel
 <fieldset>
-    <legend><label for="reference-number">Enter the department and series number (e.g. FO 371)</label></legend>
-    <p>
-        We are unable to produce the following document series in bulk due to their size, condition or content:
+    <legend>
+        <label for="reference-number">
+            Enter the department and series number (e.g.
+            FO 371)
+        </label>
+    </legend>
+    <p class="helper-text">
+        We are unable to produce the following document series in bulk due to their
+        size, condition or content:
 
         <span id="unavailable-docs">BT 42, BT 43, BT 50, BT 52, C 13, C 14, E 112, KB 122, PROB 4, WO 416</span>
     </p>
@@ -18,8 +24,16 @@
             You need to add at least @Model.MinimumRequiredDocuments more document before the deadline to avoid your order being cancelled
         </div>
     }
-    <p>You can order a minimum of 20 documents up to a maximum of 40 from the same series.</p>
-    <p>Search the catalogue and note document references, and then enter the references in the fields below.</p>
+    <p class="helper-text no-margin">
+        Order between 20 and 40 documents from the same
+        series.<br>
+    <p class="helper-text">
+        <a href="https://discovery.nationalarchives.gov.uk/"
+           target="_blank" rel="noreferrer noopenner">
+            Search our
+            catalogue to find catalogue references
+        </a>
+    </p>
 
     <div class="col-md-3 col-sm-6 col-xs-6">
         <div class="order-form-field">

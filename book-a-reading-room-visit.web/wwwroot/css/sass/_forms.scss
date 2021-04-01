@@ -7,16 +7,17 @@ form {
     border: 0 !important;
   }
   legend {
-    font-family: $heading_font;
-    font-size: 1.6em;
+    font-family: $body_font;
+    font-weight: bold;
     margin: 0 0 0.6em 0;
     width: auto;
     padding: 0 !important;
     border: 0 !important;
   }
   label {
-    font-family: $heading_font;
-    font-weight: normal;
+    font-family: $body_font;
+    font-weight: bold;
+    font-size: 1.1em;
   }
   input[type="submit"] {
     font-family: "Roboto Mono", monospace;
