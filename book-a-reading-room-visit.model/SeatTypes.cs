@@ -8,6 +8,7 @@
         BulkOrderSeat = 4,
         MandLRRWithCamera = 5,
         BulkOrderSeatWithCamera = 6,
-        NotAvailable = 7
+        NotAvailable = 7,
+        ManagerialDiscretion = 8
     }
 }

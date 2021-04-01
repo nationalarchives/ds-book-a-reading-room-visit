@@ -95,10 +95,15 @@ namespace book_a_reading_room_visit.api.Service
                         select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
         }
 
-        public async Task<List<SeatModel>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType)
+        public async Task<List<SeatModel>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType, bool includeManagerialDiscretion)
         {
             var seatTypes = bookingType == BookingTypes.StandardOrderVisit ? StandardOrderSeats.Select(s => (int)s).ToList() 
                                                                            : BulkOrderSeats.Select(s => (int)s).ToList();
+
+            if(includeManagerialDiscretion)
+            {
+                seatTypes.Add((int)SeatTypes.ManagerialDiscretion);
+            }
             
             var availableSeats = await (from seat in _context.Set<Seat>().Where(s => seatTypes.Contains(s.SeatTypeId))
                                          join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == availableOn)
@@ -107,7 +112,7 @@ namespace book_a_reading_room_visit.api.Service
                                          where subseat == null
                                          select new Seat { Id = seat.Id, Number = seat.Number, SeatType = seat.SeatType, SeatTypeId = seat.SeatTypeId }).ToListAsync();
 
-            var seatModels = availableSeats.Select(s => new SeatModel() { Id = s.Id, Number = s.Number, SeatType = (SeatTypes)s.SeatType.Id }).ToList();
+            var seatModels = availableSeats.OrderBy(s => s.Number).Select(s => new SeatModel() { Id = s.Id, Number = s.Number, SeatType = (SeatTypes)s.SeatType.Id }).ToList();
 
             return seatModels;
         }
