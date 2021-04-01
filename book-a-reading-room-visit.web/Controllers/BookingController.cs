@@ -52,7 +52,7 @@ namespace book_a_reading_room_visit.web.Controllers
             }
             bookingViewModel.BookingReference = result.BookingReference;
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
-            bookingViewModel.ExpiredBy = result.CreatedDate.AddMinutes(elapsedTime);
+            bookingViewModel.ExpiredBy = result.CreatedDate.ToLocalTime().AddMinutes(elapsedTime);
             ModelState.Clear();
 
             return View(bookingViewModel);
