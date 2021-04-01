@@ -29,6 +29,14 @@ namespace book_a_reading_room_visit.web.Service
             return result;
         }
 
+        public async Task<BookingResponseModel> UpsertDocumentAsync(BookingModel bookingModel)
+        {
+            var response = await _client.PostAsJsonAsync("booking/upsert-document", bookingModel);
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<BookingResponseModel>();
+            return result;
+        }
+
         public async Task<BookingModel> GetBookingAsync(int readerTicket, string bookingReference)
         {
             var response = await _client.GetAsync($"booking/{readerTicket}/{bookingReference}");

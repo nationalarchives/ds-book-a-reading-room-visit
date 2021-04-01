@@ -25,42 +25,54 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true };
+            using var transaction = await _context.Database.BeginTransactionAsync();
 
-            var seatAvailable = await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == bookingModel.SeatType)
-                                       join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.VisitStartDate && b.BookingStatusId != (int)BookingStatuses.Cancelled)
-                                       on seat.Id equals booking.SeatId into lj
-                                       from subseat in lj.DefaultIfEmpty()
-                                       where subseat == null
-                                       select seat).FirstOrDefaultAsync();
-
-            if (seatAvailable?.Id == null)
+            try
             {
-                response.IsSuccess = false;
-                response.ErrorMessage = $"There is no seat available for the given seat type {bookingModel.SeatType.ToString()} and date {bookingModel.VisitStartDate:dd-MM-yyyy}";
-                return response;
+                var seatAvailable = await (from seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == bookingModel.SeatType)
+                                           join booking in _context.Set<Booking>().Where(b => b.VisitStartDate == bookingModel.VisitStartDate && b.BookingStatusId != (int)BookingStatuses.Cancelled)
+                                           on seat.Id equals booking.SeatId into lj
+                                           from subseat in lj.DefaultIfEmpty()
+                                           where subseat == null
+                                           select seat).FirstOrDefaultAsync();
+
+                if (seatAvailable?.Id == null)
+                {
+                    await transaction.RollbackAsync();
+                    response.IsSuccess = false;
+                    response.ErrorMessage = $"There is no seat available for the given seat type {bookingModel.SeatType} on the date {bookingModel.VisitStartDate:dd-MM-yyyy}";
+                    return response;
+                }
+
+                var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
+
+                response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
+                response.CreatedDate = DateTime.UtcNow;
+
+                await _context.Set<Booking>().AddAsync(new Booking
+                {
+                    CreatedDate = response.CreatedDate,
+                    BookingReference = response.BookingReference,
+                    BookingTypeId = (int)bookingModel.BookingType,
+                    IsAcceptTsAndCs = false,
+                    IsAcceptCovidCharter = false,
+                    IsNoFaceCovering = false,
+                    IsNoShow = false,
+                    SeatId = seatAvailable.Id,
+                    BookingStatusId = (int)BookingStatuses.Created,
+                    VisitStartDate = bookingModel.VisitStartDate,
+                    VisitEndDate = bookingModel.VisitEndDate,
+                    LastModifiedBy = Modified_By
+                });
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
             }
-
-            var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
-
-            response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
-            response.CreatedDate = DateTime.Now;
-
-            await _context.Set<Booking>().AddAsync(new Booking
+            catch (Exception ex)
             {
-                CreatedDate = response.CreatedDate,
-                BookingReference = response.BookingReference,
-                BookingTypeId = (int)bookingModel.BookingType,
-                IsAcceptTsAndCs = false,
-                IsAcceptCovidCharter = false,
-                IsNoFaceCovering = false,
-                IsNoShow = false,
-                SeatId = seatAvailable.Id,
-                BookingStatusId = (int)BookingStatuses.Created,
-                VisitStartDate = bookingModel.VisitStartDate,
-                VisitEndDate = bookingModel.VisitEndDate,
-                LastModifiedBy = Modified_By
-            });
-            await _context.SaveChangesAsync();
+                await transaction.RollbackAsync();
+                response.IsSuccess = false;
+                response.ErrorMessage = $"Error reserving the given seat type {bookingModel.SeatType} on the date {bookingModel.VisitStartDate:dd-MM-yyyy}";
+            }
             return response;
         }
 
@@ -90,6 +102,58 @@ namespace book_a_reading_room_visit.api.Service
             booking.IsAcceptCovidCharter = bookingModel.IsAcceptCovidCharter;
             booking.IsNoFaceCovering = bookingModel.IsNoFaceCovering;
 
+            await _context.SaveChangesAsync();
+            return response;
+        }
+
+        public async Task<BookingResponseModel> UpsertDocumentsAsync(BookingModel bookingModel)
+        {
+            var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
+
+            var booking = await _context.Set<Booking>().Include(b => b.OrderDocuments).FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
+
+            if (booking == null)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"There is no booking found for the booking reference {bookingModel.BookingReference}";
+                return response;
+            }
+
+            _context.Attach(booking);
+            booking.AdditionalRequirements = bookingModel.AdditionalRequirements;
+
+            foreach (var document in bookingModel.OrderDocuments)
+            {
+                if (document.Id > 0)
+                {
+                    var documentToUpdate = booking.OrderDocuments.FirstOrDefault(d => d.Id == document.Id);
+                    documentToUpdate.DocumentReference = document.DocumentReference;
+                    documentToUpdate.BookingId = booking.Id;
+                    documentToUpdate.LetterCode = document.LetterCode;
+                    documentToUpdate.ClassNumber = document.ClassNumber;
+                    documentToUpdate.PieceId = document.PieceId;
+                    documentToUpdate.PieceReference = document.PieceReference;
+                    documentToUpdate.SubClassNumber = document.SubClassNumber;
+                    documentToUpdate.ItemReference = document.ItemReference;
+                    documentToUpdate.Site = document.Site;
+                }
+                else
+                {
+                    await _context.Set<OrderDocument>().AddAsync(new OrderDocument
+                    {
+                        DocumentReference = document.DocumentReference,
+                        BookingId = booking.Id,
+                        LetterCode = document.LetterCode,
+                        ClassNumber = document.ClassNumber,
+                        PieceId = document.PieceId,
+                        PieceReference = document.PieceReference,
+                        SubClassNumber = document.SubClassNumber,
+                        ItemReference = document.ItemReference,
+                        Site = document.Site,
+                        IsReserve = document.IsReserve
+                    });
+                }
+            }
             await _context.SaveChangesAsync();
             return response;
         }
