@@ -13,7 +13,12 @@
         <span id="unavailable-docs">BT 42, BT 43, BT 50, BT 52, C 13, C 14, E 112, KB 122, PROB 4, WO 416</span>
     </p>
 
-    <input id="reference-number" name="reference-number" type="text" />
+    @Html.TextBoxFor(Model => Model.Series)
+
+    @if (ViewData.ModelState["Series"]?.Errors.Count() > 0)
+    {
+        @Html.ValidationMessageFor(Model => Model.Series, "", new { @class = "form-error" })
+    }
 </fieldset>
 
 <fieldset>

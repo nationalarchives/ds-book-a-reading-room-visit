@@ -47,8 +47,11 @@ namespace book_a_reading_room_visit.web
                 c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
 
-            var wcfEndPoint = Environment.GetEnvironmentVariable("AdvanceOrderServiceEndPoint");
-            services.AddSingleton(s => new ChannelFactory<IAdvancedOrderService>(new BasicHttpBinding(), new EndpointAddress(wcfEndPoint)));
+            var wcfAdvanceOrderServiceEndPoint = Environment.GetEnvironmentVariable("AdvanceOrderServiceEndPoint");
+            services.AddSingleton(s => new ChannelFactory<IAdvancedOrderService>(new BasicHttpBinding(), new EndpointAddress(wcfAdvanceOrderServiceEndPoint)));
+
+            var wcfBulkOrderServiceEndPoint = Environment.GetEnvironmentVariable("BulkOrderServiceEndPoint");
+            services.AddSingleton(s => new ChannelFactory<IBulkOrdersService>(new BasicHttpBinding(), new EndpointAddress(wcfBulkOrderServiceEndPoint)));
 
             services.AddScoped<ValidateDocumentOrder>();
             services.AddMvc(options =>
