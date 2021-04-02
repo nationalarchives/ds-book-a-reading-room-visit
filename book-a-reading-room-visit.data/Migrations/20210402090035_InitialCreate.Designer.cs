@@ -10,7 +10,7 @@ using book_a_reading_room_visit.data;
 namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210331095949_InitialCreate")]
+    [Migration("20210402090035_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,10 @@ namespace book_a_reading_room_visit.data.Migrations
 
                     b.Property<int>("ClassNumber")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("DocumentReference")
                         .IsRequired()

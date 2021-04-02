@@ -38,6 +38,7 @@ namespace book_a_reading_room_visit.data
             modelBuilder.Entity<Booking>().Property(e => e.LastModifiedBy).HasMaxLength(50);
 
             modelBuilder.Entity<OrderDocument>().Property(e => e.DocumentReference).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<OrderDocument>().Property(e => e.Description).HasMaxLength(255);
             modelBuilder.Entity<OrderDocument>().Property(e => e.LetterCode).HasMaxLength(20);
             modelBuilder.Entity<OrderDocument>().Property(e => e.PieceReference).HasMaxLength(20);
             modelBuilder.Entity<OrderDocument>().Property(e => e.ItemReference).HasMaxLength(20);
