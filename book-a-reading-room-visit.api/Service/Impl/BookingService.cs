@@ -125,19 +125,20 @@ namespace book_a_reading_room_visit.api.Service
             _context.Set<OrderDocument>().RemoveRange(documents);
 
             var orderDocuments = (from document in bookingModel.OrderDocuments
-                                    select new OrderDocument
-                                    {
-                                        DocumentReference = document.DocumentReference,
-                                        BookingId = booking.Id,
-                                        LetterCode = document.LetterCode,
-                                        ClassNumber = document.ClassNumber,
-                                        PieceId = document.PieceId,
-                                        PieceReference = document.PieceReference,
-                                        SubClassNumber = document.SubClassNumber,
-                                        ItemReference = document.ItemReference,
-                                        Site = document.Site,
-                                        IsReserve = document.IsReserve
-                                    }).ToList();
+                                  select new OrderDocument
+                                  {
+                                      DocumentReference = document.DocumentReference,
+                                      Description = document.Description,
+                                      BookingId = booking.Id,
+                                      LetterCode = document.LetterCode,
+                                      ClassNumber = document.ClassNumber,
+                                      PieceId = document.PieceId,
+                                      PieceReference = document.PieceReference,
+                                      SubClassNumber = document.SubClassNumber,
+                                      ItemReference = document.ItemReference,
+                                      Site = document.Site,
+                                      IsReserve = document.IsReserve
+                                  }).ToList();
 
             await _context.Set<OrderDocument>().AddRangeAsync(orderDocuments);
 
@@ -168,7 +169,7 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             _context.Attach(booking);
-            if(!String.IsNullOrWhiteSpace(booking.Comments))
+            if (!String.IsNullOrWhiteSpace(booking.Comments))
             {
                 booking.Comments += " " + comment;
             }
@@ -190,7 +191,7 @@ namespace book_a_reading_room_visit.api.Service
             var response = new BookingResponseModel { IsSuccess = true };
 
             var booking = bookingCancellationModel.BookingId > 0 ? await _context.Set<Booking>().FirstOrDefaultAsync(b => b.Id == bookingCancellationModel.BookingId)
-                                                                 : await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingCancellationModel.BookingReference && 
+                                                                 : await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingCancellationModel.BookingReference &&
                                                                                                                           b.ReaderTicket == bookingCancellationModel.ReaderTicket);
 
             if (booking == null)
@@ -211,7 +212,7 @@ namespace book_a_reading_room_visit.api.Service
         {
             var booking = await _context.Bookings.AsNoTracking<Booking>()
                 .Include(b => b.BookingStatus)
-                .Include(b=> b.BookingType)
+                .Include(b => b.BookingType)
                 .Include(b => b.Seat).ThenInclude(s => s.SeatType)
                 .Include(b => b.OrderDocuments)
                 .TagWith<Booking>("Find Booking by ID")
@@ -220,7 +221,7 @@ namespace book_a_reading_room_visit.api.Service
             if (booking != null)
             {
                 var bookingToReturn = GetSerialisedBooking(booking);
-                return bookingToReturn; 
+                return bookingToReturn;
             }
             else
             {
@@ -262,33 +263,33 @@ namespace book_a_reading_room_visit.api.Service
                                             .Include(b => b.OrderDocuments)
                                             .TagWith<Booking>("Search of Bookings").ToListAsync();
 
-            var bookingModels = bookings.Select(b => new BookingModel() 
-            { 
-                 Id = b.Id,
-                 BookingReference = b.BookingReference,
-                 BookingType = (BookingTypes)b.BookingType.Id,
-                 BookingStatus = (BookingStatuses)b.BookingStatusId,
-                 FirstName = b.FirstName,
-                 LastName = b.LastName,
-                 Email = b.Email,
-                 Phone = b.Phone,
-                 CreatedDate = b.CreatedDate, 
-                 CompleteByDate = b.CompleteByDate,
-                 AdditionalRequirements = b.AdditionalRequirements,
-                 Comments = b.Comments,
-                 IsAcceptCovidCharter = b.IsAcceptCovidCharter,
-                 IsAcceptTsAndCs = b.IsAcceptTsAndCs,
-                 IsNoFaceCovering = b.IsNoFaceCovering,
-                 IsNoShow = b.IsNoShow,
-                 ReaderTicket = b.ReaderTicket,
-                 SeatId = b.SeatId,
-                 SeatNumber = b.Seat.Number,
-                 SeatType = (SeatTypes)b.Seat.SeatTypeId,
-                 SeatTypeDescription = b.Seat.SeatType.Description,
-                 VisitStartDate = b.VisitStartDate,
-                 VisitEndDate = b.VisitEndDate,
-                 LastModifiedBy = b.LastModifiedBy,
-                 OrderDocuments = AddOrderDocuments(b)
+            var bookingModels = bookings.Select(b => new BookingModel()
+            {
+                Id = b.Id,
+                BookingReference = b.BookingReference,
+                BookingType = (BookingTypes)b.BookingType.Id,
+                BookingStatus = (BookingStatuses)b.BookingStatusId,
+                FirstName = b.FirstName,
+                LastName = b.LastName,
+                Email = b.Email,
+                Phone = b.Phone,
+                CreatedDate = b.CreatedDate,
+                CompleteByDate = b.CompleteByDate,
+                AdditionalRequirements = b.AdditionalRequirements,
+                Comments = b.Comments,
+                IsAcceptCovidCharter = b.IsAcceptCovidCharter,
+                IsAcceptTsAndCs = b.IsAcceptTsAndCs,
+                IsNoFaceCovering = b.IsNoFaceCovering,
+                IsNoShow = b.IsNoShow,
+                ReaderTicket = b.ReaderTicket,
+                SeatId = b.SeatId,
+                SeatNumber = b.Seat.Number,
+                SeatType = (SeatTypes)b.Seat.SeatTypeId,
+                SeatTypeDescription = b.Seat.SeatType.Description,
+                VisitStartDate = b.VisitStartDate,
+                VisitEndDate = b.VisitEndDate,
+                LastModifiedBy = b.LastModifiedBy,
+                OrderDocuments = AddOrderDocuments(b)
             });
 
             return bookingModels.ToList();
@@ -302,16 +303,18 @@ namespace book_a_reading_room_visit.api.Service
                     foreach (OrderDocument od in booking.OrderDocuments)
                     {
                         orderDocumentList.Add(new OrderDocumentModel()
-                        { Id = od.Id,
-                         DocumentReference = od.DocumentReference,
-                         PieceId = od.PieceId,
-                         PieceReference = od.PieceReference,
-                         ItemReference = od.ItemReference,
-                         ClassNumber = od.ClassNumber,
-                         SubClassNumber = od.SubClassNumber,
-                         LetterCode = od.LetterCode,
-                         IsReserve = od.IsReserve,
-                         Site = od.Site
+                        {
+                            Id = od.Id,
+                            DocumentReference = od.DocumentReference,
+                            Description = od.Description,
+                            PieceId = od.PieceId,
+                            PieceReference = od.PieceReference,
+                            ItemReference = od.ItemReference,
+                            ClassNumber = od.ClassNumber,
+                            SubClassNumber = od.SubClassNumber,
+                            LetterCode = od.LetterCode,
+                            IsReserve = od.IsReserve,
+                            Site = od.Site
                         });
                     }
                 }
@@ -362,6 +365,7 @@ namespace book_a_reading_room_visit.api.Service
                 {
                     ClassNumber = document.ClassNumber,
                     DocumentReference = document.DocumentReference,
+                    Description = document.Description,
                     Id = document.Id,
                     IsReserve = document.IsReserve,
                     ItemReference = document.ItemReference,
