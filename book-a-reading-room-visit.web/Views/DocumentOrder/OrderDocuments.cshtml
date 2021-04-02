@@ -6,7 +6,7 @@
     ViewData["Title"] = "Order documents";
 }
 
-@model BookingViewModel
+@model DocumentOrderViewModel
 
 <h1 class="display-4">4. Order documents for your visit</h1>
 
@@ -114,7 +114,7 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(Model => Model.BookingReference)
                     @Html.Hidden("readerticket", Model.ReaderTicket)
-                    @Html.HiddenFor(Model => Model.SeatType)
+                    @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                     @Html.HiddenFor(Model => Model.BookingStartDate)
                     @Html.HiddenFor(Model => Model.SeatNumber)
                     <button type="submit" class="button">Cancel this booking</button>
@@ -127,22 +127,33 @@
         <p class="no-margin">
             You can add or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
         </p>
+        @if (Model.MinimumRequiredDocuments > 0)
+        {
+            <p class="no-margin">
+                You need to add at least @Model.MinimumRequiredDocuments more document before the deadline to avoid your order being cancelled
+            </p>
+        }
     </div>
 
-    <div class="order-form">
-        <div class="row">
-            <div class="col-md-12">
-                <form action="@Url.Action("OrderComplete", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = Model.BookingReference } )" method="POST">
-                    @Html.AntiForgeryToken()
-                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                    {
-                        @await Html.PartialAsync("Partials/_StandardOrderForm")
-                    }
+        <div class="order-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = Model.BookingReference } )" method="POST">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(Model => Model.BookingStartDate)
+                        @Html.HiddenFor(Model => Model.CompleteByDate)
+                        @Html.HiddenFor(Model => Model.CompleteByDate)
+                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+                        @Html.HiddenFor(Model => Model.SeatNumber)
 
-                    else
-                    {
-                        @await Html.PartialAsync("Partials/_BulkOrderForm")
-                    }
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            @await Html.PartialAsync("Partials/_StandardOrderForm", Model)
+                        }
+                        else
+                        {
+                            @await Html.PartialAsync("Partials/_BulkOrderForm", Model)
+                        }
 
                     <fieldset>
                         <legend>
@@ -160,9 +171,8 @@
                             We cannot guarantee that all of the research materials will
                             be available.
                         </p>
-                        <textarea id="additional-reqs" name="additional-reqs"></textarea>
+                        @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
                     </fieldset>
-
                     <button class="button" type="submit">Save and review</button>
                 </form>
             </div>

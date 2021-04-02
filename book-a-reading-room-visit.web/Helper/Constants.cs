@@ -9,5 +9,7 @@
         public const string Phone_Or_Email_Required = "Enter an email address or telephone number so we can contact you.";
         public const string Accept_Terms_Privacy_Required = "Accept our terms of use and privacy policy.";
         public const string Accept_COVID_19_Required = "Accept our COVID-19 Visitor Charter.";
+
+        public const string Duplicate_Document_Reference = "Remove duplicate catalogue reference.";
     }
 }

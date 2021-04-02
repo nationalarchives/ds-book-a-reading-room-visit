@@ -30,7 +30,14 @@ namespace book_a_reading_room_visit.api.Controllers
         {
             var result = await _bookingService.ConfirmBookingAsync(bookingModel);
             return Ok(result);
-        }        
+        }
+
+        [HttpPost("upsert-document")]
+        public async Task<ActionResult<BookingResponseModel>> UpsertDocument(BookingModel bookingModel)
+        {
+            var result = await _bookingService.UpsertDocumentsAsync(bookingModel);
+            return Ok(result);
+        }
 
         [HttpPost("update-reserved-seat")]
         public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)

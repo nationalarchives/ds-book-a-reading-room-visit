@@ -50,7 +50,7 @@ namespace book_a_reading_room_visit.web
             var wcfEndPoint = Environment.GetEnvironmentVariable("AdvanceOrderServiceEndPoint");
             services.AddSingleton(s => new ChannelFactory<IAdvancedOrderService>(new BasicHttpBinding(), new EndpointAddress(wcfEndPoint)));
 
-            services.AddScoped<AvailabilityService>();
+            services.AddScoped<ValidateDocumentOrder>();
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
