@@ -1,9 +1,7 @@
 ﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Helper
 {
@@ -75,7 +73,7 @@ namespace book_a_reading_room_visit.web.Helper
             return returnModel;
         }
 
-        public static BookingModel MapToBookingModel(this DocumentOrderViewModel model, List<ValidatedDocViewModel> validatedDocuments)
+        public static BookingModel MapToBookingModel(this DocumentOrderViewModel model, List<DocumentViewModel> validatedDocuments)
         {
             var returnModel = new BookingModel
             {
@@ -93,15 +91,15 @@ namespace book_a_reading_room_visit.web.Helper
             {
                 returnModel.OrderDocuments.Add(new OrderDocumentModel()
                 { 
-                    DocumentReference = document.DocumentReference,
-                    Description = document.DocumentDescription,
-                    LetterCode = "",
-                    ClassNumber = 0,
+                    DocumentReference = document.Reference,
+                    Description = document.Description,
+                    LetterCode = document.LetterCode,
+                    ClassNumber = document.ClassNumber,
                     PieceId = document.PieceId,
-                    PieceReference = "",
-                    SubClassNumber = 0,
-                    ItemReference = "",
-                    Site = document.DocumentIsOffsite ? "offsite" : "kew",
+                    PieceReference = document.PieceReference,
+                    SubClassNumber = document.SubClassNumber,
+                    ItemReference = document.ItemReference,
+                    Site = document.IsOffsite ? "offsite" : "kew",
                     IsReserve = document.IsReserved
                 });
             }

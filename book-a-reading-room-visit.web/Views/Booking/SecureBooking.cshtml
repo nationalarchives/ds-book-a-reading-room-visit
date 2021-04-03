@@ -81,6 +81,7 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(Model => Model.BookingReference)
         @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+        <button type="submit" class="btn-link">Cancel and choose a different date</button>
     </form>
 
     <div class="text-center">
@@ -177,6 +178,11 @@
                             </p>
 
                             @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
+
+                            @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0)
+                            {
+                                @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "form-error" })
+                            }
 
                             @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
                             {

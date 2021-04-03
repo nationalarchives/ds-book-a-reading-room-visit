@@ -155,24 +155,28 @@
                             @await Html.PartialAsync("Partials/_BulkOrderForm", Model)
                         }
 
-                    <fieldset>
-                        <legend>
-                            <label for="additional-reqs">Access needs and research requests</label>
-                        </legend>
+                        <fieldset>
+                            <legend>
+                                <label for="additional-reqs">Access needs and research requests</label>
+                            </legend>
 
-                        <p class="helper-text">
-                            Tell us about your access needs, including if you have
-                            mobility access requirements. You can also use this space to tell us your
-                            research requests, including library materials, microfilm/microfiche, or
-                            finding/preservation aids that are normally available on self-service.
-                        </p>
+                            <p class="helper-text">
+                                Tell us about your access needs, including if you have
+                                mobility access requirements. You can also use this space to tell us your
+                                research requests, including library materials, microfilm/microfiche, or
+                                finding/preservation aids that are normally available on self-service.
+                            </p>
 
-                        <p class="helper-text">
-                            We cannot guarantee that all of the research materials will
-                            be available.
-                        </p>
-                        @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
-                    </fieldset>
+                            <p class="helper-text">
+                                We cannot guarantee that all of the research materials will
+                                be available.
+                            </p>
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
+                            @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
+                            {
+                                @Html.ValidationMessageFor(Model => Model.AdditionalRequirements, "", new { @class = "form-error" })
+                            }
+                        </fieldset>
                     <button class="button" type="submit">Save and review</button>
                 </form>
             </div>

@@ -13,14 +13,17 @@ namespace book_a_reading_room_visit.web.Helper
     public class ValidateDocumentOrder
     {
         private IAdvancedOrderService _advancedOrderService;
+        private IBulkOrdersService _bulkOrdersService;
         private Dictionary<int, string> _documentReference;
-        private List<ValidatedDocViewModel> _validatedDocuments;
-        public ValidateDocumentOrder(ChannelFactory<IAdvancedOrderService> channelFactory)
+        private List<DocumentViewModel> _validatedDocuments;
+        private Regex _documentReferenceRegex = new Regex(@"^([a-zA-Z]{1,4})\s*?(\d{1,4})/(.+)$");
+        public ValidateDocumentOrder(ChannelFactory<IAdvancedOrderService> advanceChannelFactory, ChannelFactory<IBulkOrdersService> bulkChannelFactory)
         {
-            _advancedOrderService = channelFactory.CreateChannel();
+            _advancedOrderService = advanceChannelFactory.CreateChannel();
+            _bulkOrdersService = bulkChannelFactory.CreateChannel();
         }
 
-        public bool IsValid(ModelStateDictionary modelState, DocumentOrderViewModel model, out List<ValidatedDocViewModel> validatedDocuments)
+        public bool IsValid(ModelStateDictionary modelState, DocumentOrderViewModel model, out List<DocumentViewModel> validatedDocuments)
         {
             if (model.BookingType == BookingTypes.StandardOrderVisit)
             {
@@ -33,9 +36,14 @@ namespace book_a_reading_room_visit.web.Helper
             }
             if (model.BookingType == BookingTypes.BulkOrderVisit)
             {
+                if (!model.HaveNoDocumentReference && string.IsNullOrWhiteSpace(model.Series))
+                {
+                    modelState.AddModelError("Series", Constants.Series_Required);
+                }
                 ValidateBulkOrderDuplicateReference(modelState, model);
                 if (modelState.IsValid)
                 {
+                    ValidateSeriesReferences(modelState, model);
                     ValidateBulkOrderDocumentReferences(modelState, model);
                 }
             }
@@ -137,7 +145,7 @@ namespace book_a_reading_room_visit.web.Helper
 
         public void ValidateStandardOrderDocumentReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
         {
-            _validatedDocuments = new List<ValidatedDocViewModel>();
+            _validatedDocuments = new List<DocumentViewModel>();
 
             ValidateReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1);
             ValidateReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2);
@@ -159,7 +167,7 @@ namespace book_a_reading_room_visit.web.Helper
 
         public void ValidateBulkOrderDocumentReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
         {
-            _validatedDocuments = new List<ValidatedDocViewModel>();
+            _validatedDocuments = new List<DocumentViewModel>();
 
             ValidateReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1);
             ValidateReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2);
@@ -217,16 +225,81 @@ namespace book_a_reading_room_visit.web.Helper
                 }
                 else
                 {
+                    Match match = _documentReferenceRegex.Match(docRerefenceVal);
+                    var letterCode = match.Groups[1].Value;
+                    var classNumber = 0;
+                    if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
+                    {
+                        classNumber = number;
+                    }
+
                     _validatedDocuments.Add(
-                        new ValidatedDocViewModel()
+                        new DocumentViewModel()
                         {
-                            DocumentReference = docRef.DocParts.DocumentReferenceText,
+                            Reference = docRef.DocParts.DocumentReferenceText,
+                            Description = docRef.DocParts.Scope,
+                            LetterCode = letterCode,
+                            ClassNumber = classNumber,
                             PieceId = docRef.DocParts.PieceId,
-                            DocumentIsOffsite = documentIsOffsite,
-                            DocumentDescription = docRef.DocParts.Scope,
+                            PieceReference = docRef.DocParts.PieceRef,
+                            ItemReference = docRef.DocParts.ItemRef,
+                            SubClassNumber = docRef.DocParts.SubClass,
+                            IsOffsite = documentIsOffsite,
                             IsReserved = isReserved
                         });
                 }
+            }
+        }
+
+        public void ValidateSeriesReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
+        {
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference3", model.DocumentReference3, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference4", model.DocumentReference4, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference5", model.DocumentReference5, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference6", model.DocumentReference6, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference7", model.DocumentReference7, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference8", model.DocumentReference8, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference9", model.DocumentReference9, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference10", model.DocumentReference10, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference11", model.DocumentReference11, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference12", model.DocumentReference12, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference13", model.DocumentReference13, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference14", model.DocumentReference14, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference15", model.DocumentReference15, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference16", model.DocumentReference16, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference17", model.DocumentReference17, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference18", model.DocumentReference18, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference19", model.DocumentReference19, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference20", model.DocumentReference20, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference21", model.DocumentReference21, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference22", model.DocumentReference22, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference23", model.DocumentReference23, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference24", model.DocumentReference24, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference25", model.DocumentReference25, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference26", model.DocumentReference26, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference27", model.DocumentReference27, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference28", model.DocumentReference28, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference29", model.DocumentReference29, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference30", model.DocumentReference30, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference31", model.DocumentReference31, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference32", model.DocumentReference32, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference33", model.DocumentReference33, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference34", model.DocumentReference34, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference35", model.DocumentReference35, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference36", model.DocumentReference36, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference37", model.DocumentReference37, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference38", model.DocumentReference38, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference39", model.DocumentReference39, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference40", model.DocumentReference40, model.Series);
+        }
+
+        private void ValidateSeriesReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docRerefenceVal, string series)
+        {
+            if (!string.IsNullOrEmpty(docRerefenceVal) && !_bulkOrdersService.IsSeriesMatched(docRerefenceVal, series))
+            {
+                modelStateDictionary.AddModelError(docRerefenceName, $"{docRerefenceVal} - {Constants.Document_Reference_Series_Not_Matched}");
             }
         }
     }
