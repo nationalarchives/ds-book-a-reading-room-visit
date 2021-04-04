@@ -1,3 +1,4 @@
+using Amazon.SimpleEmail;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.data;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ namespace book_a_reading_room_visit.api
             services.AddControllers();
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
+            services.AddAWSService<IAmazonSimpleEmailService>();
+            services.AddSingleton<IEmailService, EmailService>();
 
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
