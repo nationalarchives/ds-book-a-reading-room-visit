@@ -12,12 +12,10 @@ namespace book_a_reading_room_visit.api.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
-        private readonly IEmailService _emailService;
 
-        public BookingController(IBookingService bookingService, IEmailService emailService)
+        public BookingController(IBookingService bookingService)
         {
             _bookingService = bookingService;
-            _emailService = emailService;
         }
 
         [HttpPost("create")]
