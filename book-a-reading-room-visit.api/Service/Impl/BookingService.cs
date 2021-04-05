@@ -14,12 +14,14 @@ namespace book_a_reading_room_visit.api.Service
     {
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
+        private readonly IEmailService _emailService;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService)
         {
             _context = context;
             _workingDayService = workingDayService;
+            _emailService = emailService;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -103,6 +105,15 @@ namespace book_a_reading_room_visit.api.Service
             booking.IsNoFaceCovering = bookingModel.IsNoFaceCovering;
 
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrWhiteSpace(bookingModel.Email))
+            {
+                bookingModel.CompleteByDate = response.CompleteByDate;
+                bookingModel.SeatNumber = response.SeatNumber;
+                bookingModel.VisitStartDate = booking.VisitStartDate;
+                bookingModel.OrderDocuments = new List<OrderDocumentModel>();
+                await _emailService.SendEmailAsync(EmailType.ReservationConfirmation, bookingModel.Email, bookingModel);
+            }
             return response;
         }
 

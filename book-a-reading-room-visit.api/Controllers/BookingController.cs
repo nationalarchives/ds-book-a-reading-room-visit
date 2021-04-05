@@ -117,7 +117,7 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
+        public async Task<ActionResult<Booking>> SearchBookings([FromQuery] BookingSearchModel bookingSearchModel)
         {
             var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
@@ -128,13 +128,6 @@ namespace book_a_reading_room_visit.api.Controllers
         {
             var result = await _bookingService.DeleteBookingAsync(bookingreference);
             return result ? NoContent() : NotFound();
-        }
-
-        [HttpGet("send")]
-        public async Task<ActionResult> SendEmail(string from, string to)
-        {
-            await _emailService.SendEmail(from, to);
-            return Ok();
         }
     }
 }

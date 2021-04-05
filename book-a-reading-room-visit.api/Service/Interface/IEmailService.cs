@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using book_a_reading_room_visit.model;
 using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {
     public interface IEmailService
     {
-        Task SendEmail(string from, string to);
+        Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel);
     }
 }

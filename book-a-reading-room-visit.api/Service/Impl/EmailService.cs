@@ -4,72 +4,143 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Xsl;
+using book_a_reading_room_visit.model;
+using Microsoft.Extensions.Configuration;
 
 namespace book_a_reading_room_visit.api.Service
 {
     public class EmailService : IEmailService
     {
-        private IAmazonSimpleEmailService _amazonSimpleEmailService;
-        // The email body for recipients with non-HTML email clients.
-        static readonly string textBody = "Amazon SES Test (.NET)\r\n"
-                                        + "This email was sent through Amazon SES "
-                                        + "using the AWS SDK for .NET.";
+        private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
+        private readonly IConfiguration _configuration;
 
-        // The HTML body of the email.
-        static readonly string htmlBody = @"<html>
-                                            <head></head>
-                                            <body>
-                                              <h1>Amazon SES Test (AWS SDK for .NET)</h1>
-                                              <p>This email was sent with
-                                                <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
-                                                <a href='https://aws.amazon.com/sdk-for-net/'>
-                                                  AWS SDK for .NET</a>.</p>
-                                            </body>
-                                            </html>";
-        public EmailService(IAmazonSimpleEmailService amazonSimpleEmailService)
+        public EmailService(IAmazonSimpleEmailService amazonSimpleEmailService, IConfiguration configuration)
         {
             _amazonSimpleEmailService = amazonSimpleEmailService;
+            _configuration = configuration;
         }
-        public async Task SendEmail(string from, string to)
+        public async Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel)
         {
-            var mail = CreateMailMessage(from, to);
+            var fromAddress = _configuration.GetValue<string>("EmailSettings:FromAddress");
+            var subject = string.Empty;
+            switch (emailType)
+            {
+                case EmailType.ReservationConfirmation:
+                    {
+                        var subjectFormat = _configuration.GetValue<string>("EmailSettings:ReservationSubject");
+                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}");
+                        break;
+                    }
+                case EmailType.BookingConfirmation:
+                    {
+                        var subjectFormat = _configuration.GetValue<string>("EmailSettings:ConfirmationSubject");
+                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}", 
+                                                                bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
+                        break;
+                    }
+                case EmailType.BookingCancellation:
+                    {
+                        subject = _configuration.GetValue<string>("EmailSettings:CancelSubject");
+                        break;
+                    }
+            }
 
-            await _amazonSimpleEmailService.SendEmailAsync(mail);
-        }
-
-        private SendEmailRequest CreateMailMessage(string from, string to)
-        {
+            var xDocument = GetXDocument(bookingModel);
+            var htmlBody = GetHtmlBody(emailType, xDocument);
             var sendRequest = new SendEmailRequest
             {
-                Source = from,
+                Source = fromAddress,
                 Destination = new Destination
                 {
                     ToAddresses =
-                           new List<string> { to }
+                           new List<string> { toAddress }
                 },
                 Message = new Message
                 {
-                    Subject = new Content("KBS-Test-Email"),
+                    Subject = new Content(subject),
                     Body = new Body
                     {
                         Html = new Content
                         {
                             Charset = "UTF-8",
                             Data = htmlBody
-                        },
-                        Text = new Content
-                        {
-                            Charset = "UTF-8",
-                            Data = textBody
                         }
                     }
 
-                },
-                // If you are not using a configuration set, comment
-                // or remove the following line 
-                //ConfigurationSetName = configSet
+                }
             };
-            return sendRequest;
+
+            await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
+        }
+
+        private string GetHtmlBody(EmailType emailType, XDocument xDocument)
+        {
+            try
+            {
+                var fileName = $"EmailTemplate/{emailType}.xslt";
+                var filePath = Path.GetFullPath(fileName);
+                XslCompiledTransform xslTransform = new XslCompiledTransform();
+                xslTransform.Load(filePath);
+
+                var xmlDocument = new XmlDocument();
+                using (var xmlReader = xDocument.CreateReader())
+                {
+                    xmlDocument.Load(xmlReader);
+                }
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    xslTransform.Transform(new XmlNodeReader(xmlDocument), null, memoryStream);
+                    memoryStream.Position = 0;
+                    StreamReader streamReader = new StreamReader(memoryStream, Encoding.UTF8);
+                    return streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return "";
+        }
+
+        private XDocument GetXDocument(BookingModel bookingModel)
+        {
+            var returnURL = Environment.GetEnvironmentVariable("ReturnURL");
+            var rootElement = new XElement("Root");
+            rootElement.Add(new XElement("Name", $"{bookingModel.FirstName} {bookingModel.LastName}"));
+            rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy} at {bookingModel.CompleteByDate:hh:mm tt}"));
+            rootElement.Add(new XElement("BookingReference", bookingModel.BookingReference));
+            rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket));
+            rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
+            rootElement.Add(new XElement("VisitStartDate", $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}"));
+            rootElement.Add(new XElement("SeatNumber", bookingModel.SeatNumber));
+            rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements));
+            rootElement.Add(new XElement("ReturnURL", returnURL));
+
+            var documentCount = 1;
+            foreach (var document in bookingModel.OrderDocuments.Where(d => !d.IsReserve).ToList())
+            {
+                var documentOrder = new XElement("DocumentOrder");
+                documentOrder.Add(new XElement("Label", $"Document {documentCount}: "));
+                documentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
+                documentCount += 1;
+                rootElement.Add(documentOrder);
+            }
+            documentCount = 1;
+            foreach (var document in bookingModel.OrderDocuments.Where(d => d.IsReserve).ToList())
+            {
+                var reserveDocumentOrder = new XElement("ReserveDocumentOrder");
+                reserveDocumentOrder.Add(new XElement("Label", $"Reserve document {documentCount}: "));
+                reserveDocumentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
+                documentCount += 1;
+                rootElement.Add(reserveDocumentOrder);
+            }
+            return new XDocument(rootElement);
         }
     }
 }

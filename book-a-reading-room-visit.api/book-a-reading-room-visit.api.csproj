@@ -18,4 +18,13 @@
     <ProjectReference Include="..\book-a-reading-room-visit.model\book-a-reading-room-visit.model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="EmailTemplate\BookingConfirmation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\ReservationConfirmation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

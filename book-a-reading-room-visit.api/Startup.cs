@@ -30,7 +30,7 @@ namespace book_a_reading_room_visit.api
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
             services.AddAWSService<IAmazonSimpleEmailService>();
-            services.AddSingleton<IEmailService, EmailService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
