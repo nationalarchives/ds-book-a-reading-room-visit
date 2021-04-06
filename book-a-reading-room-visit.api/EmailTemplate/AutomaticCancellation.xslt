@@ -7,7 +7,7 @@
         Dear <xsl:value-of select="Name" />,
       </p>
       <p>
-        Your visit to The National Archives’ reading rooms has been cancelled.
+        We have cancelled your visit to The National Archives’ reading rooms because the deadline to complete your document order has passed and your order was incomplete.
       </p>
       <h3>The following booking was cancelled</h3>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>

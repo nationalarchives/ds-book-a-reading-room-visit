@@ -17,21 +17,14 @@
       </p>
 
       <p>
-        If you do not complete this step by <xsl:value-of select="CompleteByDate" /> British Summer Time (BST), your reservation will be automatically cancelled.
+        If you do not complete this step by <xsl:value-of select="CompleteByDate" /> British Summer Time (BST), your <b>reservation will be automatically cancelled.</b>
       </p>
 
       <p>You can ignore this step if you have already completed your document order but you can return and edit your order as many times as you’d like before the deadline above.</p>
 
       <h3>Your booking summary </h3>
-      Name: <xsl:value-of select="Name" /><br/>
-      <xsl:if test="Phone">
-        Telephone number is: <xsl:value-of select="Phone" /><br/>
-      </xsl:if>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
       Your Reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
-      <xsl:if test="AdditionalRequirements">
-        Access needs and research requests:<xsl:value-of select="AdditionalRequirements" /><br/>
-      </xsl:if>
       <table>
         <tbody>
           <tr>

@@ -7,9 +7,18 @@
         Dear <xsl:value-of select="Name" />,
       </p>
       <p>
-        Your visit to The National Archives’ reading rooms has been cancelled.
+        You have a reservation to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
       </p>
-      <h3>The following booking was cancelled</h3>
+      <p>
+        Make sure you complete the document order form by <b><xsl:value-of select="CompleteByDate" /> British Summer Time (BST).</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
+      </p>
+
+      <p>
+        Complete my document order <xsl:value-of select="ReturnURL" />.
+        You will need your booking reference and reader's ticket number to complete this step.
+      </p>
+
+      <h3>Your booking summary</h3>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
       Your Reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
       <table>
@@ -40,14 +49,10 @@
           </tr>
         </tbody>
       </table>
+      <p>Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/ </p>
 
-      <h3>What can I do next?</h3>
-      <p>
-        Book another visit to view our documents: <xsl:value-of select="HomeURL" />
-      </p>
-      <p>
-        Find out more about this service: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
-      </p>
+      <h3>Cancel your visit</h3>
+      You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
 
       <h3>Need help?</h3>
 

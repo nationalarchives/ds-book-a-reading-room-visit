@@ -7,9 +7,17 @@
         Dear <xsl:value-of select="Name" />,
       </p>
       <p>
-        Your visit to The National Archives’ reading rooms has been cancelled.
+        We are looking forward to seeing you soon. See your current document order below - if you would like to edit it, you can still do so before <b>
+          <xsl:value-of select="CompleteByDate" /> British Summer Time (BST).
+        </b>. After this deadline has passed, we will begin preparing your document order.
       </p>
-      <h3>The following booking was cancelled</h3>
+
+      <p>
+        View or edit my document order: <xsl:value-of select="ReturnURL" />.
+        You will need your booking reference and reader's ticket number to complete this step.
+      </p>
+
+      <h3>Your booking summary</h3>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
       Your Reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
       <table>
@@ -41,13 +49,28 @@
         </tbody>
       </table>
 
-      <h3>What can I do next?</h3>
-      <p>
-        Book another visit to view our documents: <xsl:value-of select="HomeURL" />
-      </p>
-      <p>
-        Find out more about this service: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
-      </p>
+      <h3>Your document order</h3>
+
+      <xsl:for-each select="DocumentOrder">
+        <p>
+          <b>
+            <xsl:value-of select="Label" />
+          </b>
+          <xsl:value-of select="Document" />
+        </p>
+      </xsl:for-each>
+
+      <xsl:for-each select="ReserveDocumentOrder">
+        <p>
+          <b>
+            <xsl:value-of select="Label" />
+          </b>
+          <xsl:value-of select="Document" />
+        </p>
+      </xsl:for-each>
+
+      <h3>Cancel your visit</h3>
+      You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
 
       <h3>Need help?</h3>
 

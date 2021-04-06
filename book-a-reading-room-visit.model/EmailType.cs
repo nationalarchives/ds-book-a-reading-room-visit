@@ -6,6 +6,8 @@
         ValidOrderReminder = 2,
         InvalidOrderReminder = 3,
         BookingConfirmation = 4,
-        BookingCancellation = 5
+        BookingCancellation = 5,
+        AutomaticCancellation = 6,
+        DSDBookingConfirmation = 7,
     }
 }
