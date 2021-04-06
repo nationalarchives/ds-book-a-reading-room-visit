@@ -8015,6 +8015,16 @@ form input[type=checkbox] {
   margin: 2em 0 0 0;
 }
 
+.order-form .form-error {
+  color: #000;
+  display: block;
+  padding: 3px 7px;
+  background: #f9f7e2;
+  width: 100%;
+  max-width: 220px;
+  margin-left: 32px;
+}
+
 .helper-text {
   color: #555;
 }
