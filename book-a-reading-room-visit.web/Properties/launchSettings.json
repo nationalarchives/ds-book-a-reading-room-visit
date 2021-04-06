@@ -15,7 +15,9 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "KBS_WebApi_URL": "https://localhost:44321/book-a-visit-api/",
         "KBS_Root_Path": "/book-a-reading-room-visit",
-        "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc"
+        "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc",
+        "BulkOrderServiceEndPoint": "http://172.31.2.125/BulkOrdersService/BulkOrdersService.svc",
+        "TimeZone": "GMT Standard Time"
       }
     },
     "book_a_reading_room_visit.web": {
@@ -27,7 +29,9 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "KBS_WebApi_URL": "https://localhost:5050/book-a-visit-api/",
         "KBS_Root_Path": "/book-a-reading-room-visit",
-        "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc"
+        "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc",
+        "BulkOrderServiceEndPoint": "http://172.31.2.125/BulkOrdersService/BulkOrdersService.svc",
+        "TimeZone": "GMT Standard Time"
       }
     }
   }

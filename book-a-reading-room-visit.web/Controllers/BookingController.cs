@@ -4,6 +4,7 @@ using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -52,7 +53,9 @@ namespace book_a_reading_room_visit.web.Controllers
             }
             bookingViewModel.BookingReference = result.BookingReference;
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
-            bookingViewModel.ExpiredBy = result.CreatedDate.ToLocalTime().AddMinutes(elapsedTime);
+            var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
+            bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(result.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
+
             ModelState.Clear();
 
             return View(bookingViewModel);

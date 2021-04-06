@@ -119,6 +119,7 @@ namespace book_a_reading_room_visit.data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DocumentReference = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     BookingId = table.Column<int>(type: "int", nullable: false),
                     LetterCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     ClassNumber = table.Column<int>(type: "int", nullable: false),

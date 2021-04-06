@@ -1,4 +1,4 @@
-﻿using book_a_reading_room_visit.domain;
+﻿using book_a_reading_room_visit.model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -60,7 +60,7 @@ namespace book_a_reading_room_visit.test
             var response = await client.GetAsync(apiEndpoint);
             response.EnsureSuccessStatusCode(); // Status Code 200-299
             var responseString = await response.Content.ReadAsStringAsync();
-            List<Booking> responseObject = JsonConvert.DeserializeObject<List<Booking>>(responseString);
+            List<BookingModel> responseObject = JsonConvert.DeserializeObject<List<BookingModel>>(responseString);
             // Assert
             Assert.AreEqual(1, responseObject.Count);
             Assert.AreEqual("B123456", responseObject[0].BookingReference);

@@ -147,6 +147,10 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.Property<int>("ClassNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("DocumentReference")
                         .IsRequired()
                         .HasMaxLength(50)

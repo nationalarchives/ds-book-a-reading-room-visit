@@ -34,11 +34,15 @@ namespace book_a_reading_room_visit.web.Models
             }
         }
         [EmailAddress(ErrorMessage = Constants.Valid_Email_Required)]
+        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Email { get; set; }
+        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Phone { get; set; }
         [Required(ErrorMessage = Constants.Firstname_Required)]
+        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string FirstName { get; set; }
         [Required(ErrorMessage = Constants.Lastname_Required)]
+        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string LastName { get; set; }
     }
 }
