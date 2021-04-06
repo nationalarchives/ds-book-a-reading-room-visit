@@ -26,6 +26,10 @@
         </section>
     </div>
 
+    @if (!ViewData.ModelState.IsValid) { 
+        <span class="error-message full-width">Something went wrong. Please check your details.</span>
+    }
+
     <div class="heading">
         <div class="row">
             <div class="col-md-12">
