@@ -84,10 +84,12 @@
                         </fieldset>
 
                         <div class="prompt-white">
-                            <h4>Are accessible seats available?</h4>
-                            <p class="helper-text no-margin no-padding">
-                                All seats in our reading rooms are accessible. You can tell us about your access needs when you order your documents in step 4.
-                            </p>
+                            <details open>
+                                <summary><h4>Are accessible seats available?</h4></summary>
+                                <p class="helper-text no-margin no-padding">
+                                    All seats in our reading rooms are accessible. You can tell us about your access needs when you order your documents in step 4.
+                                </p>
+                            </details>
                         </div>
 
                         <button class="button" type="submit">Update availability</button>
@@ -97,24 +99,28 @@
                 else
                 {
                     <div class="prompt-white">
-                        <h4>Which room will I be in?</h4>
-                        <p class="helper-text no-margin">All of our bulk orders are in the Map and Large document reading room</p>
+                        <details open>
+                            <summary><h4>Which room will I be in?</h4></summary>
+                            <p class="helper-text no-margin">All of our bulk orders are in the Map and Large document reading room</p>
+                        </details>
                     </div>
-
                     <div class="prompt-white">
-                        <h4>Are camera stands available?</h4>
-                        <p class="helper-text no-margin">
-                            Some camera stands are available. If you need one, please tell us in the 'Additional access requirements or
-                            research requests' box when you complete your document order
-                        </p>
+                        <details open>
+                            <summary><h4>Are camera stands available?</h4></summary>
+                            <p class="helper-text no-margin">
+                                Some camera stands are available. If you need one, please tell us in the 'Additional access requirements or
+                                research requests' box when you complete your document order
+                            </p>
+                        </details>
                     </div>
-
                     <div class="prompt-white">
-                        <h4>Are accessible seats available?</h4>
-                        <p class="helper-text no-margin">
-                            All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
-                            documents in step 4.
-                        </p>
+                        <details open>
+                            <summary><h4>Are accessible seats available?</h4></summary>
+                            <p class="helper-text no-margin">
+                                All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
+                                documents in step 4.
+                            </p>
+                        </details>
                     </div>
                 }
             </div>
