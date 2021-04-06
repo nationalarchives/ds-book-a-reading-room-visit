@@ -39,7 +39,7 @@ namespace book_a_reading_room_visit.api.Service
                 case EmailType.BookingConfirmation:
                     {
                         var subjectFormat = _configuration.GetValue<string>("EmailSettings:ConfirmationSubject");
-                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}", 
+                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}",
                                                                 bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
                         break;
                     }
@@ -52,6 +52,7 @@ namespace book_a_reading_room_visit.api.Service
 
             var xDocument = GetXDocument(bookingModel);
             var htmlBody = GetHtmlBody(emailType, xDocument);
+            var textBody = GetTextBody(emailType, bookingModel);
             var sendRequest = new SendEmailRequest
             {
                 Source = fromAddress,
@@ -69,6 +70,11 @@ namespace book_a_reading_room_visit.api.Service
                         {
                             Charset = "UTF-8",
                             Data = htmlBody
+                        },
+                        Text = new Content
+                        {
+                            Charset = "UTF-8",
+                            Data = textBody
                         }
                     }
 
@@ -78,34 +84,31 @@ namespace book_a_reading_room_visit.api.Service
             await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
         }
 
+        private string GetTextBody(EmailType emailType, BookingModel bookingModel)
+        {
+            return "Text Body";
+        }
+
         private string GetHtmlBody(EmailType emailType, XDocument xDocument)
         {
-            try
-            {
-                var fileName = $"EmailTemplate/{emailType}.xslt";
-                var filePath = Path.GetFullPath(fileName);
-                XslCompiledTransform xslTransform = new XslCompiledTransform();
-                xslTransform.Load(filePath);
+            var fileName = $"EmailTemplate/{emailType}.xslt";
+            var filePath = Path.GetFullPath(fileName);
+            XslCompiledTransform xslTransform = new XslCompiledTransform();
+            xslTransform.Load(filePath);
 
-                var xmlDocument = new XmlDocument();
-                using (var xmlReader = xDocument.CreateReader())
-                {
-                    xmlDocument.Load(xmlReader);
-                }
-
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    xslTransform.Transform(new XmlNodeReader(xmlDocument), null, memoryStream);
-                    memoryStream.Position = 0;
-                    StreamReader streamReader = new StreamReader(memoryStream, Encoding.UTF8);
-                    return streamReader.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
+            var xmlDocument = new XmlDocument();
+            using (var xmlReader = xDocument.CreateReader())
             {
-                Console.WriteLine(ex.Message);
+                xmlDocument.Load(xmlReader);
             }
-            return "";
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                xslTransform.Transform(new XmlNodeReader(xmlDocument), null, memoryStream);
+                memoryStream.Position = 0;
+                StreamReader streamReader = new StreamReader(memoryStream, Encoding.UTF8);
+                return streamReader.ReadToEnd();
+            }
         }
 
         private XDocument GetXDocument(BookingModel bookingModel)
