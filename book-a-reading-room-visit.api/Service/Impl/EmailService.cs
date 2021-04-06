@@ -110,7 +110,7 @@ namespace book_a_reading_room_visit.api.Service
 
         private XDocument GetXDocument(BookingModel bookingModel)
         {
-            var returnURL = Environment.GetEnvironmentVariable("ReturnURL");
+            var homeURL = Environment.GetEnvironmentVariable("HomeURL");
             var rootElement = new XElement("Root");
             rootElement.Add(new XElement("Name", $"{bookingModel.FirstName} {bookingModel.LastName}"));
             rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy} at {bookingModel.CompleteByDate:hh:mm tt}"));
@@ -120,7 +120,8 @@ namespace book_a_reading_room_visit.api.Service
             rootElement.Add(new XElement("VisitStartDate", $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}"));
             rootElement.Add(new XElement("SeatNumber", bookingModel.SeatNumber));
             rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements));
-            rootElement.Add(new XElement("ReturnURL", returnURL));
+            rootElement.Add(new XElement("ReturnURL", $"{homeURL}/return-to-booking"));
+            rootElement.Add(new XElement("HomeURL", homeURL));
 
             var documentCount = 1;
             foreach (var document in bookingModel.OrderDocuments.Where(d => !d.IsReserve).ToList())

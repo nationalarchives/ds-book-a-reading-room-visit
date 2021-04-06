@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="EmailTemplate\BookingCancellation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplate\BookingConfirmation.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

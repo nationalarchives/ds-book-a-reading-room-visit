@@ -18,7 +18,7 @@
         "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
-        "ReturnURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking"
+        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit"
       }
     },
     "book_a_reading_room_visit.api": {
@@ -32,7 +32,7 @@
         "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
-        "ReturnURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking"
+        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit"
       }
     }
   }
