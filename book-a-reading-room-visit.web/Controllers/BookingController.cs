@@ -55,7 +55,6 @@ namespace book_a_reading_room_visit.web.Controllers
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
             bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(result.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
-
             ModelState.Clear();
 
             return View(bookingViewModel);
