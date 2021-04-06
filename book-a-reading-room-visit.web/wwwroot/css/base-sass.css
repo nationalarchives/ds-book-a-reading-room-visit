@@ -5964,6 +5964,9 @@ body .kbs .button {
 body .kbs .button:hover {
   background: #000;
 }
+body .kbs .order-option .button.primary, body .kbs .reservation-options .button.primary {
+  color: #fff !important;
+}
 body .kbs .secondary {
   background: #fff;
   color: #134571;

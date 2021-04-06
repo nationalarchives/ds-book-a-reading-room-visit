@@ -171,6 +171,11 @@ body {
           background: #000;
         }
       }
+      .order-option, .reservation-options {
+          .button.primary {
+              color: #fff !important;
+          }
+      }
     .secondary {
       background: #fff;
       color: #134571;
