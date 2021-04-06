@@ -5967,6 +5967,12 @@ body .kbs .button:hover {
 body .kbs .order-option .button.primary, body .kbs .reservation-options .button.primary {
   color: #fff !important;
 }
+body .kbs .order-option .button.primary:focus, body .kbs .reservation-options .button.primary:focus {
+  color: #134571 !important;
+}
+body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-options .button.primary:focus:hover {
+  color: #fff !important;
+}
 body .kbs .secondary {
   background: #fff;
   color: #134571;
