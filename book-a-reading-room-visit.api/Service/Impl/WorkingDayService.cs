@@ -109,8 +109,8 @@ namespace book_a_reading_room_visit.api.Service
         {
             int daysToDeduct = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
-            //var dateToReturn = dateTime;
-            var dateToReturn = new DateTime(year: dateTime.Year, month: dateTime.Month, day: dateTime.Day, hour: 0, minute: 0, second: 0, kind: DateTimeKind.Local);
+            var dateToReturn = dateTime;
+            
             while (daysToDeduct > 0)
             {
                 dateToReturn = dateToReturn.AddDays(-1);

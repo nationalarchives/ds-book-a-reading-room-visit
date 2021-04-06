@@ -5,8 +5,6 @@
 
 @{
     ViewData["Title"] = "Secure booking";
-
-    string timeZoneText = Model.ExpiredBy.IsDaylightSavingTime() ? "British Summer Time (BST)" : "Greenwich Mean Time (GMT)";
 }
 
 <h1 class="display-4">2. Enter your details</h1>
@@ -91,7 +89,7 @@
             <div class="col-md-12">
                 <div id="enter-your-details-timer" class="prompt-grey full-width warning-panel">
                     <h3>@(ViewData.ModelState.IsValid ? "You have 20 minutes to enter your details." : "Enter your details")</h3>
-                    <span id="timer">Complete this page by @($"{Model.ExpiredBy:hh:mm tt}") @timeZoneText.</span>
+                    <span id="timer">Complete this page by @($"{Model.ExpiredBy:hh:mm tt}") British Summer Time (BST)</span>.
                     <small>If you do not complete the form by this time we will cancel your seat and you will need to start the process again.</small>
                 </div>
             </div>
