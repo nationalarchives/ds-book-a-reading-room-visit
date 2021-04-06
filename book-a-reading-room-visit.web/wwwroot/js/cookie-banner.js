@@ -14,7 +14,7 @@ var tnaCheckForThisCookie = function (name) {
 };
 
 
-$(function () { 
+$(function () {
     if (!tnaCheckForThisCookie("dontShowCookieNotice")) {
         $('<div class="cookieNotice">We use cookies to improve services and ensure they work for you. Read our <a title="Our cookie policy" href="https://www.nationalarchives.gov.uk/legal/cookies.htm">cookie policy</a>. <a title="Close cookie policy notice" href="#" id="cookieCutter">Close</a></div>').css({
             padding: '5px',
