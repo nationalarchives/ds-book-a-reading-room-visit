@@ -7897,6 +7897,10 @@ a.button {
   font-family: "Open Sans", sans-serif;
 }
 
+details summary h4 {
+  display: inline-block;
+}
+
 small {
   display: block;
 }

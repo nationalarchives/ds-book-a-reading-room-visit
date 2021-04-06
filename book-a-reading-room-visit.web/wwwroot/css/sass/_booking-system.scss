@@ -40,6 +40,14 @@ a.button {
   }
 }
 
+details {
+    summary {
+        h4 {
+            display: inline-block;
+        }
+    }
+}
+
 small {
   display: block;
 }
