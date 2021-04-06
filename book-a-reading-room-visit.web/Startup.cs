@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace book_a_reading_room_visit.web
 {
@@ -61,7 +62,7 @@ namespace book_a_reading_room_visit.web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -69,10 +70,14 @@ namespace book_a_reading_room_visit.web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                //app.UseHsts();
+                app.UseExceptionHandler("/error");
             }
+            var config = Configuration.GetAWSLoggingConfigSection();
+            loggerFactory.AddAWSProvider(config, formatter: (logLevel, message, exception) => $"[{DateTime.UtcNow}] {logLevel}: {message}");
+
+            var logger = loggerFactory.CreateLogger<Startup>();
+            logger.LogInformation($"KBS - Web UI");
+
             app.UseSecurityHeaderMiddleware();
             app.UseRouting();
             var rootPath = Environment.GetEnvironmentVariable("KBS_Root_Path");
@@ -120,11 +125,11 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "cancel-booking",
-                    pattern: "{bookingtype}/cancel-booking", 
+                    pattern: "{bookingtype}/cancel-booking",
                     new { controller = "Booking", action = "CancelBooking" });
 
                 endpoints.MapControllerRoute(
-                    name: "cancellation-confirmation", 
+                    name: "cancellation-confirmation",
                     pattern: "{bookingtype}/cancellation-confirmation",
                     new { controller = "Booking", action = "CancellationConfirmation" });
 
@@ -152,6 +157,11 @@ namespace book_a_reading_room_visit.web
                    name: "thank-you",
                    pattern: "thank-you",
                    new { controller = "Booking", action = "ThankYou" });
+
+                endpoints.MapControllerRoute(
+                   name: "error",
+                   pattern: "error",
+                   new { controller = "Home", action = "Error" });
             });
         }
     }
