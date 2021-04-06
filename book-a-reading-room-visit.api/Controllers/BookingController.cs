@@ -24,7 +24,7 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _bookingService.CreateBookingAsync(bookingModel);
             return Ok(result);
         }
-        
+
         [HttpPost("confirm")]
         public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
         {
@@ -44,7 +44,7 @@ namespace book_a_reading_room_visit.api.Controllers
         {
             BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId, model.Comment, model.UpdatedBy);
 
-            if(result.IsSuccess)
+            if (result.IsSuccess)
             {
                 return Ok();
             }
@@ -52,7 +52,7 @@ namespace book_a_reading_room_visit.api.Controllers
             {
                 return Conflict(result.ErrorMessage);
             }
-            
+
         }
 
         [HttpPost("cancel")]
@@ -66,7 +66,7 @@ namespace book_a_reading_room_visit.api.Controllers
             }
             else
             {
-                if(result.ErrorMessage.Contains("no booking found"))
+                if (result.ErrorMessage.Contains("no booking found"))
                 {
                     return NotFound();
                 }
@@ -78,14 +78,13 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpPost("update-comments")]
-        public async Task<ActionResult<bool>> UpdateComments([FromBody]BookingCommentsModel bookingCommentsModel)
+        public async Task<ActionResult<bool>> UpdateComments([FromBody] BookingCommentsModel bookingCommentsModel)
         {
             bool result = await _bookingService.UpdateBookingCommentsAsync(bookingCommentsModel);
             return result;
         }
 
-        [HttpGet]
-        [Route("{bookingId:int}")]
+        [HttpGet("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
         {
             var booking = await _bookingService.GetBookingByIdAsync(bookingId);
@@ -100,8 +99,7 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("{readerticket}/{bookingreference}")]
+        [HttpGet("{readerticket}/{bookingreference}")]
         public async Task<ActionResult<Booking>> GetByReference(int readerTicket, string bookingReference)
         {
             var booking = await _bookingService.GetBookingByReferenceAsync(readerTicket, bookingReference);
@@ -117,14 +115,13 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
+        public async Task<ActionResult<Booking>> SearchBookings([FromQuery] BookingSearchModel bookingSearchModel)
         {
             var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
         }
 
-        [HttpDelete]
-        [Route("{bookingreference}")]
+        [HttpDelete("{bookingreference}")]
         public async Task<IActionResult> DeleteBooking(string bookingreference)
         {
             var result = await _bookingService.DeleteBookingAsync(bookingreference);

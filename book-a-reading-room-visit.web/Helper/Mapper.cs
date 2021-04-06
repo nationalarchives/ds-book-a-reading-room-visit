@@ -97,7 +97,7 @@ namespace book_a_reading_room_visit.web.Helper
                     ClassNumber = document.ClassNumber,
                     PieceId = document.PieceId,
                     PieceReference = document.PieceReference,
-                    SubClassNumber = document.SubClassNumber,
+                    SubClassNumber = document.SubClassNumber == 0 ? -1 : document.SubClassNumber,
                     ItemReference = document.ItemReference,
                     Site = document.IsOffsite ? "offsite" : "kew",
                     IsReserve = document.IsReserved

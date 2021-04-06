@@ -14,12 +14,14 @@ namespace book_a_reading_room_visit.api.Service
     {
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
+        private readonly IEmailService _emailService;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService)
         {
             _context = context;
             _workingDayService = workingDayService;
+            _emailService = emailService;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -103,6 +105,15 @@ namespace book_a_reading_room_visit.api.Service
             booking.IsNoFaceCovering = bookingModel.IsNoFaceCovering;
 
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrWhiteSpace(bookingModel.Email))
+            {
+                bookingModel.CompleteByDate = response.CompleteByDate;
+                bookingModel.SeatNumber = response.SeatNumber;
+                bookingModel.VisitStartDate = booking.VisitStartDate;
+                bookingModel.OrderDocuments = new List<OrderDocumentModel>();
+                await _emailService.SendEmailAsync(EmailType.ReservationConfirmation, bookingModel.Email, bookingModel);
+            }
             return response;
         }
 
@@ -205,6 +216,14 @@ namespace book_a_reading_room_visit.api.Service
             booking.BookingStatusId = (int)BookingStatuses.Cancelled;
             booking.LastModifiedBy = bookingCancellationModel.CancelledBy;
             await _context.SaveChangesAsync();
+
+            if (!string.IsNullOrWhiteSpace(booking.Email))
+            {
+                var cancelledBooking = await _context.Bookings.AsNoTracking<Booking>().Include(s => s.Seat).FirstOrDefaultAsync(b => b.Id == booking.Id);
+                var bookingModel = GetSerialisedBooking(cancelledBooking);
+                await _emailService.SendEmailAsync(EmailType.BookingCancellation, bookingModel.Email, bookingModel);
+            }
+
             return response;
         }
 
@@ -359,22 +378,25 @@ namespace book_a_reading_room_visit.api.Service
                 OrderDocuments = new List<OrderDocumentModel>()
             };
 
-            foreach (var document in booking.OrderDocuments)
+            if (booking.OrderDocuments != null)
             {
-                result.OrderDocuments.Add(new OrderDocumentModel()
+                foreach (var document in booking.OrderDocuments)
                 {
-                    ClassNumber = document.ClassNumber,
-                    DocumentReference = document.DocumentReference,
-                    Description = document.Description,
-                    Id = document.Id,
-                    IsReserve = document.IsReserve,
-                    ItemReference = document.ItemReference,
-                    LetterCode = document.LetterCode,
-                    PieceId = document.PieceId,
-                    PieceReference = document.PieceReference,
-                    Site = document.Site,
-                    SubClassNumber = document.SubClassNumber
-                });
+                    result.OrderDocuments.Add(new OrderDocumentModel()
+                    {
+                        ClassNumber = document.ClassNumber,
+                        DocumentReference = document.DocumentReference,
+                        Description = document.Description,
+                        Id = document.Id,
+                        IsReserve = document.IsReserve,
+                        ItemReference = document.ItemReference,
+                        LetterCode = document.LetterCode,
+                        PieceId = document.PieceId,
+                        PieceReference = document.PieceReference,
+                        Site = document.Site,
+                        SubClassNumber = document.SubClassNumber
+                    });
+                }
             }
 
             return result;
