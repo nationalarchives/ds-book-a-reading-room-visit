@@ -5810,6 +5810,11 @@ body .kbs h1 {
   margin: 3em 0 0;
   letter-spacing: 0.2px;
 }
+@media (max-width: 768px) {
+  body .kbs h1 {
+    margin-top: 1em;
+  }
+}
 body .kbs h2 {
   font-size: 1.3em;
 }
@@ -5952,14 +5957,20 @@ body .kbs .button {
   background-color: #134571;
   font-weight: bold;
   border: 0;
-  color: #fff;
+  color: white;
   padding: 1em 1.3em;
   margin-top: 1em;
 }
 body .kbs .button:hover {
   background: #000;
 }
-body .kbs .order-option a.button.primary, body .kbs .reservation-options a.button.primary, body .kbs .cancellation-form a.button.primary, body .kbs .cancellation-details a.button.primary {
+body .kbs .order-option .button.primary, body .kbs .reservation-options .button.primary {
+  color: #fff !important;
+}
+body .kbs .order-option .button.primary:focus, body .kbs .reservation-options .button.primary:focus {
+  color: #134571 !important;
+}
+body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-options .button.primary:focus:hover {
   color: #fff !important;
 }
 body .kbs .secondary {
@@ -7875,6 +7886,11 @@ a.button {
   margin-top: 1.5em;
   margin-bottom: 0;
 }
+@media (max-width: 480px) {
+  .content-wrapper .heading {
+    margin-top: 0.5em;
+  }
+}
 
 .standfirst {
   font-size: 1.1em;
@@ -7888,6 +7904,10 @@ a.button {
 .standfirst a {
   margin-top: 0;
   font-family: "Open Sans", sans-serif;
+}
+
+details summary h4 {
+  display: inline-block;
 }
 
 small {
@@ -7992,7 +8012,17 @@ form input[type=checkbox] {
   background: #f9f7e2;
   width: 100%;
   max-width: 480px;
-  margin-left: 40px;
+  margin: 2em 0 0 0;
+}
+
+.order-form .form-error {
+  color: #000;
+  display: block;
+  padding: 3px 7px;
+  background: #f9f7e2;
+  width: 100%;
+  max-width: 220px;
+  margin-left: 32px;
 }
 
 .helper-text {
@@ -8144,6 +8174,11 @@ form input[type=checkbox] {
   min-width: 50%;
   padding: 0.6em;
 }
+@media (max-width: 480px) {
+  #additional-reqs {
+    width: 100%;
+  }
+}
 
 #conditions {
   margin-bottom: 2em !important;
@@ -8185,10 +8220,22 @@ form input[type=checkbox] {
   padding: 0;
   text-decoration: underline;
 }
+@media (max-width: 480px) {
+  #date-selection ul li.date button span span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
 #date-selection ul li.date button span span:last-child {
   text-decoration: none;
   font-size: 0.9em;
   color: #444;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date button span span:last-child {
+    padding-top: 0.75em;
+  }
 }
 #date-selection ul li.date button:focus {
   background-color: #000;
@@ -8199,6 +8246,9 @@ form input[type=checkbox] {
   background-color: #000;
   color: #fff;
   outline: none;
+}
+#date-selection ul li.date button:hover span span:last-child {
+  color: #fff;
 }
 #date-selection ul li.date .no-availability {
   color: #134571;
@@ -8222,15 +8272,42 @@ form input[type=checkbox] {
   padding: 0;
   text-decoration: underline;
 }
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
 #date-selection ul li.date .no-availability span span:last-child {
   text-decoration: none;
   font-size: 0.9em;
   color: #444;
 }
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span span:last-child {
+    padding-top: 0.75em;
+  }
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability {
+    display: block;
+  }
+  #date-selection ul li.date .no-availability span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
 #date-selection ul li.date .no-availability span:last-child {
   text-decoration: none;
   font-size: 0.9em;
   color: #777;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span:last-child {
+    padding-top: 0.75em;
+  }
 }
 
 #home .prompt-white h2 {
@@ -8244,9 +8321,22 @@ form input[type=checkbox] {
   border-top: 4px solid #ddd;
   border-bottom: 2px dotted #ddd;
 }
+@media (max-width: 480px) {
+  #progress-bar {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
 #progress-bar ol {
   padding-left: 0;
   margin-bottom: 0.2em;
+  text-align: center;
 }
 #progress-bar ol li {
   display: inline-block;
@@ -8274,6 +8364,18 @@ form input[type=checkbox] {
   font-size: 0.85em;
   letter-spacing: -0.3px;
 }
+@media (max-width: 768px) {
+  #progress-bar ol li:not(.active) .step {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
 #progress-bar ol .active .step {
   color: #111;
   padding-bottom: 0.3em;
@@ -8288,6 +8390,11 @@ form input[type=checkbox] {
 }
 #room-selection .prompt-white {
   margin: 1em 0;
+}
+@media (max-width: 480px) {
+  #room-selection .prompt-white {
+    padding: 0.5em 1em;
+  }
 }
 
 #room-selection-form fieldset {
@@ -8461,14 +8568,6 @@ form input[type=checkbox] {
   margin-top: 25px !important;
 }
 
-.mb-med {
-  margin-bottom: 15px !important;
-}
-
-.mb-lg {
-  margin-bottom: 25px !important;
-}
-
 .secondary-info {
   font-size: 1em;
   display: block;
@@ -8480,8 +8579,16 @@ form input[type=checkbox] {
   padding: 0 !important;
 }
 
-html {
-  scroll-behavior: smooth;
+details summary {
+  color: #134571;
+  text-decoration: underline;
+  font-weight: bold;
+}
+@media (max-width: 480px) {
+  .reservation-options a {
+    margin-left: 0 !important;
+    margin-right: 2em;
+  }
 }
 
 /*# sourceMappingURL=base-sass.css.map */

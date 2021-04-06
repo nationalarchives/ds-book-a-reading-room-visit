@@ -18,6 +18,10 @@ body {
             font-family: $body_font;
             margin: 3em 0 0;
             letter-spacing: 0.2px;
+
+            @media (max-width: $screen-tablet) {
+                margin-top: 1em;
+            }
         }
 
         h2 {
@@ -191,7 +195,7 @@ body {
             background-color: #134571;
             font-weight: bold;
             border: 0;
-            color: #fff;
+            color: white;
             padding: 1em 1.3em;
             margin-top: 1em;
 
@@ -200,9 +204,17 @@ body {
             }
         }
 
-        .order-option, .reservation-options, .cancellation-form, .cancellation-details {
-            a.button.primary {
+        .order-option, .reservation-options {
+            .button.primary {
                 color: #fff !important;
+
+                &:focus {
+                    color: #134571 !important;
+                }
+
+                &:focus:hover {
+                    color: #fff !important;
+                }
             }
         }
 
