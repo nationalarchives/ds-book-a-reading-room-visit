@@ -37,6 +37,18 @@ namespace book_a_reading_room_visit.web.Service
             return result;
         }
 
+        public async Task<BookingModel> GetBookingAsync(string bookingReference)
+        {
+            var response = await _client.GetAsync($"booking/{bookingReference}");
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<BookingModel>();
+            return result;
+        }
+
         public async Task<BookingModel> GetBookingAsync(int readerTicket, string bookingReference)
         {
             var response = await _client.GetAsync($"booking/{readerTicket}/{bookingReference}");

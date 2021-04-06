@@ -13,7 +13,8 @@ namespace book_a_reading_room_visit.api.Service
         Task<BookingResponseModel> CancelBookingAsync(BookingCancellationModel bookingCancellationModel);
         Task<bool> UpdateBookingCommentsAsync(BookingCommentsModel bookingCommentsModel);
         Task<BookingModel> GetBookingByIdAsync(int bookingId);
-        Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference);
+        Task<BookingModel> GetBookingByReferenceAsync(string bookingReference);
+        Task<BookingModel> GetBookingByReaderTicketAndReferenceAsync(int readerTicket, string bookingReference);
         Task<List<BookingModel>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
         Task<bool> DeleteBookingAsync(string bookingReference);
     }

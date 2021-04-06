@@ -17,7 +17,7 @@ namespace book_a_reading_room_visit.web.Controllers
         private readonly IAvailabilityService _availabilityService;
         private readonly IConfiguration _configuration;
 
-        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService, 
+        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService,
                                     ChannelFactory<IAdvancedOrderService> channelFactory, IConfiguration configuration)
         {
             _bookingService = bookingService;
@@ -29,7 +29,7 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> SecureBooking(BookingViewModel bookingViewModel)
         {
-            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ? 
+            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ?
                                               bookingViewModel.BookingStartDate : bookingViewModel.BookingStartDate.AddDays(1);
 
             var model = new BookingModel
@@ -44,18 +44,35 @@ namespace book_a_reading_room_visit.web.Controllers
 
             if (!result.IsSuccess)
             {
-                var routeValues = new { 
-                    bookingtype = bookingViewModel.BookingType.ToStringURL(), 
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
                     seattype = bookingViewModel.SeatType.ToStringURL(),
                     errorcode = ErrorCode.seat_unavailable
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
-            bookingViewModel.BookingReference = result.BookingReference;
+            return RedirectToAction("SecureBooking", "Booking", new { bookingReference = result.BookingReference });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SecureBooking(string bookingReference)
+        {
+            var model = await _bookingService.GetBookingAsync(bookingReference);
+
+            var bookingViewModel = new BookingViewModel
+            {
+                BookingReference = bookingReference,
+                BookingType = model.BookingType,
+                SeatType = model.SeatType,
+                BookingStartDate = model.VisitStartDate,
+                BookingEndDate = model.VisitEndDate
+            };
+
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
-            bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(result.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
-            ModelState.Clear();
+            bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(model.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
+            bookingViewModel.CurrentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
 
             return View(bookingViewModel);
         }
@@ -167,11 +184,6 @@ namespace book_a_reading_room_visit.web.Controllers
                 readerTicket = model.ReaderTicket
             };
             return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
-        }
-
-        public IActionResult ContinueLater()
-        {
-            return View();
         }
 
         public IActionResult ThankYou()

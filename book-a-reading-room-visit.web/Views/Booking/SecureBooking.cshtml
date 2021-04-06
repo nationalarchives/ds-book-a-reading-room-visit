@@ -26,7 +26,8 @@
         </section>
     </div>
 
-    @if (!ViewData.ModelState.IsValid) { 
+    @if (!ViewData.ModelState.IsValid)
+    {
         <span class="error-message full-width">Something went wrong. Please check your details.</span>
     }
 
@@ -52,11 +53,10 @@
                             <th scope="row">Visit type</th>
                             <td>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")</td>
                         </tr>
-                        <tr>
-                            <th scope="row">Reading room</th>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
-
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            <tr>
+                                <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
                                     <td>Document reading room (All seats have camera stands)</td>
@@ -65,12 +65,8 @@
                                 {
                                     <td>Map and large document reading room</td>
                                 }
-                            }
-                            else
-                            {
-                                <td>Map and large document reading room</td>
-                            }
-                        </tr>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -95,6 +91,7 @@
                     <h3>@(ViewData.ModelState.IsValid ? "You have 20 minutes to enter your details." : "Enter your details")</h3>
                     <span id="timer">Complete this page by @($"{Model.ExpiredBy:hh:mm tt}") British Summer Time (BST).</span>
                     <small>If you do not complete the form by this time we will cancel your seat and you will need to start the process again.</small>
+                    @Html.HiddenFor(Model => Model.CurrentTime)
                 </div>
             </div>
         </div>
@@ -124,7 +121,7 @@
                                 @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
                             }
 
-                            <p class="helper-text mt-med">Don’t have a valid reader’s ticket or temporary reader’s ticket number?<br><a href="/">Register for or renew a reader’s ticket</a></p>
+                            <p class="helper-text mt-med">Don’t have a valid reader’s ticket or temporary reader’s ticket number?<br><a target="_blank" rel="noreferrer noopener" href="@Environment.GetEnvironmentVariable("ReaderRegisterURL")">Register for or renew a reader’s ticket</a></p>
                         </div>
 
                     </fieldset>

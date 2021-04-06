@@ -26,7 +26,6 @@ namespace book_a_reading_room_visit.web
             _currentEnvironment = webHostEnvironment;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews(options =>
@@ -61,7 +60,6 @@ namespace book_a_reading_room_visit.web
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
@@ -109,11 +107,6 @@ namespace book_a_reading_room_visit.web
                     new { controller = "Booking", action = "SecureBooking" });
 
                 endpoints.MapControllerRoute(
-                    name: "check-ticket",
-                    pattern: "{bookingtype}/secure-booking/check-ticket",
-                    new { controller = "Booking", action = "CheckReaderTicket" });
-
-                endpoints.MapControllerRoute(
                     name: "booking-confirmation",
                     pattern: "{bookingtype}/booking-confirmation",
                     new { controller = "Booking", action = "BookingConfirmation" });
@@ -150,8 +143,8 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "continue-later",
-                    pattern: "continue-later",
-                    new { controller = "Booking", action = "ContinueLater" });
+                    pattern: "continue-later/{bookingreference}",
+                    new { controller = "DocumentOrder", action = "ContinueLater" });
 
                 endpoints.MapControllerRoute(
                    name: "thank-you",

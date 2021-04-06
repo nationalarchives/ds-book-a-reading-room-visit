@@ -19,6 +19,14 @@ namespace book_a_reading_room_visit.web.Controllers
             _validateDocumentOrder = validateDocumentOrder;
         }
 
+        public async Task<IActionResult> ContinueLater(string bookingReference)
+        {
+            var bookingModel = await _bookingService.GetBookingAsync(bookingReference);
+
+            var model = bookingModel.MapToDocumentOrderViewModel();
+            return View(model);
+        }
+
         [HttpGet]
         public async Task<IActionResult> OrderDocuments(BookingTypes bookingType, int readerticket, string bookingReference)
         {

@@ -139,11 +139,11 @@
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {
                         <li class="date">
-                            @if (Model.AvailableBookings[index].AvailableSeats == 0)
+                            @if (Model.AvailableBookings[index].AvailableSeats < 1)
                             {
                                 <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
                                     <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">0 places available</span>
                                 </span>
                             }
                             else

@@ -57,8 +57,7 @@
                 <p>
                     If you did not provide an email address as part of your booking, safely note these
                     booking details for future reference. Return to your booking at this link before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>:<br>
-                    <a target="_blank" rel="noreferrer noopener"
-                       href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">Return to booking form</a>
                 </p>
 
             </div>
@@ -79,10 +78,7 @@
                             <th scope="row">Visit date</th>
                             <td>
                                 @($"{Model.BookingStartDate:dddd dd MMMM yyyy}") (<a target="_blank" rel="noreferrer noopenner"
-                                                                                     href="#prepare-for-your-visit" role="button">
-                                    See our visitor
-                                    information
-                                </a>)
+                                                                                     href="#prepare-for-your-visit" role="button">See our visitor information</a>)
                             </td>
                         </tr>
                         <tr>
@@ -91,25 +87,20 @@
                                 @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">Reading room</th>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
-
-                                if (Model.SeatType == SeatTypes.StdRRSeat)
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            <tr>
+                                <th scope="row">Reading room</th>
+                                @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td> 
+                                    <td>Document reading room (All seats have camera stands)</td>
                                 }
                                 else
                                 {
                                     <td>Map and large document reading room</td>
-                                 } 
-                            }
-                            else
-                            {
-                                <td>Map and large document reading room</td>
-                            }
-                        </tr>
+                                }
+                            </tr>
+                        }
                         <tr>
                             <th scope="row">Seat number</th>
                             <td>
@@ -160,7 +151,7 @@
                             </li>
                         }
                     </ol>
-                </section>  
+                </section>
             }
         </div>
     </section>

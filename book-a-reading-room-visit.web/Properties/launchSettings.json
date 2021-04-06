@@ -17,6 +17,7 @@
         "KBS_Root_Path": "/book-a-reading-room-visit",
         "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc",
         "BulkOrderServiceEndPoint": "http://172.31.2.125/BulkOrdersService/BulkOrdersService.svc",
+        "ReaderRegisterURL": "https://test-secure.nationalarchives.gov.uk/login/reader-register",
         "TimeZone": "GMT Standard Time"
       }
     },
@@ -31,6 +32,7 @@
         "KBS_Root_Path": "/book-a-reading-room-visit",
         "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc",
         "BulkOrderServiceEndPoint": "http://172.31.2.125/BulkOrdersService/BulkOrdersService.svc",
+        "ReaderRegisterURL": "https://test-secure.nationalarchives.gov.uk/login/reader-register",
         "TimeZone": "GMT Standard Time"
       }
     }

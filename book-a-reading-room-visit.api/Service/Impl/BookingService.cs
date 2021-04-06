@@ -248,7 +248,21 @@ namespace book_a_reading_room_visit.api.Service
             }
         }
 
-        public async Task<BookingModel> GetBookingByReferenceAsync(int readerTicket, string bookingReference)
+        public async Task<BookingModel> GetBookingByReferenceAsync(string bookingReference)
+        {
+            var booking = await _context.Bookings
+                .Include(b => b.Seat)
+                .FirstOrDefaultAsync(b => b.BookingReference == bookingReference);
+
+            if (booking == null)
+            {
+                return null;
+            }
+            var bookingToReturn = GetSerialisedBooking(booking);
+            return bookingToReturn;
+        }
+
+        public async Task<BookingModel> GetBookingByReaderTicketAndReferenceAsync(int readerTicket, string bookingReference)
         {
             var booking = await _context.Bookings
                 .Include(b => b.Seat)
