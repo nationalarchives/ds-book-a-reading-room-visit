@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Net;
 using System.Net.Http;
 using book_a_reading_room_visit.model;
+using System;
 
 namespace book_a_reading_room_visit.web.Service
 {
@@ -59,6 +60,17 @@ namespace book_a_reading_room_visit.web.Service
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromJsonAsync<BookingModel>();
             return result;
+        }
+
+        public async Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate)
+        {
+            var response = await _client.GetAsync($"booking/is-order-limit-exceed?readerTicket={readerTicket}&visitDate={visitDate:MM-dd-yyyy}");
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<bool>();
         }
 
         public async Task DeleteBookingAsync(string bookingReference)

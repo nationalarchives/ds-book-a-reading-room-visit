@@ -2,6 +2,7 @@
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 
@@ -112,6 +113,13 @@ namespace book_a_reading_room_visit.api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("is-order-limit-exceed")]
+        public async Task<ActionResult<bool>> IsOrderLimitExceed(int readerTicket, DateTime visitDate)
+        {
+            var result = await _bookingService.IsOrderLimitExceedAsync(readerTicket, visitDate);
+            return Ok(result);
         }
 
         [HttpGet("{readerticket}/{bookingreference}")]
