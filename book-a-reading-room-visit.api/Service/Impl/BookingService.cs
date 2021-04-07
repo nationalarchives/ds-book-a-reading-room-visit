@@ -470,5 +470,93 @@ namespace book_a_reading_room_visit.api.Service
 
             return ValidationResult.AllowToBook;
         }
+
+        public async Task<int> SubmitBookingAsync(DateTime completeBy)
+        {
+            var bookings = await _context.Set<Booking>().Where(b => b.CompleteByDate == completeBy && b.BookingStatusId == (int)BookingStatuses.Created).ToListAsync();
+
+            if (bookings.Count == 0)
+            {
+                return 0;
+            }
+
+            _context.Attach(bookings);
+
+            foreach (var booking in bookings)
+            {
+                booking.BookingStatusId = (int)BookingStatuses.Submitted;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return bookings.Count;
+        }
+
+        public async Task<int> SendBookingConfirmationEmailsAsync(DateTime completeBy)
+        {
+            var bookings = await _context.Set<Booking>().Include(o => o.OrderDocuments).Include(s => s.Seat)
+                                         .Where(b => b.CompleteByDate == completeBy && b.BookingStatusId == (int)BookingStatuses.Submitted).ToListAsync();
+
+            if (bookings.Count == 0)
+            {
+                return 0;
+            }
+
+            _context.Attach(bookings);
+
+            foreach (var booking in bookings)
+            {
+                var bookingModel = GetSerialisedBooking(booking);
+                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count > 0) ||
+                    (bookingModel.BookingType == BookingTypes.BulkOrderVisit && bookingModel.OrderDocuments.Count > 19))
+                {
+                    var dsdEmail = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? _configuration.GetSection("EmailSettings:StandardOrderAddress").Value :
+                                                                                                 _configuration.GetSection("EmailSettings:BulkOrderAddress").Value;
+                    await _emailService.SendEmailAsync(EmailType.DSDBookingConfirmation, dsdEmail, bookingModel);
+
+                    if (!string.IsNullOrWhiteSpace(bookingModel.Email))
+                    {
+                        await _emailService.SendEmailAsync(EmailType.BookingConfirmation, bookingModel.Email, bookingModel);
+                    }
+                }
+                else
+                {
+                    booking.BookingStatusId = (int)BookingStatuses.Cancelled;
+                    if (!string.IsNullOrWhiteSpace(bookingModel.Email))
+                    {
+                        await _emailService.SendEmailAsync(EmailType.AutomaticCancellation, bookingModel.Email, bookingModel);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            return bookings.Count;
+        }
+
+        public async Task<int> SendReminderNotificationEmailsAsync(DateTime completeBy)
+        {
+            var bookings = await _context.Set<Booking>().Include(o => o.OrderDocuments).Include(s => s.Seat)
+                                         .Where(b => !string.IsNullOrWhiteSpace(b.Email) && b.CompleteByDate == completeBy && b.BookingStatusId == (int)BookingStatuses.Created).ToListAsync();
+
+            if (bookings.Count == 0)
+            {
+                return 0;
+            }
+
+            foreach (var booking in bookings)
+            {
+                var bookingModel = GetSerialisedBooking(booking);
+                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count > 0) ||
+                    (bookingModel.BookingType == BookingTypes.BulkOrderVisit && bookingModel.OrderDocuments.Count > 19))
+                {
+                    await _emailService.SendEmailAsync(EmailType.ValidOrderReminder, bookingModel.Email, bookingModel);
+                }
+                else
+                {
+                    await _emailService.SendEmailAsync(EmailType.InvalidOrderReminder, bookingModel.Email, bookingModel);
+                }
+            }
+            return bookings.Count;
+        }
     }
 }
