@@ -449,13 +449,13 @@ namespace book_a_reading_room_visit.api.Service
             return true;
         }
 
-        public async Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate)
+        public async Task<ValidationResult> GetReaderTicketEligibilityAsync(int readerTicket, DateTime visitDate)
         {
             var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate == visitDate);
 
             if (booking != null)
             {
-                return true;
+                return ValidationResult.HaveAnotherVisitOnThisDate;
             }
             var orderLimit = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitPerReaderTicket").Value);
             var orderLimitDuration = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitDuration").Value);
@@ -463,7 +463,12 @@ namespace book_a_reading_room_visit.api.Service
 
             var bookings = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= DateTime.Today && b.VisitStartDate <= endDate);
 
-            return bookings > orderLimit;
+            if (bookings >= orderLimit)
+            {
+                return ValidationResult.ExceededTheSetLimit;
+            }
+
+            return ValidationResult.AllowToBook;
         }
     }
 }

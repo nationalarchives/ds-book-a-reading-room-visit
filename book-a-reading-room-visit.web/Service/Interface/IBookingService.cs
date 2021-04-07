@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.web.Service
         Task<BookingResponseModel> UpsertDocumentAsync(BookingModel bookingModel);
         Task<BookingModel> GetBookingAsync(string bookingReference);
         Task<BookingModel> GetBookingAsync(int readerTicket, string bookingReference);
-        Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate);
+        Task<ValidationResult> GetReaderTicketEligibleAsync(int readerTicket, DateTime visitDate);
         Task DeleteBookingAsync(string bookingReference);
         Task CancelBookingAsync(BookingCancellationModel cancelViewModel);
     }

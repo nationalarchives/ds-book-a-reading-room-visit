@@ -3,7 +3,8 @@
     public class Constants
     {
         public const string Valid_Ticket_Required = "Enter a valid reader’s ticket number or temporary reader’s ticket number.";
-        public const string Ticket_Exceed_Order_Limit = "The given reader’s ticket number have a booking on the selected date or exceeded the limit set";
+        public const string Ticket_Exceed_Order_Limit = "You currently have two visits booked over a 28-day period. Choose a later date.";
+        public const string Another_Booking_On_The_Same_date = "You already have a visit booked on this date. Choose a different date.";
         public const string Firstname_Required = "Enter a first name.";
         public const string Lastname_Required = "Enter a last name.";
         public const string Valid_Email_Required = "Enter a valid email address.";

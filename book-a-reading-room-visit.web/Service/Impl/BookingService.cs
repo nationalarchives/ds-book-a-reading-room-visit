@@ -62,15 +62,15 @@ namespace book_a_reading_room_visit.web.Service
             return result;
         }
 
-        public async Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate)
+        public async Task<ValidationResult> GetReaderTicketEligibleAsync(int readerTicket, DateTime visitDate)
         {
-            var response = await _client.GetAsync($"booking/is-order-limit-exceed?readerTicket={readerTicket}&visitDate={visitDate:MM-dd-yyyy}");
+            var response = await _client.GetAsync($"booking/readerticket-eligible?readerTicket={readerTicket}&visitDate={visitDate:MM-dd-yyyy}");
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                return false;
+                return ValidationResult.Error;
             }
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<bool>();
+            return await response.Content.ReadFromJsonAsync<ValidationResult>();
         }
 
         public async Task DeleteBookingAsync(string bookingReference)

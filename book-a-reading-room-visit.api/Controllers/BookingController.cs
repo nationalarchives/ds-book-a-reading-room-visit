@@ -115,10 +115,10 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
-        [HttpGet("is-order-limit-exceed")]
-        public async Task<ActionResult<bool>> IsOrderLimitExceed(int readerTicket, DateTime visitDate)
+        [HttpGet("readerticket-eligible")]
+        public async Task<ActionResult<ValidationResult>> GetReaderTicketEligible(int readerTicket, DateTime visitDate)
         {
-            var result = await _bookingService.IsOrderLimitExceedAsync(readerTicket, visitDate);
+            var result = await _bookingService.GetReaderTicketEligibilityAsync(readerTicket, visitDate);
             return Ok(result);
         }
 

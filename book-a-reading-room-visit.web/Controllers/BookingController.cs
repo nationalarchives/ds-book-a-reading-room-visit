@@ -97,11 +97,17 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
-            var enforceOrderLimit = bool.Parse(Environment.GetEnvironmentVariable("EnforceOrderLimit"));
-            if (enforceOrderLimit && 
-                await _bookingService.IsOrderLimitExceedAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingStartDate))
+            if (bool.TryParse(Environment.GetEnvironmentVariable("EnforceOrderLimit"), out var enforceOrderLimit) && enforceOrderLimit)
             {
-                ModelState.AddModelError("Ticket", Constants.Ticket_Exceed_Order_Limit);
+                var validation = await _bookingService.GetReaderTicketEligibleAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingStartDate);
+                if (validation == ValidationResult.HaveAnotherVisitOnThisDate)
+                {
+                    ModelState.AddModelError("Ticket", Constants.Another_Booking_On_The_Same_date);
+                }
+                else if (validation == ValidationResult.ExceededTheSetLimit)
+                {
+                    ModelState.AddModelError("Ticket", Constants.Ticket_Exceed_Order_Limit);
+                }
             }
             if (string.IsNullOrWhiteSpace(bookingViewModel.Phone) && string.IsNullOrWhiteSpace(bookingViewModel.Email))
             {
