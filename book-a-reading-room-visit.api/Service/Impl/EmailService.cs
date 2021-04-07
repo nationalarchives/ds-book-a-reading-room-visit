@@ -1,17 +1,21 @@
 ﻿using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+using book_a_reading_room_visit.model;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Text;
+using System.ComponentModel;
+using System.Dynamic;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Xsl;
-using book_a_reading_room_visit.model;
-using Microsoft.Extensions.Configuration;
 
+[assembly: InternalsVisibleTo("book-a-reading-room-visit.test")]
 namespace book_a_reading_room_visit.api.Service
 {
     public class EmailService : IEmailService
@@ -84,9 +88,62 @@ namespace book_a_reading_room_visit.api.Service
             await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
         }
 
-        private string GetTextBody(EmailType emailType, BookingModel bookingModel)
+        internal string GetTextBody(EmailType emailType, BookingModel bookingModel)
         {
-            return "Text Body";
+
+            var sb = new StringBuilder(File.ReadAllText($"EmailTemplate/Text/{emailType}.txt"));
+
+            dynamic expando = new ExpandoObject();
+
+            var dictionary = (IDictionary<string, object>)expando;
+
+            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(typeof(BookingModel)))
+            {
+                try
+                {
+                    if (property.PropertyType != typeof(List<string>))
+                    {
+                        dictionary.Add(property.Name, Convert.ToString(property.GetValue(bookingModel))); 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+
+            expando.HomeURL = Environment.GetEnvironmentVariable("HomeURL");
+            expando.ReturnURL = $"{expando.HomeURL}/return-to-booking";
+            expando.VisitType = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
+            expando.Name = $"{bookingModel.FirstName} {bookingModel.LastName}";
+            expando.VisitStartDateDisplay = bookingModel.VisitStartDate.ToShortDateString();
+
+            //TODO: Is this the correct logic - if so move to helper. also required for Html email.
+           switch (bookingModel.SeatType)
+            {
+                case SeatTypes.BulkOrderSeat:
+                case SeatTypes.BulkOrderSeatWithCamera:
+                case SeatTypes.MandLRR:
+                case SeatTypes.MandLRRWithCamera:
+                    expando.ReadingRoom = "Map Room";
+                    break;
+                default:
+                    expando.ReadingRoom = "Standard Reading Room";
+                    break;
+            }
+
+            foreach(KeyValuePair<string, object> kv in dictionary)
+            {
+                sb = sb.Replace("{" + kv.Key + "}", (kv.Value != null ? kv.Value.ToString() : string.Empty));
+            }
+
+            if(emailType  == EmailType.BookingConfirmation || emailType == EmailType.DSDBookingConfirmation)
+            {
+                sb = sb.Replace("{MainOrderDocuments}", bookingModel.MainOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.MainOrderDocuments) : String.Empty);
+                sb = sb.Replace("{ReserveOrderDocuments}", bookingModel.ReserveOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.ReserveOrderDocuments) : String.Empty);
+            }
+
+            return sb.ToString();
         }
 
         private string GetHtmlBody(EmailType emailType, XDocument xDocument)

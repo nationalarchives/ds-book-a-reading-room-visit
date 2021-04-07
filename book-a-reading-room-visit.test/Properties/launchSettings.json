@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "book-a-reading-room-visit.test": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit"
+      }
+    }
+  }
+}
