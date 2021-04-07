@@ -3,6 +3,7 @@ using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,15 @@ namespace book_a_reading_room_visit.api.Service
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IConfiguration configuration)
         {
             _context = context;
             _workingDayService = workingDayService;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -69,7 +72,7 @@ namespace book_a_reading_room_visit.api.Service
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
-            catch (Exception ex)
+            catch
             {
                 await transaction.RollbackAsync();
                 response.IsSuccess = false;
@@ -444,6 +447,23 @@ namespace book_a_reading_room_visit.api.Service
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate)
+        {
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate == visitDate);
+
+            if (booking != null)
+            {
+                return true;
+            }
+            var orderLimit = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitPerReaderTicket").Value);
+            var orderLimitDuration = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitDuration").Value);
+            var endDate = DateTime.Today.AddDays(orderLimitDuration);
+
+            var bookings = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= DateTime.Today && b.VisitStartDate <= endDate);
+
+            return bookings > orderLimit;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using book_a_reading_room_visit.model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,5 +18,6 @@ namespace book_a_reading_room_visit.api.Service
         Task<BookingModel> GetBookingByReaderTicketAndReferenceAsync(int readerTicket, string bookingReference);
         Task<List<BookingModel>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
         Task<bool> DeleteBookingAsync(string bookingReference);
+        Task<bool> IsOrderLimitExceedAsync(int readerTicket, DateTime visitDate);
     }
 }
