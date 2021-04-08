@@ -8232,6 +8232,9 @@ form input[type=checkbox] {
   color: #fff;
   outline: none;
 }
+#date-selection ul li.date button:hover span span:last-child {
+  color: #fff;
+}
 #date-selection ul li.date .no-availability {
   color: #134571;
   font-weight: bold;
