@@ -5705,15 +5705,22 @@ td.visible-print {
   border-radius: 0;
 }
 
-a#cookieCutter {
-  background: url(/images/close-img.png) 0 2px no-repeat;
+.cookieNotice a {
+  color: #134571;
+}
+.cookieNotice a#cookieCutter {
+  background: url(/book-a-reading-room-visit/images/close-img.png) 0 2px no-repeat;
   margin-left: 10px;
   padding-top: 1px;
   padding-left: 22px;
   text-decoration: none;
 }
-a#cookieCutter:hover {
+.cookieNotice a#cookieCutter:hover {
   background-color: #134571;
+}
+.cookieNotice a:hover {
+  background-color: #134571;
+  color: #fff;
 }
 
 /* TinyMce - list left thumbnail */
