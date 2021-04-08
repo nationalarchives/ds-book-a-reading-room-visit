@@ -204,17 +204,9 @@ body {
             }
         }
 
-        .order-option, .reservation-options {
+        .order-option, .reservation-option {
             .button.primary {
-                color: #fff !important;
-
-                &:focus {
-                    color: #134571 !important;
-                }
-
-                &:focus:hover {
-                    color: #fff !important;
-                }
+                color: #fff !important
             }
         }
 
