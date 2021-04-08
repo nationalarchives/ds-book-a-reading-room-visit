@@ -179,6 +179,13 @@
                                 @Html.TextBoxFor(Model => Model.Email)
                             }
 
+                            @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
+                            {
+
+                                @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error" })
+                            }
+
+
                             @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
                             {
                                 @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })

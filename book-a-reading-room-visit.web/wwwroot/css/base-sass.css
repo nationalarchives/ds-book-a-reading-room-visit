@@ -6126,18 +6126,19 @@ form .form-row .optional {
   color: #6f777b;
 }
 form .form-row .form-error {
-  color: #000;
+  color: #d4351c;
+  font-weight: bold;
   display: block;
-  padding: 3px 7px;
-  background: #f9f7e2;
+  padding: 10px 0;
   width: 100%;
   max-width: 480px;
+  font-size: 0.95em;
 }
 form .form-row .form-error span {
   font-size: 1.6em;
 }
 form .form-row .form-warning {
-  border: 2px solid #EBAB2C;
+  border: 2px solid #d4351c;
 }
 @media (max-width: 768px) {
   form .form-row {
