@@ -25,14 +25,16 @@
         </div>
     </section>
 
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <span class="error-message full-width">Something went wrong. Please check your details.</span>
-    }
-
     <div class="heading align-left">
         <div class="row">
             <div class="col-md-12">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="summary-error-message">
+                        <h2>Sorry there was a problem.</h2>
+                        <p>Check the highlighted fields to continue.</p>
+                    </div>
+                }
                 <h2>Tell us which documents you would like to see</h2>
                 <p>
                     You have a provisional reservation for a visit to the reading rooms. Complete this form
