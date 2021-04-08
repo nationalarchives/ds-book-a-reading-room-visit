@@ -23,6 +23,12 @@ a.button {
     }
 }
 
+.checkbox-warning {
+    label::before {
+        border: 2px solid #d4351c !important;
+    }
+}
+
 .standfirst {
     font-size: 1.1em;
     margin-bottom: 3em !important;

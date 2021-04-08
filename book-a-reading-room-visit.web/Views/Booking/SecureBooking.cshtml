@@ -215,7 +215,7 @@
                     <fieldset>
                         <legend class="sr-only">Please complete the following checkboxes</legend>
 
-                        <div class="form-row checkbox">
+                        <div class="form-row @(@ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
                             <label for="terms-conditions">Accept our <a target="_blank" rel="noopener noreferrer" href="http://www.nationalarchives.gov.uk/legal/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a></label>
 
@@ -225,7 +225,7 @@
                             }
                         </div>
 
-                        <div class="form-row checkbox">
+                        <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
                             <label for="covid-charter">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
 
