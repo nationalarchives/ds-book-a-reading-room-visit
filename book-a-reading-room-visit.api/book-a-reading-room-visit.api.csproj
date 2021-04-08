@@ -20,15 +20,47 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="EmailTemplate\AutomaticCancellation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplate\BookingCancellation.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="EmailTemplate\BookingConfirmation.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EmailTemplate\DSDBookingConfirmation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\InvalidOrderReminder.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplate\ReservationConfirmation.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EmailTemplate\ValidOrderReminder.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\AutomaticCancellation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\BookingCancellation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\BookingConfirmation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\DSDBookingConfirmation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\InvalidOrderReminder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\ReservationConfirmation.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\ValidOrderReminder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
 </Project>
