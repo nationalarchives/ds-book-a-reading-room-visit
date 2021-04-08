@@ -7906,10 +7906,6 @@ a.button {
   font-family: "Open Sans", sans-serif;
 }
 
-details summary h4 {
-  display: inline-block;
-}
-
 small {
   display: block;
 }
@@ -8012,17 +8008,7 @@ form input[type=checkbox] {
   background: #f9f7e2;
   width: 100%;
   max-width: 480px;
-  margin: 2em 0 0 0;
-}
-
-.order-form .form-error {
-  color: #000;
-  display: block;
-  padding: 3px 7px;
-  background: #f9f7e2;
-  width: 100%;
-  max-width: 220px;
-  margin-left: 32px;
+  margin-left: 40px;
 }
 
 .helper-text {
@@ -8246,9 +8232,6 @@ form input[type=checkbox] {
   background-color: #000;
   color: #fff;
   outline: none;
-}
-#date-selection ul li.date button:hover span span:last-child {
-  color: #fff;
 }
 #date-selection ul li.date .no-availability {
   color: #134571;
@@ -8579,6 +8562,17 @@ form input[type=checkbox] {
   padding: 0 !important;
 }
 
+@media (min-width: 480px) {
+  details summary[tabindex="-1"] {
+    color: #000000;
+  }
+  details summary[tabindex="-1"]:focus {
+    outline: none;
+  }
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
 details summary {
   color: #134571;
   text-decoration: underline;
