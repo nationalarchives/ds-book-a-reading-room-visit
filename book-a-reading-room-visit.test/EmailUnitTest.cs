@@ -16,21 +16,22 @@ namespace book_a_reading_room_visit.test
     [TestClass]
     public class EmailUnitTest
     {
+        private const string HOME_URL = "HomeURL";
         private IAmazonSimpleEmailService _awsSes;
         private IConfiguration _config;
+
+        public TestContext TestContext { get; set; }
 
         public EmailUnitTest()
         {
             _awsSes = Substitute.For<IAmazonSimpleEmailService>();
             _config = Substitute.For<IConfiguration>();
-            
-
-            var config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
         }
 
         [TestMethod]
         public async Task Email_GetText_BookingConfirmation()
         {
+
             BookingModel bookingModel = CreateBooking(BookingStatuses.Created, true);
 
             var emailService = new EmailService(_awsSes, _config);
@@ -56,6 +57,8 @@ namespace book_a_reading_room_visit.test
 
             Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
 
+            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
+            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
         }
 
         [TestMethod]
@@ -75,6 +78,9 @@ namespace book_a_reading_room_visit.test
             Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
 
             CheckDocumentOrders(bookingModel, emailText);
+
+            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
+            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
 
         }
         private BookingModel CreateBooking(BookingStatuses bookingStatus, bool addOrderDocuments)

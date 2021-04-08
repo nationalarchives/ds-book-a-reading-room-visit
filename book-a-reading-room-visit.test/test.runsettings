@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <!-- List of environment variables we want to set-->
+      <HomeURL>https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit</HomeURL>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>
