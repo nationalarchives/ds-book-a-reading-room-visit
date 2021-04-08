@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace book_a_reading_room_visit.model
 {
@@ -31,5 +32,15 @@ namespace book_a_reading_room_visit.model
         public string LastName { get; set; }
         public string LastModifiedBy { get; set; }
         public List<OrderDocumentModel> OrderDocuments { get; set; }
+
+        public List<string> MainOrderDocuments
+        {
+            get { return OrderDocuments?.Where(o => !o.IsReserve).Select(o => $"Reference: {o.DocumentReference}, Description: {o.Description}").ToList(); }
+        }
+
+        public List<string> ReserveOrderDocuments
+        {
+            get { return OrderDocuments?.Where(o => o.IsReserve).Select(o => $"Reference: {o.DocumentReference}, Description: {o.Description}").ToList(); }
+        }
     }
 }

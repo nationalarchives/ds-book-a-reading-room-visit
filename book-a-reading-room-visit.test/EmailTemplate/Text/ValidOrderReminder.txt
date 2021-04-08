@@ -1,0 +1,26 @@
+﻿     Dear {Name},
+
+     We are looking forward to seeing you soon. See your current document order below - if you would like to edit it, you can still do so before
+     {CompleteByDate} British Summer Time (BST). After this deadline has passed, we will begin preparing your document order.
+     To view or edit your document order, please visit: {ReturnURL}.  You will need your booking reference and reader's ticket number to complete this step.
+
+     Your booking summary:-
+     Your booking reference is: {BookingReference}
+     Your Reader’s ticket number is: {ReaderTicket}
+
+     Visit type: {VisitType}
+     Visit date: {VisitStartDate}
+     Reading room: {ReadingRoom}
+     Seat number: {SeatNumber}
+
+    Your document order(s):
+
+    {MainOrderDocuments}
+
+    Your reserve document(s):
+
+    {ReserveOrderDocuments}
+
+    You can cancel your visit at any time. Use this link: {ReturnURL}
+
+    This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
