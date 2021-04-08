@@ -17,10 +17,10 @@ namespace book_a_reading_room_visit.test
     public class EmailUnitTest
     {
         private const string HOME_URL = "HomeURL";
+        private static readonly string RETURN_URL = $"{Environment.GetEnvironmentVariable(HOME_URL)}/return-to-booking";
+
         private IAmazonSimpleEmailService _awsSes;
         private IConfiguration _config;
-
-        public TestContext TestContext { get; set; }
 
         public EmailUnitTest()
         {
@@ -31,58 +31,99 @@ namespace book_a_reading_room_visit.test
         [TestMethod]
         public async Task Email_GetText_BookingConfirmation()
         {
-
             BookingModel bookingModel = CreateBooking(BookingStatuses.Created, true);
 
             var emailService = new EmailService(_awsSes, _config);
-
             string emailText = emailService.GetTextBody(EmailType.BookingConfirmation, bookingModel);
+            string visitType = GetVisitType(bookingModel);
 
-            string visitType =  bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
-
-            Assert.IsTrue(emailText.IndexOf(bookingModel.BookingReference) != -1);
-            Assert.IsTrue(emailText.IndexOf($"{bookingModel.FirstName} {bookingModel.LastName }") != -1);
-            Assert.IsTrue(emailText.IndexOf(Convert.ToString(bookingModel.ReaderTicket.Value)) != -1);
+            await CheckCoreFields(bookingModel, emailText);
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
             Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
 
-            if(!String.IsNullOrWhiteSpace(bookingModel.AdditionalRequirements))
+            if (!String.IsNullOrWhiteSpace(bookingModel.AdditionalRequirements))
             {
                 Assert.IsTrue(emailText.IndexOf(bookingModel.AdditionalRequirements) != -1);
             }
-            
 
-            CheckDocumentOrders(bookingModel, emailText);
-
-            Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
+            await CheckDocumentOrders(bookingModel, emailText);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
-            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
+            Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
         }
 
         [TestMethod]
         public async Task Email_GetText_DSDBookingConfirmation()
         {
             BookingModel bookingModel = CreateBooking(BookingStatuses.Created, true);
-
             var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.DSDBookingConfirmation, bookingModel);
 
-            string emailText = emailService.GetTextBody(EmailType.BookingConfirmation, bookingModel);
+            await CheckCoreFields(bookingModel, emailText);
 
-            Assert.IsTrue(emailText.IndexOf(bookingModel.BookingReference) != -1);
-            Assert.IsTrue(emailText.IndexOf($"{bookingModel.FirstName} {bookingModel.LastName }") != -1);
-            Assert.IsTrue(emailText.IndexOf(Convert.ToString(bookingModel.ReaderTicket.Value)) != -1);
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
 
-            Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
+            await CheckDocumentOrders(bookingModel, emailText);
+        }
 
-            CheckDocumentOrders(bookingModel, emailText);
+        [TestMethod]
+        public async Task Email_GetText_ReservationConfirmation()
+        {
+            BookingModel bookingModel = CreateBooking(BookingStatuses.Submitted, true);
+            var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.ReservationConfirmation, bookingModel);
+            string visitType = GetVisitType(bookingModel);
+
+            await CheckCoreFields(bookingModel, emailText);
+            Assert.IsTrue(emailText.IndexOf(visitType) != -1);
+            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
-            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
-
+            Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
         }
+
+        [TestMethod]
+        public async Task Email_GetText_AutomaticCancellation()
+        {
+            BookingModel bookingModel = CreateBooking(BookingStatuses.Cancelled, true);
+            var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.AutomaticCancellation, bookingModel);
+
+            await CheckCancellation(bookingModel, emailText);
+        }
+
+        [TestMethod]
+        public async Task Email_GetText_BookingCancellation()
+        {
+            BookingModel bookingModel = CreateBooking(BookingStatuses.Cancelled, true);
+            var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.BookingCancellation, bookingModel);
+
+            await CheckCancellation(bookingModel, emailText);
+        }
+
+        [TestMethod]
+        public async Task Email_GetText_ValidOrderReminder()
+        {
+            BookingModel bookingModel = CreateBooking(BookingStatuses.Cancelled, true);
+            var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.ValidOrderReminder, bookingModel);
+
+            await CheckReminder(bookingModel, emailText);
+            await CheckDocumentOrders(bookingModel, emailText);
+        }
+
+        [TestMethod]
+        public async Task Email_GetText_InvalidOrderReminder()
+        {
+            BookingModel bookingModel = CreateBooking(BookingStatuses.Cancelled, true);
+            var emailService = new EmailService(_awsSes, _config);
+            string emailText = emailService.GetTextBody(EmailType.InvalidOrderReminder, bookingModel);
+
+            await CheckReminder(bookingModel, emailText);
+        }
+
         private BookingModel CreateBooking(BookingStatuses bookingStatus, bool addOrderDocuments)
         {
             var bookingModel = new BookingModel()
@@ -100,7 +141,8 @@ namespace book_a_reading_room_visit.test
                 LastName = "Baggins",
                 Email = "bilbo.baggins@nationalarchives.gov.uk",
                 Phone = "+44(0)123 567 789",
-                ReaderTicket = 9497920                 
+                ReaderTicket = 9497920,
+                SeatNumber = "14H"
             };
 
             if (addOrderDocuments)
@@ -117,7 +159,17 @@ namespace book_a_reading_room_visit.test
             return bookingModel;
         }
 
-        private static void CheckDocumentOrders(BookingModel bookingModel, string emailText)
+
+        private async static Task CheckCoreFields(BookingModel bookingModel, string emailText)
+        {
+            Assert.IsTrue(emailText.IndexOf(bookingModel.BookingReference) != -1);
+            Assert.IsTrue(emailText.IndexOf($"{bookingModel.FirstName} {bookingModel.LastName }") != -1);
+            Assert.IsTrue(emailText.IndexOf(Convert.ToString(bookingModel.ReaderTicket.Value)) != -1);
+            Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
+            Assert.IsTrue(emailText.IndexOf(bookingModel.SeatNumber) > -1);
+        }
+
+        private async static Task CheckDocumentOrders(BookingModel bookingModel, string emailText)
         {
             foreach(string orderDocument in bookingModel.MainOrderDocuments)
             {
@@ -128,6 +180,44 @@ namespace book_a_reading_room_visit.test
             {
                 Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
             }
+        }
+
+        private async static Task CheckCancellation(BookingModel bookingModel, string emailText)
+        {
+            await CheckCoreFields(bookingModel, emailText);
+            string visitType = GetVisitType(bookingModel);
+            Assert.IsTrue(emailText.IndexOf(visitType) != -1);
+            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+
+            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
+            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
+        }
+
+        private async static Task CheckOrderReminder(BookingModel bookingModel, string emailText)
+        {
+            await CheckCoreFields(bookingModel, emailText);
+            string visitType = GetVisitType(bookingModel);
+            Assert.IsTrue(emailText.IndexOf(visitType) != -1);
+            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+
+            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
+            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
+        }
+
+        private async static Task CheckReminder(BookingModel bookingModel, string emailText)
+        {
+            await CheckCoreFields(bookingModel, emailText);
+            string visitType = GetVisitType(bookingModel);
+            Assert.IsTrue(emailText.IndexOf(visitType) != -1);
+            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+
+            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
+            Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
+        }
+
+        private static string GetVisitType(BookingModel bookingModel)
+        {
+            return bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
         }
     }
 }

@@ -137,7 +137,7 @@ namespace book_a_reading_room_visit.api.Service
                 sb = sb.Replace("{" + kv.Key + "}", (kv.Value != null ? kv.Value.ToString() : string.Empty));
             }
 
-            if(emailType  == EmailType.BookingConfirmation || emailType == EmailType.DSDBookingConfirmation)
+            if(emailType  == EmailType.BookingConfirmation || emailType == EmailType.DSDBookingConfirmation || emailType == EmailType.ValidOrderReminder)
             {
                 sb = sb.Replace("{MainOrderDocuments}", bookingModel.MainOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.MainOrderDocuments) : String.Empty);
                 sb = sb.Replace("{ReserveOrderDocuments}", bookingModel.ReserveOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.ReserveOrderDocuments) : String.Empty);
