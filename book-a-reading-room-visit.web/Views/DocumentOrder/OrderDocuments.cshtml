@@ -178,10 +178,14 @@
                             We cannot guarantee that all of the research materials will
                             be available.
                         </p>
-                        @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
                         @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
                         {
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning" })
                             @Html.ValidationMessageFor(Model => Model.AdditionalRequirements, "", new { @class = "form-error" })
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
                         }
                     </fieldset>
                     <button class="button" type="submit">Save and review</button>

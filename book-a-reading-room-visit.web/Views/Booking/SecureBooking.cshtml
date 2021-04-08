@@ -116,11 +116,14 @@
                                 You can find this below the barcode on the back of your reader’s ticket card. If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Ticket, new { required = true })
-
                             @if (ViewData.ModelState["Ticket"]?.Errors.Count() > 0)
                             {
+                                @Html.TextBoxFor(Model => Model.Ticket, new { @class = "form-warning", required = true })
                                 @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(Model => Model.Ticket, new { required = true })
                             }
 
                             <p class="helper-text mt-med">Don’t have a valid reader’s ticket or temporary reader’s ticket number?<br><a target="_blank" rel="noreferrer noopener" href="@Environment.GetEnvironmentVariable("ReaderRegisterURL")">Register for or renew a reader’s ticket</a></p>
@@ -135,19 +138,25 @@
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
 
                             <label for="firstname" class="sr-only">First name</label>
-                            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
-
                             @if (ViewData.ModelState["FirstName"]?.Errors.Count() > 0)
                             {
+                                @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-warning", placeholder = "Enter first name", required = true })
                                 @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
                             }
 
                             <label for="lastname" class="sr-only">Last name</label>
-                            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
-
                             @if (ViewData.ModelState["LastName"]?.Errors.Count() > 0)
                             {
+                                @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-warning", placeholder = "Enter last name", required = true })
                                 @Html.ValidationMessageFor(Model => Model.LastName, "", new { @class = "form-error" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Enter last name", required = true })
                             }
                         </div>
                     </fieldset>
@@ -161,11 +170,13 @@
                                 We will use this to send you a booking confirmation email with a link to your document order form and a reminder email before your visit.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Email)
-
-                            @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
+                            @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0 || (ViewData.ModelState["Email"]?.Errors.Count() > 0))
                             {
-                                @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error" })
+                                @Html.TextBoxFor(Model => Model.Email, "", new { @class = "form-warning" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(Model => Model.Email)
                             }
 
                             @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
@@ -180,7 +191,14 @@
                                 If you provide a telephone number only, you will need to note down the booking reference we are about to give you on the next page.
                             </p>
 
-                            @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
+                            @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0 || ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
+                            {
+                                @Html.TextBoxFor(Model => Model.Phone, new { id = "phone", @class = "form-warning" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
+                            }
 
                             @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0)
                             {
