@@ -111,6 +111,7 @@ namespace book_a_reading_room_visit.api.Service
 
             if (!string.IsNullOrWhiteSpace(bookingModel.Email))
             {
+                bookingModel.BookingType = (BookingTypes)booking.BookingTypeId;
                 bookingModel.CompleteByDate = response.CompleteByDate;
                 bookingModel.SeatNumber = response.SeatNumber;
                 bookingModel.VisitStartDate = booking.VisitStartDate;
@@ -451,7 +452,7 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<ValidationResult> GetReaderTicketEligibilityAsync(int readerTicket, DateTime visitDate)
         {
-            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate == visitDate);
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate == visitDate && b.BookingStatusId != (int)BookingStatuses.Cancelled);
 
             if (booking != null)
             {
@@ -461,7 +462,7 @@ namespace book_a_reading_room_visit.api.Service
             var orderLimitDuration = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitDuration").Value);
             var endDate = DateTime.Today.AddDays(orderLimitDuration);
 
-            var bookings = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= DateTime.Today && b.VisitStartDate <= endDate);
+            var bookings = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= DateTime.Today && b.VisitStartDate <= endDate && b.BookingStatusId != (int)BookingStatuses.Cancelled);
 
             if (bookings >= orderLimit)
             {

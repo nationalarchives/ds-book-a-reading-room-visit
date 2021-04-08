@@ -111,6 +111,7 @@ namespace book_a_reading_room_visit.web.Helper
             return new OrderCompleteViewModel
             {
                 BookingType = model.BookingType,
+                BookingStatus = model.BookingStatus,
                 ReaderTicket = model.ReaderTicket,
                 BookingReference = model.BookingReference,
                 BookingStartDate = model.VisitStartDate,

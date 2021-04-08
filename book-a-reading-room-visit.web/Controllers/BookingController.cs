@@ -172,22 +172,23 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpGet]
         public IActionResult ReturnToBooking()
         {
-            return View();
+            var model = new ReturnToBookingViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReturnToBooking(BookingViewModel bookingViewModel)
+        public async Task<IActionResult> ReturnToBooking(ReturnToBookingViewModel returnToBookingViewModel)
         {
-            if (bookingViewModel.ReaderTicket == 0 || string.IsNullOrWhiteSpace(bookingViewModel.BookingReference))
+            if (returnToBookingViewModel.ReaderTicket == 0)
             {
-                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
-                return View();
+                ModelState.AddModelError("ticket", Constants.Valid_Ticket_Required);
+                return View(returnToBookingViewModel);
             }
-            var model = await _bookingService.GetBookingAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingReference);
+            var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference);
             if (model == null)
             {
-                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
-                return View();
+                ModelState.AddModelError("", Constants.Valid_Ticket_And_BookingReference_Required);
+                return View(returnToBookingViewModel);
             }
             var routeValues = new
             {
@@ -195,7 +196,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 bookingReference = model.BookingReference,
                 readerTicket = model.ReaderTicket
             };
-            return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
+            return RedirectToAction("OrderComplete", "DocumentOrder", routeValues);
         }
 
         public IActionResult ThankYou()

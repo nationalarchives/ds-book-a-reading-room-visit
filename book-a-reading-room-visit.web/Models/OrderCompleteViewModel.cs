@@ -7,6 +7,7 @@ namespace book_a_reading_room_visit.web.Models
     public class OrderCompleteViewModel
     {
         public BookingTypes BookingType { get; set; }
+        public BookingStatuses BookingStatus { get; set; }
         public int? ReaderTicket { get; set; }
         public string BookingReference { get; set; }
         public DateTime BookingStartDate { get; set; }

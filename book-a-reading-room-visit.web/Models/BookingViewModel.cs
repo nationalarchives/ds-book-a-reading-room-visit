@@ -21,7 +21,9 @@ namespace book_a_reading_room_visit.web.Models
         [Range(typeof(bool), "true", "true", ErrorMessage = Constants.Accept_COVID_19_Required)]
         public bool AcceptCovidCharter { get; set; }
         public bool NoFaceCovering { get; set; }
+
         [Required(ErrorMessage = Constants.Valid_Ticket_Required)]
+        [MaxLength(11)]
         public string Ticket { get; set; }
 
         public int ReaderTicket { 
@@ -34,14 +36,18 @@ namespace book_a_reading_room_visit.web.Models
                 return 0;
             }
         }
+        [MaxLength(100)]
         [EmailAddress(ErrorMessage = Constants.Valid_Email_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Email { get; set; }
+        [MaxLength(50)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Phone { get; set; }
+        [MaxLength(50)]
         [Required(ErrorMessage = Constants.Firstname_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string FirstName { get; set; }
+        [MaxLength(50)]
         [Required(ErrorMessage = Constants.Lastname_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string LastName { get; set; }

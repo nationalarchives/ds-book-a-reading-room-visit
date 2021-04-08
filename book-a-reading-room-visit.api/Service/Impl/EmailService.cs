@@ -52,6 +52,27 @@ namespace book_a_reading_room_visit.api.Service
                         subject = _configuration.GetValue<string>("EmailSettings:CancelSubject");
                         break;
                     }
+                case EmailType.AutomaticCancellation:
+                    {
+                        subject = _configuration.GetValue<string>("EmailSettings:AutoCancelSubject");
+                        break;
+                    }
+                case EmailType.ValidOrderReminder:
+                    {
+                        subject = _configuration.GetValue<string>("EmailSettings:ValidReminderSubject");
+                        break;
+                    }
+                case EmailType.InvalidOrderReminder:
+                    {
+                        subject = _configuration.GetValue<string>("EmailSettings:InvalidReminderSubject");
+                        break;
+                    }
+                case EmailType.DSDBookingConfirmation:
+                    {
+                        subject = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? $"Standard visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}"
+                                                                                              : $"Bulk order visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}";
+                        break;
+                    }
             }
 
             var xDocument = GetXDocument(bookingModel);
@@ -90,7 +111,6 @@ namespace book_a_reading_room_visit.api.Service
 
         internal string GetTextBody(EmailType emailType, BookingModel bookingModel)
         {
-
             var sb = new StringBuilder(File.ReadAllText($"EmailTemplate/Text/{emailType}.txt"));
 
             dynamic expando = new ExpandoObject();
@@ -118,18 +138,9 @@ namespace book_a_reading_room_visit.api.Service
             expando.Name = $"{bookingModel.FirstName} {bookingModel.LastName}";
             expando.VisitStartDateDisplay = bookingModel.VisitStartDate.ToShortDateString();
 
-            //TODO: Is this the correct logic - if so move to helper. also required for Html email.
-           switch (bookingModel.SeatType)
+            if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
             {
-                case SeatTypes.BulkOrderSeat:
-                case SeatTypes.BulkOrderSeatWithCamera:
-                case SeatTypes.MandLRR:
-                case SeatTypes.MandLRRWithCamera:
-                    expando.ReadingRoom = "Map Room";
-                    break;
-                default:
-                    expando.ReadingRoom = "Standard Reading Room";
-                    break;
+                expando.ReadingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room (All seats have camera stands)" : "Map and large document reading room";
             }
 
             foreach(KeyValuePair<string, object> kv in dictionary)

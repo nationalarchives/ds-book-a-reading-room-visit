@@ -28,6 +28,13 @@
 
     <div class="heading">
         <div class="row">
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="summary-error-message">
+                    <h2>Sorry there was a problem.</h2>
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
             <div class="col-lg-8 col-md-8">
                 <h2>
                     You are viewing @(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard visit availability" : "bulk order visit availability")
@@ -37,7 +44,7 @@
                 <div class="visit-toggler">
                     @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                     {
-                    <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">See bulk order visit availability</a>
+                        <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">See bulk order visit availability</a>
                     }
 
                     else
@@ -124,11 +131,6 @@
         <div id="date-selection">
             <div class="col-md-8 col-sm-8">
                 <h3>Available dates</h3>
-                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-                {
-                    @Html.ValidationMessageFor(Model => Model.ErrorMessage, "", new { @class = "form-error" })
-                }
-
                 <ul>
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ReturnToBookingViewModel 
+@{
     ViewData["Title"] = "Return to your booking";
 }
 
@@ -47,7 +48,7 @@
                                 confirmation email, e.g. RR811-260-2036X
                             </p>
 
-                            <input id="reference-number" name="bookingReference" type="text" required />
+                            @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", required=true })
                         </fieldset>
 
                         <fieldset>
@@ -56,7 +57,7 @@
                                 This can be found on your reader’s ticket, e.g. 102087
                             </p>
 
-                            <input id="reader-ticket-number" name="ticket" type="text" required />
+                            @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", required = true })
                         </fieldset>
 
                         <button type="submit" class="button">Return to your document order</button>
