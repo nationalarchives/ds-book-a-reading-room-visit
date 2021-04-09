@@ -30,20 +30,21 @@
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(Model => Model.BookingReference)
                         @Html.HiddenFor(Model => Model.ReaderTicket)
-                        @Html.HiddenFor(Model => Model.SeatType)
+                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                         @Html.HiddenFor(Model => Model.BookingStartDate)
                         @Html.HiddenFor(Model => Model.SeatNumber)
                         <fieldset>
                             <legend>Are you sure you want to cancel your visit for @Model.BookingStartDate.ToString("dddd dd MMMM yyyy")?</legend>
 
-                            <span class="col-md-4 col-sm-6 no-left-padding">
-                                <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
+                            <div class="reservation-options">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="button">Yes - cancel my visit</button>
+                                        <a class="button secondary" href="@Url.Action("OrderDocuments", "DocumentOrder",
                                                 new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No - take me to the order form</a>
-                            </span>
-
-                            <span class="col-md-4 col-sm-6 no-left-padding">
-                                <button type="submit" class="button">Yes - cancel my visit</button>
-                            </span>
+                                    </div>
+                                </div>
+                            </div>
                         </fieldset>
                     </form>
                 </div>

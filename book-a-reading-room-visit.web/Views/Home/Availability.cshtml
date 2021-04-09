@@ -28,6 +28,13 @@
 
     <div class="heading">
         <div class="row">
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="summary-error-message">
+                    <h2>Sorry there was a problem.</h2>
+                    <p>@Model.ErrorMessage</p>
+                </div>
+            }
             <div class="col-lg-8 col-md-8">
                 <h2>
                     You are viewing @(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard visit availability" : "bulk order visit availability")
@@ -37,87 +44,84 @@
                 <div class="visit-toggler">
                     @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                     {
-                        <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Bulk visit availability ></a>
+                        <a href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">See bulk order visit availability</a>
                     }
 
                     else
                     {
-                        <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Standard visit availability ></a>
+                        <a href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">See standard visit availability</a>
                     }
                 </div>
             </div>
         </div>
     </div>
 
+
     <div class="row">
         <div id="room-selection" class="align-left">
             <div class="col-md-4 col-sm-4">
-                <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Select a preferred reading room" : "Room information")</h3>
+                <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Choose a reading room" : "Room information")</h3>
 
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
                     <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
                         <fieldset>
-                            <legend class="sr-only">Select reading room</legend>
+                            <legend class="sr-only">Choose a reading room</legend>
 
                             <div>
                                 <label for="standard-room">Document reading room</label>
                                 @Html.RadioButton("seattype", SeatTypes.StdRRSeat.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.StdRRSeat.ToStringURL(), new { id = "standard-room" })
-                                <p class="helper-text">All seats will have a camera stand provided.</p>
+                                <p class="helper-text">All seats will have a <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/" target="_blank" rel="noreferrer noopener">camera stand</a> provided.</p>
                             </div>
 
                             <div class="border-top">
                                 <label for="map-and-lg-room">Map and large document reading room</label>
                                 @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
-                            <p class="helper-text">
-                                Some camera stands are available. If you need one, please tell us in the 'Access needs and
-                                research requests' box when you complete your document order.
-                            </p>
+                                <p class="helper-text">
+                                    Some camera stands are available. If you need one, please tell us in the 'Access needs and research requests' box when you complete your document order.
+                                </p>
                             </div>
 
                             <div class="border-top">
-                                <p class="bold-text">Not sure which room you need?</p>
-                                <p class="helper-text no-margin no-left-padding">
-                                    Choose the Map and large document reading room if you know the documents you are ordering
-                                    are large or are dated pre-16th Century. If you are unsure, choose the Document reading
-                                    room.
+                                <p class="helper-text">
+                                    Choose the Map and large document reading room if you know the documents you are ordering are large or are dated pre-16th Century. If you are unsure, choose the Document reading room.
                                 </p>
                             </div>
+
                         </fieldset>
 
                         <div class="prompt-white">
-                            <p class="bold-text">Are accessible seats available?</p>
-                            <p class="helper-text no-margin no-left-padding">
-                                All seats in our reading rooms are accessible. You can tell us about your access needs when
-                                you order your documents in step 4.
-                            </p>
+                            <details open>
+                                <summary>Are accessible seats available?</summary>
+                                <p class="helper-text no-margin no-padding">
+                                    All seats in our reading rooms are accessible. You can tell us about your access needs when you order your documents in step 4.
+                                </p>
+                            </details>
                         </div>
 
-                        <button class="button" type="submit">Update</button>
+                        <button class="button" type="submit">Update availability</button>
                     </form>
                 }
 
                 else
                 {
                     <div class="prompt-white">
-                        <p class="bold-text">Which room will I be in?</p>
-                        <p class="helper-text no-margin">All of our bulk orders are in the Map and Large document reading room.</p>
+                        <details open>
+                            <summary>Are camera stands available?</summary>
+                            <p class="helper-text no-margin">
+                                Some camera stands are available. If you need one, please tell us in the 'Additional access requirements or
+                                research requests' box when you complete your document order.
+                            </p>
+                        </details>
                     </div>
-
                     <div class="prompt-white">
-                        <p class="bold-text">Are camera stands available?</p>
-                        <p class="helper-text no-margin">
-                            Some camera stands are available. If you need one, please tell us in the 'Access needs and
-                            research requests' box when you complete your document order.
-                        </p>
-                    </div>
-
-                    <div class="prompt-white">
-                        <p class="bold-text">Are accessible seats available?</p>
-                        <p class="helper-text no-margin">
-                            All seats in our reading rooms are accessible. You can tell us about your access needs when you
-                            order your documents in step 4.
-                        </p>
+                        <details open>
+                            <summary>Are accessible seats available?</summary>
+                            <p class="helper-text no-margin">
+                                All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
+                                documents in step 4.
+                            </p>
+                        </details>
                     </div>
                 }
             </div>
@@ -127,20 +131,15 @@
         <div id="date-selection">
             <div class="col-md-8 col-sm-8">
                 <h3>Available dates</h3>
-                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
-                {
-                    <span class="error-message">@Model.ErrorMessage</span>
-                }
-
                 <ul>
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {
                         <li class="date">
-                            @if (Model.AvailableBookings[index].AvailableSeats == 0)
+                            @if (Model.AvailableBookings[index].AvailableSeats < 1)
                             {
                                 <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
                                     <span class="col-md-6 col-sm-6 col-xs-6 align-left">@Model.AvailableBookings[index].ToDate</span>
-                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats places available</span>
+                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">0 places available</span>
                                 </span>
                             }
                             else
@@ -163,5 +162,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

@@ -2,8 +2,10 @@
 using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -52,7 +54,19 @@ namespace book_a_reading_room_visit.web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionFeature != null)
+            {
+                string routeWhereExceptionOccurred = exceptionFeature.Path;
+
+                // Get the exception that occurred
+                Exception ex = exceptionFeature.Error;
+
+                _logger.LogError($"Exception type {ex.GetType()} ::Message {ex.Message} ::Stack Trace {ex.StackTrace}");
+            }
+
+            return View();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ReturnToBookingViewModel 
+@{
     ViewData["Title"] = "Return to your booking";
 }
 
@@ -11,15 +12,24 @@
         <div class="heading align-left">
             <div class="row">
                 <div class="col-md-12">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="summary-error-message">
+                            <h2>Sorry there was a problem.</h2>
+                            <p>Check the highlighted fields to continue.</p>
+                        </div>
+                    }
                     <p>
-                        If you have already reserved a space, you can use the form below to find your document order form.
-                        You will need to complete your document order at least <span class="bold-text">
-                        4 working days before your date of visit</span>. If you do not complete this step your visit will be
-                        automatically cancelled.
+                        If you have already reserved a space, you can use the form below to find your document
+                        order form. You will need to complete your document order at least <span class="bold-text">
+                            5 working days before your date of visit
+                        </span>. If you do not complete this step your visit
+                        will be automatically cancelled.
                     </p>
                     <p>
-                        You can return to amend or complete your document order at any point before the deadline. Once this date has
-                        passed, you can't change your document order as we will begin preparing your order for your visit.
+                        You can return to amend or complete your document order at any point before the
+                        deadline. Once this date has passed, you can't change your document order as we will
+                        begin preparing your order for your visit.
                     </p>
                 </div>
             </div>
@@ -32,24 +42,25 @@
                         @Html.ValidationSummary()
                         @Html.AntiForgeryToken()
                         <fieldset>
-                            <legend><label for="reference-number">Enter your booking reference number</label></legend>
-                            <p>
-                                This will have been shown on screen when you reserved your space or sent in your confirmation email, e.g. RR811-260-2036X
+                            <label for="reference-number">Enter your booking reference number</label>
+                            <p class="helper-text">
+                                This will have been shown on screen when you reserved your space or sent in your
+                                confirmation email, e.g. RR811-260-2036X
                             </p>
 
-                            <input id="reference-number" name="bookingReference" type="text" placeholder="Enter booking reference" required />
+                            @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", required=true })
                         </fieldset>
 
                         <fieldset>
-                            <legend><label for="reader-ticket-number">Enter your reader’s ticket number</label></legend>
-                            <p>
+                            <label for="reader-ticket-number">Enter your reader’s ticket number</label>
+                            <p class="helper-text">
                                 This can be found on your reader’s ticket, e.g. 102087
                             </p>
 
-                            <input id="reader-ticket-number" name="ticket" type="text" placeholder="Enter ticket number" required />
+                            @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", required = true })
                         </fieldset>
 
-                        <button type="submit" class="button">Return to your form ></button>
+                        <button type="submit" class="button">Return to your document order</button>
                     </form>
                 </div>
             </div>

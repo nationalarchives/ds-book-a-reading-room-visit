@@ -1,5 +1,5 @@
 ﻿main {
-    background-color: #eee;
+    background-color: #fff;
 }
 
 a.button {
@@ -8,13 +8,41 @@ a.button {
 }
 
 .content-wrapper {
+    min-height: 600px;
     background-color: #fff;
-    margin-top: 2.4em;
-    padding: 0em 2em 2em 2em;
+    margin-top: 0em;
+    padding: 0em 0 5em 0;
 
     .heading {
-        margin-top: 2em;
-        margin-bottom: 2em;
+        margin-top: 1.5em;
+        margin-bottom: 0;
+
+        @media (max-width: $screen-phone) {
+            margin-top: 0.5em;
+        }
+    }
+}
+
+.checkbox-warning {
+    label::before {
+        border: 2px solid #d4351c !important;
+    }
+}
+
+.standfirst {
+    font-size: 1.1em;
+    margin-bottom: 3em !important;
+    font-family: $heading_font;
+    letter-spacing: -0.2px;
+
+
+    p {
+        margin: 0 0 1em !important;
+    }
+
+    a {
+        margin-top: 0;
+        font-family: $body_font;
     }
 }
 
@@ -47,13 +75,27 @@ form {
 
     h3 {
         margin-bottom: 1em;
-        padding-left: 15px;
     }
 
     table {
+        background: #efefef;
+        border-top: 4px solid #ddd;
+        border-bottom: 4px solid #ddd;
+        font-size: 0.9em;
+
         td, th {
-            border: 1px solid #ddd;
+            border: 2px solid #fff;
+            padding: 1em !important;
         }
+
+        td {
+            width: 75%;
+        }
+    }
+
+    button {
+        font-size: 0.85em;
+        margin-bottom: 3em;
     }
 }
 
@@ -83,13 +125,15 @@ form {
 }
 
 .border-top {
-    border-top: 2px solid #eee;
+    border-top: 2px dotted #ddd;
     padding-top: 1.6em;
 }
 
 .btn-link {
     color: #134571;
     text-decoration: underline;
+    font-weight: bold;
+    padding: 0;
 
     &:hover {
         background-color: #134571;
@@ -118,11 +162,65 @@ form {
     }
 }
 
+.summary-error-message {
+    color: #fff;
+    display: block;
+    padding: 2em;
+    background: #d4351c;
+    width: 100%;
+    margin-bottom: 2em;
+    text-align: center;
+
+    h2 {
+        margin-top: 0;
+    }
+
+    p {
+        margin-bottom: 0 !important;
+        font-size: 1.1em;
+    }
+}
+
+.order-form {
+    .form-error {
+        color: #d4351c;
+        font-weight: bold;
+        display: block;
+        margin-left: 17px;
+        padding: 10px 15px;
+        font-size: 0.95em;
+
+
+        @media screen and (min-width: 768px) {
+            max-width: 500px;
+            margin-left: 17px;
+            padding: 10px 15px;
+        }
+
+        @media screen and (min-width: 992px) {
+            margin-left: 0;
+            padding: 10px 0;
+        }
+
+        @media screen and (min-width: 1100px) {
+            max-width: 250px;
+            padding: 10px 15px;
+            margin-left: 17px;
+        }
+    }
+
+    .form-warning {
+        border: 2px solid #d4351c;
+    }
+}
+
 .error-message {
     color: #000;
+    color: #fff;
     display: block;
     padding: 3px 7px;
     background: #f9f7e2;
+    background: #d4351c;
     width: 100%;
     max-width: 480px;
     margin-left: 40px;
@@ -171,11 +269,16 @@ form {
     }
 
     label {
-        min-width: 20px;
+        min-width: 28px;
+        font-size: 19px;
     }
 
     legend, p {
         text-align: left;
+    }
+
+    legend {
+        font-size: 19px;
     }
 
     .order-form-field {
@@ -185,32 +288,45 @@ form {
 }
 
 .order-option {
+
     div.col-md-6 {
         display: inline-block;
         margin: 2em 0;
 
         .card {
-            background-color: #eee;
-            border: 2px #ddd solid;
+            padding: 2em 1em;
+            background-color: #efefef;
+            border: 2px solid #ddd;
+            border-top: 2px solid #ddd;
+            border-bottom: 4px solid #bbb;
+            min-height: 475px;
+
+
+            h2 {
+                margin: 1em 0 0.3em;
+            }
+
+            p {
+                margin: 0;
+                color: $grey-mid-dark;
+            }
 
             ul {
-                min-height: 180px;
+                margin: 1em 1.5em;
                 padding: 0 20px;
+                color: $grey-mid-dark;
 
                 li {
-                    list-style: none;
+                    list-style-type: circle;
                     text-align: left;
-                    margin-bottom: 1em;
-
-                    &:before {
-                        content: "- ";
-                    }
+                    margin-bottom: 0.5em;
+                    list-style-position: outside;
+                    font-size: 0.95em;
                 }
             }
 
             .order-option-heading {
-                min-height: 120px;
-                padding: 0 1em;
+                padding: 0 1em 1em;
             }
         }
     }
@@ -221,10 +337,11 @@ form {
 }
 
 .prompt-grey {
-    background-color: #eee;
+    color: #222;
     display: inline-block;
-    margin-bottom: 2em;
+    margin: 0.5em 0 0.5em;
     padding: 1em 2em;
+
 
     p {
         margin: 0 0 10px;
@@ -232,8 +349,9 @@ form {
 }
 
 .prompt-white {
-    border: 5px solid #ddd;
-    padding: 1em;
+    border: 2px solid #ddd;
+    border-bottom: 4px solid #bbb;
+    padding: 2em 1.5em;
 
     div {
         p {
@@ -244,7 +362,7 @@ form {
 
 .reader-ticket-form {
     legend {
-        font-size: 16px;
+        font-size: 1.1em;
     }
 
     input[type=text] {
@@ -265,12 +383,17 @@ form {
         margin-top: 2em;
     }
 
+    input[type=text] {
+        display: block;
+        margin-top: 1em;
+    }
+
     fieldset {
         margin-bottom: 2em !important;
     }
 
-    legend {
-        font-size: 20px;
+    legend, label {
+        font-size: 19px;
         margin-bottom: 0;
     }
 }
@@ -278,13 +401,18 @@ form {
 .visit-toggler {
     margin-top: 20px;
     text-align: right;
+    font-size: 0.85em;
 }
 
 #additional-reqs {
-    border: 2px solid #26262a;
+    border: $grid-line;
     min-height: 200px;
     min-width: 50%;
     padding: .6em;
+
+    @media (max-width: $screen-phone) {
+        width: 100%;
+    }
 }
 
 #conditions {
@@ -297,19 +425,25 @@ form {
 
 #date-selection {
     h3 {
-        padding-left: 40px;
+        padding-left: 0;
     }
 
     ul {
         margin-top: 20px;
+        padding-left: 0;
 
         li.date {
             list-style: none;
+            margin: 0;
+
+            &:first-of-type span {
+                margin-top: 0;
+            }
 
             button {
 
                 @include availability-list-item;
-                background-color: #fff;
+                background-color: #eee;
 
                 &:focus {
                     background-color: #000;
@@ -321,13 +455,43 @@ form {
                     background-color: #000;
                     color: #fff;
                     outline: none;
+
+                    span {
+                        span:last-child {
+                            color: #fff;
+                        }
+                    }
                 }
             }
 
             .no-availability {
 
                 @include availability-list-item;
-                background-color: #eee;
+                border-top: 2px solid #efefef;
+                border-bottom: 2px solid #ddd;
+                color: #777;
+                margin-top: 0;
+
+                @media (max-width: $screen-phone) {
+                    display: block;
+
+                    span {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                    }
+                }
+
+
+                span:last-child {
+                    text-decoration: none;
+                    font-size: 0.9em;
+                    color: #777;
+
+                    @media (max-width: $screen-phone) {
+                        padding-top: 0.75em;
+                    }
+                }
             }
         }
     }
@@ -343,35 +507,69 @@ form {
 }
 
 #progress-bar {
-    margin-top: 2em;
+    padding: 0.4em 0 0.5em;
+    margin: 1.5em 0 0;
+    border-top: 4px solid #ddd;
+    border-bottom: 2px dotted #ddd;
+
+    @media (max-width: $screen-phone) {
+        @include sr-only;
+    }
 
     ol {
         padding-left: 0;
+        margin-bottom: 0.2em;
+        text-align: center;
 
         li {
             display: inline-block;
             list-style: none;
-            margin: 1em;
+            margin: 1em 1.6em;
 
             .step-number {
                 padding: 1em;
                 align-items: center;
-                border: 2px solid #000;
+                background-color: #999;
                 border-radius: 50%;
-                color: #000;
+                color: #fff;
                 display: inline-flex;
-                font-weight: 700;
-                height: 24px;
+                font-weight: normal;
+                height: 22px;
                 justify-content: center;
-                width: 24px;
+                width: 22px;
+                font-size: 0.7em;
+                margin-right: 0.5em;
+                font-family: $heading_font;
+            }
+        }
+
+        .step {
+            font-family: $heading_font;
+            color: #555;
+            font-size: 0.85em;
+            letter-spacing: -0.3px;
+        }
+
+        @media (max-width: $screen-tablet) {
+
+            li:not(.active) {
+
+                .step {
+                    @include sr-only;
+                }
             }
         }
 
         .active {
-            font-weight: 700;
 
             .step {
-                border-bottom: 2px solid #000;
+                color: #111;
+                padding-bottom: 0.3em;
+                border-bottom: 3px solid #333;
+            }
+
+            .step-number {
+                background-color: #134571;
             }
         }
     }
@@ -384,12 +582,17 @@ form {
 
     .prompt-white {
         margin: 1em 0;
+
+        @media (max-width: $screen-phone) {
+            padding: 0.5em 1em;
+        }
     }
 }
 
 #room-selection-form {
     fieldset {
-        border: 2px solid #eee !important;
+        border: 2px solid #ddd !important;
+        border-bottom: 4px solid #bbb !important;
         margin-bottom: 1em !important;
         padding: 1em !important;
 
@@ -398,7 +601,9 @@ form {
             margin-top: 1em;
 
             label {
-                font-size: 18px;
+                font-family: $body_font;
+                font-size: 1em;
+                font-weight: bold;
                 width: 80%;
             }
         }
@@ -437,15 +642,62 @@ form {
     }
 }
 
-#timer {
-    display: block;
-    font-size: 20px;
-    margin-bottom: .5em;
+.warning-panel {
+    padding: 2em;
+    background-color: #f2de00;
+    text-align: center;
+
+    h3 {
+        margin: 0.5em !important;
+        font-weight: normal !important;
+    }
+
+    #timer {
+        display: block;
+        font-size: 1.15em;
+        margin-bottom: .5em;
+        font-weight: bold;
+    }
+}
+
+.success-panel {
+    padding: 2em;
+    background-color: #134571;
+    color: #fff;
+    text-align: center;
+
+    h2 {
+        margin: 0.5em !important;
+    }
+
+    ul {
+        display: block;
+        list-style-type: none;
+        margin: 2em 0;
+
+        li {
+            display: inline-block;
+            margin: 0.5em;
+
+            a {
+                background: #fff;
+                padding: 1em;
+                text-decoration: none;
+                display: inline-block;
+                min-width: 275px;
+
+                &:hover {
+                    background: #000;
+                }
+            }
+        }
+    }
 }
 
 #unavailable-docs {
     display: inline-block;
-    margin-top: 1em;
+    font-size: 0.95em;
+    margin-top: 0.3em;
 }
 
 @media screen and (max-width: 991px) {
@@ -558,4 +810,62 @@ form {
 .full-width {
     display: block;
     max-width: none;
+}
+
+.mt-med {
+    margin-top: 15px !important;
+}
+
+.mt-lg {
+    margin-top: 25px !important;
+}
+
+.secondary-info {
+    font-size: 1em;
+    display: block;
+    margin-top: 0.3em;
+    color: #555;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+details {
+
+    @media (min-width: $screen-phone) {
+
+        summary[tabindex='-1'] {
+            color: #000000;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+    }
+
+    summary {
+        color: #134571;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    &[open] {
+        summary {
+        }
+    }
+}
+
+.reservation-options {
+    @media (max-width: $screen-phone) {
+
+        a {
+            margin-left: 0 !important;
+            margin-right: 2em;
+        }
+    }
 }

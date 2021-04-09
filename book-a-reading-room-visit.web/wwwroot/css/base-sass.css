@@ -5705,15 +5705,22 @@ td.visible-print {
   border-radius: 0;
 }
 
-a#cookieCutter {
-  background: url(/images/close-img.png) 0 2px no-repeat;
+.cookieNotice a {
+  color: #134571;
+}
+.cookieNotice a#cookieCutter {
+  background: url(/book-a-reading-room-visit/images/close-img.png) 0 2px no-repeat;
   margin-left: 10px;
   padding-top: 1px;
   padding-left: 22px;
   text-decoration: none;
 }
-a#cookieCutter:hover {
+.cookieNotice a#cookieCutter:hover {
   background-color: #134571;
+}
+.cookieNotice a:hover {
+  background-color: #134571;
+  color: #fff;
 }
 
 /* TinyMce - list left thumbnail */
@@ -5794,101 +5801,111 @@ a#cookieCutter:hover {
 
 body {
   font-family: "Open Sans", sans-serif;
-  font-size: 16px;
+  font-size: 16.5px;
   line-height: 1.6;
   color: #26262a;
 }
-body h1, body h2, body h3, body h4, body .h1, body .h2, body .h3, body .h4 {
-  font-family: "Roboto Mono", monospace;
-  font-weight: 400;
+body .kbs h1, body .kbs h2, body .kbs h3, body .kbs h4, body .kbs .h1, body .kbs .h2, body .kbs .h3, body .kbs .h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
   z-index: 2;
   line-height: 1.4;
 }
-body h1 {
-  font-size: 2.4em;
+body .kbs h1 {
+  font-size: 2em;
+  font-family: "Open Sans", sans-serif;
+  margin: 3em 0 0;
+  letter-spacing: 0.2px;
 }
-body h2 {
-  font-size: 1.6em;
+@media (max-width: 768px) {
+  body .kbs h1 {
+    margin-top: 1em;
+  }
 }
-body h3 {
+body .kbs h2 {
   font-size: 1.3em;
 }
-body h4 {
-  font-size: 1.16em;
+body .kbs h3 {
+  font-size: 1.1em;
+  margin-bottom: 1.1em;
 }
-body .separator-heading {
+body .kbs h4 {
+  font-size: 1em;
+}
+body .kbs .separator-heading {
   margin-top: 0;
   padding-top: 10px;
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
 }
-body p {
+body .kbs p {
   margin: 0 0 1.6em;
 }
-body a, body a:active, body a:visited {
+body .kbs a, body .kbs a:active, body .kbs a:visited {
   color: #134571;
   text-decoration: underline;
+  font-weight: bold;
 }
-body a:focus {
+body .kbs a:focus {
   outline: 5px solid #1d70b8;
   outline-offset: 0;
   z-index: 999;
   background-color: #fff;
   color: #26262a;
 }
-body a:hover {
+body .kbs a:hover {
   background-color: #134571;
   outline: 1px solid #134571;
   color: #ffffff;
 }
-body ul {
+body .kbs ul {
   margin-bottom: 1.6em;
 }
-body ul li {
+body .kbs ul li {
   margin-bottom: 0.2em;
 }
-body ul.no-bullet {
+body .kbs ul.no-bullet {
   list-style-type: none;
   padding: 0;
 }
-body ul.sibling {
+body .kbs ul.sibling {
   list-style-type: none;
   padding: 0;
 }
-body ul.child {
+body .kbs ul.child {
   list-style-type: none;
   padding: 0;
 }
-body ul.documents li, body ul.urls li {
+body .kbs ul.documents li, body .kbs ul.urls li {
   margin-bottom: 0.5em;
 }
-body ul.documents a, body ul.urls a {
+body .kbs ul.documents a, body .kbs ul.urls a {
   display: block;
 }
-body ul#menu-disc, body ul#a-z-menu, body ul.page-numbers {
+body .kbs ul#menu-disc, body .kbs ul#a-z-menu, body .kbs ul.page-numbers {
   padding: 0;
 }
-body ul#menu-disc li, body ul#a-z-menu li, body ul.page-numbers li {
+body .kbs ul#menu-disc li, body .kbs ul#a-z-menu li, body .kbs ul.page-numbers li {
   list-style-type: none;
   margin: 0 4px 4px 0;
   display: inline-block;
 }
-body ul#menu-disc li a, body ul#a-z-menu li a, body ul.page-numbers li a {
+body .kbs ul#menu-disc li a, body .kbs ul#a-z-menu li a, body .kbs ul.page-numbers li a {
   display: block;
   color: #fff;
   background-color: #000;
   text-align: center;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   font-size: 1.25em;
   line-height: 44px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
 }
-body ul#menu-disc li a:hover, body ul#a-z-menu li a:hover, body ul.page-numbers li a:hover {
+body .kbs ul#menu-disc li a:hover, body .kbs ul#a-z-menu li a:hover, body .kbs ul.page-numbers li a:hover {
   background-color: #fff;
   color: #000;
 }
-body blockquote {
+body .kbs blockquote {
   font-family: "Roboto Mono", monospace;
   border: solid 2px #000;
   padding: 1.6em 3.2em;
@@ -5896,39 +5913,39 @@ body blockquote {
   background: #fff;
   width: 100%;
 }
-body blockquote p {
+body .kbs blockquote p {
   margin: 0;
 }
-body blockquote cite {
+body .kbs blockquote cite {
   display: block;
   font-size: 0.9em;
   text-align: right;
   margin: 0.6em 0;
 }
-body blockquote .misc {
+body .kbs blockquote .misc {
   margin-bottom: 1.6em;
 }
-body .emphasis-block {
+body .kbs .emphasis-block {
   background: #f9f7e2;
 }
-body .emphasis-alert {
+body .kbs .emphasis-alert {
   background: #fbe2bc;
 }
-body .emphasis-success {
+body .kbs .emphasis-success {
   background: #dde5d5;
 }
-body .emphasis-error {
+body .kbs .emphasis-error {
   background: #fad3d4;
 }
-body hr {
+body .kbs hr {
   height: 0;
   border: 0;
   margin: 1em 0;
   clear: both;
   width: 100%;
-  border-bottom: 2px solid #26262a;
+  border-bottom: 2px solid #888;
 }
-body pre {
+body .kbs pre {
   display: block;
   padding: 1.6em;
   margin: 0 0 10px;
@@ -5941,6 +5958,34 @@ body pre {
   border: 1px solid #ccc;
   border-radius: 0;
 }
+body .kbs .button {
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+  background-color: #134571;
+  font-weight: bold;
+  border: 0;
+  color: white;
+  padding: 1em 1.3em;
+  margin-top: 1em;
+}
+body .kbs .button:hover {
+  background: #000;
+}
+body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary {
+  color: #fff !important;
+}
+body .kbs .secondary {
+  background: #fff;
+  color: #134571;
+  text-decoration: underline;
+  padding: 0;
+  margin-left: 2em;
+}
+body .kbs .secondary:hover {
+  cursor: pointer;
+  background: #134571;
+  color: #fff;
+}
 
 /* TNA form styles */
 form fieldset {
@@ -5949,22 +5994,23 @@ form fieldset {
   border: 0 !important;
 }
 form legend {
-  font-family: "Roboto Mono", monospace;
-  font-size: 1.6em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
   margin: 0 0 0.6em 0;
   width: auto;
   padding: 0 !important;
   border: 0 !important;
 }
 form label {
-  font-family: "Roboto Mono", monospace;
-  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 form input[type=submit] {
   font-family: "Roboto Mono", monospace;
   background-color: #26262a;
   color: #fff;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 0.5em 0.9em;
   display: inline-block;
   min-width: 24px;
@@ -5983,21 +6029,21 @@ form input[type=color],
 form input[type=email],
 form input[type=date],
 form input.width-half {
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 8px;
   text-indent: 5px;
   min-width: 220px;
   width: auto;
 }
 form textarea {
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 0.6em;
 }
 form select {
   height: 2.4em;
   -webkit-border-radius: 0;
   border: 0;
-  outline: 2px solid #26262a;
+  outline: 2px solid #888;
   outline-offset: -1px;
 }
 form input:focus,
@@ -6080,18 +6126,19 @@ form .form-row .optional {
   color: #6f777b;
 }
 form .form-row .form-error {
-  color: #000;
+  color: #d4351c;
+  font-weight: bold;
   display: block;
-  padding: 3px 7px;
-  background: #f9f7e2;
+  padding: 10px 0;
   width: 100%;
   max-width: 480px;
+  font-size: 0.95em;
 }
 form .form-row .form-error span {
   font-size: 1.6em;
 }
 form .form-row .form-warning {
-  border: 2px solid #EBAB2C;
+  border: 2px solid #d4351c;
 }
 @media (max-width: 768px) {
   form .form-row {
@@ -6134,15 +6181,15 @@ form .checkbox label::after {
 form .checkbox label::before {
   height: 24px;
   width: 24px;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   left: 0;
   top: 2px;
 }
 form .checkbox label::after {
   height: 7px;
   width: 13px;
-  border-left: 2px solid #26262a;
-  border-bottom: 2px solid #26262a;
+  border-left: 2px solid #888;
+  border-bottom: 2px solid #888;
   transform: rotate(-45deg);
   left: 6px;
   top: 9px;
@@ -6176,7 +6223,7 @@ form .radio label::after {
 form .radio label::before {
   height: 24px;
   width: 24px;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   border-radius: 50%;
   left: 0;
   top: 2px;
@@ -6203,7 +6250,7 @@ form .radio input[type=radio]:focus + label::before {
 
 .error-message, .success-message {
   color: #26262a !important;
-  border: 2px solid #26262a !important;
+  border: 2px solid #888 !important;
   padding: 0 1em;
   margin-bottom: 1.6em;
 }
@@ -6227,7 +6274,7 @@ form .radio input[type=radio]:focus + label::before {
 .print_button {
   background: #26262a;
   color: #fff;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 0.6em;
   margin: 1em 0;
   float: none;
@@ -6873,9 +6920,9 @@ footer .newsletter .news-content .button {
 }
 
 .default-page .entry-header {
-  border-left: 2px solid #26262a;
-  border-right: 2px solid #26262a;
-  border-bottom: 2px solid #26262a;
+  border-left: 2px solid #888;
+  border-right: 2px solid #888;
+  border-bottom: 2px solid #888;
   padding: 0.6em 1.6em;
   background: #fff;
 }
@@ -6883,8 +6930,8 @@ footer .newsletter .news-content .button {
   margin-top: 0;
 }
 .default-page .entry-content {
-  border-left: 2px solid #26262a;
-  border-right: 2px solid #26262a;
+  border-left: 2px solid #888;
+  border-right: 2px solid #888;
   padding: 1.6em;
   background: #fff;
   margin-bottom: 1.6em;
@@ -6964,7 +7011,7 @@ footer .newsletter .news-content .button {
   margin-bottom: 1.6em;
 }
 .level-one .banner .entry-header {
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 7px 22px;
   margin: 34px 0 16px 34px;
   background-color: #fff;
@@ -6992,7 +7039,7 @@ footer .newsletter .news-content .button {
   display: inline-block;
   background-color: #fff;
   margin: 0;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 8px 14px;
 }
 .level-one .banner .entry-content .button {
@@ -7022,7 +7069,7 @@ footer .newsletter .news-content .button {
   min-height: 160px;
 }
 .level-one .box .entry-header {
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding-top: 0.6em;
   margin-bottom: 1.6em;
 }
@@ -7036,7 +7083,7 @@ footer .newsletter .news-content .button {
 
 .level-two .level-two-intro .entry-header {
   margin-bottom: 1.6em;
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding-top: 0.6em;
 }
 .level-two .level-two-intro .entry-header h1 {
@@ -7053,7 +7100,7 @@ footer .newsletter .news-content .button {
 }
 .level-two .level-two-intro .well {
   background-color: transparent;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 1.6em 1em;
   margin-top: -1.6em;
 }
@@ -7069,7 +7116,7 @@ footer .newsletter .news-content .button {
 }
 .level-two .level-two-card .entry-header {
   margin-bottom: 1.6em;
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding-top: 0.6em;
 }
 .level-two .level-two-card .entry-header h2 {
@@ -7083,11 +7130,11 @@ footer .newsletter .news-content .button {
   font-family: "Roboto Mono", monospace;
   background-color: #26262a;
   color: #fff;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 0.5em 0.9em;
   display: inline-block;
   min-width: 24px;
-  text-align: center;
+  text-align: left;
 }
 .button:active, .button:visited {
   color: #fff;
@@ -7387,7 +7434,7 @@ button:focus {
 .commentlist li div.comment-body {
   margin-bottom: 1.6em;
   overflow: hidden;
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding: 1em 0;
 }
 .commentlist li div.comment-body .comment-meta.commentmetadata {
@@ -7423,7 +7470,7 @@ button:focus {
   font-family: "Roboto Mono", monospace;
   background-color: #26262a;
   color: #fff;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 0.5em 0.9em;
   display: inline-block;
   min-width: 24px;
@@ -7674,7 +7721,7 @@ button:focus {
   min-height: 185px;
 }
 .cards h3 {
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding-top: 10px;
   margin-top: 0;
 }
@@ -7695,7 +7742,7 @@ button:focus {
     min-width: 100%;
   }
   .hero-card .card {
-    border-right: 2px solid #26262a;
+    border-right: 2px solid #888;
     display: table;
     width: 100%;
     margin-bottom: 1.6em;
@@ -7760,7 +7807,7 @@ a.content-card + .entry-content a.content-card + p a:hover {
 .portal-landing .banner .heading-banner h1 {
   display: inline-block;
   background-color: #fff;
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   padding: 7px 22px;
   margin-bottom: 1em;
 }
@@ -7768,7 +7815,7 @@ a.content-card + .entry-content a.content-card + p a:hover {
   margin-bottom: 1.6em;
 }
 .portal-landing .intro-content .intro-entry {
-  border-top: 2px solid #26262a;
+  border-top: 2px solid #888;
   padding-top: 0.6em;
 }
 .portal-landing .intro-content .intro-entry h2, .portal-landing .intro-content .intro-entry h3 {
@@ -7823,7 +7870,7 @@ a.content-card + .entry-content a.content-card + p a:hover {
 }
 
 main {
-  background-color: #eee;
+  background-color: #fff;
 }
 
 a.button {
@@ -7832,13 +7879,37 @@ a.button {
 }
 
 .content-wrapper {
+  min-height: 600px;
   background-color: #fff;
-  margin-top: 2.4em;
-  padding: 0em 2em 2em 2em;
+  margin-top: 0em;
+  padding: 0em 0 5em 0;
 }
 .content-wrapper .heading {
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+@media (max-width: 480px) {
+  .content-wrapper .heading {
+    margin-top: 0.5em;
+  }
+}
+
+.checkbox-warning label::before {
+  border: 2px solid #d4351c !important;
+}
+
+.standfirst {
+  font-size: 1.1em;
+  margin-bottom: 3em !important;
+  font-family: "Roboto Mono", monospace;
+  letter-spacing: -0.2px;
+}
+.standfirst p {
+  margin: 0 0 1em !important;
+}
+.standfirst a {
+  margin-top: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
 small {
@@ -7868,10 +7939,23 @@ form input[type=checkbox] {
 }
 .booking-details h3, .cancellation-details h3 {
   margin-bottom: 1em;
-  padding-left: 15px;
+}
+.booking-details table, .cancellation-details table {
+  background: #efefef;
+  border-top: 4px solid #ddd;
+  border-bottom: 4px solid #ddd;
+  font-size: 0.9em;
 }
 .booking-details table td, .booking-details table th, .cancellation-details table td, .cancellation-details table th {
-  border: 1px solid #ddd;
+  border: 2px solid #fff;
+  padding: 1em !important;
+}
+.booking-details table td, .cancellation-details table td {
+  width: 75%;
+}
+.booking-details button, .cancellation-details button {
+  font-size: 0.85em;
+  margin-bottom: 3em;
 }
 
 .booking-options {
@@ -7891,13 +7975,15 @@ form input[type=checkbox] {
 }
 
 .border-top {
-  border-top: 2px solid #eee;
+  border-top: 2px dotted #ddd;
   padding-top: 1.6em;
 }
 
 .btn-link {
   color: #134571;
   text-decoration: underline;
+  font-weight: bold;
+  padding: 0;
 }
 .btn-link:hover {
   background-color: #134571;
@@ -7921,11 +8007,62 @@ form input[type=checkbox] {
   margin-bottom: 0.5em;
 }
 
+.summary-error-message {
+  color: #fff;
+  display: block;
+  padding: 2em;
+  background: #d4351c;
+  width: 100%;
+  margin-bottom: 2em;
+  text-align: center;
+}
+.summary-error-message h2 {
+  margin-top: 0;
+}
+.summary-error-message p {
+  margin-bottom: 0 !important;
+  font-size: 1.1em;
+}
+
+.order-form .form-error {
+  color: #d4351c;
+  font-weight: bold;
+  display: block;
+  margin-left: 17px;
+  padding: 10px 15px;
+  font-size: 0.95em;
+}
+@media screen and (min-width: 768px) {
+  .order-form .form-error {
+    max-width: 500px;
+    margin-left: 17px;
+    padding: 10px 15px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .order-form .form-error {
+    margin-left: 0;
+    padding: 10px 0;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .order-form .form-error {
+    max-width: 250px;
+    padding: 10px 15px;
+    margin-left: 17px;
+  }
+}
+.order-form .form-warning {
+  border: 2px solid #d4351c;
+}
+
 .error-message {
   color: #000;
+  color: #fff;
   display: block;
   padding: 3px 7px;
   background: #f9f7e2;
+  background: #d4351c;
   width: 100%;
   max-width: 480px;
   margin-left: 40px;
@@ -7970,10 +8107,14 @@ form input[type=checkbox] {
   padding-left: 0;
 }
 .order-form label {
-  min-width: 20px;
+  min-width: 28px;
+  font-size: 19px;
 }
 .order-form legend, .order-form p {
   text-align: left;
+}
+.order-form legend {
+  font-size: 19px;
 }
 .order-form .order-form-field {
   margin-bottom: 1em;
@@ -7985,24 +8126,34 @@ form input[type=checkbox] {
   margin: 2em 0;
 }
 .order-option div.col-md-6 .card {
-  background-color: #eee;
-  border: 2px #ddd solid;
+  padding: 2em 1em;
+  background-color: #efefef;
+  border: 2px solid #ddd;
+  border-top: 2px solid #ddd;
+  border-bottom: 4px solid #bbb;
+  min-height: 475px;
+}
+.order-option div.col-md-6 .card h2 {
+  margin: 1em 0 0.3em;
+}
+.order-option div.col-md-6 .card p {
+  margin: 0;
+  color: #555;
 }
 .order-option div.col-md-6 .card ul {
-  min-height: 180px;
+  margin: 1em 1.5em;
   padding: 0 20px;
+  color: #555;
 }
 .order-option div.col-md-6 .card ul li {
-  list-style: none;
+  list-style-type: circle;
   text-align: left;
-  margin-bottom: 1em;
-}
-.order-option div.col-md-6 .card ul li:before {
-  content: "- ";
+  margin-bottom: 0.5em;
+  list-style-position: outside;
+  font-size: 0.95em;
 }
 .order-option div.col-md-6 .card .order-option-heading {
-  min-height: 120px;
-  padding: 0 1em;
+  padding: 0 1em 1em;
 }
 
 .primary:focus {
@@ -8010,9 +8161,9 @@ form input[type=checkbox] {
 }
 
 .prompt-grey {
-  background-color: #eee;
+  color: #222;
   display: inline-block;
-  margin-bottom: 2em;
+  margin: 0.5em 0 0.5em;
   padding: 1em 2em;
 }
 .prompt-grey p {
@@ -8020,15 +8171,16 @@ form input[type=checkbox] {
 }
 
 .prompt-white {
-  border: 5px solid #ddd;
-  padding: 1em;
+  border: 2px solid #ddd;
+  border-bottom: 4px solid #bbb;
+  padding: 2em 1.5em;
 }
 .prompt-white div p {
   margin-bottom: 1em;
 }
 
 .reader-ticket-form legend {
-  font-size: 16px;
+  font-size: 1.1em;
 }
 .reader-ticket-form input[type=text] {
   display: block;
@@ -8041,24 +8193,34 @@ form input[type=checkbox] {
 .rtn-to-booking-form button {
   margin-top: 2em;
 }
+.rtn-to-booking-form input[type=text] {
+  display: block;
+  margin-top: 1em;
+}
 .rtn-to-booking-form fieldset {
   margin-bottom: 2em !important;
 }
-.rtn-to-booking-form legend {
-  font-size: 20px;
+.rtn-to-booking-form legend, .rtn-to-booking-form label {
+  font-size: 19px;
   margin-bottom: 0;
 }
 
 .visit-toggler {
   margin-top: 20px;
   text-align: right;
+  font-size: 0.85em;
 }
 
 #additional-reqs {
-  border: 2px solid #26262a;
+  border: 2px solid #888;
   min-height: 200px;
   min-width: 50%;
   padding: 0.6em;
+}
+@media (max-width: 480px) {
+  #additional-reqs {
+    width: 100%;
+  }
 }
 
 #conditions {
@@ -8069,31 +8231,54 @@ form input[type=checkbox] {
 }
 
 #date-selection h3 {
-  padding-left: 40px;
+  padding-left: 0;
 }
 #date-selection ul {
   margin-top: 20px;
+  padding-left: 0;
 }
 #date-selection ul li.date {
   list-style: none;
+  margin: 0;
+}
+#date-selection ul li.date:first-of-type span {
+  margin-top: 0;
 }
 #date-selection ul li.date button {
-  color: #000;
+  color: #134571;
+  font-weight: bold;
   display: flex;
-  padding: 15px;
-  font-family: "Roboto Mono", sans-serif;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  margin-bottom: 1em;
-  text-decoration: none;
+  padding: 20px 15px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  border-bottom: 2px solid #ddd;
+  margin: 10px 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #eee;
 }
 #date-selection ul li.date button span {
   padding: 0;
 }
 #date-selection ul li.date button span span {
   padding: 0;
+  text-decoration: underline;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date button span span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+#date-selection ul li.date button span span:last-child {
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #444;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date button span span:last-child {
+    padding-top: 0.75em;
+  }
 }
 #date-selection ul li.date button:focus {
   background-color: #000;
@@ -8105,23 +8290,67 @@ form input[type=checkbox] {
   color: #fff;
   outline: none;
 }
+#date-selection ul li.date button:hover span span:last-child {
+  color: #fff;
+}
 #date-selection ul li.date .no-availability {
-  color: #000;
+  color: #134571;
+  font-weight: bold;
   display: flex;
-  padding: 15px;
-  font-family: "Roboto Mono", sans-serif;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  margin-bottom: 1em;
-  text-decoration: none;
+  padding: 20px 15px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  border-bottom: 2px solid #ddd;
+  margin: 10px 0;
   width: 100%;
-  background-color: #eee;
+  border-top: 2px solid #efefef;
+  border-bottom: 2px solid #ddd;
+  color: #777;
+  margin-top: 0;
 }
 #date-selection ul li.date .no-availability span {
   padding: 0;
 }
 #date-selection ul li.date .no-availability span span {
   padding: 0;
+  text-decoration: underline;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+#date-selection ul li.date .no-availability span span:last-child {
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #444;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span span:last-child {
+    padding-top: 0.75em;
+  }
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability {
+    display: block;
+  }
+  #date-selection ul li.date .no-availability span {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+#date-selection ul li.date .no-availability span:last-child {
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #777;
+}
+@media (max-width: 480px) {
+  #date-selection ul li.date .no-availability span:last-child {
+    padding-top: 0.75em;
+  }
 }
 
 #home .prompt-white h2 {
@@ -8130,33 +8359,73 @@ form input[type=checkbox] {
 }
 
 #progress-bar {
-  margin-top: 2em;
+  padding: 0.4em 0 0.5em;
+  margin: 1.5em 0 0;
+  border-top: 4px solid #ddd;
+  border-bottom: 2px dotted #ddd;
+}
+@media (max-width: 480px) {
+  #progress-bar {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 }
 #progress-bar ol {
   padding-left: 0;
+  margin-bottom: 0.2em;
+  text-align: center;
 }
 #progress-bar ol li {
   display: inline-block;
   list-style: none;
-  margin: 1em;
+  margin: 1em 1.6em;
 }
 #progress-bar ol li .step-number {
   padding: 1em;
   align-items: center;
-  border: 2px solid #000;
+  background-color: #999;
   border-radius: 50%;
-  color: #000;
+  color: #fff;
   display: inline-flex;
-  font-weight: 700;
-  height: 24px;
+  font-weight: normal;
+  height: 22px;
   justify-content: center;
-  width: 24px;
+  width: 22px;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+  font-family: "Roboto Mono", monospace;
 }
-#progress-bar ol .active {
-  font-weight: 700;
+#progress-bar ol .step {
+  font-family: "Roboto Mono", monospace;
+  color: #555;
+  font-size: 0.85em;
+  letter-spacing: -0.3px;
+}
+@media (max-width: 768px) {
+  #progress-bar ol li:not(.active) .step {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
 }
 #progress-bar ol .active .step {
-  border-bottom: 2px solid #000;
+  color: #111;
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid #333;
+}
+#progress-bar ol .active .step-number {
+  background-color: #134571;
 }
 
 #room-selection h2 {
@@ -8165,9 +8434,15 @@ form input[type=checkbox] {
 #room-selection .prompt-white {
   margin: 1em 0;
 }
+@media (max-width: 480px) {
+  #room-selection .prompt-white {
+    padding: 0.5em 1em;
+  }
+}
 
 #room-selection-form fieldset {
-  border: 2px solid #eee !important;
+  border: 2px solid #ddd !important;
+  border-bottom: 4px solid #bbb !important;
   margin-bottom: 1em !important;
   padding: 1em !important;
 }
@@ -8176,7 +8451,9 @@ form input[type=checkbox] {
   margin-top: 1em;
 }
 #room-selection-form fieldset div label {
-  font-size: 18px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  font-weight: bold;
   width: 80%;
 }
 #room-selection-form .form-indent {
@@ -8205,15 +8482,55 @@ form input[type=checkbox] {
   margin-right: 0.5em;
 }
 
-#timer {
+.warning-panel {
+  padding: 2em;
+  background-color: #f2de00;
+  text-align: center;
+}
+.warning-panel h3 {
+  margin: 0.5em !important;
+  font-weight: normal !important;
+}
+.warning-panel #timer {
   display: block;
-  font-size: 20px;
+  font-size: 1.15em;
   margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.success-panel {
+  padding: 2em;
+  background-color: #134571;
+  color: #fff;
+  text-align: center;
+}
+.success-panel h2 {
+  margin: 0.5em !important;
+}
+.success-panel ul {
+  display: block;
+  list-style-type: none;
+  margin: 2em 0;
+}
+.success-panel ul li {
+  display: inline-block;
+  margin: 0.5em;
+}
+.success-panel ul li a {
+  background: #fff;
+  padding: 1em;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 275px;
+}
+.success-panel ul li a:hover {
+  background: #000;
 }
 
 #unavailable-docs {
   display: inline-block;
-  margin-top: 1em;
+  font-size: 0.95em;
+  margin-top: 0.3em;
 }
 
 @media screen and (max-width: 991px) {
@@ -8284,6 +8601,48 @@ form input[type=checkbox] {
 .full-width {
   display: block;
   max-width: none;
+}
+
+.mt-med {
+  margin-top: 15px !important;
+}
+
+.mt-lg {
+  margin-top: 25px !important;
+}
+
+.secondary-info {
+  font-size: 1em;
+  display: block;
+  margin-top: 0.3em;
+  color: #555;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+@media (min-width: 480px) {
+  details summary[tabindex="-1"] {
+    color: #000000;
+  }
+  details summary[tabindex="-1"]:focus {
+    outline: none;
+  }
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+}
+details summary {
+  color: #134571;
+  text-decoration: underline;
+  font-weight: bold;
+}
+@media (max-width: 480px) {
+  .reservation-options a {
+    margin-left: 0 !important;
+    margin-right: 2em;
+  }
 }
 
 /*# sourceMappingURL=base-sass.css.map */

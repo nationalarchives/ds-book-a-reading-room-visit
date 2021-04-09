@@ -25,19 +25,23 @@ ViewData["Title"] = "Booking confirmation";
         </section>
     </div>
 
-    <div class="heading">
-        <h2>You have made a provisional booking to visit the reading rooms</h2>
-    </div>
-
     <div class="booking-summary text-center">
         <div class="row">
             <div class="col-md-12">
-                <div class="prompt-grey full-width">
-                    <p class="bold-text">Your booking reference is @(Model.BookingReference). Keep a note of this number for future reference.</p>
-                    <p>
-                        To confirm your booking, complete the document order form by
-                        <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST).</span>
-                    </p>
+                <div class="prompt-grey full-width success-panel">
+                    <h2>You have made a provisional booking to visit the reading rooms</h2>
+                    <p>Your booking reference is @(Model.BookingReference). Keep a note of this number for future reference.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="prompt-grey full-width warning-panel">
+                    To confirm your booking, complete the document order form by
+                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST).</span>
                 </div>
             </div>
         </div>
@@ -46,42 +50,38 @@ ViewData["Title"] = "Booking confirmation";
     <div class="booking-details">
         <div class="row">
             <div class="col-md-12">
+                <h3>Your reservation details</h3>
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th scope="row">Visit date</th>
+                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
+                        </tr>
                         <tr>
                             <th scope="row">Visit type</th>
                             <td>
                                 @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">Visit date</th>
-                            <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Reading room</th>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            <tr>
+                                <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Standard document reading room</td>
+                                    <td>Document reading room (All seats have camera stands)</td>
                                 }
                                 else
                                 {
                                     <td>Map and large document reading room</td>
                                 }
-
-                            }
-                            else
-                            {
-                                <td>Map and large document reading room</td>
-                            }
-                        </tr>
+                            </tr>
+                        }
                         <tr>
                             <th scope="row">Seat number</th>
                             <td>
                                 @Model.SeatNumber
-                                <p class="helper-text">Based on availability, we may need to change your seat on the date of your visit.</p>
+                                <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
                             </td>
                         </tr>
                     </tbody>
@@ -92,10 +92,10 @@ ViewData["Title"] = "Booking confirmation";
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    A direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
-                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you can’t see the reservation confirmation email in your inbox,
-                    check your spam and junk email folders.
+                    If you provided an email address as part of your booking, a direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
+                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
                 </p>
+                <p>If you did not provide an email address, use the <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">Return to booking form</a> to complete your document order at any point before the deadline.</p>
             </div>
         </div>
     </div>
@@ -103,14 +103,9 @@ ViewData["Title"] = "Booking confirmation";
     <div class="reservation-options">
         <div class="row">
             <div class="col-md-12">
-                <span class="col-lg-4 col-md-4">
-                    <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
-                                            new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Continue booking now</a>
-                </span>
-
-                <span class="col-lg-4 col-md-4">
-                    <a class="button primary" href="@Url.Action("Booking", "ContinueLater")">I'd like to continue later</a>
-                </span>
+                <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
+                                        new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Continue to your document order</a>
+                <a class="button secondary" href="@Url.Action("ContinueLater", "DocumentOrder", new { bookingReference = Model.BookingReference })">I'd like to continue later</a>
             </div>
         </div>
     </div>

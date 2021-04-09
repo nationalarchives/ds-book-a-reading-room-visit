@@ -59,4 +59,45 @@
         DOCUMENT_REFERENCE_NO_PATTERN_MATCH = -19,
         DOCUMENT_REFERENCE_NULL = -20
     }
+
+    public static class DocumentRefCodesExtension
+    {
+        public static string ToError(this DocumentRefCodes errorCode)
+        {
+            switch (errorCode)
+            {
+                case DocumentRefCodes.DOCUMENT_REFERENCE_VALID:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_MULITIPLE_ROWS_FOUND:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_OFFSITE:
+                    return string.Empty; ;
+                case DocumentRefCodes.DOCUMENT_REFERENCE_INVALID_LETTER_CODE_OR_CLASS:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_INVALID_SUBCLASS:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_NO_ROWS_FOUND:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_INVALID_LETTER_CODE:
+                    return "This document cannot be identified. Check catalogue reference has been entered correctly.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_UN_ORDERABLE:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_UNFIT:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_MISSING:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_RELOCATION:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_COLLECTION_CARE:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_ON_LOAN:
+                case DocumentRefCodes.DOCUMENT_REFERENCE_ON_MOULD_TREATMENT:
+                    return "This document cannot be ordered. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_CLOSED:
+                    return "This document is closed and cannot be ordered. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_KEW_SURROGATE:
+                    return "Microfiche or microfilm documents do not need to be ordered. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_DIGITAL_SURROGATE_AVAILABLE:
+                    return "Document is digitised and cannot be ordered. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_NOT_HELD_AT_KEW:
+                    return "This document is held by another archive and cannot be viewed at The National Archives. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_ON_DISPLAY:
+                    return "This document is on display and cannot be ordered. Check the catalogue for more information.";
+                case DocumentRefCodes.DOCUMENT_REFERENCE_NO_PATTERN_MATCH:
+                    return "This reference is not recognised. Check the catalogue for more information.";
+                default:
+                    return string.Empty;
+            }
+        }
+    }
 }

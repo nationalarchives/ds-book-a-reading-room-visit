@@ -1,0 +1,17 @@
+﻿    Booking summary:-
+    Name:                                {Name}
+    Telephone                            {Phone}
+    Booking reference:                   {BookingReference}
+    Reader’s ticket number:              {ReaderTicket}
+    Access needs and research requests:  {AdditionalRequirements}
+    Visit date:                          {VisitStartDateDisplay}
+    Seat number:                         {SeatNumber}
+    
+
+    Document order(s):
+
+    {MainOrderDocuments}
+
+    Reserve document(s):
+
+    {ReserveOrderDocuments}

@@ -9,25 +9,26 @@
 
     <div class="container content-wrapper">
 
-        <div class="heading">
+        <div class="heading text-left standfirst">
             <div class="row">
                 <div class="col-md-12">
                     <p>
-                        To reserve a place, you will need your reader's ticket number and to know how many documents you would like to see.
-                        You can then choose an available date to view documents in our reading rooms. You can book a maximum of two visits
-                        per month. See our terms and conditions for more details.
+                        You can use this service to book a visit to view our documents. You may book a maximum of two visits in 4 weeks.
                     </p>
-                    <a href="#">More information about how to book and what to expect ></a>
+
+                    <a href="#">
+                        Find out more about how to book and what to expect.
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="prompt-white">
+        <div class="prompt-white primary-box">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Before you book</h2>
-                    <p>You will need a reader’s ticket number to complete the booking</p>
-                    <a href="#">Register or renew a reader’s ticket ></a>
+                    <p>You will need your reader’s ticket number to complete your booking.</p>
+                    <a target="_blank" rel="noreferrer noopener" href="@Environment.GetEnvironmentVariable("ReaderRegisterURL")">Register for or renew a reader’s ticket</a>
                 </div>
             </div>
         </div>
@@ -42,10 +43,10 @@
                         </div>
 
                         <ul>
-                            <li>Documents can be from <span class="bold-text">multiple series</span>, e.g. ADM 22 and C 142</li>
+                            <li>Documents can be from <span class="bold-text">multiple series</span><br>e.g. ADM 22 and C 142</li>
                             <li>1-day visit</li>
                             <li>Up to 12 documents</li>
-                            <li>Computer access available</li>
+                            <li>Camera stands and computer access available</li>
                         </ul>
 
                         <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Select a date</a>
@@ -62,10 +63,10 @@
                         </div>
 
                         <ul>
-                            <li>Documents have to be from <span class="bold-text">one series</span>, e.g. ADM 22</li>
+                            <li>Documents have to be from <span class="bold-text">one series</span><br>e.g. ADM 22</li>
                             <li>2-day visit</li>
                             <li>Between 20 - 40 documents</li>
-                            <li>Computer access available</li>
+                            <li>Camera stands and computer access available</li>
                         </ul>
 
                         <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Select a date</a>
@@ -74,15 +75,14 @@
             </section>
         </div>
 
-        <section class="prompt">
+        <section class="prompt-white">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Return to your booking</h2>
-                    <p>You can view your order details for an existing visit using your booking reference number</p>
-                    <a href="@Url.Action("ReturnToBooking", "Booking")">Find your existing visit</a>
+                    <p>See order details for an upcoming visit using your booking reference and reader’s ticket number.</p>
+                    <a href="@Url.Action("ReturnToBooking", "Booking")">View or edit your document order</a>
                 </div>
             </div>
         </section>
-
     </div>
 </div>

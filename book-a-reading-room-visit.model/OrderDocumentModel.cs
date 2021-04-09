@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string DocumentReference { get; set; }
+        public string Description { get; set; }
         public string LetterCode { get; set; }
         public int ClassNumber { get; set; }
         public int PieceId { get; set; }

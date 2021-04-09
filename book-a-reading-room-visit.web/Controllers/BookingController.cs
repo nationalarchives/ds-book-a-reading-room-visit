@@ -4,6 +4,7 @@ using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace book_a_reading_room_visit.web.Controllers
         private readonly IAvailabilityService _availabilityService;
         private readonly IConfiguration _configuration;
 
-        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService, 
+        public BookingController(IBookingService bookingService, IAvailabilityService availabilityService,
                                     ChannelFactory<IAdvancedOrderService> channelFactory, IConfiguration configuration)
         {
             _bookingService = bookingService;
@@ -28,7 +29,7 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> SecureBooking(BookingViewModel bookingViewModel)
         {
-            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ? 
+            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ?
                                               bookingViewModel.BookingStartDate : bookingViewModel.BookingStartDate.AddDays(1);
 
             var model = new BookingModel
@@ -43,16 +44,35 @@ namespace book_a_reading_room_visit.web.Controllers
 
             if (!result.IsSuccess)
             {
-                var routeValues = new { 
-                    bookingtype = bookingViewModel.BookingType.ToStringURL(), 
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
                     seattype = bookingViewModel.SeatType.ToStringURL(),
                     errorcode = ErrorCode.seat_unavailable
                 };
                 return RedirectToAction("Availability", "Home", routeValues);
             }
-            bookingViewModel.BookingReference = result.BookingReference;
+            return RedirectToAction("SecureBooking", "Booking", new { bookingReference = result.BookingReference });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SecureBooking(string bookingReference)
+        {
+            var model = await _bookingService.GetBookingAsync(bookingReference);
+
+            var bookingViewModel = new BookingViewModel
+            {
+                BookingReference = bookingReference,
+                BookingType = model.BookingType,
+                SeatType = model.SeatType,
+                BookingStartDate = model.VisitStartDate,
+                BookingEndDate = model.VisitEndDate
+            };
+
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
-            bookingViewModel.ExpiredBy = result.CreatedDate.AddMinutes(elapsedTime);
+            var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
+            bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(model.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
+            bookingViewModel.CurrentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
 
             return View(bookingViewModel);
         }
@@ -77,17 +97,21 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 ModelState.AddModelError("Ticket", Constants.Valid_Ticket_Required);
             }
-            if (string.IsNullOrWhiteSpace(bookingViewModel.FirstName))
+            if (bool.TryParse(Environment.GetEnvironmentVariable("EnforceOrderLimit"), out var enforceOrderLimit) && enforceOrderLimit)
             {
-                ModelState.AddModelError("Firstname", Constants.Firstname_Required);
-            }
-            if (string.IsNullOrWhiteSpace(bookingViewModel.LastName))
-            {
-                ModelState.AddModelError("Lastname", Constants.Lastname_Required);
+                var validation = await _bookingService.GetReaderTicketEligibleAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingStartDate);
+                if (validation == ValidationResult.HaveAnotherVisitOnThisDate)
+                {
+                    ModelState.AddModelError("Ticket", Constants.Another_Booking_On_The_Same_date);
+                }
+                else if (validation == ValidationResult.ExceededTheSetLimit)
+                {
+                    ModelState.AddModelError("Ticket", Constants.Ticket_Exceed_Order_Limit);
+                }
             }
             if (string.IsNullOrWhiteSpace(bookingViewModel.Phone) && string.IsNullOrWhiteSpace(bookingViewModel.Email))
             {
-                ModelState.AddModelError("Phone", Constants.Phone_Or_Email_Required);
+                ModelState.AddModelError("email-phone", Constants.Phone_Or_Email_Required);
             }
 
             if (!ModelState.IsValid)
@@ -148,22 +172,23 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpGet]
         public IActionResult ReturnToBooking()
         {
-            return View();
+            var model = new ReturnToBookingViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReturnToBooking(BookingViewModel bookingViewModel)
+        public async Task<IActionResult> ReturnToBooking(ReturnToBookingViewModel returnToBookingViewModel)
         {
-            if (bookingViewModel.ReaderTicket == 0 || string.IsNullOrWhiteSpace(bookingViewModel.BookingReference))
+            if (returnToBookingViewModel.ReaderTicket == 0)
             {
-                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
-                return View();
+                ModelState.AddModelError("ticket", Constants.Valid_Ticket_Required);
+                return View(returnToBookingViewModel);
             }
-            var model = await _bookingService.GetBookingAsync(bookingViewModel.ReaderTicket, bookingViewModel.BookingReference);
+            var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference);
             if (model == null)
             {
-                ModelState.AddModelError("", "Valid reader ticket and booking reference required.");
-                return View();
+                ModelState.AddModelError("", Constants.Valid_Ticket_And_BookingReference_Required);
+                return View(returnToBookingViewModel);
             }
             var routeValues = new
             {
@@ -171,12 +196,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 bookingReference = model.BookingReference,
                 readerTicket = model.ReaderTicket
             };
-            return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
-        }
-
-        public IActionResult ContinueLater()
-        {
-            return View();
+            return RedirectToAction("OrderComplete", "DocumentOrder", routeValues);
         }
 
         public IActionResult ThankYou()

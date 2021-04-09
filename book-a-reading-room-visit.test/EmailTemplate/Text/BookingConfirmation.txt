@@ -1,0 +1,45 @@
+﻿    Dear {Name},
+
+    You have booked a visit to view original documents in The National Archives’ reading rooms on {VisitStartDateDisplay}.
+
+    Your document order has been submitted and we will begin preparing your documents for your visit. We will be in contact if we have any questions about your visit.
+    
+    Your booking summary:-
+    Name:                                  {Name}
+    Telephone number is:                   {Phone}
+    Your booking reference is:             {BookingReference}
+    Your Reader’s ticket number is:        {ReaderTicket}
+    Access needs and research requests:    {AdditionalRequirements}
+    Visit type:                            {VisitType}
+    Visit date:                            {VisitStartDateDisplay}
+    Reading room:                          {ReadingRoom}
+    Seat number:                           {SeatNumber}
+    
+    Based on availability, we may need to change your seat on the date of your visit.</span>
+
+    Your document order(s):
+
+    {MainOrderDocuments}
+
+    Your reserve document(s):
+
+    {ReserveOrderDocuments}
+
+    Prepare for your visit by visting the following web addresses:-
+    how to get here: https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/
+    what you can take into the reading rooms: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
+    how to use the reading rooms (Rules for readers): https://www.nationalarchives.gov.uk/documents/rules.pdf
+    what to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/ and https://www.youtube.com/watch?v=Wm4mq5X_EFs (video)
+
+    If you are using your reader's ticket for the first time remember to bring the correct documents to complete your registration.  If you wish to take photographs of our documents please bring your device. 
+    We do not charge for this.
+
+    What to expect when you visit:
+    Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process: https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf
+    Please remember to wear a face mask when you visit, unless you have a valid exemption: https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions
+
+    You can cancel your visit at any time. Use this link: {ReturnURL}
+
+    This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
+
+    This is a redesigned service. Complete our survey so we can keep improving this service: https://www.smartsurvey.co.uk/s/NewVisitBooking/

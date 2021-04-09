@@ -1,0 +1,17 @@
+﻿    Dear {Name},
+
+    We have cancelled your visit to The National Archives’ reading rooms because the deadline to complete your document order has passed and your order was incomplete.
+
+    The following booking was cancelled:-
+    Booking reference:          {BookingReference}
+    Reader’s ticket number:     {ReaderTicket}
+    Visit type:                 {VisitType}
+    Visit date:                 {VisitStartDate}
+    Reading room:               {ReadingRoom}
+    Seat number:                {SeatNumber}
+
+    The following web addresses may help with what to do next:-
+    Book another visit to view our documents: {HomeURL}
+    Find out more about this service: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
+    
+    This email inbox is not being monitored. Contact us via the following web address if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/

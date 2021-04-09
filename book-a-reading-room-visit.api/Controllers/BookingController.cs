@@ -2,6 +2,7 @@
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 
@@ -31,6 +32,14 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _bookingService.ConfirmBookingAsync(bookingModel);
             return Ok(result);
         }
+
+        [HttpPost("upsert-document")]
+        public async Task<ActionResult<BookingResponseModel>> UpsertDocument(BookingModel bookingModel)
+        {
+            var result = await _bookingService.UpsertDocumentsAsync(bookingModel);
+            return Ok(result);
+        }
+
 
         [HttpPost("update-reserved-seat")]
         public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
@@ -98,8 +107,7 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("{bookingId:int}")]
+        [HttpGet("{bookingId:int}")]
         public async Task<ActionResult<Booking>> Get(int bookingId)
         {
             var booking = await _bookingService.GetBookingByIdAsync(bookingId);
@@ -114,11 +122,32 @@ namespace book_a_reading_room_visit.api.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("{readerticket}/{bookingreference}")]
+        [HttpGet("{bookingreference}")]
+        public async Task<ActionResult<Booking>> Get(string bookingreference)
+        {
+            var booking = await _bookingService.GetBookingByReferenceAsync(bookingreference);
+
+            if (booking != null)
+            {
+                return Ok(booking);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("readerticket-eligible")]
+        public async Task<ActionResult<ValidationResult>> GetReaderTicketEligible(int readerTicket, DateTime visitDate)
+        {
+            var result = await _bookingService.GetReaderTicketEligibilityAsync(readerTicket, visitDate);
+            return Ok(result);
+        }
+
+        [HttpGet("{readerticket}/{bookingreference}")]
         public async Task<ActionResult<Booking>> GetByReference(int readerTicket, string bookingReference)
         {
-            var booking = await _bookingService.GetBookingByReferenceAsync(readerTicket, bookingReference);
+            var booking = await _bookingService.GetBookingByReaderTicketAndReferenceAsync(readerTicket, bookingReference);
 
             if (booking != null)
             {
@@ -131,14 +160,13 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<Booking>> SearchBookings([FromQuery]BookingSearchModel bookingSearchModel)
+        public async Task<ActionResult<Booking>> SearchBookings([FromQuery] BookingSearchModel bookingSearchModel)
         {
             var result = await _bookingService.BookingSearchAsync(bookingSearchModel);
             return Ok(result);
         }
 
-        [HttpDelete]
-        [Route("{bookingreference}")]
+        [HttpDelete("{bookingreference}")]
         public async Task<IActionResult> DeleteBooking(string bookingreference)
         {
             var result = await _bookingService.DeleteBookingAsync(bookingreference);

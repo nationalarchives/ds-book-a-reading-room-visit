@@ -10,8 +10,8 @@ using book_a_reading_room_visit.data;
 namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210319111726_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210401155033_delete-expired-bookings")]
+    partial class deleteexpiredbookings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,9 @@ namespace book_a_reading_room_visit.data.Migrations
                     b.Property<string>("PieceReference")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool?>("Requisitioned")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Site")
                         .HasMaxLength(20)
