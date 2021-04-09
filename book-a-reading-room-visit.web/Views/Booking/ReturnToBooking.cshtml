@@ -39,25 +39,44 @@
             <div class="row">
                 <div class="col-md-12 align-left">
                     <form action="@Url.Action("ReturnToBooking", "Booking")" class="rtn-to-booking-form" method="post">
-                        @Html.ValidationSummary()
                         @Html.AntiForgeryToken()
                         <fieldset>
-                            <label for="reference-number">Enter your booking reference number</label>
-                            <p class="helper-text">
-                                This will have been shown on screen when you reserved your space or sent in your
-                                confirmation email, e.g. RR811-260-2036X
-                            </p>
+                            <div class="form-row">
+                                <label for="reference-number">Enter your booking reference number</label>
+                                <p class="helper-text">
+                                    This will have been shown on screen when you reserved your space or sent in your
+                                    confirmation email, e.g. RR811-260-2036X
+                                </p>
 
-                            @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", required=true })
+                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0)
+                                {
+                                    @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", @class = "form-warning", required = true })
+                                    @Html.ValidationMessage("ticket-booking-reference", "", new { @class = "form-error" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", required = true })
+                                }
+                            </div>
                         </fieldset>
 
                         <fieldset>
-                            <label for="reader-ticket-number">Enter your reader’s ticket number</label>
-                            <p class="helper-text">
-                                This can be found on your reader’s ticket, e.g. 102087
-                            </p>
+                            <div class="form-row">
+                                <label for="reader-ticket-number">Enter your reader’s ticket number</label>
+                                <p class="helper-text">
+                                    This can be found on your reader’s ticket, e.g. 102087
+                                </p>
 
-                            @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", required = true })
+                                @if (ViewData.ModelState["ticket"]?.Errors.Count() > 0)
+                                {
+                                    @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", @class = "form-warning", required = true })
+                                    @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", required = true })
+                                }
+                            </div>
                         </fieldset>
 
                         <button type="submit" class="button">Return to your document order</button>
