@@ -82,7 +82,28 @@ namespace book_a_reading_room_visit.api.Controllers
         public async Task<ActionResult<bool>> UpdateComments([FromBody] BookingCommentsModel bookingCommentsModel)
         {
             bool result = await _bookingService.UpdateBookingCommentsAsync(bookingCommentsModel);
-            return result;
+            if (result)
+            {
+               return Ok() ;
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost("toggle-no-show")]
+        public async Task<ActionResult<bool>> ToggleNoShow ([FromBody]int bookingId)
+        {
+            bool result = await _bookingService.ToggleNoShowAsync(bookingId);
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("{bookingId:int}")]
