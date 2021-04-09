@@ -40,7 +40,6 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
-
         [HttpPost("update-reserved-seat")]
         public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
         {
