@@ -204,9 +204,17 @@ body {
             }
         }
 
-        .order-option, .reservation-option {
+        .order-option, .reservation-option, .cancellation-details {
             .button.primary {
-                color: #fff !important
+                color: #fff !important;
+
+                &:focus {
+                    color: #26262a !important;
+                }
+
+                &:focus:hover {
+                    color: #fff !important;
+                }
             }
         }
 

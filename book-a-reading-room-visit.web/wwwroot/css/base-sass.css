@@ -5971,7 +5971,13 @@ body .kbs .button {
 body .kbs .button:hover {
   background: #000;
 }
-body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary {
+body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary, body .kbs .cancellation-details .button.primary {
+  color: #fff !important;
+}
+body .kbs .order-option .button.primary:focus, body .kbs .reservation-option .button.primary:focus, body .kbs .cancellation-details .button.primary:focus {
+  color: #26262a !important;
+}
+body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-option .button.primary:focus:hover, body .kbs .cancellation-details .button.primary:focus:hover {
   color: #fff !important;
 }
 body .kbs .secondary {
