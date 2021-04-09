@@ -8055,6 +8055,10 @@ form input[type=checkbox] {
 .order-form .form-warning {
   border: 2px solid #d4351c;
 }
+.order-form input[name=Series] + .form-error {
+  margin-left: 0;
+  padding: 10px 0 10px 0;
+}
 
 .error-message {
   color: #000;
