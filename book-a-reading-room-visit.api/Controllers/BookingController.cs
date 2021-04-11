@@ -150,5 +150,26 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _bookingService.DeleteBookingAsync(bookingreference);
             return result ? NoContent() : NotFound();
         }
+
+        [HttpPost("submit")]
+        public async Task<ActionResult<int>> SubmitBooking(DateTime completeBy)
+        {
+            int result = await _bookingService.SubmitBookingAsync(completeBy);
+            return Ok(result);
+        }
+
+        [HttpPost("send-confirmation")]
+        public async Task<ActionResult<int>> SendBookingConfirmationEmails(DateTime completeBy)
+        {
+            int result = await _bookingService.SendBookingConfirmationEmailsAsync(completeBy);
+            return Ok(result);
+        }
+
+        [HttpPost("send-notification")]
+        public async Task<ActionResult<int>> SendReminderNotificationEmails(DateTime completeBy)
+        {
+            int result = await _bookingService.SendReminderNotificationEmailsAsync(completeBy);
+            return Ok(result);
+        }
     }
 }

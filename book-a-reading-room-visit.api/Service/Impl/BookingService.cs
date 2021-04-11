@@ -481,10 +481,9 @@ namespace book_a_reading_room_visit.api.Service
                 return 0;
             }
 
-            _context.Attach(bookings);
-
             foreach (var booking in bookings)
             {
+                _context.Attach(booking);
                 booking.BookingStatusId = (int)BookingStatuses.Submitted;
             }
 
@@ -503,8 +502,6 @@ namespace book_a_reading_room_visit.api.Service
                 return 0;
             }
 
-            _context.Attach(bookings);
-
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
@@ -522,6 +519,7 @@ namespace book_a_reading_room_visit.api.Service
                 }
                 else
                 {
+                    _context.Attach(booking);
                     booking.BookingStatusId = (int)BookingStatuses.Cancelled;
                     if (!string.IsNullOrWhiteSpace(bookingModel.Email))
                     {

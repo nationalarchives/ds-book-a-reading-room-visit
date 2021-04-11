@@ -19,5 +19,8 @@ namespace book_a_reading_room_visit.api.Service
         Task<List<BookingModel>> BookingSearchAsync(BookingSearchModel bookingSearchModel);
         Task<bool> DeleteBookingAsync(string bookingReference);
         Task<ValidationResult> GetReaderTicketEligibilityAsync(int readerTicket, DateTime visitDate);
+        Task<int> SubmitBookingAsync(DateTime completeBy);
+        Task<int> SendBookingConfirmationEmailsAsync(DateTime completeBy);
+        Task<int> SendReminderNotificationEmailsAsync(DateTime completeBy);
     }
 }

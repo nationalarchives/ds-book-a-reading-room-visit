@@ -83,8 +83,7 @@ namespace book_a_reading_room_visit.api.Service
                 Source = fromAddress,
                 Destination = new Destination
                 {
-                    ToAddresses =
-                           new List<string> { toAddress }
+                    ToAddresses = toAddress.Split(',').ToList()
                 },
                 Message = new Message
                 {
