@@ -4,6 +4,8 @@
 @{ ViewData["Title"] = "Manage document order"; }
 @model OrderCompleteViewModel
 
+@await Html.PartialAsync("Partials/_Breadcrumbs")
+
 <h1 class="display-4">5. Order complete</h1>
 
 <div class="container content-wrapper">

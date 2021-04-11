@@ -874,3 +874,34 @@ details {
         }
     }
 }
+
+.tna-breadcrumb {
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+
+    margin-top: 1em;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: inline-block;
+            font-size: 0.9em;
+            padding: 0 0.7em 0 0;
+
+            a {
+                color: #444 !important;
+                font-weight: normal;
+                padding: 0 0.7em 0 0;
+            }
+
+            a:hover {
+                color: #fff !important;
+            }
+        }
+    }
+}

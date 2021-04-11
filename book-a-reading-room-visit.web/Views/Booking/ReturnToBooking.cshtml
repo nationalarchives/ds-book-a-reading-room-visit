@@ -1,7 +1,9 @@
-﻿@model ReturnToBookingViewModel 
+﻿@model ReturnToBookingViewModel
 @{
     ViewData["Title"] = "Return to your booking";
 }
+
+@await Html.PartialAsync("Partials/_Breadcrumbs")
 
 <h1 class="display-4">Return to your booking</h1>
 

@@ -1,0 +1,13 @@
+﻿<div class="tna-breadcrumb">
+    <ul>
+        <li><a href="/">Home</a> &gt;</li>
+        @if (ViewData["Title"].ToString() == "Home Page")
+        {
+            <li>Book a visit to view our documents</li>
+        }
+        else
+        {
+            <li><a href="/book-a-reading-room-visit">Book a visit to view our documents</a></li>
+        }
+    </ul>
+</div>

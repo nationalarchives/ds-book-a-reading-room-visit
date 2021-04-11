@@ -5814,7 +5814,6 @@ body .kbs h1, body .kbs h2, body .kbs h3, body .kbs h4, body .kbs .h1, body .kbs
 body .kbs h1 {
   font-size: 2em;
   font-family: "Open Sans", sans-serif;
-  margin: 3em 0 0;
   letter-spacing: 0.2px;
 }
 @media (max-width: 768px) {
@@ -8653,6 +8652,33 @@ details summary {
     margin-left: 0 !important;
     margin-right: 2em;
   }
+}
+
+.tna-breadcrumb {
+  margin-top: 1em;
+}
+@media screen and (max-width: 768px) {
+  .tna-breadcrumb {
+    display: none;
+  }
+}
+.tna-breadcrumb ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tna-breadcrumb ul li {
+  display: inline-block;
+  font-size: 0.9em;
+  padding: 0 0.7em 0 0;
+}
+.tna-breadcrumb ul li a {
+  color: #444 !important;
+  font-weight: normal;
+  padding: 0 0.7em 0 0;
+}
+.tna-breadcrumb ul li a:hover {
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=base-sass.css.map */
