@@ -7876,6 +7876,22 @@ a.content-card + .entry-content a.content-card + p a:hover {
 
 main {
   background-color: #fff;
+  min-height: 600px;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    margin-top: 2em !important;
+    padding-bottom: 1em;
+    border-bottom: 4px solid #ddd;
+    font-size: 1.8em !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h3 {
+    margin-top: 3em !important;
+  }
 }
 
 a.button {
@@ -7905,9 +7921,14 @@ a.button {
 
 .standfirst {
   font-size: 1.1em;
-  margin-bottom: 3em !important;
-  font-family: "Roboto Mono", monospace;
-  letter-spacing: -0.2px;
+  margin-bottom: 1.2em !important;
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 0;
+}
+@media screen and (min-width: 768px) {
+  .standfirst {
+    font-size: 1.3em;
+  }
 }
 .standfirst p {
   margin: 0 0 1em !important;
@@ -8002,9 +8023,10 @@ form input[type=checkbox] {
 
 .document-list {
   margin: 2em 0 4em 0;
+  padding-left: 1em;
 }
 .document-list li {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
   text-align: left;
 }
@@ -8225,6 +8247,7 @@ form input[type=checkbox] {
   min-height: 200px;
   min-width: 50%;
   padding: 0.6em;
+  width: 100%;
 }
 @media (max-width: 480px) {
   #additional-reqs {
@@ -8373,7 +8396,7 @@ form input[type=checkbox] {
   border-top: 4px solid #ddd;
   border-bottom: 2px dotted #ddd;
 }
-@media (max-width: 480px) {
+@media screen and (max-width: 768px) {
   #progress-bar {
     position: absolute;
     width: 1px;
@@ -8416,7 +8439,7 @@ form input[type=checkbox] {
   font-size: 0.85em;
   letter-spacing: -0.3px;
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 1189px) {
   #progress-bar ol li:not(.active) .step {
     position: absolute;
     width: 1px;
@@ -8634,6 +8657,7 @@ form input[type=checkbox] {
 @media (min-width: 480px) {
   details summary[tabindex="-1"] {
     color: #000000;
+    text-decoration: none;
   }
   details summary[tabindex="-1"]:focus {
     outline: none;
@@ -8652,6 +8676,21 @@ details summary {
     margin-left: 0 !important;
     margin-right: 2em;
   }
+}
+
+.kbs .optional-container {
+  padding: 2em 0 1em;
+  border-top: 4px solid #ddd !important;
+  border-bottom: 4px solid #ddd !important;
+  margin-bottom: 2em;
+}
+.kbs .optional-container legend {
+  font-size: 1.25em !important;
+  margin-bottom: 1.2em;
+}
+
+.extra-margin {
+  margin-bottom: 2em !important;
 }
 
 .tna-breadcrumb {
@@ -8678,6 +8717,27 @@ details summary {
   padding: 0 0.7em 0 0;
 }
 .tna-breadcrumb ul li a:hover {
+  color: #fff !important;
+}
+
+.info-link {
+  font-weight: normal !important;
+  font-size: 0.9em;
+}
+
+.reduce-text {
+  font-size: 1em;
+}
+
+.warning {
+  font-weight: bold;
+  color: #d4351c;
+  width: 100%;
+  display: block;
+  padding: 0.1em 0.1em;
+}
+
+body .kbs .primary {
   color: #fff !important;
 }
 
