@@ -12,7 +12,7 @@
               <xsl:value-of select="Name" />
             </td>
           </tr>
-          <xsl:if test="Phone">
+          <xsl:if test="string(Phone)">
             <tr>
               <th>Telephone</th>
               <td>
@@ -44,12 +44,14 @@
               <xsl:value-of select="SeatNumber" />
             </td>
           </tr>
-          <tr>
-            <th>Access needs and research requests</th>
-            <td>
-              <xsl:value-of select="AdditionalRequirements" />
-            </td>
-          </tr>
+          <xsl:if test="string(AdditionalRequirements)">
+            <tr>
+              <th>Access needs and research requests</th>
+              <td>
+                <xsl:value-of select="AdditionalRequirements" />
+              </td>
+            </tr>
+          </xsl:if>
         </tbody>
       </table>
 

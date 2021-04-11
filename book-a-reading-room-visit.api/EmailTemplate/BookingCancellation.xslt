@@ -26,12 +26,14 @@
               <xsl:value-of select="VisitStartDate" />
             </td>
           </tr>
-          <tr>
-            <th>Reading room</th>
-            <td>
-              <xsl:value-of select="ReadingRoom" />
-            </td>
-          </tr>
+          <xsl:if test="string(ReadingRoom)">
+            <tr>
+              <th>Reading room</th>
+              <td>
+                <xsl:value-of select="ReadingRoom" />
+              </td>
+            </tr>
+          </xsl:if>
           <tr>
             <th>Seat number</th>
             <td>
