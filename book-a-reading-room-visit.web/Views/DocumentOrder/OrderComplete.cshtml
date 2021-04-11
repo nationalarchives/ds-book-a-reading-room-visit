@@ -26,8 +26,8 @@
     <div class="heading">
         <div class="row">
             <div class="col-md-12">
-                <div class="prompt-grey full-width success-panel mb-lg">
-                    <h2>Your document order has been submitted and your visit is confirmed</h2>
+                <div class="prompt-grey full-width success-panel mb-lg extra-margin">
+                    <h2>Your document order has been saved and your visit is confirmed.</h2>
                     <p>
                         You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
                     </p>
@@ -42,7 +42,7 @@
                             </li>
                         }
                         <li>
-                            <a href="#">Print your order</a>
+                            <a href="#">Print your document order</a>
                         </li>
                     </ul>
                 </div>
@@ -60,8 +60,8 @@
                 </p>
                 <p>
                     If you did not provide an email address as part of your booking, safely note these
-                    booking details for future reference. Return to your booking at this link before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>:<br>
-                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">Return to booking form</a>
+                    booking details for future reference. Return to your booking before the deadline at this link:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
                 </p>
 
             </div>
@@ -76,7 +76,14 @@
                     <tbody>
                         <tr>
                             <th scope="row">Booking reference</th>
-                            <td>@Model.BookingReference</td>
+                            <td>
+                                @Model.BookingReference
+                                <span class="secondary-info">A copy of this will be emailed to you. If you didn't provide your email address as part of the booking process, remember to safely note your booking reference.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reader's ticket number</th>
+                            <td>@Model.ReaderTicket</td>
                         </tr>
                         <tr>
                             <th scope="row">Visit date</th>
@@ -88,7 +95,7 @@
                         <tr>
                             <th scope="row">Visit type</th>
                             <td>
-                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
                             </td>
                         </tr>
                         @if (Model.BookingType == BookingTypes.StandardOrderVisit)
@@ -97,7 +104,7 @@
                                 <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>Document reading room <span class="secondary-info">All seats have camera stands.</span></td>
                                 }
                                 else
                                 {
@@ -123,7 +130,7 @@
                         @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                         @Html.HiddenFor(Model => Model.BookingStartDate)
                         @Html.HiddenFor(Model => Model.SeatNumber)
-                        <button type="submit" class="button">Cancel this booking</button>
+                        <button type="submit" class="button">Cancel your booking</button>
                     </form>
                 }
             </div>
@@ -133,13 +140,13 @@
     <section class="order-summary">
         <div class="row">
             <div class="col-md-12">
-                <h3>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order documents" : "Your bulk order documents")</h3>
+                <h2>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order" : "Your bulk order")</h2>
                 <ol class="document-list">
                     @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
                     {
                         <li>
-                            <p class="bold-text">@document.Reference</p>
-                            <p>@document.Description</p>
+                            <span class="bold-text">@document.Reference</span>
+                            @document.Description
                         </li>
                     }
                 </ol>
@@ -147,24 +154,18 @@
 
             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
             {
-                <section class="col-md-12">
-                    <h3>Your reserve documents</h3>
-                    <ol class="document-list">
-                        @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
-                        {
-                            <li>
-                                <p class="bold-text">@document.Reference</p>
-                                <p>@document.Description</p>
-                            </li>
-                        }
-                    </ol>
-                </section>
+                <h2>Your reserve documents</h2>
+                <ol class="document-list">
+                    @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
+                    {
+                        <li>
+                            <span class="bold-text">@document.Reference</span>
+                            @document.Description
+                        </li>
+                    }
+                </ol>
             }
-        </div>
-    </section>
 
-    <section class="order-summary">
-        <div class="row">
             <h2 id="prepare-for-your-visit">Prepare for your visit</h2>
 
             <p>
@@ -174,21 +175,8 @@
             </p>
 
             <p>
-                We have introduced a number of measures to ensure the safety of our visitors and staff. These
-                include:
-            </p>
-
-            <ul>
-                <li>One-way systems and capacity controls in frequently used areas</li>
-                <li>Floor markers and temporary signage to help with social distancing</li>
-                <li>Rigorous cleaning during and at the end of each day</li>
-                <li>Easier access to sinks for hand washing and provision of hand sanitiser.</li>
-            </ul>
-
-            <p>
                 Watch a video to find out more about what to expect when you visit:<br>
-                <a href="https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s" target="_blank"
-                   rel="noreferrer noopener">https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s</a>
+                <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s">https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s</a>
             </p>
 
             <p>
@@ -199,17 +187,14 @@
             </p>
 
 
-            <h4>Address</h4>
+            <h3>Address</h3>
 
             <p>
-                The National Archives<br>
+                The National Archives,<br>
                 Kew<br>
                 Richmond<br>
-                Surrey<br>
-                TW9 4DU
+                TW9 4DU. For sat navs use the postcode TW9 4AD (Bessant Drive).
             </p>
-
-            <p>For sat navs use the postcode TW9 4AD (Bessant Drive).</p>
 
             <p>
                 Contact us:<br>
