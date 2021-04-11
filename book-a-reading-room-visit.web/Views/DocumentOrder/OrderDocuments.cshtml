@@ -39,8 +39,7 @@
                 }
                 <h2>Tell us which documents you would like to see</h2>
                 <p>
-                    You have a provisional reservation for a visit to the reading rooms. Complete this form
-                    to order original documents held by The National Archives.
+                    You have a provisional reservation for a visit to the reading rooms. Complete this form to order original documents held by The National Archives.
                 </p>
                 <p>
                     If you do not complete this step by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>
@@ -50,21 +49,14 @@
                     If you provided an email address as part of your booking, a direct link to this form is
                     also in your reservation confirmation email, so you can return to edit or cancel your
                     document order at any point before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
-                    If you can’t see the reservation confirmation email in your inbox, check your spam and
+                    If you cannot see the reservation confirmation email in your inbox, check your spam and
                     junk email folders.
                 </p>
                 <p>
-                    If you did not provide an email address, use the <a target="_blank"
-                                                                        rel="noreferrer noopenner"
-                                                                        href="/book-a-reading-room-visit/return-to-booking">
-                        Return
-                        to booking form
-                    </a> to complete your document order at any point before the deadline.
+                    If you did not provide an email address as part of your booking, you can return to your booking before the deadline at this link:<br>
+                    <a target="_blank" rel="noreferrer noopenner" href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
                 </p>
-                <p>
-                    Once this date has passed, you can't change your document order as we will begin
-                    preparing your order for your visit.
-                </p>
+                <p>Once this date has passed, you cannot change your document order as we will begin preparing your order for your visit.</p>
             </div>
         </div>
     </div>
@@ -82,13 +74,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <th scope="row">Reader's ticket number</th>
+                            <td>@Model.ReaderTicket</td>
+                        </tr>
+                        <tr>
                             <th scope="row">Visit date</th>
                             <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
                         </tr>
                         <tr>
                             <th scope="row">Visit type</th>
                             <td>
-                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard order visit" : "Bulk order visit")
+                                @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
                             </td>
                         </tr>
                         <tr>
@@ -97,7 +93,7 @@
                             {
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>Document reading room <span class="secondary-info">All seats have camera stands.</span></td>
                                 }
                                 else
                                 {
@@ -126,7 +122,7 @@
                     @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                     @Html.HiddenFor(Model => Model.BookingStartDate)
                     @Html.HiddenFor(Model => Model.SeatNumber)
-                    <button type="submit" class="button">Cancel this booking</button>
+                    <button type="submit" class="button">Cancel your visit</button>
                 </form>
             </div>
         </div>
@@ -170,16 +166,13 @@
                         </legend>
 
                         <p class="helper-text">
-                            Tell us about your access needs, including if you have
-                            mobility access requirements. You can also use this space to tell us your
-                            research requests, including library materials, microfilm/microfiche, or
-                            finding/preservation aids that are normally available on self-service.
+                            Tell us about your access needs, including if you have mobility access requirements. You can also use
+                            this space to tell us your research requests, including library materials, microfilm/microfiche, or finding/preservation
+                            aids that are normally available on self-service.
                         </p>
 
-                        <p class="helper-text">
-                            We cannot guarantee that all of the research materials will
-                            be available.
-                        </p>
+                        <p class="helper-text">We cannot guarantee that all of the research materials you request will be available.</p>
+
                         @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
                         {
                             @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning" })
