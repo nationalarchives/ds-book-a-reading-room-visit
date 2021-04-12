@@ -132,12 +132,6 @@
         <p class="no-margin">
             You can add or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
         </p>
-        @if (Model.MinimumRequiredDocuments > 0)
-        {
-            <p class="no-margin">
-                You need to add at least @Model.MinimumRequiredDocuments more document before the deadline to avoid your order being cancelled
-            </p>
-        }
     </div>
 
     <div class="order-form">

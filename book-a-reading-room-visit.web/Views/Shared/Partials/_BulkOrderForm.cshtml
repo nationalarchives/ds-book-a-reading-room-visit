@@ -31,6 +31,13 @@
         <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/">Search our catalogue to find catalogue references.</a>
     </p>
 
+    @if (Model.MinimumRequiredDocuments > 0)
+    {
+<p class="warning">
+    You need to add at least @Model.MinimumRequiredDocuments more @(Model.MinimumRequiredDocuments == 1 ? "document" : "documents") before the deadline to avoid your order being cancelled.
+</p>
+    }
+
     <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="order-form-field">
             <label for="doc-1">1</label>
