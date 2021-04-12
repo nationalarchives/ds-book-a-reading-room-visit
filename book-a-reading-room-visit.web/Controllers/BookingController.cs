@@ -73,7 +73,7 @@ namespace book_a_reading_room_visit.web.Controllers
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
             bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(model.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
             var currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
-            bookingViewModel.TimeRemaining = bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds;
+            bookingViewModel.TimeRemaining = Math.Round(bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds);
             if (bookingViewModel.TimeRemaining <= 0)
             {
                 var routeValues = new
@@ -104,7 +104,8 @@ namespace book_a_reading_room_visit.web.Controllers
         public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel)
         {
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
-            bookingViewModel.TimeRemaining = bookingViewModel.ExpiredBy.Subtract(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone)).TotalSeconds;
+            var currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
+            bookingViewModel.TimeRemaining = Math.Round(bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds);
             if (bookingViewModel.TimeRemaining <=0)
             {
                 var routeValues = new
