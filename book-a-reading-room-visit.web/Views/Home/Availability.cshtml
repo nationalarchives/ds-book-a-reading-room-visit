@@ -81,6 +81,8 @@
                         @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
                         <p class="helper-text">Choose this room if you know the documents you are ordering are large or are dated pre-16th century.</p>
                     </div>
+
+                    <button class="button" type="submit">Update availability</button>
                 </fieldset>
 
                 <div class="prompt-white">
@@ -100,8 +102,6 @@
                         </p>
                     </details>
                 </div>
-
-                <button class="button" type="submit">Update availability</button>
             </form>
                 }
 
