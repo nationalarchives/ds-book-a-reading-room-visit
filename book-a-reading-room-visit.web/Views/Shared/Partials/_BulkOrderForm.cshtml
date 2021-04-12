@@ -33,9 +33,9 @@
 
     @if (Model.MinimumRequiredDocuments > 0)
     {
-<p class="warning">
-    You need to add at least @Model.MinimumRequiredDocuments more @(Model.MinimumRequiredDocuments == 1 ? "document" : "documents") before the deadline to avoid your order being cancelled.
-</p>
+        <p class="warning">
+            You need to add at least @Model.MinimumRequiredDocuments more @(Model.MinimumRequiredDocuments == 1 ? "document" : "documents") before the deadline to avoid your order being cancelled.
+        </p>
     }
 
     <div class="col-md-3 col-sm-12 col-xs-12">
