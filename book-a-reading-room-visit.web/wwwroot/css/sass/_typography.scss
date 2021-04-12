@@ -16,7 +16,6 @@ body {
         h1 {
             font-size: 2em;
             font-family: $body_font;
-            margin: 3em 0 0;
             letter-spacing: 0.2px;
 
             @media (max-width: $screen-tablet) {
@@ -204,9 +203,17 @@ body {
             }
         }
 
-        .order-option, .reservation-option {
+        .order-option, .reservation-option, .cancellation-details {
             .button.primary {
-                color: #fff !important
+                color: #fff !important;
+
+                &:focus {
+                    color: #26262a !important;
+                }
+
+                &:focus:hover {
+                    color: #fff !important;
+                }
             }
         }
 

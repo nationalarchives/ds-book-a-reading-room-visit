@@ -2,9 +2,11 @@
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @{
-ViewData["Title"] = "Booking confirmation";
+    ViewData["Title"] = "Booking confirmation";
 }
 @model BookingViewModel
+
+@await Html.PartialAsync("Partials/_Breadcrumbs")
 
 <h1 class="display-4">3. Reservation confirmation</h1>
 
@@ -19,7 +21,7 @@ ViewData["Title"] = "Booking confirmation";
                     <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
                     <li aria-current="page" class="active"><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
                     <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+                    <li><span class="step-number">5</span> <span class="step">Order summary</span></li>
                 </ol>
             </div>
         </section>
@@ -30,7 +32,7 @@ ViewData["Title"] = "Booking confirmation";
             <div class="col-md-12">
                 <div class="prompt-grey full-width success-panel">
                     <h2>You have made a provisional booking to visit the reading rooms</h2>
-                    <p>Your booking reference is @(Model.BookingReference). Keep a note of this number for future reference.</p>
+                    <p>Your booking reference is @(Model.BookingReference). Keep a note of this number.</p>
                 </div>
             </div>
         </div>
@@ -54,6 +56,14 @@ ViewData["Title"] = "Booking confirmation";
                 <table class="table">
                     <tbody>
                         <tr>
+                            <th scope="row">Booking reference</th>
+                            <td>@Model.BookingReference</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reader's ticket number</th>
+                            <td>@Model.ReaderTicket</td>
+                        </tr>
+                        <tr>
                             <th scope="row">Visit date</th>
                             <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
                         </tr>
@@ -69,7 +79,7 @@ ViewData["Title"] = "Booking confirmation";
                                 <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>Document reading room <span class="secondary-info">All seats have camera stands.</span></td>
                                 }
                                 else
                                 {
@@ -93,9 +103,12 @@ ViewData["Title"] = "Booking confirmation";
             <div class="col-md-12">
                 <p>
                     If you provided an email address as part of your booking, a direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
-                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
+                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you cannot see the reservation confirmation email in your inbox, check your spam and junk email folders.
                 </p>
-                <p>If you did not provide an email address, use the <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">Return to booking form</a> to complete your document order at any point before the deadline.</p>
+                <p>
+                    If you did not provide an email address as part of your booking, safely note these booking details for future reference. Return to your booking at this link before the deadline:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                </p>
             </div>
         </div>
     </div>

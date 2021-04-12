@@ -7,6 +7,8 @@
     ViewData["Title"] = "Secure booking";
 }
 
+@await Html.PartialAsync("Partials/_Breadcrumbs")
+
 <h1 class="display-4">2. Enter your details</h1>
 
 <div class="container content-wrapper">
@@ -20,7 +22,7 @@
                     <li aria-current="page" class="active"><span class="step-number">2</span> <span class="step">Enter your details</span></li>
                     <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
                     <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+                    <li><span class="step-number">5</span> <span class="step">Order summary</span></li>
                 </ol>
             </div>
         </section>
@@ -32,8 +34,8 @@
                 @if (!ViewData.ModelState.IsValid)
                 {
                     <div class="summary-error-message">
-                        <h2>Sorry there was a problem.</h2>
-                        <p>Check the highlighted fields to continue.</p>
+                        <h2>There is a problem.</h2>
+                        <p>Check the highlighted responses below.</p>
                     </div>
                 }
                 <h2>You are about to provisionally book this visit</h2>
@@ -61,7 +63,9 @@
                                 <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>
+                                        Document reading room <span class="secondary-info">All seats have camera stands</span>
+                                    </td>
                                 }
                                 else
                                 {
@@ -161,70 +165,72 @@
                         </div>
                     </fieldset>
 
-                    <fieldset>
-                        <legend>Enter your email address or telephone number so we can contact you.</legend>
+                    <div class="optional-container">
+                        <fieldset>
+                            <legend>Enter your email address or telephone number so we can contact you.</legend>
 
-                        <div class="form-row">
-                            <label for="email" class="mt-lg">Email address</label>
-                            <p class="helper-text">
-                                We will use this to send you a booking confirmation email with a link to your document order form and a reminder email before your visit.
-                            </p>
+                            <div class="form-row">
+                                <label for="email" class="mt-lg">Email address</label>
+                                <p class="helper-text">
+                                    We will use this to send you a booking confirmation email with a link to your document order form and a reminder email before your visit.
+                                </p>
 
-                            @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0 || (ViewData.ModelState["Email"]?.Errors.Count() > 0))
-                            {
-                                @Html.TextBoxFor(Model => Model.Email, "", new { @class = "form-warning" })
-                            }
-                            else
-                            {
-                                @Html.TextBoxFor(Model => Model.Email)
-                            }
+                                @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0 || (ViewData.ModelState["Email"]?.Errors.Count() > 0))
+                                {
+                                    @Html.TextBoxFor(Model => Model.Email, "", new { @class = "form-warning" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(Model => Model.Email)
+                                }
 
-                            @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
-                            {
+                                @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
+                                {
 
-                                @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error" })
-                            }
+                                    @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error" })
+                                }
 
 
-                            @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
-                            {
-                                @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
-                            }
-                        </div>
+                                @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
+                                }
+                            </div>
 
-                        <div class="form-row">
-                            <label for="phone" class="mt-lg">Telephone number</label>
-                            <p class="helper-text">
-                                If you provide a telephone number only, you will need to note down the booking reference we are about to give you on the next page.
-                            </p>
+                            <div class="form-row">
+                                <label for="phone" class="mt-lg">Telephone number</label>
+                                <p class="helper-text">
+                                    If you provide a telephone number only, you will need to note down the booking reference we are about to give you on the next page.
+                                </p>
 
-                            @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0 || ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
-                            {
-                                @Html.TextBoxFor(Model => Model.Phone, new { id = "phone", @class = "form-warning" })
-                            }
-                            else
-                            {
-                                @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
-                            }
+                                @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0 || ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
+                                {
+                                    @Html.TextBoxFor(Model => Model.Phone, new { id = "phone", @class = "form-warning" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(Model => Model.Phone, new { id = "phone" })
+                                }
 
-                            @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0)
-                            {
-                                @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "form-error" })
-                            }
+                                @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "form-error" })
+                                }
 
-                            @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
-                            {
-                                @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
-                            }
-                        </div>
-                    </fieldset>
+                                @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
+                                }
+                            </div>
+                        </fieldset>
+                    </div>
 
                     <fieldset>
                         <legend class="sr-only">Please complete the following checkboxes</legend>
 
                         <div class="form-row @(@ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
-                            <label for="terms-conditions">Accept our <a target="_blank" rel="noopener noreferrer" href="http://www.nationalarchives.gov.uk/legal/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a></label>
+                            <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="http://www.nationalarchives.gov.uk/legal/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a></label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
                             {
@@ -234,7 +240,7 @@
 
                         <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
-                            <label for="covid-charter">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a> (PDF; opens in a new window)</label>
+                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a> (PDF)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
                             {
@@ -244,7 +250,7 @@
 
                         <div class="form-row checkbox">
                             @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
-                            <label for="face-covering">
+                            <label for="face-covering" class="reduce-text">
                                 I have a legitimate reason to <a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">not wear a face covering</a>.
                                 This information won’t be shared with the NHS Test and Trace service.
                             </label>

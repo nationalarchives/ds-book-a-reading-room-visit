@@ -187,7 +187,7 @@ namespace book_a_reading_room_visit.web.Controllers
             var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference);
             if (model == null)
             {
-                ModelState.AddModelError("", Constants.Valid_Ticket_And_BookingReference_Required);
+                ModelState.AddModelError("ticket-booking-reference", Constants.Valid_Ticket_And_BookingReference_Required);
                 return View(returnToBookingViewModel);
             }
             var routeValues = new

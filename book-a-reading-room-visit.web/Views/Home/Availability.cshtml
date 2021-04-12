@@ -7,6 +7,8 @@
     ViewData["Title"] = "Visit availability";
 }
 
+@await Html.PartialAsync("Partials/_Breadcrumbs")
+
 <h1 class="display-4">1. Select a date</h1>
 
 <div class="container content-wrapper">
@@ -20,7 +22,7 @@
                     <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
                     <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
                     <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
-                    <li><span class="step-number">5</span> <span class="step">Order complete</span></li>
+                    <li><span class="step-number">5</span> <span class="step">Order summary</span></li>
                 </ol>
             </div>
         </section>
@@ -31,7 +33,7 @@
             @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
             {
                 <div class="summary-error-message">
-                    <h2>Sorry there was a problem.</h2>
+                    <h2>There was a problem.</h2>
                     <p>@Model.ErrorMessage</p>
                 </div>
             }
@@ -64,53 +66,52 @@
 
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
-                    <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
-                        <fieldset>
-                            <legend class="sr-only">Choose a reading room</legend>
+            <form id="room-selection-form" action="@Url.Action("Availability", "Home", new { bookingType = @Model.BookingType.ToStringURL() })" method="GET">
+                <fieldset>
+                    <legend class="sr-only">Choose a reading room</legend>
 
-                            <div>
-                                <label for="standard-room">Document reading room</label>
-                                @Html.RadioButton("seattype", SeatTypes.StdRRSeat.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.StdRRSeat.ToStringURL(), new { id = "standard-room" })
-                                <p class="helper-text">All seats will have a <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/" target="_blank" rel="noreferrer noopener">camera stand</a> provided.</p>
-                            </div>
+                    <div>
+                        <label for="standard-room">Document reading room</label>
+                        @Html.RadioButton("seattype", SeatTypes.StdRRSeat.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.StdRRSeat.ToStringURL(), new { id = "standard-room" })
+                        <p class="helper-text">If you are unsure of which room you need, choose this one. We can change this later if we need to.</p>
+                    </div>
 
-                            <div class="border-top">
-                                <label for="map-and-lg-room">Map and large document reading room</label>
-                                @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
-                                <p class="helper-text">
-                                    Some camera stands are available. If you need one, please tell us in the 'Access needs and research requests' box when you complete your document order.
-                                </p>
-                            </div>
+                    <div class="border-top">
+                        <label for="map-and-lg-room">Map and large document reading room</label>
+                        @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
+                        <p class="helper-text">Choose this room if you know the documents you are ordering are large or are dated pre-16th century.</p>
+                    </div>
 
-                            <div class="border-top">
-                                <p class="helper-text">
-                                    Choose the Map and large document reading room if you know the documents you are ordering are large or are dated pre-16th Century. If you are unsure, choose the Document reading room.
-                                </p>
-                            </div>
+                    <button class="button" type="submit">Update availability</button>
+                </fieldset>
 
-                        </fieldset>
+                <div class="prompt-white">
+                    <details open>
+                        <summary>Need a camera stand?</summary>
+                        <p class="helper-text no-margin no-padding">
+                            All seats in the Document reading room have a <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/#camera-stand">camera stand</a> provided. If you are visiting the Map and large document reading room, tell us if you need a camera stand in the ‘Access needs and research requests’ box when you order your documents in step 4.
+                        </p>
+                    </details>
+                </div>
 
-                        <div class="prompt-white">
-                            <details open>
-                                <summary>Are accessible seats available?</summary>
-                                <p class="helper-text no-margin no-padding">
-                                    All seats in our reading rooms are accessible. You can tell us about your access needs when you order your documents in step 4.
-                                </p>
-                            </details>
-                        </div>
-
-                        <button class="button" type="submit">Update availability</button>
-                    </form>
+                <div class="prompt-white">
+                    <details open>
+                        <summary>Are accessible seats available?</summary>
+                        <p class="helper-text no-margin no-padding">
+                            All seats in our reading rooms are accessible. You can tell us about your other access needs when you order your documents in step 4.
+                        </p>
+                    </details>
+                </div>
+            </form>
                 }
 
                 else
                 {
                     <div class="prompt-white">
                         <details open>
-                            <summary>Are camera stands available?</summary>
+                            <summary>Need a camera stand?</summary>
                             <p class="helper-text no-margin">
-                                Some camera stands are available. If you need one, please tell us in the 'Additional access requirements or
-                                research requests' box when you complete your document order.
+                                Tell us if you need a camera stand in the ‘Access needs and research requests’ box when you order your documents in step 4.
                             </p>
                         </details>
                     </div>
@@ -118,7 +119,7 @@
                         <details open>
                             <summary>Are accessible seats available?</summary>
                             <p class="helper-text no-margin">
-                                All seats in our reading rooms are accessible. You can tell us about your access needs when you order your
+                                All seats in our reading rooms are accessible. You can tell us about your other access needs when you order your
                                 documents in step 4.
                             </p>
                         </details>
