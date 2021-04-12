@@ -72,7 +72,18 @@ namespace book_a_reading_room_visit.web.Controllers
             var elapsedTime = _configuration.GetValue<int>("Booking:ProvisionalElapsedTime");
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
             bookingViewModel.ExpiredBy = TimeZoneInfo.ConvertTimeFromUtc(model.CreatedDate.AddMinutes(elapsedTime), gmtTimeZone);
-            bookingViewModel.CurrentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
+            var currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
+            bookingViewModel.TimeRemaining = Math.Round(bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds);
+            if (bookingViewModel.TimeRemaining <= 0)
+            {
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
+                    seattype = bookingViewModel.SeatType.ToStringURL(),
+                    errorcode = ErrorCode.reserved_time_expired
+                };
+                return RedirectToAction("Availability", "Home", routeValues);
+            }
 
             return View(bookingViewModel);
         }
@@ -92,6 +103,20 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> BookingConfirmation(BookingViewModel bookingViewModel)
         {
+            var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
+            var currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
+            bookingViewModel.TimeRemaining = Math.Round(bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds);
+            if (bookingViewModel.TimeRemaining <=0)
+            {
+                var routeValues = new
+                {
+                    bookingtype = bookingViewModel.BookingType.ToStringURL(),
+                    seattype = bookingViewModel.SeatType.ToStringURL(),
+                    errorcode = ErrorCode.reserved_time_expired
+                };
+                return RedirectToAction("Availability", "Home", routeValues);
+            }
+
             if (bookingViewModel.ReaderTicket == 0 ||
                 !_advancedOrderService.IsReaderTicketValid(bookingViewModel.ReaderTicket.ToString()))
             {
