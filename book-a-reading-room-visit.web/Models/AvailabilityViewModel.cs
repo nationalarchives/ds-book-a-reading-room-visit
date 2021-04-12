@@ -16,13 +16,5 @@ namespace book_a_reading_room_visit.web.Models
     {
         public DateTime Date { get; set; }
         public int AvailableSeats { get; set; }
-
-        public string ToDate
-        {
-            get
-            {
-                return $"{Date:dddd dd MMMM}";
-            }
-        }
     }
 }
