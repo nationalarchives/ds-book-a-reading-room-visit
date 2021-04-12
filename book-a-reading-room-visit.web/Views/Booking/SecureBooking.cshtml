@@ -1,6 +1,7 @@
 ﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
+@using Microsoft.VisualBasic
 @model BookingViewModel
 
 @{
@@ -93,11 +94,18 @@
     <div class="text-center">
         <div class="row">
             <div class="col-md-12">
+                <script>
+                    @{
+                        var difference = DateAndTime.DateDiff(DateInterval.Second, Model.ExpiredBy, Model.CurrentTime);
+
+                    }
+
+                    window.seconds_since_date_selected = @difference;
+                </script>
                 <div id="enter-your-details-timer" class="full-width warning-panel">
                     <h3>@(ViewData.ModelState.IsValid ? "You have 20 minutes to enter your details." : "Enter your details")</h3>
                     <span id="timer">Complete this page by @($"{Model.ExpiredBy:hh:mm tt}") British Summer Time (BST).</span>
                     <small>If you do not complete the form by this time we will cancel your seat and you will need to start the process again.</small>
-                    @Html.HiddenFor(Model => Model.CurrentTime)
                 </div>
             </div>
         </div>
