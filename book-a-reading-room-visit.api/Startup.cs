@@ -32,6 +32,12 @@ namespace book_a_reading_room_visit.api
             services.AddAWSService<IAmazonSimpleEmailService>();
             services.AddScoped<IEmailService, EmailService>();
 
+            services.AddLogging(config =>
+            {
+                config.AddAWSProvider(Configuration.GetAWSLoggingConfigSection());
+                config.SetMinimumLevel(LogLevel.Debug);
+            });
+
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
                  .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
@@ -54,7 +60,7 @@ namespace book_a_reading_room_visit.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,12 +68,6 @@ namespace book_a_reading_room_visit.api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book a reading room visit-api v1"));
             }
-            var config = Configuration.GetAWSLoggingConfigSection();
-            loggerFactory.AddAWSProvider(config, formatter: (logLevel, message, exception) => $"[{DateTime.UtcNow}] {logLevel}: {message}");
-
-            var logger = loggerFactory.CreateLogger<Startup>();
-            logger.LogInformation($"KBS - Web API");
-
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {

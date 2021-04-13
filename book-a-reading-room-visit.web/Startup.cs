@@ -34,6 +34,11 @@ namespace book_a_reading_room_visit.web
             });
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-Web/DataProtection");
+            services.AddLogging(config =>
+            {
+                config.AddAWSProvider(Configuration.GetAWSLoggingConfigSection());
+                config.SetMinimumLevel(LogLevel.Debug);
+            });
 
             services.AddHttpClient<IAvailabilityService, AvailabilityService>(c =>
             {
@@ -60,7 +65,7 @@ namespace book_a_reading_room_visit.web
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -70,12 +75,6 @@ namespace book_a_reading_room_visit.web
             {
                 app.UseExceptionHandler("/error");
             }
-            var config = Configuration.GetAWSLoggingConfigSection();
-            loggerFactory.AddAWSProvider(config, formatter: (logLevel, message, exception) => $"[{DateTime.UtcNow}] {logLevel}: {message}");
-
-            var logger = loggerFactory.CreateLogger<Startup>();
-            logger.LogInformation($"KBS - Web UI");
-
             app.UseSecurityHeaderMiddleware();
             app.UseRouting();
             var rootPath = Environment.GetEnvironmentVariable("KBS_Root_Path");

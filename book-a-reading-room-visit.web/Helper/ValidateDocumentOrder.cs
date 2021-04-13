@@ -2,6 +2,7 @@
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 using NationalArchives.AdvancedOrders.BusinessObjects;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,15 @@ namespace book_a_reading_room_visit.web.Helper
     {
         private IAdvancedOrderService _advancedOrderService;
         private IBulkOrdersService _bulkOrdersService;
+        private IConfiguration _configuration;
         private Dictionary<int, string> _documentReference;
         private List<DocumentViewModel> _validatedDocuments;
         private Regex _documentReferenceRegex = new Regex(@"^([a-zA-Z]{1,4})\s*?(\d{1,4})/(.+)$");
-        public ValidateDocumentOrder(ChannelFactory<IAdvancedOrderService> advanceChannelFactory, ChannelFactory<IBulkOrdersService> bulkChannelFactory)
+        public ValidateDocumentOrder(ChannelFactory<IAdvancedOrderService> advanceChannelFactory, ChannelFactory<IBulkOrdersService> bulkChannelFactory, IConfiguration configuration)
         {
             _advancedOrderService = advanceChannelFactory.CreateChannel();
             _bulkOrdersService = bulkChannelFactory.CreateChannel();
+            _configuration = configuration;
         }
 
         public bool IsValid(ModelStateDictionary modelState, DocumentOrderViewModel model, out List<DocumentViewModel> validatedDocuments)
@@ -40,6 +43,7 @@ namespace book_a_reading_room_visit.web.Helper
                 {
                     modelState.AddModelError("Series", Constants.Series_Required);
                 }
+                ValidateNotOrderableSeries(modelState, model.Series);
                 ValidateBulkOrderDuplicateReference(modelState, model);
                 if (modelState.IsValid)
                 {
@@ -300,6 +304,15 @@ namespace book_a_reading_room_visit.web.Helper
             if (!string.IsNullOrEmpty(docRerefenceVal) && !_bulkOrdersService.IsSeriesMatched(docRerefenceVal, series))
             {
                 modelStateDictionary.AddModelError(docRerefenceName, $"{docRerefenceVal} - {Constants.Document_Reference_Series_Not_Matched}");
+            }
+        }
+
+        public void ValidateNotOrderableSeries(ModelStateDictionary modelStateDictionary, string series)
+        {
+            var notOrderableSeries = _configuration.GetSection("Booking:NotOrderableSeries").Value.Split(',');
+            if (notOrderableSeries.Contains(series))
+            {
+                modelStateDictionary.AddModelError("Series", Constants.Document_Series_Cannot_Order);
             }
         }
     }

@@ -111,6 +111,7 @@ namespace book_a_reading_room_visit.api.Service
 
             if (!string.IsNullOrWhiteSpace(bookingModel.Email))
             {
+                bookingModel.SeatType = (SeatTypes)booking.Seat.SeatTypeId;
                 bookingModel.BookingType = (BookingTypes)booking.BookingTypeId;
                 bookingModel.CompleteByDate = response.CompleteByDate;
                 bookingModel.SeatNumber = response.SeatNumber;
