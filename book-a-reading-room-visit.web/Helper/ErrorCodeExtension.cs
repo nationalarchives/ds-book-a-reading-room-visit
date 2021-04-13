@@ -7,7 +7,7 @@
             switch (errorCode)
             {
                 case ErrorCode.seat_unavailable:
-                    return "This date is no longer available. Select another date.";
+                    return "This date is no longer available. Choose another date.";
                 case ErrorCode.reserved_time_expired:
                     return "Your booking has timed out. Choose a date of visit again.";
                 default:

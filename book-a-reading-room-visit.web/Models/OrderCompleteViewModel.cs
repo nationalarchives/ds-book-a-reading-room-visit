@@ -1,6 +1,7 @@
 ﻿using book_a_reading_room_visit.model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace book_a_reading_room_visit.web.Models
 {
@@ -16,5 +17,21 @@ namespace book_a_reading_room_visit.web.Models
         public string SeatNumber { get; set; }
         public string AdditionalRequirements { get; set; }
         public List<DocumentViewModel> Documents { get; set; }
+        public int MinimumRequiredDocuments
+        {
+            get
+            {
+                int minDocuments = 0;
+                if (BookingType == BookingTypes.StandardOrderVisit && Documents.Count(x => !x.IsReserved) == 0)
+                {
+                    minDocuments = 1;
+                }
+                if (BookingType == BookingTypes.BulkOrderVisit && Documents.Count < 20)
+                {
+                    minDocuments = 20 - Documents.Count;
+                }
+                return minDocuments;
+            }
+        }
     }
 }

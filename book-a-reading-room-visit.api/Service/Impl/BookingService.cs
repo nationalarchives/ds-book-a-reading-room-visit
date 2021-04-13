@@ -520,7 +520,7 @@ namespace book_a_reading_room_visit.api.Service
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
-                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count > 0) ||
+                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count(x => !x.IsReserve) > 0) ||
                     (bookingModel.BookingType == BookingTypes.BulkOrderVisit && bookingModel.OrderDocuments.Count > 19))
                 {
                     var dsdEmail = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? _configuration.GetSection("EmailSettings:StandardOrderAddress").Value :
@@ -560,7 +560,7 @@ namespace book_a_reading_room_visit.api.Service
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
-                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count > 0) ||
+                if ((bookingModel.BookingType == BookingTypes.StandardOrderVisit && bookingModel.OrderDocuments.Count(x => !x.IsReserve) > 0) ||
                     (bookingModel.BookingType == BookingTypes.BulkOrderVisit && bookingModel.OrderDocuments.Count > 19))
                 {
                     await _emailService.SendEmailAsync(EmailType.ValidOrderReminder, bookingModel.Email, bookingModel);

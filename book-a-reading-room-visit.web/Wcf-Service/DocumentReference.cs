@@ -74,7 +74,7 @@
                 case DocumentRefCodes.DOCUMENT_REFERENCE_INVALID_SUBCLASS:
                 case DocumentRefCodes.DOCUMENT_REFERENCE_NO_ROWS_FOUND:
                 case DocumentRefCodes.DOCUMENT_REFERENCE_INVALID_LETTER_CODE:
-                    return "This document cannot be identified. Check catalogue reference has been entered correctly.";
+                    return "This catalogue reference is incorrect. Enter the correct catalogue reference.";
                 case DocumentRefCodes.DOCUMENT_REFERENCE_UN_ORDERABLE:
                 case DocumentRefCodes.DOCUMENT_REFERENCE_UNFIT:
                 case DocumentRefCodes.DOCUMENT_REFERENCE_MISSING:

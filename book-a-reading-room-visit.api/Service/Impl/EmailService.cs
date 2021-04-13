@@ -192,6 +192,11 @@ namespace book_a_reading_room_visit.api.Service
             rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements));
             rootElement.Add(new XElement("ReturnURL", $"{homeURL}/return-to-booking"));
             rootElement.Add(new XElement("HomeURL", homeURL));
+            if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
+            {
+                var readingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room (All seats have camera stands)" : "Map and large document reading room";
+                rootElement.Add(new XElement("ReadingRoom", readingRoom));
+            }
 
             var documentCount = 1;
             foreach (var document in bookingModel.OrderDocuments.Where(d => !d.IsReserve).ToList())
