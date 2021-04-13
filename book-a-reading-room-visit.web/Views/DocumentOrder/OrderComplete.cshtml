@@ -148,6 +148,10 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order" : "Your bulk order")</h2>
+                @if (Model.Documents.Count(x => !x.IsReserved) == 0)
+                {
+                    <span>None entered.</span>
+                }
                 <ol class="document-list">
                     @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
                     {
@@ -161,6 +165,10 @@
                 @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                 {
                     <h2>Your reserve documents</h2>
+                    @if (Model.Documents.Count(x => x.IsReserved) == 0)
+                    {
+                        <span>None entered.</span>
+                    }
                     <ol class="document-list">
                         @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
                         {

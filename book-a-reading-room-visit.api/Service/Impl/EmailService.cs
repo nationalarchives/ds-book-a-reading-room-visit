@@ -131,6 +131,7 @@ namespace book_a_reading_room_visit.api.Service
                 }
             }
 
+            expando.ReaderTicket = bookingModel.ReaderTicket < 0 ? $"T{bookingModel.ReaderTicket*-1}" : $"{bookingModel.ReaderTicket}";
             expando.HomeURL = Environment.GetEnvironmentVariable("HomeURL");
             expando.ReturnURL = $"{expando.HomeURL}/return-to-booking";
             expando.VisitType = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
@@ -183,13 +184,14 @@ namespace book_a_reading_room_visit.api.Service
             var homeURL = Environment.GetEnvironmentVariable("HomeURL");
             var rootElement = new XElement("Root");
             rootElement.Add(new XElement("Name", $"{bookingModel.FirstName} {bookingModel.LastName}"));
+            rootElement.Add(new XElement("Phone", bookingModel.Phone ?? "None entered."));
             rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy} at {bookingModel.CompleteByDate:hh:mm tt}"));
             rootElement.Add(new XElement("BookingReference", bookingModel.BookingReference));
-            rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket));
+            rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket < 0 ? $"T{bookingModel.ReaderTicket * -1}" : $"{bookingModel.ReaderTicket}"));
             rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
             rootElement.Add(new XElement("VisitStartDate", $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}"));
             rootElement.Add(new XElement("SeatNumber", bookingModel.SeatNumber));
-            rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements));
+            rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements ?? "None entered."));
             rootElement.Add(new XElement("ReturnURL", $"{homeURL}/return-to-booking"));
             rootElement.Add(new XElement("HomeURL", homeURL));
             if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
@@ -198,22 +200,22 @@ namespace book_a_reading_room_visit.api.Service
                 rootElement.Add(new XElement("ReadingRoom", readingRoom));
             }
 
-            var documentCount = 1;
+            var documentCount = 0;
             foreach (var document in bookingModel.OrderDocuments.Where(d => !d.IsReserve).ToList())
             {
+                documentCount += 1;
                 var documentOrder = new XElement("DocumentOrder");
                 documentOrder.Add(new XElement("Label", $"Document {documentCount}: "));
                 documentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
-                documentCount += 1;
                 rootElement.Add(documentOrder);
             }
-            documentCount = 1;
+            var reserveDocumentCount = 0;
             foreach (var document in bookingModel.OrderDocuments.Where(d => d.IsReserve).ToList())
             {
+                reserveDocumentCount += 1;
                 var reserveDocumentOrder = new XElement("ReserveDocumentOrder");
-                reserveDocumentOrder.Add(new XElement("Label", $"Reserve document {documentCount}: "));
+                reserveDocumentOrder.Add(new XElement("Label", $"Reserve document {reserveDocumentCount}: "));
                 reserveDocumentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
-                documentCount += 1;
                 rootElement.Add(reserveDocumentOrder);
             }
             return new XDocument(rootElement);

@@ -17,14 +17,10 @@
       </p>
       <h3>Your booking summary </h3>
       Name: <xsl:value-of select="Name" /><br/>
-      <xsl:if test="string(Phone)">
-        Telephone number is: <xsl:value-of select="Phone" /><br/>
-      </xsl:if>
+      Telephone number is: <xsl:value-of select="Phone" /><br/>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
       Your Reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
-      <xsl:if test="string(AdditionalRequirements)">
-        Access needs and research requests:<xsl:value-of select="AdditionalRequirements" /><br/>
-      </xsl:if>
+      Access needs and research requests:<xsl:value-of select="AdditionalRequirements" /><br/>
       <table>
         <tbody>
           <tr>
@@ -59,7 +55,7 @@
       </table>
 
       <h3>Your document order</h3>
-
+      
       <xsl:for-each select="DocumentOrder">
         <p>
           <b>

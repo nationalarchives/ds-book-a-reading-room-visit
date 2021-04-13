@@ -31,9 +31,12 @@ namespace book_a_reading_room_visit.web.Controllers
         public async Task<IActionResult> OrderDocuments(BookingTypes bookingType, int readerticket, string bookingReference)
         {
             var bookingModel = await _bookingService.GetBookingAsync(readerticket, bookingReference);
-
-            var model = bookingModel.MapToDocumentOrderViewModel();
-            return View(model);
+            if (bookingModel.BookingStatus == BookingStatuses.Created)
+            {
+                var model = bookingModel.MapToDocumentOrderViewModel();
+                return View(model);
+            }
+            return RedirectToAction("Error", "Home");
         }
 
         [HttpPost]
@@ -62,6 +65,10 @@ namespace book_a_reading_room_visit.web.Controllers
         public async Task<IActionResult> OrderComplete(BookingTypes bookingType, int readerticket, string bookingReference)
         {
             var bookingModel = await _bookingService.GetBookingAsync(readerticket, bookingReference);
+            if (bookingModel.BookingStatus == BookingStatuses.Cancelled)
+            {
+                return RedirectToAction("Error", "Home");
+            }
             var model = bookingModel.MapToOrderCompleteViewModel();
             return View(model);
         }

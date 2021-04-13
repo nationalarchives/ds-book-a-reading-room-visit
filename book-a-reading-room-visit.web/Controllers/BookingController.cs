@@ -215,13 +215,31 @@ namespace book_a_reading_room_visit.web.Controllers
                 ModelState.AddModelError("ticket-booking-reference", Constants.Valid_Ticket_And_BookingReference_Required);
                 return View(returnToBookingViewModel);
             }
-            var routeValues = new
+            else if (model.BookingStatus == BookingStatuses.Cancelled)
             {
-                bookingType = model.BookingType.ToStringURL(),
-                bookingReference = model.BookingReference,
-                readerTicket = model.ReaderTicket
-            };
-            return RedirectToAction("OrderComplete", "DocumentOrder", routeValues);
+                ModelState.AddModelError("BookingReference", Constants.BookingReference_Is_Cancelled);
+                return View(returnToBookingViewModel);
+            }
+            if (model.BookingStatus == BookingStatuses.Submitted)
+            {
+                var routeValues = new
+                {
+                    bookingType = model.BookingType.ToStringURL(),
+                    bookingReference = model.BookingReference,
+                    readerTicket = model.ReaderTicket
+                };
+                return RedirectToAction("OrderComplete", "DocumentOrder", routeValues);
+            }
+            else
+            {
+                var routeValues = new
+                {
+                    bookingType = model.BookingType.ToStringURL(),
+                    bookingReference = model.BookingReference,
+                    readerTicket = model.ReaderTicket
+                };
+                return RedirectToAction("OrderDocuments", "DocumentOrder", routeValues);
+            }
         }
 
         public IActionResult ThankYou()
