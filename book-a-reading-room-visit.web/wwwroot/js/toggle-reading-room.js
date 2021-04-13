@@ -18,10 +18,12 @@ if (roomSelectionForm !== null) {
 
     hideUpdateButton();
 
+    dateListContainer.setAttribute('aria-live', 'polite');
+    dateListContainer.setAttribute('role', 'region');
+
     roomSelectionForm.addEventListener('change', e => {
         const loadingMessageContainer = document.createElement('p');
 
-        loadingMessageContainer.setAttribute('aria-live', 'polite');
         loadingMessageContainer.innerHTML = "Loading...";
 
         dateList.remove();
