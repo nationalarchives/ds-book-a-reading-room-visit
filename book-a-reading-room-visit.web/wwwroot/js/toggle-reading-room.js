@@ -24,7 +24,9 @@ if (roomSelectionForm !== null) {
     roomSelectionForm.addEventListener('change', e => {
         const loadingMessageContainer = document.createElement('p');
 
-        loadingMessageContainer.innerHTML = "Loading...";
+        loadingMessageContainer.innerHTML = "Loading available dates";
+        loadingMessageContainer.className = "text-center";
+        loadingMessageContainer.style.fontSize = "24px";
 
         dateList.remove();
         dateListContainer.appendChild(loadingMessageContainer);
