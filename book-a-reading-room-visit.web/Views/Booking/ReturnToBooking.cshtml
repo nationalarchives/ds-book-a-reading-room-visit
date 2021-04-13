@@ -48,14 +48,22 @@
                                     For example, RR811-260-2036X.
                                 </p>
 
-                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0)
+                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0 || (ViewData.ModelState["BookingReference"]?.Errors.Count() > 0))
                                 {
                                     @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", @class = "form-warning", required = true })
-                                    @Html.ValidationMessage("ticket-booking-reference", "", new { @class = "form-error" })
                                 }
                                 else
                                 {
                                     @Html.TextBoxFor(Model => Model.BookingReference, new { id = "reference-number", required = true })
+                                }
+
+                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessage("ticket-booking-reference", "", new { @class = "form-error" })
+                                }
+                                @if (ViewData.ModelState["BookingReference"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessage("BookingReference", "", new { @class = "form-error" })
                                 }
                             </div>
                         </fieldset>
@@ -67,14 +75,22 @@
                                     You can find this below the barcode on the back of your reader’s ticket card. If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                                 </p>
 
-                                @if (ViewData.ModelState["ticket"]?.Errors.Count() > 0)
+                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0 || (ViewData.ModelState["ticket"]?.Errors.Count() > 0))
                                 {
                                     @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", @class = "form-warning", required = true })
-                                    @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
                                 }
                                 else
                                 {
                                     @Html.TextBoxFor(Model => Model.Ticket, new { id = "reader-ticket-number", required = true })
+                                }
+
+                                @if (ViewData.ModelState["ticket"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
+                                }
+                                @if (ViewData.ModelState["ticket-booking-reference"]?.Errors.Count() > 0)
+                                {
+                                    @Html.ValidationMessage("ticket-booking-reference", "", new { @class = "form-error" })
                                 }
                             </div>
                         </fieldset>
