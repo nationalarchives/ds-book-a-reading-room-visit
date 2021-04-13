@@ -68,6 +68,13 @@
         </div>
     </section>
 
+    @if (Model.MinimumRequiredDocuments > 0)
+    {
+        <p class="warning">
+            You need to add at least @Model.MinimumRequiredDocuments more document before the deadline to avoid your order being cancelled.
+        </p>
+    }
+
     <section class="booking-details">
         <div class="row">
             <div class="col-md-12">
@@ -151,19 +158,19 @@
                     }
                 </ol>
 
-            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-            {
-                <h2>Your reserve documents</h2>
-                <ol class="document-list">
-                    @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
-                    {
-                        <li>
-                            <span class="bold-text">@document.Reference</span>
-                            @document.Description
-                        </li>
-                    }
-                </ol>
-            }
+                @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                {
+                    <h2>Your reserve documents</h2>
+                    <ol class="document-list">
+                        @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
+                        {
+                            <li>
+                                <span class="bold-text">@document.Reference</span>
+                                @document.Description
+                            </li>
+                        }
+                    </ol>
+                }
 
                 <h2 id="prepare-for-your-visit">Prepare for your visit</h2>
 
