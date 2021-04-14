@@ -8,7 +8,7 @@
       </p>
 
       <p>
-        You have made a reservation to visit the reading rooms at The National Archives on <xsl:value-of select="VisitStartDate" />.
+        You have made a provisional booking to visit the reading rooms at The National Archives on <xsl:value-of select="VisitStartDate" />.
       </p>
 
       <p>
@@ -17,7 +17,7 @@
       </p>
 
       <p>
-        If you do not complete this step by <xsl:value-of select="CompleteByDate" /> British Summer Time (BST), your <b>reservation will be automatically cancelled.</b>
+        If you do not complete this step by <xsl:value-of select="CompleteByDate" /> British Summer Time (BST), your <b>provisional booking will be automatically cancelled.</b>
       </p>
 
       <p>You can ignore this step if you have already completed your document order but you can return and edit your order as many times as you’d like before the deadline above.</p>
@@ -60,7 +60,7 @@
         </tbody>
       </table>
 
-      <p>Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/ </p>
+      <p>Use Discovery, our catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/ </p>
       <h3>Cancel your visit</h3>
       <p>
         You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />

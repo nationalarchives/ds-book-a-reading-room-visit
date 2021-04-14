@@ -51,7 +51,7 @@
           </tr>
         </tbody>
       </table>
-      <p>Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/ </p>
+      <p>Use Discovery, our catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/ </p>
 
       <h3>Cancel your visit</h3>
       You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />

@@ -14,7 +14,7 @@
       Reading room:     {ReadingRoom}
       Seat number:      {SeatNumber}
 
-      Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
+      Use Discovery, our catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
 
       You can cancel your visit at any time. Use this link: {ReturnURL}
 
