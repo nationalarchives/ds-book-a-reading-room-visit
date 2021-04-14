@@ -19,8 +19,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <p>
-                        You can cancel your booking any time before your date of visit. If you need to re-book for a different date,
-                        you will need to cancel your current visit and make a new booking.
+                        You can cancel your booking at any time before your date of visit. If you want to change the date of a booked visit,
+                        you will need to cancel it before making a new booking.
                     </p>
                 </div>
             </div>
@@ -42,9 +42,9 @@
                             <div class="reservation-options">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="button">Yes - cancel my visit</button>
+                                        <button type="submit" class="button">Yes, cancel this visit</button>
                                         <a class="button secondary" href="@Url.Action("OrderDocuments", "DocumentOrder",
-                                                new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No - take me to the order form</a>
+                                                new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">I want to order documents</a>
                                     </div>
                                 </div>
                             </div>
