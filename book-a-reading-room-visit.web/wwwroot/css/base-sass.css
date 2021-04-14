@@ -8741,4 +8741,42 @@ body .kbs .primary {
   color: #fff !important;
 }
 
+.contact-footer {
+  margin: 3em 0 0;
+  border-top: 3px dotted #ddd;
+  padding: 2em;
+  text-align: center;
+}
+.contact-footer .first {
+  border: 0;
+  margin-bottom: 2em;
+}
+@media screen and (min-width: 992px) {
+  .contact-footer .first {
+    border-right: 2px dotted #ddd;
+    margin-bottom: 0;
+  }
+}
+.contact-footer h2 {
+  font-size: 1em !important;
+  font-weight: bold;
+}
+@media screen and (min-width: 768px) {
+  .contact-footer h2 {
+    margin: 0;
+  }
+}
+.contact-footer a {
+  font-weight: bold !important;
+  color: #134571;
+  text-decoration: underline;
+}
+.contact-footer a:hover {
+  background-color: #134571;
+  color: #fff;
+}
+.contact-footer p {
+  margin: 2em 0 0.3em !important;
+}
+
 /*# sourceMappingURL=base-sass.css.map */
