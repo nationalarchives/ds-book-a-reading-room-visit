@@ -3,13 +3,14 @@
     <legend>Enter up to 12 full catalogue references</legend>
     <p class="helper-text">
         Documents can be from multiple series, for example ADM 22 and C 142.<br>
-        <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/">Search our catalogue to find catalogue references.</a>
+        Search <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/">Discovery, our catalogue</a>
+        to find catalogue references.
     </p>
 
     @if (Model.MinimumRequiredDocuments > 0)
     {
         <p class="warning">
-            You need to add at least @Model.MinimumRequiredDocuments more document before the deadline to avoid your order being cancelled.
+            You need to add at least 1 document before the deadline to avoid your order being cancelled.
         </p>
     }
 
