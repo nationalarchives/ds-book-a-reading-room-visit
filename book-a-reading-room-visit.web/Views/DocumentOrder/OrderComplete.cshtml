@@ -32,7 +32,7 @@
                 <div class="prompt-grey full-width success-panel extra-margin">
                     <h2>Your document order has been saved.</h2>
                     <p>
-                        You can still return to add to or remove documents from your order until your document order deadline, which is <br><span class="bold-text">Monday 29 March 2021 at 11:59pm British Summer Time (BST)</span>.
+                        You can still return to add to or remove documents from your order until your document order deadline, which is <br><span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
                     </p>
                 </div>
             </div>
@@ -57,7 +57,7 @@
 
                 @if (Model.CompleteByDate?.Date > DateTime.Today && Model.BookingStatus == BookingStatuses.Created)
                 {
-                    <a class="button no-margin no-print" href="/book-a-reading-room-visit/standard-order-visit/order-documents/999/RR731-820-2042X">Edit your document order</a>
+                    <a class="button no-margin no-print" href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = @Model.BookingReference })">Edit your document order</a>
                 }
 
                 <h2 class="break-before">After the document order deadline</h2>
