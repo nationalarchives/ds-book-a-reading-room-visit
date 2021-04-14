@@ -86,21 +86,25 @@
           what you can take into the reading rooms: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
         </li>
         <li>
-          how to use the reading rooms (Rules for readers): https://www.nationalarchives.gov.uk/documents/rules.pdf
+          how to use the reading rooms (rules for readers): https://www.nationalarchives.gov.uk/documents/rules.pdf
         </li>
         <li>
-          what to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/ and https://www.youtube.com/watch?v=Wm4mq5X_EFs (video)
+          more information about this service: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
         </li>
       </ul>
       <p>
-        If you are using your reader's ticket for the first time remember to bring the correct documents to complete your registration.
+        Remember to bring the correct documents to complete your registration if you are using your reader's ticket for the first time.
       </p>
       <p>
-        If you wish to take photographs of our documents please bring your device. We do not charge for this.
+        Bring your device if you wish to take photographs of our documents. We do not charge for this.
       </p>
       <h3>What to expect when you visit</h3>
+      <p>
+        Watch this video to find out what you can expect during your booked visit to The National Archives' reading rooms and the changes we've made for everyone's safety:
+        https://www.youtube.com/watch?v=Wm4mq5X_EFs
+      </p>
       <p>Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process: https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf</p>
-      <p>Please remember to wear a face mask when you visit, unless you have a valid exemption: https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions</p>
+      <p>Remember to wear a face mask when you visit, unless you have a valid exemption: https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions</p>
       <h3>Cancel your visit</h3>
       You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
       <h3>Need help?</h3>

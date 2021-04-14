@@ -7,7 +7,7 @@
         Dear <xsl:value-of select="Name" />,
       </p>
       <p>
-        You have a reservation to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
+        You have a provisional booking to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
       </p>
       <p>
         Make sure you complete the document order form by <b><xsl:value-of select="CompleteByDate" /> British Summer Time (BST).</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
