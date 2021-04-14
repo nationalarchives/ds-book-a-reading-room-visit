@@ -1,5 +1,5 @@
 ﻿const browser_can_print = typeof window.print === 'function';
-const on_order_summary_page = !!document.querySelector('main.order-summary');
+const on_order_summary_page = !!document.querySelector('.order-summary');
 const mount_node_exists = !!document.getElementById('print-your-order');
 
 const add_print_button = () => {
