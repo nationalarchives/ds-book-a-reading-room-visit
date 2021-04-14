@@ -9,11 +9,11 @@
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")
 
-<h1 class="display-4">5. Order summary</h1>
+<h1 class="display-4"><span class="no-print">5. </span>Order summary</h1>
 
-<div class="container content-wrapper">
+<div class="container content-wrapper order-summary">
 
-    <section class="row" id="progress-bar">
+    <section class="row no-print" id="progress-bar">
         <h2 class="sr-only">Progress</h2>
         <div class="col-md-12">
             <ol>
@@ -29,61 +29,57 @@
     <div class="heading">
         <div class="row">
             <div class="col-md-12">
-                <div class="prompt-grey full-width success-panel mb-lg extra-margin">
-                    <h2>Your document order has been saved and your visit is confirmed.</h2>
+                <div class="prompt-grey full-width success-panel extra-margin">
+                    <h2>Your document order has been saved.</h2>
                     <p>
-                        You can add to or remove documents from this order <span class="bold-text">until @($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+                        You can still return to add to or remove documents from your order until your document order deadline, which is <br><span class="bold-text">Monday 29 March 2021 at 11:59pm British Summer Time (BST)</span>.
                     </p>
-
-                    <ul>
-                        @if (Model.CompleteByDate?.Date > DateTime.Today && Model.BookingStatus == BookingStatuses.Created)
-                        {
-                            <li>
-                                <a href="@Url.Action("OrderDocuments", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(), readerTicket = Model.ReaderTicket, bookingReference = @Model.BookingReference })">
-                                    Edit your document order
-                                </a>
-                            </li>
-                        }
-                        <li>
-                            <a href="#">Print your document order</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <section>
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    If you provided an email address as part of your booking, you will receive a copy of the
-                    final document order on <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
-                    If you can’t see this email in your inbox, check your spam and junk email folders.
-                </p>
-                <p>
-                    If you did not provide an email address as part of your booking, safely note these
-                    booking details for future reference. Return to your booking before the deadline at this link:<br>
-                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
-                </p>
-
-            </div>
-        </div>
-    </section>
-
-    @if (Model.MinimumRequiredDocuments > 0)
-    {
-        <p class="warning">
-            You need to add at least @Model.MinimumRequiredDocuments more @(Model.MinimumRequiredDocuments == 1 ? "document" : "documents") before the deadline to avoid your order being cancelled.
-        </p>
-    }
-
     <section class="booking-details">
         <div class="row">
             <div class="col-md-12">
-                <h2>Your booking details</h2>
+                <h2>Before you leave</h2>
+                <p>See your document order summary below. We will send you a confirmation email containing a summary of your final document order once the document order deadline has passed.</p>
+
+                <p>Check that your document order contains <b>at least:</b></p>
+                <ul>
+                    <li>one catalogue reference (for a standard visit),</li>
+                    <li>or at least 20 catalogue references (for a bulk order visit).</li>
+                </ul>
+                <p>If you haven’t done this before the document order deadline, your visit will be automatically cancelled as there won’t be enough documents in your order for us to fulfil for your visit.</p>
+
+                <h2>Can I change my document order?</h2>
+                <p>You can add to or remove catalogue references from your document order at any time before the document order deadline.</p>
+
+                @if (Model.CompleteByDate?.Date > DateTime.Today && Model.BookingStatus == BookingStatuses.Created)
+                {
+                    <a class="button no-margin no-print" href="/book-a-reading-room-visit/standard-order-visit/order-documents/999/RR731-820-2042X">Edit your document order</a>
+                }
+
+                <h2 class="break-before">After the document order deadline</h2>
+                <p>If you have added the minimum number of documents required to your document order, we will send you a booking confirmation email once the document order deadline has passed. If you cannot see this email in your inbox, check your spam and junk email folders.</p>
+                <p>We will then begin preparing your documents.</p>
+                <p>If you haven’t added the minimum number of documents required to your document order, your visit to the reading rooms will be cancelled and we will send you a cancellation email.</p>
+
+                <h2 class="break-before">Your booking details</h2>
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th scope="row">Name</th>
+                            <td>Jo Bloggs</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email address</th>
+                            <td>email@email.com</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Telephone</th>
+                            <td>123</td>
+                        </tr>
                         <tr>
                             <th scope="row">Booking reference</th>
                             <td>
@@ -129,20 +125,20 @@
                                 <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row">Additional access requirements or research requests</th>
+                            <td>
+                                I'd like a finding aid please.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">I have a legitimate reason to not wear a face covering</th>
+                            <td>
+                                Yes
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                @if (Model.BookingStartDate.Date > DateTime.Today && Model.BookingStatus != BookingStatuses.Cancelled)
-                {
-                    <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(Model => Model.BookingReference)
-                        @Html.HiddenFor(Model => Model.ReaderTicket)
-                        @Html.Hidden("seattype", Model.SeatType.ToStringURL())
-                        @Html.HiddenFor(Model => Model.BookingStartDate)
-                        @Html.HiddenFor(Model => Model.SeatNumber)
-                        <button type="submit" class="button">Cancel your booking</button>
-                    </form>
-                }
             </div>
         </div>
     </section>
@@ -151,6 +147,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order" : "Your bulk order")</h2>
+                <p>We will contact you if a large number of the documents you want to order become unavailable for the date of your visit.</p>
                 @if (Model.Documents.Count(x => !x.IsReserved) == 0)
                 {
                     <span>None entered.</span>
@@ -183,41 +180,64 @@
                     </ol>
                 }
 
-                <h2 id="prepare-for-your-visit">Prepare for your visit</h2>
+                <span id="print-your-order"></span>
 
+                <h2 id="prepare-for-your-visit" class="break-before">Prepare for your visit</h2>
+
+                <p>Find out about:</p>
+
+                <ul>
+                    <li>
+                        how to get here: <br>
+                        <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/">https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/</a>
+                    </li>
+                    <li>
+                        what you can take into the reading rooms:<br>
+                        <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/</a>
+                    </li>
+                    <li>
+                        how to use the reading rooms (rules for readers):<br>
+                        <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/documents/rules.pdf">https://www.nationalarchives.gov.uk/documents/rules.pdf</a>
+                    </li>
+                    <li>
+                        more information about this service:<br>
+                        <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/</a><br>
+                    </li>
+                </ul>
+                <p>Remember to bring the correct documents to complete your registration if you are using your reader's ticket for the first time.</p>
+                <p>Bring your device if you wish to take photographs of our documents. We do not charge for this.</p>
+                <h2>What to expect when you visit</h2>
                 <p>
-                    Our building is COVID-19 secure. See our COVID-19 Charter for more:<br>
-                    <a href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf"
-                       target="_blank" rel="noreferrer noopener">https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf</a>
+                    Watch this video to find out what you can expect during your booked visit to The National Archives' reading rooms and the changes we've made for everyone's safety:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/watch?v=Wm4mq5X_EFs">https://www.youtube.com/watch?v=Wm4mq5X_EFs</a>
                 </p>
-
                 <p>
-                    Watch a video to find out more about what to expect when you visit:<br>
-                    <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s">https://www.youtube.com/watch?v=Wm4mq5X_EFs&t=1s</a>
+                    Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf</a>
                 </p>
-
                 <p>
-                    Our website provides more information about our opening times, how to get here, what you can
-                    take into the reading rooms and the facilities that are available during your visit:<br>
-                    <a href="https://www.nationalarchives.gov.uk/about/visit-us" target="_blank"
-                       rel="noreferrer noopener">https://www.nationalarchives.gov.uk/about/visit-us</a>
+                    Remember to wear a face mask when you visit, unless you have a valid exemption:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions</a>
                 </p>
+                <h2>Can I cancel my visit?</h2>
 
-
-                <h3>Address</h3>
-
-                <p>
-                    The National Archives,<br>
-                    Kew<br>
-                    Richmond<br>
-                    TW9 4DU. For sat navs use the postcode TW9 4AD (Bessant Drive).
-                </p>
-
-                <p>
-                    Contact us:<br>
-                    <a href="https://www.nationalarchives.gov.uk/contact-us" target="_blank"
-                       rel="noreferrer noopener">https://www.nationalarchives.gov.uk/contact-us</a>
-                </p>
+                <p>You can cancel your visit at anytime.</p>
+                <div class="no-print">
+                    <form action="/book-a-reading-room-visit/standard-order-visit/cancel-booking" method="post">
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fm9gkvp_CNDnCItEvXaYYdXD6d9rSpFgbDtLP16m7un0K1Ma7buhzoHx5Bb7-2-lxIaRQThxItxhwqMNRC12MTPyhZ47Mq1zBenWXGItup5rDItgQUkmt8f_73gJ-JkVbpdLzy4V2VdI3H9S4XUO8E" />
+                        <input id="BookingReference" name="BookingReference" type="hidden" value="RR731-820-2042X" />
+                        <input data-val="true" data-val-required="The ReaderTicket field is required." id="ReaderTicket" name="ReaderTicket" type="hidden" value="999" />
+                        <input data-val="true" data-val-required="The SeatType field is required." id="SeatType" name="SeatType" type="hidden" value="StdRRSeat" />
+                        <input data-val="true" data-val-required="The BookingStartDate field is required." id="BookingStartDate" name="BookingStartDate" type="hidden" value="04/07/2021 00:00:00" />
+                        <input id="SeatNumber" name="SeatNumber" type="hidden" value="15D" />
+                        <button type="submit" class="button no-margin">Cancel your visit</button>
+                    </form>
+                    <h2>Leave this page</h2>
+                    <p>
+                        You can close your browser or continue your research journey using Discovery, our catalogue: <br>
+                        <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/ ">https://discovery.nationalarchives.gov.uk/</a>
+                    </p>
+                </div>
             </div>
         </div>
     </section>
