@@ -80,7 +80,7 @@
     </div>
 
     <p class="no-margin">
-        Once you choose a date and make a provisional booking, you will not be able to change your visit date unless you cancel your existing booking.
+        Once you complete this step, you will not be able to change the date of your visit unless you cancel it first.
     </p>
 
     <form class="margin-bottom" action="@Url.Action("CancelProvision", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
@@ -170,12 +170,12 @@
 
                     <div class="optional-container">
                         <fieldset>
-                            <legend>Enter your email address or telephone number so we can contact you.</legend>
+                            <legend>Enter your email address or telephone number so we can contact you</legend>
 
                             <div class="form-row">
                                 <label for="email" class="mt-lg">Email address</label>
                                 <p class="helper-text">
-                                    We will use this to send you a booking confirmation email with a link to your document order form and a reminder email before your visit.
+                                    We will use this to send you (1) a booking confirmation email about your document order and (2) a reminder email before your visit.
                                 </p>
 
                                 @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0 || (ViewData.ModelState["Email"]?.Errors.Count() > 0))
@@ -233,7 +233,7 @@
 
                         <div class="form-row @(@ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
-                            <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="http://www.nationalarchives.gov.uk/legal/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a></label>
+                            <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/booking-events/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a>.</label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
                             {
@@ -243,7 +243,7 @@
 
                         <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
-                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a> (PDF)</label>
+                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a>. (PDF)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
                             {
@@ -255,7 +255,7 @@
                             @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
                             <label for="face-covering" class="reduce-text">
                                 I have a legitimate reason to <a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">not wear a face covering</a>.
-                                This information won’t be shared with the NHS Test and Trace service.
+                                <br>This information will only be used when you visit and will not be shared with the NHS Test and Trace service.
                             </label>
                         </div>
                     </fieldset>
