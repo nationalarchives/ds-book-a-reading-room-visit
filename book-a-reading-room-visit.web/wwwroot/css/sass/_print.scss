@@ -1,18 +1,44 @@
 /* TNA print styles */
 
 @media print {
-  header, nav, aside, footer {
-    display: none;
-  }
-  img {
-    max-width: 100%;
-  }
-  .equal-heights .col-md-6 {
-    height: auto !important;
-  }
-  article:after, article:before {
-    content: " ";
-    display: table;
-    clear: both;
-  }
+    header, nav, aside, footer {
+        display: none;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .equal-heights .col-md-6 {
+        height: auto !important;
+    }
+
+    article:after, article:before {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+
+    .order-summary {
+
+        .no-print {
+            display: none;
+        }
+
+        .success-panel {
+            border: 1px solid black;
+        }
+
+        .break-before {
+            page-break-before: always;
+        }
+    }
+
+    .cookieNotice {
+        display: none;
+    }
+
+    .tna-breadcrumb {
+        display: none;
+    }
 }
