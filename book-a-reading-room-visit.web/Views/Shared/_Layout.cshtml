@@ -40,9 +40,8 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    @await Html.PartialAsync("Partials/_NotificationBanner") 
+    @await Html.PartialAsync("Partials/_NotificationBanner")
     @await Html.PartialAsync("Partials/_Header")
-
 
     <main class="kbs pb-3" id="main-content">
         <div class="container">
@@ -50,6 +49,7 @@
         </div>
     </main>
 
+    @await Html.PartialAsync("Partials/_ContactFooter")
     @await Html.PartialAsync("Partials/_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
