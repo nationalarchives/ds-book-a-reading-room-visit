@@ -18,7 +18,9 @@
         "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
-        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit"
+        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
+        "AWS_PROFILE": "devdsadmin",
+        "AWS_REGION": "eu-west-2"
       }
     },
     "book_a_reading_room_visit.api": {
@@ -32,7 +34,9 @@
         "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
-        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit"
+        "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
+        "AWS_PROFILE": "devdsadmin",
+        "AWS_REGION": "eu-west-2"
       }
     }
   }
