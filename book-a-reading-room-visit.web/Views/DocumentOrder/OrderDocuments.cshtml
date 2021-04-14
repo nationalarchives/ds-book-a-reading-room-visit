@@ -3,7 +3,7 @@
 @using book_a_reading_room_visit.model
 
 @{
-    ViewData["Title"] = "Order documents";
+    ViewData["Title"] = $"Order documents - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @model DocumentOrderViewModel

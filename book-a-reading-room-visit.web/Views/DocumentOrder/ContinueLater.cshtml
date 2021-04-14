@@ -2,7 +2,7 @@
 @using book_a_reading_room_visit.web.Helper
 @model DocumentOrderViewModel
 @{
-    ViewData["Title"] = "Continue later";
+    ViewData["Title"] = $"Continue later - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")

@@ -2,7 +2,7 @@
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @{
-    ViewData["Title"] = "Booking confirmation";
+    ViewData["Title"] = $"Your visit details - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 @model BookingViewModel
 

@@ -4,7 +4,7 @@
 
 @model AvailabilityViewModel
 @{
-    ViewData["Title"] = "Visit availability";
+    ViewData["Title"] = $"Select date - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")

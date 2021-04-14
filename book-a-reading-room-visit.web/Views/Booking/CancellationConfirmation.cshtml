@@ -1,9 +1,10 @@
 ﻿@using book_a_reading_room_visit.model
 @using book_a_reading_room_visit.web.Models
+@using book_a_reading_room_visit.model
 @model CancelViewModel
 
 @{
-    ViewData["Title"] = "Cancel your visit";
+    ViewData["Title"] = $"Cancellation confirmation - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")

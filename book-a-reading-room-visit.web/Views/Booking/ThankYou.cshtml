@@ -3,7 +3,7 @@
 @using book_a_reading_room_visit.web.Models
 
 @{
-    ViewData["Title"] = "Thank you";
+    ViewData["Title"] = $"Continue later confirmation - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")
