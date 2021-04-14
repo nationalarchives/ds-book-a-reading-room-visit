@@ -208,12 +208,12 @@
                     <p>You can cancel your visit at anytime.</p>
                     <div class="no-print">
                         <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
-                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fm9gkvp_CNDnCItEvXaYYdXD6d9rSpFgbDtLP16m7un0K1Ma7buhzoHx5Bb7-2-lxIaRQThxItxhwqMNRC12MTPyhZ47Mq1zBenWXGItup5rDItgQUkmt8f_73gJ-JkVbpdLzy4V2VdI3H9S4XUO8E" />
-                            <input id="BookingReference" name="BookingReference" type="hidden" value="RR731-820-2042X" />
-                            <input data-val="true" data-val-required="The ReaderTicket field is required." id="ReaderTicket" name="ReaderTicket" type="hidden" value="999" />
-                            <input data-val="true" data-val-required="The SeatType field is required." id="SeatType" name="SeatType" type="hidden" value="StdRRSeat" />
-                            <input data-val="true" data-val-required="The BookingStartDate field is required." id="BookingStartDate" name="BookingStartDate" type="hidden" value="04/07/2021 00:00:00" />
-                            <input id="SeatNumber" name="SeatNumber" type="hidden" value="15D" />
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(Model => Model.BookingReference)
+                            @Html.HiddenFor(Model => Model.ReaderTicket)
+                            @Html.Hidden("seattype", Model.SeatType.ToStringURL())
+                            @Html.HiddenFor(Model => Model.BookingStartDate)
+                            @Html.HiddenFor(Model => Model.SeatNumber)
                             <button type="submit" class="button no-margin">Cancel your visit</button>
                         </form>
                         <h2>Leave this page</h2>
