@@ -6,7 +6,8 @@
             dist: {
                 files: {
                     // destination for transpiled js : source js
-                    'wwwroot/js/dist/toggle-reading-room.js': 'wwwroot/js/toggle-reading-room.js'
+                    'wwwroot/js/dist/toggle-reading-room.js': 'wwwroot/js/toggle-reading-room.js',
+                    'wwwroot/js/dist/print-your-order.js': 'wwwroot/js/print-your-order.js'
                 },
                 options: {
                     transform: [['babelify', { presets: ["@babel/preset-env"] }]],
