@@ -2,6 +2,20 @@
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        browserify: {
+            dist: {
+                files: {
+                    // destination for transpiled js : source js
+                    'wwwroot/js/dist/toggle-reading-room.js': 'wwwroot/js/toggle-reading-room.js'
+                },
+                options: {
+                    transform: [['babelify', { presets: ["@babel/preset-env"] }]],
+                    browserifyOptions: {
+                        debug: true
+                    }
+                }
+            }
+        },
         sass: {
             options: {
                 sourcemap: false
@@ -30,12 +44,14 @@
         }
     });
 
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     //Default task(s).
     grunt.registerTask('default', [
+        'browserify:dist',
         'sass',
         'cssmin',
         'watch'
