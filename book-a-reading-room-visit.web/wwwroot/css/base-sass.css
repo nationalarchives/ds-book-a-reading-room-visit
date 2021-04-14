@@ -5968,9 +5968,6 @@ body .kbs .button {
 body .kbs .button:hover {
   background: #000;
 }
-body .kbs .order-option .button, body .kbs .reservation-option .button, body .kbs .cancellation-details .button, body .kbs .booking-details .button {
-  color: white !important;
-}
 body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary, body .kbs .cancellation-details .button.primary, body .kbs .booking-details .button.primary {
   color: #fff !important;
 }
@@ -5979,6 +5976,18 @@ body .kbs .order-option .button.primary:focus, body .kbs .reservation-option .bu
 }
 body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-option .button.primary:focus:hover, body .kbs .cancellation-details .button.primary:focus:hover, body .kbs .booking-details .button.primary:focus:hover {
   color: #fff !important;
+}
+body .kbs .order-summary .button {
+  color: #fff !important;
+}
+body .kbs .order-summary .button:focus {
+  color: #26262a !important;
+}
+body .kbs .order-summary .button:focus:hover {
+  color: #fff !important;
+}
+body .kbs .order-summary h2 {
+  margin-top: 1.8em;
 }
 body .kbs .secondary {
   background: #fff;
@@ -7239,6 +7248,10 @@ button:focus {
     content: " ";
     display: table;
     clear: both;
+  }
+
+  .no-print {
+    display: none;
   }
 
   .order-summary .no-print {
@@ -8804,6 +8817,10 @@ body .kbs .primary {
   padding: 0 !important;
   font-size: 1em !important;
   margin-top: 0 !important;
+}
+.secondary-button:hover {
+  background-color: #134571 !important;
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=base-sass.css.map */

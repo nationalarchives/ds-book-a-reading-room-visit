@@ -206,10 +206,6 @@ body {
         }
 
         .order-option, .reservation-option, .cancellation-details, .booking-details {
-            .button {
-                color: white !important;
-            }
-
             .button.primary {
                 color: #fff !important;
 
@@ -220,6 +216,24 @@ body {
                 &:focus:hover {
                     color: #fff !important;
                 }
+            }
+        }
+
+        .order-summary {
+            .button {
+                color: #fff !important;
+
+                &:focus {
+                    color: #26262a !important;
+                }
+
+                &:focus:hover {
+                    color: #fff !important;
+                }
+            }
+
+            h2 {
+                margin-top: 1.8em;
             }
         }
 
