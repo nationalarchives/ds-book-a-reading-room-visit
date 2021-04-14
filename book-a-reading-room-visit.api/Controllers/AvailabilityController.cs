@@ -19,6 +19,12 @@ namespace book_a_reading_room_visit.api.Controllers
             _availabilityService = availabilityService;
         }
 
+        [HttpGet("ping")]
+        public async Task<ActionResult> Ping()
+        {
+            return Ok("API is up and running!!!");
+        }
+
         [HttpGet("summary")]
         public async Task<ActionResult<AvailabilitySummaryModel>> GetAvailabilitySummary()
         {

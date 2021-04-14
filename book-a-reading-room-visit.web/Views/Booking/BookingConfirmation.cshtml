@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Reader's ticket number</th>
-                            <td>@Model.ReaderTicket</td>
+                            <td>@(Model.ReaderTicket < 0 ? $"T{Model.ReaderTicket*-1}" : $"{Model.ReaderTicket}")</td>
                         </tr>
                         <tr>
                             <th scope="row">Visit date</th>
