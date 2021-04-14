@@ -15,7 +15,10 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    You have a provisional booking for:
+                    You have a provisional booking to visit the reading rooms. Confirm it by filling in the document order form before <br><span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
+                </p>
+                <p>
+                    If you do not fill in the document order form by this date, your visit will be automatically cancelled.
                 </p>
             </div>
         </div>
@@ -26,6 +29,20 @@
             <div class="col-md-12">
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th scope="row">Booking reference</th>
+                            <td>
+                                @Model.BookingReference
+                                <span class="secondary-info">
+                                    A copy of this will be emailed to you. If you didn't provide your email address as part of the booking
+                                    process, remember to safely note your booking reference.
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reader's ticket number</th>
+                            <td>@Model.ReaderTicket</td>
+                        </tr>
                         <tr>
                             <th scope="row">Visit date</th>
                             <td>@($"{Model.BookingStartDate:dddd dd MMMM yyyy}")</td>
@@ -42,7 +59,7 @@
                                 <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
-                                    <td>Document reading room (All seats have camera stands)</td>
+                                    <td>Document reading room <span class="secondary-info">All seats have camera stands.</span></td>
                                 }
                                 else
                                 {
@@ -65,22 +82,12 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    If you did not provide an email address as part of your booking, safely note these booking details
-                    or future reference. Return to your booking at this link before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>:
-                    <br />
-                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">Return to booking form</a>
+                    Complete your document order using this link:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
                 </p>
-
                 <p>
-                    If you provided an email address as part of your booking, a direct link to this form is also in
-                    your reservation confirmation email, so you can return to your document order at any point before
-                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you
-                    can’t see the reservation confirmation email in your inbox, check your spam and junk email folders.
+                    If you provided an email address as part of your booking, we will email you this link. If you cannot see this email in your inbox, check your spam and junk email folders.
                 </p>
-
-                <p>Complete your document order form at any point before the deadline otherwise your visit will be cancelled.</p>
-
-                <p class="no-margin">You will need your booking reference and reader's ticket number to return to this booking.</p>
             </div>
         </div>
 
@@ -89,9 +96,9 @@
                 <div class="col-md-12">
                     <h2>Are you sure you want to continue later?</h2>
 
-                    <a class="button primary" href="@Url.Action("ThankYou", "Booking")">Yes, I'd like to continue later</a>
+                    <a class="button primary" href="@Url.Action("ThankYou", "Booking")">Yes, I’d like to order my documents later</a>
                     <a class="button secondary" href="@Url.Action("OrderDocuments", "DocumentOrder",
-                                        new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No, take me to the order form</a>
+                                        new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No, I’d like to order my documents now</a>
                 </div>
             </div>
         </div>
