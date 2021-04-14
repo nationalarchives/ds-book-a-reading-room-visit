@@ -70,18 +70,6 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <th scope="row">Name</th>
-                                <td>Jo Bloggs</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Email address</th>
-                                <td>email@email.com</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Telephone</th>
-                                <td>123</td>
-                            </tr>
-                            <tr>
                                 <th scope="row">Booking reference</th>
                                 <td>
                                     @Model.BookingReference
@@ -95,8 +83,8 @@
                             <tr>
                                 <th scope="row">Visit date</th>
                                 <td>
-                                    @($"{Model.BookingStartDate:dddd dd MMMM yyyy}") (<a target="_blank" rel="noreferrer noopenner"
-                                                                                         href="#prepare-for-your-visit" role="button">See our visitor information</a>)
+                                    @($"{Model.BookingStartDate:dddd dd MMMM yyyy}") <br>
+                                    <a class="no-print" href="#prepare-for-your-visit" role="button">See our visitor information</a>
                                 </td>
                             </tr>
                             <tr>
@@ -126,18 +114,6 @@
                                     <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">Additional access requirements or research requests</th>
-                                <td>
-                                    I'd like a finding aid please.
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">I have a legitimate reason to not wear a face covering</th>
-                                <td>
-                                    Yes
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -147,31 +123,17 @@
         <section class="order-summary">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order" : "Your bulk order")</h2>
-                    <p>We will contact you if a large number of the documents you want to order become unavailable for the date of your visit.</p>
+                    <h2 class="break-before">@(Model.BookingType == BookingTypes.StandardOrderVisit ? "Your standard order" : "Your bulk order")</h2>
+
                     @if (Model.Documents.Count(x => !x.IsReserved) == 0)
                     {
-                        <span>None entered.</span>
+                        <p class="no-margin">None entered.</p>
                     }
-                    <ol class="document-list">
-                        @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
-                        {
-                            <li>
-                                <span class="bold-text">@document.Reference</span>
-                                @document.Description
-                            </li>
-                        }
-                    </ol>
-
-                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                    else
                     {
-                        <h2>Your reserve documents</h2>
-                        @if (Model.Documents.Count(x => x.IsReserved) == 0)
-                        {
-                            <span>None entered.</span>
-                        }
+                        <p>We will contact you if a large number of the documents you want to order become unavailable for the date of your visit.</p>
                         <ol class="document-list">
-                            @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
+                            @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
                             {
                                 <li>
                                     <span class="bold-text">@document.Reference</span>
@@ -179,6 +141,27 @@
                                 </li>
                             }
                         </ol>
+                    }
+
+                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                    {
+                        <h2>Your reserve documents</h2>
+                        @if (Model.Documents.Count(x => x.IsReserved) == 0)
+                        {
+                            <p class="no-margin">None entered.</p>
+                        }
+                        else
+                        {
+                            <ol class="document-list">
+                                @foreach (var document in Model.Documents.Where(x => x.IsReserved).ToList())
+                                {
+                                    <li>
+                                        <span class="bold-text">@document.Reference</span>
+                                        @document.Description
+                                    </li>
+                                }
+                            </ol>
+                        }
                     }
 
                     <span id="print-your-order"></span>
@@ -202,7 +185,7 @@
                         </li>
                         <li>
                             more information about this service:<br>
-                            <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/</a><br>
+                            <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/</a>
                         </li>
                     </ul>
                     <p>Remember to bring the correct documents to complete your registration if you are using your reader's ticket for the first time.</p>
@@ -224,7 +207,7 @@
 
                     <p>You can cancel your visit at anytime.</p>
                     <div class="no-print">
-                        <form action="/book-a-reading-room-visit/standard-order-visit/cancel-booking" method="post">
+                        <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
                             <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Fm9gkvp_CNDnCItEvXaYYdXD6d9rSpFgbDtLP16m7un0K1Ma7buhzoHx5Bb7-2-lxIaRQThxItxhwqMNRC12MTPyhZ47Mq1zBenWXGItup5rDItgQUkmt8f_73gJ-JkVbpdLzy4V2VdI3H9S4XUO8E" />
                             <input id="BookingReference" name="BookingReference" type="hidden" value="RR731-820-2042X" />
                             <input data-val="true" data-val-required="The ReaderTicket field is required." id="ReaderTicket" name="ReaderTicket" type="hidden" value="999" />
