@@ -1030,3 +1030,19 @@ body {
         color: #fff !important;
     }
 }
+
+nav a, footer a, .notification-banner a, #skip-to-main-content {
+    &:focus {
+        background-color: #fff !important;
+        color: #26262a !important;
+        outline: 5px solid #1d70b8;
+        outline-offset: 0;
+        z-index: 999;
+    }
+
+    &:hover {
+        color: #fff;
+        background-color: #134571;
+        outline: 1px solid #fff;
+    }
+}
