@@ -130,7 +130,9 @@
 		</a>
 	  </p>
       <h3 style="margin-top: 2em;">Cancel your visit</h3>
-      You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
+	  <p>
+          You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
+	  </p>
       <h3 style="margin-top: 2em;">Need help?</h3>
 
 	  <p>
