@@ -9,7 +9,7 @@
       <p>
         We are looking forward to seeing you soon. See your current document order below - if you would like to edit it, you can still do so before <b>
           <xsl:value-of select="CompleteByDate" /> British Summer Time (BST).
-        </b>. After this deadline has passed, we will begin preparing your document order.
+        </b>After this deadline has passed, we will begin preparing your document order.
       </p>
 
       <p>

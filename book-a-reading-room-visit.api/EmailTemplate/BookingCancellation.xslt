@@ -11,7 +11,7 @@
       </p>
       <h3>The following booking was cancelled</h3>
       Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
-      Your Reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
+      Your reader’s ticket number is: <xsl:value-of select="ReaderTicket" /><br/>
       <table>
         <tbody>
           <tr>
