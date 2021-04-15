@@ -9,7 +9,7 @@
       <p>
         Your visit to The National Archives’ reading rooms has been cancelled.
       </p>
-      <h3>The following booking was cancelled</h3>
+      <h3 style="margin-top: 2em;">The following booking was cancelled</h3>
 		<p>
 			Your booking reference is: <xsl:value-of select="BookingReference" /><br/>
             Your reader’s ticket number is: <xsl:value-of select="ReaderTicket" />
