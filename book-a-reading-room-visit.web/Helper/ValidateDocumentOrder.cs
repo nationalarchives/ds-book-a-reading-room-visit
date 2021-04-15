@@ -4,6 +4,7 @@ using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using NationalArchives.AdvancedOrders.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -309,8 +310,8 @@ namespace book_a_reading_room_visit.web.Helper
 
         public void ValidateNotOrderableSeries(ModelStateDictionary modelStateDictionary, string series)
         {
-            var notOrderableSeries = _configuration.GetSection("Booking:NotOrderableSeries").Value.Split(',');
-            if (notOrderableSeries.Contains(series))
+            var notOrderableSeries = _configuration.GetSection("Booking:NotOrderableSeries").Value.ToLower().Split(',');
+            if (notOrderableSeries.Contains(series.ToLower()))
             {
                 modelStateDictionary.AddModelError("Series", Constants.Document_Series_Cannot_Order);
             }
