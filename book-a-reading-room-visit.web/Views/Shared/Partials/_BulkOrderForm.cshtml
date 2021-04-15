@@ -24,17 +24,17 @@
 </fieldset>
 
 <fieldset>
-    <legend>Enter between 20-40 full catalogue references, for example FO 371/114865</legend>
-    <p class="helper-text no-margin">
-        Order between 20 and 40 documents from the same series.<br>
+    <legend>Enter 20&ndash;40 full catalogue references, for example FO 371/114865</legend>
     <p class="helper-text">
-        <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/">Search our catalogue to find catalogue references.</a>
+        Order between 20 and 40 documents from the same series.<br>
+        Search <a target="_blank" rel="noreferrer noopener" href="https://discovery.nationalarchives.gov.uk/">Discovery, our catalogue</a>
+        to find catalogue references.
     </p>
 
     @if (Model.MinimumRequiredDocuments > 0)
     {
         <p class="warning">
-            You need to add at least @Model.MinimumRequiredDocuments more @(Model.MinimumRequiredDocuments == 1 ? "document" : "documents") before the deadline to avoid your order being cancelled.
+            You need to add at least 20 documents before the deadline to avoid your order being cancelled.
         </p>
     }
 

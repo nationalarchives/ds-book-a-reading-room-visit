@@ -40,8 +40,8 @@
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    @await Html.PartialAsync("Partials/_NotificationBanner")
     @await Html.PartialAsync("Partials/_Header")
-
 
     <main class="kbs pb-3" id="main-content">
         <div class="container">
@@ -49,6 +49,7 @@
         </div>
     </main>
 
+    @await Html.PartialAsync("Partials/_ContactFooter")
     @await Html.PartialAsync("Partials/_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -56,6 +57,7 @@
     <script src="~/js/cookie-banner.js"></script>
     <script src="~/js/hide-room-info.js"></script>
     <script src="~/js/dist/toggle-reading-room.js"></script>
+    <script src="~/js/dist/print-your-order.js"></script>
     <script src="~/js/book-a-reading-room-visit-0.0.1.js"></script>
 </body>
 </html>

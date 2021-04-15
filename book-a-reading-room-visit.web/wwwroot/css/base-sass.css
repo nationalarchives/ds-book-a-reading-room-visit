@@ -238,10 +238,6 @@ a:visited {
     text-decoration: underline;
   }
 
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
@@ -5814,6 +5810,7 @@ body .kbs h1, body .kbs h2, body .kbs h3, body .kbs h4, body .kbs .h1, body .kbs
 body .kbs h1 {
   font-size: 2em;
   font-family: "Open Sans", sans-serif;
+  margin: 2em 0 0;
   letter-spacing: 0.2px;
 }
 @media (max-width: 768px) {
@@ -5843,6 +5840,7 @@ body .kbs a, body .kbs a:active, body .kbs a:visited {
   color: #134571;
   text-decoration: underline;
   font-weight: bold;
+  word-break: break-word;
 }
 body .kbs a:focus {
   outline: 5px solid #1d70b8;
@@ -5970,14 +5968,26 @@ body .kbs .button {
 body .kbs .button:hover {
   background: #000;
 }
-body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary, body .kbs .cancellation-details .button.primary {
+body .kbs .order-option .button.primary, body .kbs .reservation-option .button.primary, body .kbs .cancellation-details .button.primary, body .kbs .booking-details .button.primary {
   color: #fff !important;
 }
-body .kbs .order-option .button.primary:focus, body .kbs .reservation-option .button.primary:focus, body .kbs .cancellation-details .button.primary:focus {
+body .kbs .order-option .button.primary:focus, body .kbs .reservation-option .button.primary:focus, body .kbs .cancellation-details .button.primary:focus, body .kbs .booking-details .button.primary:focus {
   color: #26262a !important;
 }
-body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-option .button.primary:focus:hover, body .kbs .cancellation-details .button.primary:focus:hover {
+body .kbs .order-option .button.primary:focus:hover, body .kbs .reservation-option .button.primary:focus:hover, body .kbs .cancellation-details .button.primary:focus:hover, body .kbs .booking-details .button.primary:focus:hover {
   color: #fff !important;
+}
+body .kbs .order-summary .button {
+  color: #fff !important;
+}
+body .kbs .order-summary .button:focus {
+  color: #26262a !important;
+}
+body .kbs .order-summary .button:focus:hover {
+  color: #fff !important;
+}
+body .kbs .order-summary h2 {
+  margin-top: 1.8em;
 }
 body .kbs .secondary {
   background: #fff;
@@ -7239,6 +7249,28 @@ button:focus {
     display: table;
     clear: both;
   }
+
+  .no-print {
+    display: none;
+  }
+
+  .order-summary .no-print {
+    display: none;
+  }
+  .order-summary .success-panel {
+    border: 1px solid black;
+  }
+  .order-summary .break-before {
+    page-break-before: always;
+  }
+
+  .cookieNotice {
+    display: none;
+  }
+
+  .tna-breadcrumb {
+    display: none;
+  }
 }
 /* TNA image styles */
 .feature-img {
@@ -7903,7 +7935,7 @@ a.button {
   min-height: 600px;
   background-color: #fff;
   margin-top: 0em;
-  padding: 0em 0 5em 0;
+  padding: 0em 0 6em 0;
 }
 .content-wrapper .heading {
   margin-top: 1.5em;
@@ -8022,7 +8054,7 @@ form input[type=checkbox] {
 }
 
 .document-list {
-  margin: 2em 0 4em 0;
+  margin: 2em 0 1em 0;
   padding-left: 1em;
 }
 .document-list li {
@@ -8685,8 +8717,7 @@ details summary {
   margin-bottom: 2em;
 }
 .kbs .optional-container legend {
-  font-size: 1.25em !important;
-  margin-bottom: 1.2em;
+  font-size: 1.3em !important;
 }
 
 .extra-margin {
@@ -8738,6 +8769,57 @@ details summary {
 }
 
 body .kbs .primary {
+  color: #fff !important;
+}
+
+.contact-footer {
+  margin: 3em 0 0;
+  border-top: 3px dotted #ddd;
+  padding: 2em;
+  text-align: center;
+}
+.contact-footer .first {
+  border: 0;
+  margin-bottom: 2em;
+}
+@media screen and (min-width: 992px) {
+  .contact-footer .first {
+    border-right: 2px dotted #ddd;
+    margin-bottom: 0;
+  }
+}
+.contact-footer h2 {
+  font-size: 1em !important;
+  font-weight: bold;
+}
+@media screen and (min-width: 768px) {
+  .contact-footer h2 {
+    margin: 0;
+  }
+}
+.contact-footer a {
+  font-weight: bold !important;
+  color: #134571;
+  text-decoration: underline;
+}
+.contact-footer a:hover {
+  background-color: #134571;
+  color: #fff;
+}
+.contact-footer p {
+  margin: 2em 0 0.3em !important;
+}
+
+.secondary-button {
+  background: #fff !important;
+  color: #134571 !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+  font-size: 1em !important;
+  margin-top: 0 !important;
+}
+.secondary-button:hover {
+  background-color: #134571 !important;
   color: #fff !important;
 }
 

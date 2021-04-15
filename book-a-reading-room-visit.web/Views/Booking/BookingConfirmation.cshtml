@@ -2,13 +2,13 @@
 @using book_a_reading_room_visit.web.Helper
 @using book_a_reading_room_visit.web.Models
 @{
-    ViewData["Title"] = "Booking confirmation";
+    ViewData["Title"] = $"Your visit details - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 @model BookingViewModel
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")
 
-<h1 class="display-4">3. Reservation confirmation</h1>
+<h1 class="display-4">3. Your visit details</h1>
 
 <div class="container content-wrapper">
 
@@ -19,7 +19,7 @@
                 <ol>
                     <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
                     <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
-                    <li aria-current="page" class="active"><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                    <li aria-current="page" class="active"><span class="step-number">3</span> <span class="step">Your visit details</span></li>
                     <li><span class="step-number">4</span> <span class="step">Order documents</span></li>
                     <li><span class="step-number">5</span> <span class="step">Order summary</span></li>
                 </ol>
@@ -52,12 +52,22 @@
     <div class="booking-details">
         <div class="row">
             <div class="col-md-12">
-                <h3>Your reservation details</h3>
+                <h3>Your visit summary</h3>
+                <p class="no-margin-top">
+                    Note these details for future reference. We will email you a copy if you provided your email address as
+                    part of the booking process.
+                </p>
                 <table class="table">
                     <tbody>
                         <tr>
                             <th scope="row">Booking reference</th>
-                            <td>@Model.BookingReference</td>
+                            <td>
+                                @Model.BookingReference
+                                <span class="secondary-info">
+                                    A copy of this will be emailed to you. If you didn't provide your email address as part
+                                    of the booking process, remember to safely note your booking reference.
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Reader's ticket number</th>
@@ -102,12 +112,12 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    If you provided an email address as part of your booking, a direct link to this form is also in your reservation confirmation email, so you can return to your document order at any point before
-                    <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>. If you cannot see the reservation confirmation email in your inbox, check your spam and junk email folders.
+                    Return to edit or view your document order using this link:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
                 </p>
                 <p>
-                    If you did not provide an email address as part of your booking, safely note these booking details for future reference. Return to your booking at this link before the deadline:<br>
-                    <a target="_blank" rel="noreferrer noopener" href="@Url.Action("ReturnToBooking", "Booking")">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                    This link will be included in your provisional booking email if you provided an email address. If you cannot see this email in
+                    your inbox, check your spam and junk email folders.
                 </p>
             </div>
         </div>
@@ -117,8 +127,8 @@
         <div class="row">
             <div class="col-md-12">
                 <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
-                                        new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Continue to your document order</a>
-                <a class="button secondary" href="@Url.Action("ContinueLater", "DocumentOrder", new { bookingReference = Model.BookingReference })">I'd like to continue later</a>
+                                        new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Order documents now</a>
+                <a class="button secondary" href="@Url.Action("ContinueLater", "DocumentOrder", new { bookingReference = Model.BookingReference })">Order documents later</a>
             </div>
         </div>
     </div>

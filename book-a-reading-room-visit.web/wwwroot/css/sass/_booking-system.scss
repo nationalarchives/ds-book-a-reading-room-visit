@@ -27,7 +27,7 @@ a.button {
     min-height: 600px;
     background-color: #fff;
     margin-top: 0em;
-    padding: 0em 0 5em 0;
+    padding: 0em 0 6em 0;
 
     .heading {
         margin-top: 1.5em;
@@ -169,7 +169,7 @@ form {
 }
 
 .document-list {
-    margin: 2em 0 4em 0;
+    margin: 2em 0 1em 0;
     padding-left: 1em;
 
     li {
@@ -906,8 +906,7 @@ details {
         margin-bottom: 2em;
 
         legend {
-            font-size: 1.25em !important;
-            margin-bottom: 1.2em;
+            font-size: 1.3em !important;
         }
     }
 }
@@ -971,4 +970,63 @@ body {
             color: #fff !important;
         }
     }
-} 
+}
+
+.contact-footer {
+    margin: 3em 0 0;
+    border-top: 3px dotted #ddd;
+    padding: 2em;
+    text-align: center;
+
+    .first {
+        border: 0;
+        margin-bottom: 2em;
+    }
+
+
+    @media screen and (min-width: 992px) {
+        .first {
+            border-right: 2px dotted #ddd;
+            margin-bottom: 0;
+        }
+    }
+
+    h2 {
+        font-size: 1em !important;
+        font-weight: bold;
+
+
+        @media screen and (min-width: 768px) {
+            margin: 0;
+        }
+    }
+
+    a {
+        font-weight: bold !important;
+        color: #134571;
+        text-decoration: underline;
+
+        &:hover {
+            background-color: #134571;
+            color: #fff;
+        }
+    }
+
+    p {
+        margin: 2em 0 0.3em !important;
+    }
+}
+
+.secondary-button {
+    background: #fff !important;
+    color: #134571 !important;
+    text-decoration: underline !important;
+    padding: 0 !important;
+    font-size: 1em !important;
+    margin-top: 0 !important;
+
+    &:hover {
+        background-color: #134571 !important;
+        color: #fff !important;
+    }
+}

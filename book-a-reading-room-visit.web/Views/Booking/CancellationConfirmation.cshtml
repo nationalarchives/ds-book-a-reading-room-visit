@@ -3,7 +3,7 @@
 @model CancelViewModel
 
 @{
-    ViewData["Title"] = "Cancel your visit";
+    ViewData["Title"] = $"Cancellation confirmation - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p>
-                        The following visit has been cancelled
+                        The following visit has been cancelled.
                     </p>
                 </div>
             </div>
@@ -33,13 +33,17 @@
                                 <th scope="row">Booking reference</th>
                                 <td>@Model.BookingReference</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Reader's ticket number</th>
+                                <td>@Model.ReaderTicket</td>
+                            </tr>
                             @if (Model.BookingType == BookingTypes.StandardOrderVisit)
                             {
                                 <tr>
                                     <th scope="row">Reading room</th>
                                     @if (Model.SeatType == SeatTypes.StdRRSeat)
                                     {
-                                        <td>Document reading room (All seats have camera stands)</td>
+                                        <td>Document reading room <span class="secondary-info">All seats have camera stands</span></td>
                                     }
                                     else
                                     {

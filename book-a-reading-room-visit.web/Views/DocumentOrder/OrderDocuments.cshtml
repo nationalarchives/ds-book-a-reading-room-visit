@@ -3,7 +3,7 @@
 @using book_a_reading_room_visit.model
 
 @{
-    ViewData["Title"] = "Order documents";
+    ViewData["Title"] = $"Order documents - {(Model.BookingType == BookingTypes.StandardOrderVisit ? "standard booking" : "bulk order booking")} - The National Archives";
 }
 
 @model DocumentOrderViewModel
@@ -20,7 +20,7 @@
             <ol>
                 <li><span class="step-number">1</span> <span class="step">Select a date</span></li>
                 <li><span class="step-number">2</span> <span class="step">Enter your details</span></li>
-                <li><span class="step-number">3</span> <span class="step">Reservation confirmation</span></li>
+                <li><span class="step-number">3</span> <span class="step">Your visit details</span></li>
                 <li aria-current="page" class="active"><span class="step-number">4</span> <span class="step">Order documents</span></li>
                 <li><span class="step-number">5</span> <span class="step">Order summary</span></li>
             </ol>
@@ -39,24 +39,22 @@
                 }
                 <h2>Tell us which documents you would like to see</h2>
                 <p>
-                    You have a provisional reservation for a visit to the reading rooms. Complete this form to order original documents held by The National Archives.
+                    You have a provisional booking to visit the reading rooms. Complete this form to order original documents held by The National
+                    Archives.
                 </p>
                 <p>
                     If you do not complete this step by <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>
-                    your visit will be automatically cancelled.
+                    your visit will be automatically cancelled. Once this date has passed, you cannot change your document order as we will begin
+                    preparing your order for your visit.
                 </p>
                 <p>
-                    If you provided an email address as part of your booking, a direct link to this form is
-                    also in your reservation confirmation email, so you can return to edit or cancel your
-                    document order at any point before <span class="bold-text">@($"{Model.CompleteByDate:dddd dd MMMM yyyy} at {Model.CompleteByDate:hh:mm tt}") British Summer Time (BST)</span>.
-                    If you cannot see the reservation confirmation email in your inbox, check your spam and
-                    junk email folders.
+                    Return to edit or view your document order using this link:<br>
+                    <a target="_blank" rel="noreferrer noopener" href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
                 </p>
                 <p>
-                    If you did not provide an email address as part of your booking, you can return to your booking before the deadline at this link:<br>
-                    <a target="_blank" rel="noreferrer noopenner" href="/book-a-reading-room-visit/return-to-booking">https://www.nationalarchives.gov.uk/book-a-reading-room-visit/return-to-booking</a>
+                    This link will be included in your provisional booking email if you provided an email address. If you cannot see this email in
+                    your inbox, check your spam and junk email folders.
                 </p>
-                <p>Once this date has passed, you cannot change your document order as we will begin preparing your order for your visit.</p>
             </div>
         </div>
     </div>
@@ -64,7 +62,7 @@
     <div class="booking-details">
         <div class="row">
             <div class="col-md-12">
-                <h2>Your reservation details</h2>
+                <h3>Your booking details</h3>
                 <table class="table">
                     <tbody>
                         <tr>
@@ -122,7 +120,7 @@
                     @Html.Hidden("seattype", Model.SeatType.ToStringURL())
                     @Html.HiddenFor(Model => Model.BookingStartDate)
                     @Html.HiddenFor(Model => Model.SeatNumber)
-                    <button type="submit" class="button">Cancel your visit</button>
+                    <button type="submit" class="button secondary-button">Cancel your visit</button>
                 </form>
             </div>
         </div>
