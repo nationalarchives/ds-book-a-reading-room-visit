@@ -44,7 +44,10 @@ namespace book_a_reading_room_visit.web.Helper
                 {
                     modelState.AddModelError("Series", Constants.Series_Required);
                 }
-                ValidateNotOrderableSeries(modelState, model.Series);
+                if (!string.IsNullOrWhiteSpace(model.Series))
+                {
+                    ValidateNotOrderableSeries(modelState, model.Series);
+                }
                 ValidateBulkOrderDuplicateReference(modelState, model);
                 if (modelState.IsValid)
                 {
