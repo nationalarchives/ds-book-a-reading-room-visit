@@ -61,9 +61,7 @@
       <xsl:for-each select="DocumentOrder">
         <p>
           <b>
-			  <span style="color: #d4351c;font-weight: bold;">
-				  <xsl:value-of select="Label" />
-			  </span>
+			<xsl:value-of select="Label" />
           </b>
           <xsl:value-of select="Document" />
         </p>
@@ -72,9 +70,7 @@
       <xsl:for-each select="ReserveDocumentOrder">
         <p>
           <b>
-			  <span style="color: #d4351c;font-weight: bold;">
-				  <xsl:value-of select="Label" />
-			  </span>
+			<xsl:value-of select="Label" />
           </b>
           <xsl:value-of select="Document" />
         </p>
