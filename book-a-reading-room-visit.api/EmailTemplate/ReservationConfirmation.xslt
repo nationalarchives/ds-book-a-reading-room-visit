@@ -54,7 +54,7 @@
             <td style="padding: 1em;border: 1px solid #999;vertical-align: top;">
               <xsl:value-of select="SeatNumber" />
               <br />
-              <span>Based on availability, we may need to change your seat on the date of your visit.</span>
+              Based on availability, we may need to change your seat on the date of your visit.
             </td>
           </tr>
         </tbody>
