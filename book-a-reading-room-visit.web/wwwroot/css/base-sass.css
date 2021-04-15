@@ -8823,4 +8823,17 @@ body .kbs .primary {
   color: #fff !important;
 }
 
+nav a:focus, footer a:focus, .notification-banner a:focus, #skip-to-main-content:focus {
+  background-color: #fff !important;
+  color: #26262a !important;
+  outline: 5px solid #1d70b8;
+  outline-offset: 0;
+  z-index: 999;
+}
+nav a:hover, footer a:hover, .notification-banner a:hover, #skip-to-main-content:hover {
+  color: #fff;
+  background-color: #134571;
+  outline: 1px solid #fff;
+}
+
 /*# sourceMappingURL=base-sass.css.map */
