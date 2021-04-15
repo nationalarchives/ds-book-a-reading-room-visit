@@ -65,7 +65,7 @@
 			http://discovery.nationalarchives.gov.uk/
 		</a>
 	  </p>
-      <h3>Cancel your visit</h3>
+      <h3 style="margin-top: 2em;">Cancel your visit</h3>
       <p>
         You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
       </p>
