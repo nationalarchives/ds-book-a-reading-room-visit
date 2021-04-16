@@ -118,15 +118,15 @@
                         <legend class="sr-only">Enter your reader’s ticket number</legend>
 
                         <div class="form-row">
-                            <label for="ticket" class="mt-lg">Enter your reader’s ticket number</label>
+                            <label for="Ticket" class="mt-lg">Enter your reader’s ticket number</label>
                             <p class="helper-text">
                                 You can find this below the barcode on the back of your reader’s ticket card. If you don't have a reader's ticket card, you can use your temporary ticket number, which starts with ’T’.
                             </p>
 
                             @if (ViewData.ModelState["Ticket"]?.Errors.Count() > 0)
                             {
-                                @Html.TextBoxFor(Model => Model.Ticket, new { @class = "form-warning", required = true })
-                                @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error" })
+                                @Html.TextBoxFor(Model => Model.Ticket, new { @class = "form-warning", required = true, aria_describedby = "validation-message-ticket" })
+                                @Html.ValidationMessageFor(Model => Model.Ticket, "", new { @class = "form-error", id = "validation-message-ticket" })
                             }
                             else
                             {
@@ -144,22 +144,22 @@
                         <div class="form-row">
                             <p class="helper-text">This should be the same as the name on your reader’s ticket card.</p>
 
-                            <label for="firstname" class="sr-only">First name</label>
+                            <label for="FirstName" class="sr-only">First name</label>
                             @if (ViewData.ModelState["FirstName"]?.Errors.Count() > 0)
                             {
-                                @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-warning", placeholder = "Enter first name", required = true })
-                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error" })
+                                @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-warning", placeholder = "Enter first name", required = true, aria_describedby = "validation-message-firstname" })
+                                @Html.ValidationMessageFor(Model => Model.FirstName, "", new { @class = "form-error", id = "validation-message-firstname" })
                             }
                             else
                             {
                                 @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Enter first name", required = true })
                             }
 
-                            <label for="lastname" class="sr-only">Last name</label>
+                            <label for="LastName" class="sr-only">Last name</label>
                             @if (ViewData.ModelState["LastName"]?.Errors.Count() > 0)
                             {
-                                @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-warning", placeholder = "Enter last name", required = true })
-                                @Html.ValidationMessageFor(Model => Model.LastName, "", new { @class = "form-error" })
+                                @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-warning", placeholder = "Enter last name", required = true, aria_describedby = "validation-message-lastname" })
+                                @Html.ValidationMessageFor(Model => Model.LastName, "", new { @class = "form-error", id = "validation-message-lastname" })
                             }
                             else
                             {
@@ -173,14 +173,14 @@
                             <legend>Enter your email address or telephone number so we can contact you</legend>
 
                             <div class="form-row">
-                                <label for="email" class="mt-lg">Email address</label>
+                                <label for="Email" class="mt-lg">Email address</label>
                                 <p class="helper-text">
                                     We will use this to send you (1) a booking confirmation email about your document order and (2) a reminder email before your visit.
                                 </p>
 
                                 @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0 || (ViewData.ModelState["Email"]?.Errors.Count() > 0))
                                 {
-                                    @Html.TextBoxFor(Model => Model.Email, "", new { @class = "form-warning" })
+                                    @Html.TextBoxFor(Model => Model.Email, "", new { @class = "form-warning", aria_describedby = "validation-message-email" })
                                 }
                                 else
                                 {
@@ -190,13 +190,13 @@
                                 @if (ViewData.ModelState["Email"]?.Errors.Count() > 0)
                                 {
 
-                                    @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error" })
+                                    @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "form-error", id = "validation-message-email" })
                                 }
 
 
                                 @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
                                 {
-                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
+                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error", id = "validation-message-email" })
                                 }
                             </div>
 
@@ -208,7 +208,7 @@
 
                                 @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0 || ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
                                 {
-                                    @Html.TextBoxFor(Model => Model.Phone, new { id = "phone", @class = "form-warning" })
+                                    @Html.TextBoxFor(Model => Model.Phone, new { id = "phone", @class = "form-warning", aria_describedby = "validation-message-phone" })
                                 }
                                 else
                                 {
@@ -217,12 +217,12 @@
 
                                 @if (ViewData.ModelState["Phone"]?.Errors.Count() > 0)
                                 {
-                                    @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "form-error" })
+                                    @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "form-error", id = "validation-message-phone" })
                                 }
 
                                 @if (ViewData.ModelState["email-phone"]?.Errors.Count() > 0)
                                 {
-                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error" })
+                                    @Html.ValidationMessage("email-phone", "", new { @class = "form-error",  id = "validation-message-phone" })
                                 }
                             </div>
                         </fieldset>
@@ -232,22 +232,22 @@
                         <legend class="sr-only">Please complete the following checkboxes</legend>
 
                         <div class="form-row @(@ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
-                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true })
+                            @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true, aria_describedby = "validation-message-terms-conditions" })
                             <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/booking-events/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a>.</label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
                             {
-                                @Html.ValidationMessageFor(Model => Model.AcceptTsAndCs, "", new { @class = "form-error" })
+                                @Html.ValidationMessageFor(Model => Model.AcceptTsAndCs, "", new { @class = "form-error", id = "validation-message-terms-conditions" })
                             }
                         </div>
 
                         <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
-                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true })
+                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true, aria_describedby = "validation-message-covid-charter" })
                             <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a>. (PDF)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
                             {
-                                @Html.ValidationMessageFor(Model => Model.AcceptCovidCharter, "", new { @class = "form-error" })
+                                @Html.ValidationMessageFor(Model => Model.AcceptCovidCharter, "", new { @class = "form-error", id = "validation-message-covid-charter" })
                             }
                         </div>
 

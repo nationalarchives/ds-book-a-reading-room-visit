@@ -1,7 +1,7 @@
 ﻿@model DocumentOrderViewModel
 <fieldset>
     <legend>
-        <label for="reference-number">
+        <label for="Series">
             Enter the department and series number, for example FO 371
         </label>
     </legend>
@@ -14,8 +14,8 @@
 
     @if (ViewData.ModelState["Series"]?.Errors.Count() > 0)
     {
-        @Html.TextBoxFor(Model => Model.Series, "", new { @class = "form-warning" })
-        @Html.ValidationMessageFor(Model => Model.Series, "", new { @class = "form-error" })
+        @Html.TextBoxFor(Model => Model.Series, "", new { @class = "form-warning", aria_describedby = "validation-message-series" })
+        @Html.ValidationMessageFor(Model => Model.Series, "", new { @class = "form-error", id = "validation-message-series" })
     }
     else
     {
@@ -40,10 +40,10 @@
 
     <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="order-form-field">
-            <label for="doc-1">1</label>
+            <label for="DocumentReference1">1</label>
             @if (ViewData.ModelState["DocumentReference1"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference1, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference1, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference1"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference1, "", new { @class = "form-error" })
             }
             else
@@ -53,10 +53,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-2">2</label>
+            <label for="DocumentReference2">2</label>
             @if (ViewData.ModelState["DocumentReference2"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference2, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference2, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference2"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference2, "", new { @class = "form-error" })
             }
             else
@@ -66,10 +66,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-3">3</label>
+            <label for="DocumentReference3">3</label>
             @if (ViewData.ModelState["DocumentReference3"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference3, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference3, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference3"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference3, "", new { @class = "form-error" })
             }
             else
@@ -78,10 +78,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-4">4</label>
+            <label for="DocumentReference4">4</label>
             @if (ViewData.ModelState["DocumentReference4"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference4, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference4, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference4"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference4, "", new { @class = "form-error" })
             }
             else
@@ -91,10 +91,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-5">5</label>
+            <label for="DocumentReference5">5</label>
             @if (ViewData.ModelState["DocumentReference5"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference5, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference5, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference5"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference5, "", new { @class = "form-error" })
             }
             else
@@ -104,11 +104,11 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-6">6</label>
+            <label for="DocumentReference6">6</label>
             @if (ViewData.ModelState["DocumentReference6"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference6, "", new { @class = "form-warning" })
-                @Html.ValidationMessageFor(Model => Model.DocumentReference6, "", new { @class = "form-error" })
+                @Html.TextBoxFor(Model => Model.DocumentReference6, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference6"})
+                @Html.ValidationMessageFor(Model => Model.DocumentReference6, "", new { @class = "form-error", id = "validation-message-DocumentReference6" })
             }
             else
             {
@@ -116,11 +116,11 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-7">7</label>
+            <label for="DocumentReference7">7</label>
             @if (ViewData.ModelState["DocumentReference7"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference7, "", new { @class = "form-warning" })
-                @Html.ValidationMessageFor(Model => Model.DocumentReference7, "", new { @class = "form-error" })
+                @Html.TextBoxFor(Model => Model.DocumentReference7, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference7"})
+                @Html.ValidationMessageFor(Model => Model.DocumentReference7, "", new { @class = "form-error", id = "validation-message-DocumentReference7" })
             }
             else
             {
@@ -129,10 +129,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-8">8</label>
+            <label for="DocumentReference8">8</label>
             @if (ViewData.ModelState["DocumentReference8"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference8, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference8, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference8"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference8, "", new { @class = "form-error" })
             }
             else
@@ -143,10 +143,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-9">9</label>
+            <label for="DocumentReference9">9</label>
             @if (ViewData.ModelState["DocumentReference9"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference9, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference9, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference9"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference9, "", new { @class = "form-error" })
             }
             else
@@ -155,10 +155,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-10">10</label>
+            <label for="DocumentReference10">10</label>
             @if (ViewData.ModelState["DocumentReference10"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference10, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference10, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference10"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference10, "", new { @class = "form-error" })
             }
             else
@@ -170,10 +170,10 @@
 
     <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="order-form-field">
-            <label for="doc-11">11</label>
+            <label for="DocumentReference11">11</label>
             @if (ViewData.ModelState["DocumentReference11"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference11, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference11, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference11"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference11, "", new { @class = "form-error" })
             }
             else
@@ -183,10 +183,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-12">12</label>
+            <label for="DocumentReference12">12</label>
             @if (ViewData.ModelState["DocumentReference12"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference12, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference12, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference12"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference12, "", new { @class = "form-error" })
             }
             else
@@ -196,10 +196,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-13">13</label>
+            <label for="DocumentReference13">13</label>
             @if (ViewData.ModelState["DocumentReference13"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference13, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference13, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference13"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference13, "", new { @class = "form-error" })
             }
             else
@@ -208,10 +208,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-14">14</label>
+            <label for="DocumentReference14">14</label>
             @if (ViewData.ModelState["DocumentReference14"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference14, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference14, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference14"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference14, "", new { @class = "form-error" })
             }
             else
@@ -221,10 +221,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-15">15</label>
+            <label for="DocumentReference15">15</label>
             @if (ViewData.ModelState["DocumentReference15"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference15, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference15, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference15"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference15, "", new { @class = "form-error" })
             }
             else
@@ -234,10 +234,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-16">16</label>
+            <label for="DocumentReference16">16</label>
             @if (ViewData.ModelState["DocumentReference16"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference16, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference16, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference16"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference16, "", new { @class = "form-error" })
             }
             else
@@ -246,10 +246,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-17">17</label>
+            <label for="DocumentReference17">17</label>
             @if (ViewData.ModelState["DocumentReference17"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference17, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference17, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference17"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference17, "", new { @class = "form-error" })
             }
             else
@@ -259,10 +259,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-18">18</label>
+            <label for="DocumentReference18">18</label>
             @if (ViewData.ModelState["DocumentReference18"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference18, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference18, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference18"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference18, "", new { @class = "form-error" })
             }
             else
@@ -272,10 +272,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-19">19</label>
+            <label for="DocumentReference19">19</label>
             @if (ViewData.ModelState["DocumentReference19"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference19, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference19, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference19"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference19, "", new { @class = "form-error" })
             }
             else
@@ -284,10 +284,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-20">20</label>
+            <label for="DocumentReference20">20</label>
             @if (ViewData.ModelState["DocumentReference20"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference20, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference20, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference20"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference20, "", new { @class = "form-error" })
             }
             else
@@ -299,10 +299,10 @@
 
     <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="order-form-field">
-            <label for="doc-21">21</label>
+            <label for="DocumentReference21">21</label>
             @if (ViewData.ModelState["DocumentReference21"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference21, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference21, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference21"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference21, "", new { @class = "form-error" })
             }
             else
@@ -312,10 +312,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-22">22</label>
+            <label for="DocumentReference22">22</label>
             @if (ViewData.ModelState["DocumentReference22"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference22, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference22, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference22"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference22, "", new { @class = "form-error" })
             }
             else
@@ -325,10 +325,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-23">23</label>
+            <label for="DocumentReference23">23</label>
             @if (ViewData.ModelState["DocumentReference23"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference23, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference23, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference23"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference23, "", new { @class = "form-error" })
             }
             else
@@ -337,10 +337,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-24">24</label>
+            <label for="DocumentReference24">24</label>
             @if (ViewData.ModelState["DocumentReference24"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference24, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference24, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference24"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference24, "", new { @class = "form-error" })
             }
             else
@@ -350,10 +350,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-25">25</label>
+            <label for="DocumentReference25">25</label>
             @if (ViewData.ModelState["DocumentReference25"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference25, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference25, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference25"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference25, "", new { @class = "form-error" })
             }
             else
@@ -363,10 +363,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-26">26</label>
+            <label for="DocumentReference26">26</label>
             @if (ViewData.ModelState["DocumentReference26"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference26, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference26, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference26"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference26, "", new { @class = "form-error" })
             }
             else
@@ -375,10 +375,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-27">27</label>
+            <label for="DocumentReference27">27</label>
             @if (ViewData.ModelState["DocumentReference27"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference27, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference27, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference27"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference27, "", new { @class = "form-error" })
             }
             else
@@ -388,10 +388,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-28">28</label>
+            <label for="DocumentReference28">28</label>
             @if (ViewData.ModelState["DocumentReference28"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference28, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference28, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference28"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference28, "", new { @class = "form-error" })
             }
             else
@@ -401,10 +401,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-29">29</label>
+            <label for="DocumentReference29">29</label>
             @if (ViewData.ModelState["DocumentReference29"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference29, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference29, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference29"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference29, "", new { @class = "form-error" })
             }
             else
@@ -413,10 +413,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-30">30</label>
+            <label for="DocumentReference30">30</label>
             @if (ViewData.ModelState["DocumentReference30"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference30, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference30, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference30"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference30, "", new { @class = "form-error" })
             }
             else
@@ -428,10 +428,10 @@
 
     <div class="col-md-3 col-sm-12 col-xs-12">
         <div class="order-form-field">
-            <label for="doc-31">31</label>
+            <label for="DocumentReference31">31</label>
             @if (ViewData.ModelState["DocumentReference31"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference31, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference31, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference31"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference31, "", new { @class = "form-error" })
             }
             else
@@ -441,10 +441,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-32">32</label>
+            <label for="DocumentReference32">32</label>
             @if (ViewData.ModelState["DocumentReference32"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference32, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference32, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference32"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference32, "", new { @class = "form-error" })
             }
             else
@@ -454,10 +454,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-33">33</label>
+            <label for="DocumentReference33">33</label>
             @if (ViewData.ModelState["DocumentReference33"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference33, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference33, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference33"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference33, "", new { @class = "form-error" })
             }
             else
@@ -466,10 +466,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-34">34</label>
+            <label for="DocumentReference34">34</label>
             @if (ViewData.ModelState["DocumentReference34"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference34, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference34, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference34"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference34, "", new { @class = "form-error" })
             }
             else
@@ -479,10 +479,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-35">35</label>
+            <label for="DocumentReference35">35</label>
             @if (ViewData.ModelState["DocumentReference35"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference35, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference35, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference35"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference35, "", new { @class = "form-error" })
             }
             else
@@ -492,10 +492,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-36">36</label>
+            <label for="DocumentReference36">36</label>
             @if (ViewData.ModelState["DocumentReference36"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference36, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference36, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference36"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference36, "", new { @class = "form-error" })
             }
             else
@@ -504,10 +504,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-37">37</label>
+            <label for="DocumentReference37">37</label>
             @if (ViewData.ModelState["DocumentReference37"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference37, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference37, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference37"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference37, "", new { @class = "form-error" })
             }
             else
@@ -517,10 +517,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-38">38</label>
+            <label for="DocumentReference38">38</label>
             @if (ViewData.ModelState["DocumentReference38"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference38, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference38, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference38"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference38, "", new { @class = "form-error" })
             }
             else
@@ -530,10 +530,10 @@
         </div>
 
         <div class="order-form-field">
-            <label for="doc-39">39</label>
+            <label for="DocumentReference39">39</label>
             @if (ViewData.ModelState["DocumentReference39"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference39, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference39, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference39"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference39, "", new { @class = "form-error" })
             }
             else
@@ -542,10 +542,10 @@
             }
         </div>
         <div class="order-form-field">
-            <label for="doc-40">40</label>
+            <label for="DocumentReference40">40</label>
             @if (ViewData.ModelState["DocumentReference40"]?.Errors.Count() > 0)
             {
-                @Html.TextBoxFor(Model => Model.DocumentReference40, "", new { @class = "form-warning" })
+                @Html.TextBoxFor(Model => Model.DocumentReference40, "", new { @class = "form-warning", aria_describedby = "validation-message-DocumentReference40"})
                 @Html.ValidationMessageFor(Model => Model.DocumentReference40, "", new { @class = "form-error" })
             }
             else
