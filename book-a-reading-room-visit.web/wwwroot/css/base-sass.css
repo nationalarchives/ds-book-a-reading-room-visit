@@ -5981,6 +5981,7 @@ body .kbs .order-summary .button {
   color: #fff !important;
 }
 body .kbs .order-summary .button:focus {
+  background-color: #fff;
   color: #26262a !important;
 }
 body .kbs .order-summary .button:focus:hover {
@@ -6710,6 +6711,11 @@ header #skip-to-main-content:focus {
 
 .notification-banner {
   background-color: #fbe2bc;
+}
+.notification-banner a {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #000;
 }
 .notification-banner p {
   display: inline;
@@ -8349,6 +8355,9 @@ form input[type=checkbox] {
   color: #fff;
   outline: 5px solid #1d70b8;
 }
+#date-selection ul li.date button:focus span span:last-child {
+  color: #fff;
+}
 #date-selection ul li.date button:hover {
   background-color: #000;
   color: #fff;
@@ -8369,7 +8378,7 @@ form input[type=checkbox] {
   width: 100%;
   border-top: 2px solid #efefef;
   border-bottom: 2px solid #ddd;
-  color: #777;
+  color: #444;
   margin-top: 0;
 }
 #date-selection ul li.date .no-availability span {
@@ -8409,7 +8418,7 @@ form input[type=checkbox] {
 #date-selection ul li.date .no-availability span:last-child {
   text-decoration: none;
   font-size: 0.9em;
-  color: #777;
+  color: #444;
 }
 @media (max-width: 480px) {
   #date-selection ul li.date .no-availability span:last-child {
@@ -8778,6 +8787,13 @@ body .kbs .primary {
   padding: 2em;
   text-align: center;
 }
+.contact-footer a:focus {
+  outline: 5px solid #1d70b8;
+  outline-offset: 0;
+  z-index: 999;
+  background-color: #fff;
+  color: #26262a;
+}
 .contact-footer .first {
   border: 0;
   margin-bottom: 2em;
@@ -8834,6 +8850,10 @@ nav a:hover, footer a:hover, .notification-banner a:hover, #skip-to-main-content
   color: #fff;
   background-color: #134571;
   outline: 1px solid #fff;
+}
+
+body .kbs a.primary:focus {
+  color: #26262a !important;
 }
 
 /*# sourceMappingURL=base-sass.css.map */

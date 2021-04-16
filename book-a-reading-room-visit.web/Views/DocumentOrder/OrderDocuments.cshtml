@@ -167,8 +167,8 @@
 
                         @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
                         {
-                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning" })
-                            @Html.ValidationMessageFor(Model => Model.AdditionalRequirements, "", new { @class = "form-error" })
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning", aria_describedby = "validation-message-additional-requirements" })
+                            @Html.ValidationMessageFor(Model => Model.AdditionalRequirements, "", new { @class = "form-error", id = "validation-message-additional-requirements" })
                         }
                         else
                         {

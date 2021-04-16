@@ -476,6 +476,12 @@ form {
                     background-color: #000;
                     color: #fff;
                     outline: 5px solid #1d70b8;
+
+                    span {
+                        span:last-child {
+                            color: #fff;
+                        }
+                    }
                 }
 
                 &:hover {
@@ -496,7 +502,7 @@ form {
                 @include availability-list-item;
                 border-top: 2px solid #efefef;
                 border-bottom: 2px solid #ddd;
-                color: #777;
+                color: #444;
                 margin-top: 0;
 
                 @media (max-width: $screen-phone) {
@@ -513,7 +519,7 @@ form {
                 span:last-child {
                     text-decoration: none;
                     font-size: 0.9em;
-                    color: #777;
+                    color: #444;
 
                     @media (max-width: $screen-phone) {
                         padding-top: 0.75em;
@@ -978,6 +984,14 @@ body {
     padding: 2em;
     text-align: center;
 
+    a:focus {
+        outline: 5px solid #1d70b8;
+        outline-offset: 0;
+        z-index: 999;
+        background-color: #fff;
+        color: #26262a;
+    }
+
     .first {
         border: 0;
         margin-bottom: 2em;
@@ -1046,3 +1060,14 @@ nav a, footer a, .notification-banner a, #skip-to-main-content {
         outline: 1px solid #fff;
     }
 }
+
+body {
+    .kbs {
+        a.primary {
+            &:focus {
+                color: #26262a !important;
+            }
+        }
+    }
+}
+
