@@ -15,11 +15,7 @@
 
     Your document order(s):
 
-    {MainOrderDocuments}
-
-    Your reserve document(s):
-
-    {ReserveOrderDocuments}
+    {Order-Documents}
 
     You can cancel your visit at any time. Use this link: {ReturnURL}
 

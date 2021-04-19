@@ -142,12 +142,12 @@ namespace book_a_reading_room_visit.web
 
                 endpoints.MapControllerRoute(
                     name: "continue-later",
-                    pattern: "continue-later/{bookingreference}",
+                    pattern: "{bookingtype}/continue-later/{bookingreference}",
                     new { controller = "DocumentOrder", action = "ContinueLater" });
 
                 endpoints.MapControllerRoute(
                    name: "thank-you",
-                   pattern: "thank-you",
+                   pattern: "{bookingtype}/thank-you",
                    new { controller = "Booking", action = "ThankYou" });
 
                 endpoints.MapControllerRoute(

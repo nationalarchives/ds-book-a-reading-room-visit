@@ -96,7 +96,7 @@
                 <div class="col-md-12">
                     <h2>Are you sure you want to continue later?</h2>
 
-                    <a class="button primary" href="@Url.Action("ThankYou", "Booking")">Yes, I’d like to order my documents later</a>
+                    <a class="button primary" href="@Url.Action("ThankYou", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })">Yes, I’d like to order my documents later</a>
                     <a class="button secondary" href="@Url.Action("OrderDocuments", "DocumentOrder",
                                         new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">No, I’d like to order my documents now</a>
                 </div>

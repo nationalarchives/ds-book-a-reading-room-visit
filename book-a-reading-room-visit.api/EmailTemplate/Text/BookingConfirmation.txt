@@ -19,11 +19,7 @@
 
     Your document order(s):
 
-    {MainOrderDocuments}
-
-    Your reserve document(s):
-
-    {ReserveOrderDocuments}
+    {Order-Documents}
 
     Prepare for your visit by visting the following web addresses:-
     how to get here: https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/

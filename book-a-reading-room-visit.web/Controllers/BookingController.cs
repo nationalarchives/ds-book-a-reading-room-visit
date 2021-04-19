@@ -242,7 +242,7 @@ namespace book_a_reading_room_visit.web.Controllers
             }
         }
 
-        public IActionResult ThankYou()
+        public IActionResult ThankYou(BookingTypes bookingType)
         {
             return View();
         }

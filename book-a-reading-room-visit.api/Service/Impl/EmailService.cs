@@ -137,6 +137,8 @@ namespace book_a_reading_room_visit.api.Service
             expando.VisitType = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
             expando.Name = $"{bookingModel.FirstName} {bookingModel.LastName}";
             expando.VisitStartDateDisplay = bookingModel.VisitStartDate.ToShortDateString();
+            expando.AdditionalRequirements = bookingModel.AdditionalRequirements ?? "None entered.";
+            expando.Phone = bookingModel.Phone ?? "None entered.";
 
             if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
             {
@@ -150,8 +152,35 @@ namespace book_a_reading_room_visit.api.Service
 
             if(emailType  == EmailType.BookingConfirmation || emailType == EmailType.DSDBookingConfirmation || emailType == EmailType.ValidOrderReminder)
             {
-                sb = sb.Replace("{MainOrderDocuments}", bookingModel.MainOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.MainOrderDocuments) : String.Empty);
-                sb = sb.Replace("{ReserveOrderDocuments}", bookingModel.ReserveOrderDocuments != null ? String.Join(Environment.NewLine, bookingModel.ReserveOrderDocuments) : String.Empty);
+                var orderDocuments = new StringBuilder();
+                var documentCount = 0;
+                foreach (var document in bookingModel.OrderDocuments.Where(d => !d.IsReserve).ToList())
+                {
+                    documentCount += 1;
+                    if (emailType == EmailType.DSDBookingConfirmation)
+                    {
+                        orderDocuments.AppendFormat("Document {0}: {1}", documentCount, document.DocumentReference);
+                    }
+                    else
+                    {
+                        orderDocuments.AppendFormat("Document {0}: {1}: {2}", documentCount, document.DocumentReference, document.Description);
+                    }
+                }
+                var reserveDocumentCount = 0;
+                foreach (var document in bookingModel.OrderDocuments.Where(d => d.IsReserve).ToList())
+                {
+                    reserveDocumentCount += 1;
+                    if (emailType == EmailType.DSDBookingConfirmation)
+                    {
+                        orderDocuments.AppendFormat("Reserve document {0}: {1}", reserveDocumentCount, document.DocumentReference);
+                    }
+                    else
+                    {
+                        orderDocuments.AppendFormat("Reserve document {0}: {1}: {2}", reserveDocumentCount, document.DocumentReference, document.Description);
+                    }
+                }
+
+                sb = sb.Replace("{Order-Documents}", orderDocuments.ToString());
             }
 
             return sb.ToString();
@@ -206,7 +235,8 @@ namespace book_a_reading_room_visit.api.Service
                 documentCount += 1;
                 var documentOrder = new XElement("DocumentOrder");
                 documentOrder.Add(new XElement("Label", $"Document {documentCount}: "));
-                documentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
+                documentOrder.Add(new XElement("Reference", document.DocumentReference));
+                documentOrder.Add(new XElement("Description", document.Description));
                 rootElement.Add(documentOrder);
             }
             var reserveDocumentCount = 0;
@@ -215,7 +245,8 @@ namespace book_a_reading_room_visit.api.Service
                 reserveDocumentCount += 1;
                 var reserveDocumentOrder = new XElement("ReserveDocumentOrder");
                 reserveDocumentOrder.Add(new XElement("Label", $"Reserve document {reserveDocumentCount}: "));
-                reserveDocumentOrder.Add(new XElement("Document", $"{document.DocumentReference}: {document.Description}"));
+                reserveDocumentOrder.Add(new XElement("Reference", document.DocumentReference));
+                reserveDocumentOrder.Add(new XElement("Description", document.Description));
                 rootElement.Add(reserveDocumentOrder);
             }
             return new XDocument(rootElement);

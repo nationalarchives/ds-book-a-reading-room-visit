@@ -63,7 +63,7 @@
           <b>
             <xsl:value-of select="Label" />
           </b>
-          <xsl:value-of select="Document" />
+          <xsl:value-of select="Reference" /> : <xsl:value-of select="Description" />
         </p>
       </xsl:for-each>
 
@@ -72,7 +72,7 @@
           <b>
             <xsl:value-of select="Label" />
           </b>
-          <xsl:value-of select="Document" />
+          <xsl:value-of select="Reference" /> : <xsl:value-of select="Description" />
         </p>
       </xsl:for-each>
 

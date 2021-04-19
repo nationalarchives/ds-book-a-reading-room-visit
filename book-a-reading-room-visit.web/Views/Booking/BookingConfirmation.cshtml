@@ -128,7 +128,7 @@
             <div class="col-md-12">
                 <a class="button primary" href="@Url.Action("OrderDocuments", "DocumentOrder",
                                         new { bookingType = @Model.BookingType.ToStringURL(), bookingReference = Model.BookingReference, readerTicket = Model.ReaderTicket } )">Order documents now</a>
-                <a class="button secondary" href="@Url.Action("ContinueLater", "DocumentOrder", new { bookingReference = Model.BookingReference })">Order documents later</a>
+                <a class="button secondary" href="@Url.Action("ContinueLater", "DocumentOrder", new { bookingType = @Model.BookingType.ToStringURL(),  bookingReference = Model.BookingReference })">Order documents later</a>
             </div>
         </div>
     </div>
