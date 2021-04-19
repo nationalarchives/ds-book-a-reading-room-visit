@@ -23,16 +23,9 @@
           </b>
         </li>
         <li>
-          Telephone: <xsl:value-of select="Phone" />
-        </li>
-        <li>
-          Reader's ticket number: <xsl:value-of select="ReaderTicket" />
-        </li>
-        <li>
-          Booking reference: <xsl:value-of select="BookingReference" />
-        </li>
-        <li>
-          Date of visit: <xsl:value-of select="VisitStartDate" />
+          Date of visit: <b>
+            <xsl:value-of select="VisitStartDate" />
+          </b>
         </li>
         <li>
           Seat: <b>
@@ -40,10 +33,13 @@
           </b>
         </li>
         <li>
-          Face covering: <xsl:value-of select="FaceCovering" />
+          Telephone: <xsl:value-of select="Phone" />
         </li>
         <li>
-          Access needs and research requests: <xsl:value-of select="AdditionalRequirements" />
+          Reader's ticket number: <xsl:value-of select="ReaderTicket" />
+        </li>
+        <li>
+          Booking reference: <xsl:value-of select="BookingReference" />
         </li>
       </ul>
       <hr />
@@ -66,6 +62,12 @@
           <xsl:value-of select="Reference" />
         </p>
       </xsl:for-each>
+      
+      <ul>
+        <li>
+          Access needs and research requests: <xsl:value-of select="AdditionalRequirements" />
+        </li>
+      </ul>
     </body>
   </xsl:template>
 </xsl:stylesheet>

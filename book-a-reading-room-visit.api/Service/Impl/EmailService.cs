@@ -135,7 +135,6 @@ namespace book_a_reading_room_visit.api.Service
             expando.HomeURL = Environment.GetEnvironmentVariable("HomeURL");
             expando.ReturnURL = $"{expando.HomeURL}/return-to-booking";
             expando.VisitType = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
-            expando.FaceCovering = bookingModel.IsNoFaceCovering ? "No" : "Yes";
             expando.Name = $"{bookingModel.FirstName} {bookingModel.LastName}";
             expando.VisitStartDateDisplay = bookingModel.VisitStartDate.ToShortDateString();
             expando.AdditionalRequirements = bookingModel.AdditionalRequirements ?? "None entered.";
@@ -221,7 +220,6 @@ namespace book_a_reading_room_visit.api.Service
             rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
             rootElement.Add(new XElement("VisitStartDate", $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}"));
             rootElement.Add(new XElement("SeatNumber", bookingModel.SeatNumber));
-            rootElement.Add(new XElement("FaceCovering", bookingModel.IsNoFaceCovering ? "No" : "Yes"));
             rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements ?? "None entered."));
             rootElement.Add(new XElement("ReturnURL", $"{homeURL}/return-to-booking"));
             rootElement.Add(new XElement("HomeURL", homeURL));
