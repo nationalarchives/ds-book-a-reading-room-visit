@@ -233,7 +233,7 @@
 
                         <div class="form-row @(@ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptTsAndCs, new { id = "terms-conditions", required = true, aria_describedby = "validation-message-terms-conditions" })
-                            <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/booking-events/">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/legal/privacy-policy/">privacy policy</a>.</label>
+                            <label for="terms-conditions" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="/book-a-reading-room-visit/terms-of-use">terms of use</a> and <a target="_blank" rel="noopener noreferrer" href="/book-a-reading-room-visit/privacy-policy">privacy policy</a>.</label>
 
                             @if (ViewData.ModelState["AcceptTsAndCs"]?.Errors.Count() > 0)
                             {
@@ -243,7 +243,7 @@
 
                         <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
                             @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true, aria_describedby = "validation-message-covid-charter" })
-                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a>. (PDF)</label>
+                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="~/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a>. (PDF)</label>
 
                             @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
                             {

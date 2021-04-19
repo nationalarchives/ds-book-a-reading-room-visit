@@ -82,27 +82,15 @@
       <p>Find out about:</p>
       <ul>
         <li>
-          how to get here: 
-		  <a href="https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/">
-			  https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/
-		  </a>
-        </li>
-        <li>
-          what you can take into the reading rooms: 
-		   <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/">
-			   https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
-		   </a>
-        </li>
-        <li>
           how to use the reading rooms (rules for readers): 
-		  <a href="https://www.nationalarchives.gov.uk/documents/rules.pdf">
-			  https://www.nationalarchives.gov.uk/documents/rules.pdf
+		  <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/rules.pdf">
+			  https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/rules.pdf
 		  </a>
         </li>
         <li>
           more information about this service: 
-		    <a href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">
-				https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
+		    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service/">
+				https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service/
 			</a>
         </li>
       </ul>
@@ -120,8 +108,8 @@
 		</a>
       </p>
       <p>Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process:
-	    <a href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">
-			https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf
+	    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/coronavirus-visitor-charter.pdf">
+			https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/coronavirus-visitor-charter.pdf
 		</a>
 	  </p>
       <p>Remember to wear a face mask when you visit, unless you have a valid exemption:
@@ -133,15 +121,7 @@
 	  <p>
           You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
 	  </p>
-      <h3 style="margin-top: 2em;">Need help?</h3>
-
-	  <p>
-        This email inbox is not being monitored. Contact us if you need help with this service: 
-	    <a href="https://www.nationalarchives.gov.uk/contact-us/">
-			https://www.nationalarchives.gov.uk/contact-us/
-		</a>
-	  </p>
-	  
+		
       <h3 style="margin-top: 2em;">Complete our survey</h3>
 	  <p>
         This is a redesigned service. Complete our survey so we can keep improving this service:
@@ -149,6 +129,10 @@
 			https://www.smartsurvey.co.uk/s/NewVisitBooking/
 		</a>
       </p>
+
+		<p>
+			This email inbox is not being monitored.
+		</p>
 	</body>
   </xsl:template>
 </xsl:stylesheet>

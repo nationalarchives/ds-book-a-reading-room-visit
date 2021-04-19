@@ -78,13 +78,8 @@
           You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
 	  </p>
 
-      <h3 style="margin-top: 2em;">Need help?</h3>
-
 	  <p>
-	      This email inbox is not being monitored. Contact us if you need help with this service: 
-		  <a href="https://www.nationalarchives.gov.uk/contact-us/">
-			  https://www.nationalarchives.gov.uk/contact-us/
-		  </a>
+	      This email inbox is not being monitored.
 	  </p>
     </body>
   </xsl:template>
