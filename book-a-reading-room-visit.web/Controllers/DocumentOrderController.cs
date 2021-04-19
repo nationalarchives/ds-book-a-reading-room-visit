@@ -19,7 +19,7 @@ namespace book_a_reading_room_visit.web.Controllers
             _validateDocumentOrder = validateDocumentOrder;
         }
 
-        public async Task<IActionResult> ContinueLater(string bookingReference)
+        public async Task<IActionResult> ContinueLater(BookingTypes bookingType, string bookingReference)
         {
             var bookingModel = await _bookingService.GetBookingAsync(bookingReference);
 
