@@ -51,18 +51,13 @@
       </p>
       <p>
         Find out more about this service: 
-		  <a href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">
-			  https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
+		  <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service">
+			  https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service
 		  </a>					 
       </p>
 
-      <h3 style="margin-top: 2em;">Need help?</h3>
-
 		<p>
-			This email inbox is not being monitored. Contact us if you need help with this service: 
-	        <a href="https://www.nationalarchives.gov.uk/contact-us/">
-			    https://www.nationalarchives.gov.uk/contact-us/
-		    </a>
+			This email inbox is not being monitored.
 		</p>
     </body>
   </xsl:template>
