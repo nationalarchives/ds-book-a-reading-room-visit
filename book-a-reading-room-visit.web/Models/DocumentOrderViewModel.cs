@@ -17,7 +17,7 @@ namespace book_a_reading_room_visit.web.Models
         [MaxLength(50)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Series { get; set; }
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CustomHtmlValidation(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string AdditionalRequirements { get; set; }
         [MaxLength(50)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
