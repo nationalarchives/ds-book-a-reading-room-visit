@@ -16,7 +16,7 @@
         public const string Series_Required = "Enter a series number.";
         public const string Accept_Terms_Privacy_Required = "Accept our terms of use and privacy policy.";
         public const string Accept_COVID_19_Required = "Accept our COVID-19 Visitor Charter.";
-        public const string Html_Tags_Not_Allowed = "You have entered an HTML tag. Enter valid details.";
+        public const string Html_Tags_Not_Allowed = "You have entered an <HTML> tag. Only include numbers, letters A to Z, and special characters.";
 
         public const string Duplicate_Document_Reference = "You have already entered this catalogue reference.";
         public const string Document_Reference_Series_Not_Matched = "This document is from a different series to the one you have entered above. Check the catalogue series and try again.";

@@ -35,7 +35,7 @@ namespace book_a_reading_room_visit.web.Helper
 
                 if (modelState.IsValid)
                 {
-                    ValidateStandardOrderDocumentReferences(modelState, model);
+                    ValidateStandardOrderDocumentReferences(modelState);
                 }
             }
             if (model.BookingType == BookingTypes.BulkOrderVisit)
@@ -51,8 +51,8 @@ namespace book_a_reading_room_visit.web.Helper
                 ValidateBulkOrderDuplicateReference(modelState, model);
                 if (modelState.IsValid)
                 {
-                    ValidateSeriesReferences(modelState, model);
-                    ValidateBulkOrderDocumentReferences(modelState, model);
+                    ValidateSeriesReferences(modelState, model.Series);
+                    ValidateBulkOrderDocumentReferences(modelState);
                 }
             }
             validatedDocuments = _validatedDocuments;
@@ -151,72 +151,72 @@ namespace book_a_reading_room_visit.web.Helper
             }
         }
 
-        public void ValidateStandardOrderDocumentReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
+        public void ValidateStandardOrderDocumentReferences(ModelStateDictionary modelStateDictionary)
         {
             _validatedDocuments = new List<DocumentViewModel>();
 
-            ValidateReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1);
-            ValidateReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2);
-            ValidateReference(modelStateDictionary, "DocumentReference3", model.DocumentReference3);
-            ValidateReference(modelStateDictionary, "DocumentReference4", model.DocumentReference4);
-            ValidateReference(modelStateDictionary, "DocumentReference5", model.DocumentReference5);
-            ValidateReference(modelStateDictionary, "DocumentReference6", model.DocumentReference6);
-            ValidateReference(modelStateDictionary, "DocumentReference7", model.DocumentReference7);
-            ValidateReference(modelStateDictionary, "DocumentReference8", model.DocumentReference8);
-            ValidateReference(modelStateDictionary, "DocumentReference9", model.DocumentReference9);
-            ValidateReference(modelStateDictionary, "DocumentReference10", model.DocumentReference10);
-            ValidateReference(modelStateDictionary, "DocumentReference11", model.DocumentReference11);
-            ValidateReference(modelStateDictionary, "DocumentReference12", model.DocumentReference12);
+            ValidateReference(modelStateDictionary, "DocumentReference1", _documentReference.TryGetValue(1, out var ref1) ? ref1 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference2", _documentReference.TryGetValue(2, out var ref2) ? ref2 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference3", _documentReference.TryGetValue(3, out var ref3) ? ref3 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference4", _documentReference.TryGetValue(4, out var ref4) ? ref4 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference5", _documentReference.TryGetValue(5, out var ref5) ? ref5 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference6", _documentReference.TryGetValue(6, out var ref6) ? ref6 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference7", _documentReference.TryGetValue(7, out var ref7) ? ref7 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference8", _documentReference.TryGetValue(8, out var ref8) ? ref8 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference9", _documentReference.TryGetValue(9, out var ref9) ? ref9 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference10", _documentReference.TryGetValue(10, out var ref10) ? ref10 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference11", _documentReference.TryGetValue(11, out var ref11) ? ref11 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference12", _documentReference.TryGetValue(12, out var ref12) ? ref12 : "");
 
-            ValidateReference(modelStateDictionary, "ReserveDocumentReference1", model.ReserveDocumentReference1, true);
-            ValidateReference(modelStateDictionary, "ReserveDocumentReference2", model.ReserveDocumentReference2, true);
-            ValidateReference(modelStateDictionary, "ReserveDocumentReference3", model.ReserveDocumentReference3, true);
+            ValidateReference(modelStateDictionary, "ReserveDocumentReference1", _documentReference.TryGetValue(13, out var ref13) ? ref13 : "", true);
+            ValidateReference(modelStateDictionary, "ReserveDocumentReference2", _documentReference.TryGetValue(14, out var ref14) ? ref14 : "", true);
+            ValidateReference(modelStateDictionary, "ReserveDocumentReference3", _documentReference.TryGetValue(15, out var ref15) ? ref15 : "", true);
         }
 
-        public void ValidateBulkOrderDocumentReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
+        public void ValidateBulkOrderDocumentReferences(ModelStateDictionary modelStateDictionary)
         {
             _validatedDocuments = new List<DocumentViewModel>();
 
-            ValidateReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1);
-            ValidateReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2);
-            ValidateReference(modelStateDictionary, "DocumentReference3", model.DocumentReference3);
-            ValidateReference(modelStateDictionary, "DocumentReference4", model.DocumentReference4);
-            ValidateReference(modelStateDictionary, "DocumentReference5", model.DocumentReference5);
-            ValidateReference(modelStateDictionary, "DocumentReference6", model.DocumentReference6);
-            ValidateReference(modelStateDictionary, "DocumentReference7", model.DocumentReference7);
-            ValidateReference(modelStateDictionary, "DocumentReference8", model.DocumentReference8);
-            ValidateReference(modelStateDictionary, "DocumentReference9", model.DocumentReference9);
-            ValidateReference(modelStateDictionary, "DocumentReference10", model.DocumentReference10);
-            ValidateReference(modelStateDictionary, "DocumentReference11", model.DocumentReference11);
-            ValidateReference(modelStateDictionary, "DocumentReference12", model.DocumentReference12);
-            ValidateReference(modelStateDictionary, "DocumentReference13", model.DocumentReference13);
-            ValidateReference(modelStateDictionary, "DocumentReference14", model.DocumentReference14);
-            ValidateReference(modelStateDictionary, "DocumentReference15", model.DocumentReference15);
-            ValidateReference(modelStateDictionary, "DocumentReference16", model.DocumentReference16);
-            ValidateReference(modelStateDictionary, "DocumentReference17", model.DocumentReference17);
-            ValidateReference(modelStateDictionary, "DocumentReference18", model.DocumentReference18);
-            ValidateReference(modelStateDictionary, "DocumentReference19", model.DocumentReference19);
-            ValidateReference(modelStateDictionary, "DocumentReference20", model.DocumentReference20);
-            ValidateReference(modelStateDictionary, "DocumentReference21", model.DocumentReference21);
-            ValidateReference(modelStateDictionary, "DocumentReference22", model.DocumentReference22);
-            ValidateReference(modelStateDictionary, "DocumentReference23", model.DocumentReference23);
-            ValidateReference(modelStateDictionary, "DocumentReference24", model.DocumentReference24);
-            ValidateReference(modelStateDictionary, "DocumentReference25", model.DocumentReference25);
-            ValidateReference(modelStateDictionary, "DocumentReference26", model.DocumentReference26);
-            ValidateReference(modelStateDictionary, "DocumentReference27", model.DocumentReference27);
-            ValidateReference(modelStateDictionary, "DocumentReference28", model.DocumentReference28);
-            ValidateReference(modelStateDictionary, "DocumentReference29", model.DocumentReference29);
-            ValidateReference(modelStateDictionary, "DocumentReference30", model.DocumentReference30);
-            ValidateReference(modelStateDictionary, "DocumentReference31", model.DocumentReference31);
-            ValidateReference(modelStateDictionary, "DocumentReference32", model.DocumentReference32);
-            ValidateReference(modelStateDictionary, "DocumentReference33", model.DocumentReference33);
-            ValidateReference(modelStateDictionary, "DocumentReference34", model.DocumentReference34);
-            ValidateReference(modelStateDictionary, "DocumentReference35", model.DocumentReference35);
-            ValidateReference(modelStateDictionary, "DocumentReference36", model.DocumentReference36);
-            ValidateReference(modelStateDictionary, "DocumentReference37", model.DocumentReference37);
-            ValidateReference(modelStateDictionary, "DocumentReference38", model.DocumentReference38);
-            ValidateReference(modelStateDictionary, "DocumentReference39", model.DocumentReference39);
-            ValidateReference(modelStateDictionary, "DocumentReference40", model.DocumentReference40);
+            ValidateReference(modelStateDictionary, "DocumentReference1", _documentReference.TryGetValue(1, out var ref1) ? ref1 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference2", _documentReference.TryGetValue(2, out var ref2) ? ref2 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference3", _documentReference.TryGetValue(3, out var ref3) ? ref3 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference4", _documentReference.TryGetValue(4, out var ref4) ? ref4 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference5", _documentReference.TryGetValue(5, out var ref5) ? ref5 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference6", _documentReference.TryGetValue(6, out var ref6) ? ref6 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference7", _documentReference.TryGetValue(7, out var ref7) ? ref7 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference8", _documentReference.TryGetValue(8, out var ref8) ? ref8 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference9", _documentReference.TryGetValue(9, out var ref9) ? ref9 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference10", _documentReference.TryGetValue(10, out var ref10) ? ref10 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference11", _documentReference.TryGetValue(11, out var ref11) ? ref11 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference12", _documentReference.TryGetValue(12, out var ref12) ? ref12 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference13", _documentReference.TryGetValue(13, out var ref13) ? ref13 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference14", _documentReference.TryGetValue(14, out var ref14) ? ref14 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference15", _documentReference.TryGetValue(15, out var ref15) ? ref15 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference16", _documentReference.TryGetValue(16, out var ref16) ? ref16 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference17", _documentReference.TryGetValue(17, out var ref17) ? ref17 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference18", _documentReference.TryGetValue(18, out var ref18) ? ref18 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference19", _documentReference.TryGetValue(19, out var ref19) ? ref19 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference20", _documentReference.TryGetValue(20, out var ref20) ? ref20 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference21", _documentReference.TryGetValue(21, out var ref21) ? ref21 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference22", _documentReference.TryGetValue(22, out var ref22) ? ref22 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference23", _documentReference.TryGetValue(23, out var ref23) ? ref23 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference24", _documentReference.TryGetValue(24, out var ref24) ? ref24 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference25", _documentReference.TryGetValue(25, out var ref25) ? ref25 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference26", _documentReference.TryGetValue(26, out var ref26) ? ref26 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference27", _documentReference.TryGetValue(27, out var ref27) ? ref27 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference28", _documentReference.TryGetValue(28, out var ref28) ? ref28 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference29", _documentReference.TryGetValue(29, out var ref29) ? ref29 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference30", _documentReference.TryGetValue(30, out var ref30) ? ref30 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference31", _documentReference.TryGetValue(31, out var ref31) ? ref31 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference32", _documentReference.TryGetValue(32, out var ref32) ? ref32 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference33", _documentReference.TryGetValue(33, out var ref33) ? ref33 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference34", _documentReference.TryGetValue(34, out var ref34) ? ref34 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference35", _documentReference.TryGetValue(35, out var ref35) ? ref35 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference36", _documentReference.TryGetValue(36, out var ref36) ? ref36 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference37", _documentReference.TryGetValue(37, out var ref37) ? ref37 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference38", _documentReference.TryGetValue(38, out var ref38) ? ref38 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference39", _documentReference.TryGetValue(39, out var ref39) ? ref39 : "");
+            ValidateReference(modelStateDictionary, "DocumentReference40", _documentReference.TryGetValue(40, out var ref40) ? ref40 : "");
         }
 
         private void ValidateReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docRerefenceVal, bool isReserved = false)
@@ -259,48 +259,48 @@ namespace book_a_reading_room_visit.web.Helper
             }
         }
 
-        public void ValidateSeriesReferences(ModelStateDictionary modelStateDictionary, DocumentOrderViewModel model)
+        public void ValidateSeriesReferences(ModelStateDictionary modelStateDictionary, string series)
         {
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference1", model.DocumentReference1, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference2", model.DocumentReference2, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference3", model.DocumentReference3, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference4", model.DocumentReference4, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference5", model.DocumentReference5, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference6", model.DocumentReference6, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference7", model.DocumentReference7, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference8", model.DocumentReference8, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference9", model.DocumentReference9, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference10", model.DocumentReference10, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference11", model.DocumentReference11, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference12", model.DocumentReference12, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference13", model.DocumentReference13, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference14", model.DocumentReference14, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference15", model.DocumentReference15, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference16", model.DocumentReference16, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference17", model.DocumentReference17, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference18", model.DocumentReference18, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference19", model.DocumentReference19, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference20", model.DocumentReference20, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference21", model.DocumentReference21, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference22", model.DocumentReference22, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference23", model.DocumentReference23, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference24", model.DocumentReference24, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference25", model.DocumentReference25, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference26", model.DocumentReference26, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference27", model.DocumentReference27, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference28", model.DocumentReference28, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference29", model.DocumentReference29, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference30", model.DocumentReference30, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference31", model.DocumentReference31, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference32", model.DocumentReference32, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference33", model.DocumentReference33, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference34", model.DocumentReference34, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference35", model.DocumentReference35, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference36", model.DocumentReference36, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference37", model.DocumentReference37, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference38", model.DocumentReference38, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference39", model.DocumentReference39, model.Series);
-            ValidateSeriesReference(modelStateDictionary, "DocumentReference40", model.DocumentReference40, model.Series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference1", _documentReference.TryGetValue(1, out var ref1) ? ref1 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference2", _documentReference.TryGetValue(2, out var ref2) ? ref2 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference3", _documentReference.TryGetValue(3, out var ref3) ? ref3 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference4", _documentReference.TryGetValue(4, out var ref4) ? ref4 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference5", _documentReference.TryGetValue(5, out var ref5) ? ref5 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference6", _documentReference.TryGetValue(6, out var ref6) ? ref6 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference7", _documentReference.TryGetValue(7, out var ref7) ? ref7 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference8", _documentReference.TryGetValue(8, out var ref8) ? ref8 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference9", _documentReference.TryGetValue(9, out var ref9) ? ref9 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference10", _documentReference.TryGetValue(10, out var ref10) ? ref10 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference11", _documentReference.TryGetValue(11, out var ref11) ? ref11 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference12", _documentReference.TryGetValue(12, out var ref12) ? ref12 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference13", _documentReference.TryGetValue(13, out var ref13) ? ref13 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference14", _documentReference.TryGetValue(14, out var ref14) ? ref14 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference15", _documentReference.TryGetValue(15, out var ref15) ? ref15 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference16", _documentReference.TryGetValue(16, out var ref16) ? ref16 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference17", _documentReference.TryGetValue(17, out var ref17) ? ref17 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference18", _documentReference.TryGetValue(18, out var ref18) ? ref18 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference19", _documentReference.TryGetValue(19, out var ref19) ? ref19 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference20", _documentReference.TryGetValue(20, out var ref20) ? ref20 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference21", _documentReference.TryGetValue(21, out var ref21) ? ref21 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference22", _documentReference.TryGetValue(22, out var ref22) ? ref22 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference23", _documentReference.TryGetValue(23, out var ref23) ? ref23 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference24", _documentReference.TryGetValue(24, out var ref24) ? ref24 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference25", _documentReference.TryGetValue(25, out var ref25) ? ref25 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference26", _documentReference.TryGetValue(26, out var ref26) ? ref26 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference27", _documentReference.TryGetValue(27, out var ref27) ? ref27 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference28", _documentReference.TryGetValue(28, out var ref28) ? ref28 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference29", _documentReference.TryGetValue(29, out var ref29) ? ref29 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference30", _documentReference.TryGetValue(30, out var ref30) ? ref30 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference31", _documentReference.TryGetValue(31, out var ref31) ? ref31 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference32", _documentReference.TryGetValue(32, out var ref32) ? ref32 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference33", _documentReference.TryGetValue(33, out var ref33) ? ref33 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference34", _documentReference.TryGetValue(34, out var ref34) ? ref34 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference35", _documentReference.TryGetValue(35, out var ref35) ? ref35 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference36", _documentReference.TryGetValue(36, out var ref36) ? ref36 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference37", _documentReference.TryGetValue(37, out var ref37) ? ref37 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference38", _documentReference.TryGetValue(38, out var ref38) ? ref38 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference39", _documentReference.TryGetValue(39, out var ref39) ? ref39 : "", series);
+            ValidateSeriesReference(modelStateDictionary, "DocumentReference40", _documentReference.TryGetValue(40, out var ref40) ? ref40 : "", series);
         }
 
         private void ValidateSeriesReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docRerefenceVal, string series)
