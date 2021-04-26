@@ -175,7 +175,8 @@ namespace book_a_reading_room_visit.api.Service
                 return response;
             }
 
-            bool seatTaken = await _context.Set<Booking>().Where(b => b.VisitStartDate == booking.VisitStartDate && b.SeatId == newSeatId && b.Id != bookingId).AnyAsync();
+            bool seatTaken = await _context.Set<Booking>().Where(b => b.VisitStartDate == booking.VisitStartDate && b.SeatId == newSeatId  && 
+                b.BookingStatus.Id != (int)BookingStatuses.Cancelled  && b.Id != bookingId).AnyAsync();
 
             if (seatTaken)
             {
@@ -196,7 +197,16 @@ namespace book_a_reading_room_visit.api.Service
             booking.SeatId = newSeatId;
             booking.LastModifiedBy = updatedBy;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = $"Error updating booking id {bookingId} on the date {booking.VisitStartDate:dd-MM-yyyy} to seat id {newSeatId}";
+
+            }
 
             return response;
 
