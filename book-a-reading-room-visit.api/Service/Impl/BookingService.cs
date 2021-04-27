@@ -175,8 +175,9 @@ namespace book_a_reading_room_visit.api.Service
                 return response;
             }
 
-            bool seatTaken = await _context.Set<Booking>().Where(b => b.VisitStartDate == booking.VisitStartDate && b.SeatId == newSeatId  && 
-                b.BookingStatus.Id != (int)BookingStatuses.Cancelled  && b.Id != bookingId).AnyAsync();
+            // First pass check that the seat is available.
+            bool seatTaken = await _context.Set<Booking>().Where(b => b.VisitStartDate == booking.VisitStartDate && b.SeatId == newSeatId &&
+                b.BookingStatus.Id != (int)BookingStatuses.Cancelled && b.Id != bookingId).AnyAsync();
 
             if (seatTaken)
             {
@@ -185,27 +186,14 @@ namespace book_a_reading_room_visit.api.Service
                 return response;
             }
 
-            _context.Attach(booking);
-            if (!String.IsNullOrWhiteSpace(booking.Comments))
-            {
-                booking.Comments += " " + comment;
-            }
-            else
-            {
-                booking.Comments = comment;
-            }
-            booking.SeatId = newSeatId;
-            booking.LastModifiedBy = updatedBy;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.Database.ExecuteSqlInterpolatedAsync($"EXEC dbo.proc_change_booked_seat {bookingId}, {newSeatId}, {comment}, {updatedBy}");
             }
             catch
             {
                 response.IsSuccess = false;
                 response.ErrorMessage = $"Error updating booking id {bookingId} on the date {booking.VisitStartDate:dd-MM-yyyy} to seat id {newSeatId}";
-
             }
 
             return response;
