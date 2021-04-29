@@ -476,11 +476,20 @@ namespace book_a_reading_room_visit.api.Service
             }
             var orderLimit = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitPerReaderTicket").Value);
             var orderLimitDuration = int.Parse(_configuration.GetSection("BookingTimeLine:OrderLimitDuration").Value);
-            var endDate = DateTime.Today.AddDays(orderLimitDuration);
+            var endDate = visitDate.AddDays(orderLimitDuration);
 
-            var bookings = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= DateTime.Today && b.VisitStartDate <= endDate && b.BookingStatusId != (int)BookingStatuses.Cancelled);
+            var bookingsAhead = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= visitDate && b.VisitStartDate <= endDate && b.BookingStatusId != (int)BookingStatuses.Cancelled);
 
-            if (bookings >= orderLimit)
+            if (bookingsAhead >= orderLimit)
+            {
+                return ValidationResult.ExceededTheSetLimit;
+            }
+
+            var startDate = visitDate.AddDays(-orderLimitDuration);
+
+            var bookingsBefore = await _context.Bookings.CountAsync(b => b.ReaderTicket == readerTicket && b.VisitStartDate >= startDate && b.VisitStartDate <= visitDate && b.BookingStatusId != (int)BookingStatuses.Cancelled);
+
+            if (bookingsBefore >= orderLimit)
             {
                 return ValidationResult.ExceededTheSetLimit;
             }
