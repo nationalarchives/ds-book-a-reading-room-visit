@@ -50,7 +50,15 @@
                             <li>Camera stands and computer access available</li>
                         </ul>
 
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Select a date</a>
+                        @if (Model.StandardBookingAvailable > 0)
+                        {
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "standard-order-visit" })">Select a date</a>
+                        }
+
+                        else
+                        {
+                            <span class="no-dates">No available dates</span>
+                        }
                     </div>
                 </div>
             </section>
@@ -70,7 +78,15 @@
                             <li>Camera stands and computer access available</li>
                         </ul>
 
-                        <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Select a date</a>
+                        @if (Model.BulkBookingsAvailable > 0)
+                        {
+                            <a class="button primary" href="@Url.Action("Availability", "Home", new { bookingType = "bulk-order-visit" })">Select a date</a>
+                        }
+
+                        else
+                        {
+                            <span class="no-dates">No available dates</span>
+                        }
                     </div>
                 </div>
             </section>
