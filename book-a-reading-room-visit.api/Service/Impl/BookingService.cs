@@ -587,7 +587,7 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<int> SendPostVisitSurveyEmailsAsync(DateTime visitEndDate)
         {
-            var bookings = await _context.Set<Booking>().Where(b => !string.IsNullOrWhiteSpace(b.Email) && b.VisitEndDate == visitEndDate && b.BookingStatusId == (int)BookingStatuses.Submitted).ToListAsync();
+            var bookings = await _context.Set<Booking>().Include(s => s.Seat).Where(b => !string.IsNullOrWhiteSpace(b.Email) && b.VisitEndDate == visitEndDate && b.BookingStatusId == (int)BookingStatuses.Submitted).ToListAsync();
 
             if (bookings.Count == 0)
             {
