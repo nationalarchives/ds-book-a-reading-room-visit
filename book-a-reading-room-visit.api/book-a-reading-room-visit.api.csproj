@@ -35,7 +35,13 @@
     <None Update="EmailTemplate\InvalidOrderReminder.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EmailTemplate\PostVisit.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplate\ReservationConfirmation.xslt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplate\Text\PostVisit.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="EmailTemplate\ValidOrderReminder.xslt">

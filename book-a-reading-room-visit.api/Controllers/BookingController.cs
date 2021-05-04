@@ -192,5 +192,12 @@ namespace book_a_reading_room_visit.api.Controllers
             int result = await _bookingService.SendReminderNotificationEmailsAsync(completeBy);
             return Ok(result);
         }
+
+        [HttpPost("send-post-visit-survey")]
+        public async Task<ActionResult<int>> SendPostVisitSurveyEmails(DateTime endDate)
+        {
+            int result = await _bookingService.SendPostVisitSurveyEmailsAsync(endDate);
+            return Ok(result);
+        }
     }
 }

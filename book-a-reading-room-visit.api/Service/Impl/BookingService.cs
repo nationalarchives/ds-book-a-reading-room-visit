@@ -220,10 +220,14 @@ namespace book_a_reading_room_visit.api.Service
             booking.LastModifiedBy = bookingCancellationModel.CancelledBy;
             await _context.SaveChangesAsync();
 
+            var cancelledBooking = await _context.Bookings.AsNoTracking<Booking>().Include(s => s.Seat).FirstOrDefaultAsync(b => b.Id == booking.Id);
+            var bookingModel = GetSerialisedBooking(cancelledBooking);
+            var dsdEmail = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? _configuration.GetSection("EmailSettings:StandardOrderAddress").Value :
+                                                                                        _configuration.GetSection("EmailSettings:BulkOrderAddress").Value;
+
+            await _emailService.SendEmailAsync(EmailType.BookingCancellation, dsdEmail, bookingModel);
             if (!string.IsNullOrWhiteSpace(booking.Email))
             {
-                var cancelledBooking = await _context.Bookings.AsNoTracking<Booking>().Include(s => s.Seat).FirstOrDefaultAsync(b => b.Id == booking.Id);
-                var bookingModel = GetSerialisedBooking(cancelledBooking);
                 await _emailService.SendEmailAsync(EmailType.BookingCancellation, bookingModel.Email, bookingModel);
             }
 
@@ -577,6 +581,23 @@ namespace book_a_reading_room_visit.api.Service
                 {
                     await _emailService.SendEmailAsync(EmailType.InvalidOrderReminder, bookingModel.Email, bookingModel);
                 }
+            }
+            return bookings.Count;
+        }
+
+        public async Task<int> SendPostVisitSurveyEmailsAsync(DateTime visitEndDate)
+        {
+            var bookings = await _context.Set<Booking>().Where(b => !string.IsNullOrWhiteSpace(b.Email) && b.VisitEndDate == visitEndDate && b.BookingStatusId == (int)BookingStatuses.Submitted).ToListAsync();
+
+            if (bookings.Count == 0)
+            {
+                return 0;
+            }
+
+            foreach (var booking in bookings)
+            {
+                var bookingModel = GetSerialisedBooking(booking);
+                await _emailService.SendEmailAsync(EmailType.PostVisit, bookingModel.Email, bookingModel);
             }
             return bookings.Count;
         }
