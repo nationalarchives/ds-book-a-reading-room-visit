@@ -73,6 +73,12 @@ namespace book_a_reading_room_visit.api.Service
                                                                                               : $"Bulk order visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}";
                         break;
                     }
+                case EmailType.PostVisit:
+                    {
+                        var subjectFormat = _configuration.GetValue<string>("EmailSettings:PostVisitSubject");
+                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}");
+                        break;
+                    }
             }
 
             var xDocument = GetXDocument(bookingModel);

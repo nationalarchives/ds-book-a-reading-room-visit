@@ -9,5 +9,6 @@
         BookingCancellation = 5,
         AutomaticCancellation = 6,
         DSDBookingConfirmation = 7,
+        PostVisit = 8
     }
 }

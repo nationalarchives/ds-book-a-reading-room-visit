@@ -23,5 +23,6 @@ namespace book_a_reading_room_visit.api.Service
         Task<int> SubmitBookingAsync(DateTime completeBy);
         Task<int> SendBookingConfirmationEmailsAsync(DateTime completeBy);
         Task<int> SendReminderNotificationEmailsAsync(DateTime completeBy);
+        Task<int> SendPostVisitSurveyEmailsAsync(DateTime visitEndDate);
     }
 }
