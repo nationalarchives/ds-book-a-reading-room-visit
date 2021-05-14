@@ -18,6 +18,8 @@ FROM build AS publish
 RUN dotnet publish "book-a-reading-room-visit.api.csproj" -c Release -o /app/publish
 
 FROM base AS final
+RUN addgroup -g 965 -S appuser && adduser -u 975 -S -D -h /app appuser appuser
+USER appuser
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "book-a-reading-room-visit.api.dll"]
