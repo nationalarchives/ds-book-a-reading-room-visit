@@ -79,60 +79,40 @@
       <hr />
 
       <h3 style="margin-top: 2em;">Prepare for your visit</h3>
-      <p>Find out about:</p>
-      <ul>
-        <li>
-          how to use the reading rooms (rules for readers): 
-		  <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/rules.pdf">
-			  https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/rules.pdf
-		  </a>
-        </li>
-        <li>
-          more information about this service: 
-		    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service/">
-				https://www.nationalarchives.gov.uk/book-a-reading-room-visit/about-the-book-a-reading-room-visit-service/
-			</a>
-        </li>
-      </ul>
-      <p>
-        Remember to bring the correct documents to complete your registration if you are using your reader's ticket for the first time.
-      </p>
-      <p>
-        Bring your device if you wish to take photographs of our documents. We do not charge for this.
-      </p>
-      <h3 style="margin-top: 2em;">What to expect when you visit</h3>
-      <p>
-        Watch this video to find out what you can expect during your booked visit to The National Archives' reading rooms and the changes we've made for everyone's safety:
-        <a href="https://www.youtube.com/watch?v=Wm4mq5X_EFs">
-			https://www.youtube.com/watch?v=Wm4mq5X_EFs
-		</a>
-      </p>
-      <p>Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process:
-	    <a href="https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/coronavirus-visitor-charter.pdf">
-			https://www.nationalarchives.gov.uk/book-a-reading-room-visit/documents/coronavirus-visitor-charter.pdf
-		</a>
+	  <p>
+		  We have had to amend our reading room rules in line with Covid restrictions, please check what is now permissible to bring into the
+	      reading rooms: <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/</a>
 	  </p>
-      <p>Remember to wear a face mask when you visit, unless you have a valid exemption:
-	    <a href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">
-			https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions
-		</a>
+	  <p>
+		  Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your
+		  registration. See a list of acceptable forms of identification: <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/</a>
 	  </p>
+	  <p style="font-weight: bold;">
+		  We regularly review our opening times and reading room set-up in line with latest government advice. Check these links before your visit:
+	  </p>
+	  <ul>
+		  <li style="list-style: none;">
+			  See our opening times: <a href="https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ ">https://www.nationalarchives.gov.uk/about/visit-us/opening-times/</a>
+		  </li>
+		  <li style="list-style: none;">
+			  What to expect when you visit:"<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/</a>
+		  </li>
+	  </ul>
+		
       <h3 style="margin-top: 2em;">Cancel your visit</h3>
 	  <p>
-          You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
+		  You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
 	  </p>
 		
       <h3 style="margin-top: 2em;">Complete our survey</h3>
 	  <p>
-        This is a redesigned service. Complete our survey so we can keep improving this service:
-		<a href="https://www.smartsurvey.co.uk/s/NewVisitBooking/">
-			https://www.smartsurvey.co.uk/s/NewVisitBooking/
-		</a>
+		  This is a redesigned service. Complete our survey so we can keep improving this service:
+		  <a href="https://www.smartsurvey.co.uk/s/NewVisitBooking/">https://www.smartsurvey.co.uk/s/NewVisitBooking/</a>
       </p>
 
-		<p>
-			This email inbox is not being monitored.
-		</p>
+	  <p>
+		  This email inbox is not being monitored.
+	  </p>
 	</body>
   </xsl:template>
 </xsl:stylesheet>
