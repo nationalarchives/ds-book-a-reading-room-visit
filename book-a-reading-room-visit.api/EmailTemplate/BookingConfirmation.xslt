@@ -90,11 +90,11 @@
 	  <p style="font-weight: bold;">
 		  We regularly review our opening times and reading room set-up in line with latest government advice. Check these links before your visit:
 	  </p>
-	  <ul>
-		  <li style="list-style: none;">
+	  <ul style="list-style: none;">
+		  <li>
 			  See our opening times: <a href="https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ ">https://www.nationalarchives.gov.uk/about/visit-us/opening-times/</a>
 		  </li>
-		  <li style="list-style: none;">
+		  <li>
 			  What to expect when you visit:"<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/</a>
 		  </li>
 	  </ul>
