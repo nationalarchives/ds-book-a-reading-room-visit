@@ -209,7 +209,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 ModelState.AddModelError("ticket", Constants.Valid_Ticket_Required);
                 return View(returnToBookingViewModel);
             }
-            var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference);
+            var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference.Trim());
             if (model == null)
             {
                 ModelState.AddModelError("ticket-booking-reference", Constants.Valid_Ticket_And_BookingReference_Required);
