@@ -79,7 +79,7 @@
                     <div class="border-top">
                         <label for="map-and-lg-room">Map and large document reading room</label>
                         @Html.RadioButton("seattype", SeatTypes.MandLRR.ToStringURL(), Model.SeatType.ToStringURL() == SeatTypes.MandLRR.ToStringURL(), new { id = "map-and-lg-room" })
-                        <p class="helper-text">Choose this room if you know the documents you are ordering are large or are dated pre-16th century.</p>
+                        <p class="helper-text">You can use this room if any of the documents you are ordering are maps, large documents or dated pre-16th century.</p>
                     </div>
 
                     <button class="button" type="submit">Update availability</button>
