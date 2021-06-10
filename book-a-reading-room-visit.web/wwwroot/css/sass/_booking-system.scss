@@ -636,8 +636,9 @@ form {
 
 #room-selection-form {
     fieldset {
-        border: 2px solid #ddd !important;
-        border-bottom: 4px solid #bbb !important;
+        background: rgba(19, 69, 113, 0.12);
+        border: 1px solid #134571 !important;
+        border-bottom: 4px solid #134571 !important;
         margin-bottom: 1em !important;
         padding: 1em !important;
 
