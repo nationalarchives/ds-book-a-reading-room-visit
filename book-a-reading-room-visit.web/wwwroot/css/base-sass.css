@@ -6319,7 +6319,9 @@ form .radio input[type=radio]:focus + label::before {
   padding: 1.6em 0;
   border-top: solid 2px #fff;
 }
-.mega-menu a, .mega-menu a:active, .mega-menu a:visited {
+.mega-menu a,
+.mega-menu a:active,
+.mega-menu a:visited {
   color: #fff;
 }
 .mega-menu a:hover {
@@ -6340,6 +6342,9 @@ form .radio input[type=radio]:focus + label::before {
   padding: 0.1em 0;
   margin: 0;
   line-height: 1.6;
+}
+.mega-menu .sub-menu a:hover:focus {
+  color: #fff;
 }
 .mega-menu .imgContent a {
   border: 0;
@@ -6367,7 +6372,8 @@ form .radio input[type=radio]:focus + label::before {
   margin-bottom: 1em;
   line-height: 2;
 }
-.mega-menu > ul > li > a, .mega-menu > ul > li > div {
+.mega-menu > ul > li > a,
+.mega-menu > ul > li > div {
   font-family: "Roboto Mono", monospace;
   font-size: 1.3em;
   margin-bottom: 0.6em;
@@ -6399,17 +6405,24 @@ form .radio input[type=radio]:focus + label::before {
   .mega-menu .toggle-sub-menu:hover {
     text-decoration: underline;
   }
-  .mega-menu > ul > li > a, .mega-menu > ul > li > div {
+  .mega-menu > ul > li > a,
+.mega-menu > ul > li > div {
     background: url(../img/plus.png) 0 14px no-repeat;
     padding: 5px 5px 5px 22px;
     cursor: pointer;
     text-shadow: none;
   }
-  .mega-menu > ul > li > a.expanded, .mega-menu > ul > li > div.expanded {
+  .mega-menu > ul > li > a.expanded,
+.mega-menu > ul > li > div.expanded {
     background: url(../img/minus.png) 0 14px no-repeat;
   }
   .mega-menu > ul > li > a:focus {
     background: #FCE45C !important;
+  }
+  .mega-menu > ul > li > .toggle-sub-menu:focus {
+    background: #FCE45C !important;
+    outline: #1d70b8 solid 5px;
+    color: #000000;
   }
   .mega-menu .mobile-home-link {
     display: block;
@@ -6418,6 +6431,10 @@ form .radio input[type=radio]:focus + label::before {
 
 .js #nav {
   display: none;
+}
+
+#more-link[tabindex="0"] {
+  text-decoration: underline;
 }
 
 /* TNA header styles */

@@ -2,13 +2,13 @@
 
 // Creating the home links
 
-$.fn.mega_menu_enhancements = function () {
+$.fn.mega_menu_enhancements = function() {
 
     // Mega menu button
 
-    $('#mega-menu-pull-down, #mega-menu-mobile').each(function () {
+    $('#mega-menu-pull-down, #mega-menu-mobile').each(function() {
         var $this = $(this);
-        $this.on('click', function () {
+        $this.on('click', function() {
             $('#nav').slideToggle('fast');
             $this.toggleClass('expanded');
         })
@@ -16,8 +16,17 @@ $.fn.mega_menu_enhancements = function () {
 
     // Establishing toggle behaviour for links with .toggle-sub-menu
 
-    $(document).on('click', '.toggle-sub-menu', function (e) {
-        if ($(window).width() < 480) {
+    $(document).on('click keydown keyup', '.toggle-sub-menu', function(e) {
+
+        if (e.type === "keyup") {
+            return;
+        }
+
+        if (e.type === "keydown" && e.key !== "Enter") {
+            return;
+        }
+
+        if ($(window).width() <= 480) {
             var $this = $(this);
             e.preventDefault();
             $this.toggleClass('expanded').next().slideToggle('fast');
@@ -26,7 +35,7 @@ $.fn.mega_menu_enhancements = function () {
 
     // Replacing anchor-only links
 
-    $('.mega-menu a[href="#"]').each(function () {
+    $('.mega-menu a[href="#"]').each(function() {
         var $this = $(this),
             text = $this.text();
         $this.replaceWith($('<div>', {
@@ -35,26 +44,30 @@ $.fn.mega_menu_enhancements = function () {
             'id': 'more-link'
         }));
     });
-
-    return this.each(function () {
-        var $this = $(this),
-            $items = $this.next(),
-            $link,
-            $li;
-
-        $this.addClass('toggle-sub-menu');
-
-
-        $link = $('<a>', {
-            'href': $this.attr('href'),
-            'text': $this.text() + ' home'
-        });
-
-        $li = $('<li class="mobile-home-link">').append($link);
-
-        $li.prependTo($items);
-
-    })
 };
 
 $.fn.mega_menu_enhancements();
+
+// moreLinkFocusManager()
+
+// The purpose of this function is to ensure that the more link can receive keyboard focus
+// at the point when event handlers are attached to it.
+
+$.moreLinkFocusManager = function() {
+
+    $('#more-link').attr('tabindex', function() {
+        return $(window).width() > 480 ? '-1' : '0';
+    });
+};
+
+// Bindings to window
+$(window).on({
+    resize: function() {
+        $.moreLinkFocusManager();
+    }
+});
+
+// Run on page load
+$(document).ready(function() {
+    $.moreLinkFocusManager();
+});
