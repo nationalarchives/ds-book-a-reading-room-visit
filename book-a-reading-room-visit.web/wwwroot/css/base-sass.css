@@ -6946,6 +6946,9 @@ footer .newsletter .news-content .button {
   margin-top: 0.6em;
   text-decoration: none;
 }
+footer #gov-uk-logo-link:focus {
+  background-color: transparent !important;
+}
 
 /* TNA template styles:
  - Default page
