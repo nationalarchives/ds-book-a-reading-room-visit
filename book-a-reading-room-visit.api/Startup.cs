@@ -34,8 +34,9 @@ namespace book_a_reading_room_visit.api
 
             services.AddLogging(config =>
             {
-                config.AddAWSProvider(Configuration.GetAWSLoggingConfigSection());
-                config.SetMinimumLevel(LogLevel.Debug);
+                config.ClearProviders();
+                config.AddConsole();
+                config.SetMinimumLevel(LogLevel.Warning);
             });
 
             services.AddDbContext<BookingContext>(opt =>

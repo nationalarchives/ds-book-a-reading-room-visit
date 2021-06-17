@@ -58,6 +58,10 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpGet]
         public async Task<IActionResult> SecureBooking(string bookingReference)
         {
+            if (string.IsNullOrWhiteSpace(bookingReference))
+            {
+                return NotFound();
+            }
             var model = await _bookingService.GetBookingAsync(bookingReference);
 
             var bookingViewModel = new BookingViewModel

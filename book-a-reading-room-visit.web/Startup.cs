@@ -36,8 +36,9 @@ namespace book_a_reading_room_visit.web
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-Web/DataProtection");
             services.AddLogging(config =>
             {
-                config.AddAWSProvider(Configuration.GetAWSLoggingConfigSection());
-                config.SetMinimumLevel(LogLevel.Debug);
+                config.ClearProviders();
+                config.AddConsole();
+                config.SetMinimumLevel(LogLevel.Warning);
             });
 
             services.AddHttpClient<IAvailabilityService, AvailabilityService>(c =>
