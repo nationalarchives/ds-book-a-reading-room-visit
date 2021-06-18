@@ -131,11 +131,34 @@
 
         <div id="date-selection">
             <div class="col-md-8 col-sm-8">
-                <h3>Available dates</h3>
+                <h3>Select a date</h3>
+
+                <div class="jumplink-container">
+                    <p class="jump-to-date">
+
+                        <!-- Display the first available date in the <b> tag -->
+
+                        <span>First available date:</span> <b>Saturday 03 July 2021</b> &nbsp;<span class="small">(<a href="#first-available">Jump to this date</a>)</span>
+                    </p>
+                    <p><span>Jump to:</span></p>
+
+                    <!-- Make the <li> tags below display the appropriate months -->
+
+                    <ul>
+                        <li><a href="#month-1">June 2021</a></li>
+                        <li><a href="#month-2">July 2021</a></li>
+                        <li><a href="#month-3">August 2021</a></li>
+                        <li><a href="#month-4">September 2021</a></li>
+                    </ul>
+                </div>
+
+                <!-- For each month, display the appropriate month and id in the <h4> tag and the corresponding dates -->
+
+                <h4 id="month-1">June 2021</h4>
                 <ul>
                     @for (var index = 0; index < Model.AvailableBookings.Count; index++)
                     {
-                        var dateText = Model.BookingType == BookingTypes.StandardOrderVisit ? $"{Model.AvailableBookings[index].Date:dddd dd MMMM yyyy}" : 
+                        var dateText = Model.BookingType == BookingTypes.StandardOrderVisit ? $"{Model.AvailableBookings[index].Date:dddd dd MMMM yyyy}" :
                                             $"{Model.AvailableBookings[index].Date:dddd dd} & {Model.AvailableBookings[index].Date.AddDays(1):dddd dd MMMM yyyy}";
                         <li class="date">
                             @if (Model.AvailableBookings[index].AvailableSeats < 1)

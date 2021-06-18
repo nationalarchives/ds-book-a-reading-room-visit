@@ -8373,7 +8373,7 @@ form input[type=checkbox] {
 #date-selection ul li.date button:hover {
   background-color: #000;
   color: #fff;
-  outline: none;
+  outline: 1px solid #000;
 }
 #date-selection ul li.date button:hover span span:last-child {
   color: #fff;
@@ -8867,6 +8867,114 @@ nav a:hover, footer a:hover, .notification-banner a:hover, #skip-to-main-content
 
 body .kbs a.primary:focus {
   color: #26262a !important;
+}
+
+#date-selection h4 {
+  margin-top: 1em;
+  font-size: 1.1em !important;
+  padding-bottom: 0.5em !important;
+  margin-bottom: 0;
+  border-bottom: 4px solid #ddd;
+}
+
+#date-selection ul {
+  display: inline-block;
+  width: 100%;
+  margin-top: 0;
+}
+
+.jumplink-container {
+  border: 1px solid #ccc;
+  padding: 0.9em 1em 0.5em;
+  background: #eee;
+  margin-bottom: 2em;
+}
+
+.jumplink-container p {
+  display: inline-block;
+  margin-bottom: 0.5em !important;
+}
+
+#date-selection .jumplink-container ul {
+  margin: 0 !important;
+  display: inline-block;
+}
+
+#date-selection .jumplink-container ul li {
+  display: block;
+  margin: 0;
+  padding: 0.2em 0;
+}
+
+.jump-to-date {
+  margin: 0 !important;
+  display: block !important;
+}
+
+.jumplink-container span {
+  display: block;
+  width: 10em;
+  margin-top: 1em;
+}
+
+.jumplink-container .jump-to-date span {
+  margin-top: 0;
+}
+
+.jumplink-container .small {
+  width: auto;
+  margin-top: 0;
+}
+
+#date-selection button {
+  margin: 0;
+}
+
+#date-selection ul li.date:first-of-type {
+  margin-top: 10px;
+}
+
+#date-selection ul li.date .no-availability {
+  border-top: 0;
+  color: #444;
+  margin: 0;
+  padding: 0.7em 0;
+  font-weight: normal;
+  border-bottom: 1px dotted #ccc;
+}
+
+#date-selection ul li.date button {
+  background-color: #fff;
+  padding: 0.7em 0;
+  margin: 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+@media screen and (min-width: 992px) {
+  #date-selection .jumplink-container ul li {
+    display: inline-block;
+    padding-right: 1em;
+    margin: 0 0.5em 0;
+    border-right: 1px solid #ccc;
+  }
+
+  #date-selection .jumplink-container ul li:first-child {
+    margin-left: 0;
+  }
+
+  #date-selection .jumplink-container ul li:last-child {
+    border-right: 0;
+  }
+
+  .jumplink-container span {
+    display: inline-block;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 1300px) {
+  #date-selection .jumplink-container ul {
+    display: inline;
+  }
 }
 
 /*# sourceMappingURL=base-sass.css.map */
