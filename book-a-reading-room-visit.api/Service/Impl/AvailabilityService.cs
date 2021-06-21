@@ -25,8 +25,8 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<AvailabilitySummaryModel> GetAvailabilitySummaryAsync()
         {
             var availableSummaryModel = new AvailabilitySummaryModel();
-            var standardAvailableDates = await _workingDayService.GetStandardOrderAvailableDatesAsync();
-            var bulkAvailableDates = await _workingDayService.GetBulkOrderAvailableDatesAsync();
+            var standardAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
+            var bulkAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
 
             var stdSeatCount = await _context.Seats.CountAsync(s => StandardOrderSeats.Contains((SeatTypes)s.SeatTypeId));
 
@@ -53,7 +53,7 @@ namespace book_a_reading_room_visit.api.Service
             if (StandardOrderSeats.Contains(seatType))
             {
                 var stdSeatCount = await _context.Seats.CountAsync(s => (SeatTypes)s.SeatTypeId == seatType);
-                var standardAvailableDates = await _workingDayService.GetStandardOrderAvailableDatesAsync();
+                var standardAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
 
                 var standardBookings = await (from booking in _context.Set<Booking>().Where(b => standardAvailableDates.Contains(b.VisitStartDate) && (BookingStatuses)b.BookingStatusId != BookingStatuses.Cancelled)
                                         join seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == seatType)
@@ -69,7 +69,7 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             var bulkSeatCount = await _context.Seats.CountAsync(s => (SeatTypes)s.SeatTypeId == seatType);
-            var bulkAvailableDates = await _workingDayService.GetBulkOrderAvailableDatesAsync();
+            var bulkAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
 
             var bulkbookings = await (from booking in _context.Set<Booking>().Where(b => bulkAvailableDates.Contains(b.VisitStartDate) && (BookingStatuses)b.BookingStatusId != BookingStatuses.Cancelled)
                                   join seat in _context.Set<Seat>().Where(s => (SeatTypes)s.SeatTypeId == seatType)
