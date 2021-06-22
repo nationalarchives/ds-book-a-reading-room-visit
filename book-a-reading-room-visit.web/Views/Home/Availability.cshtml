@@ -136,13 +136,10 @@
                 <div class="jumplink-container">
                     <p class="jump-to-date">
 
-                        <!-- Display the first available date in the <b> tag -->
-
                         <span>First available date:</span> <b>@Model.FirstAvailableDate</b> &nbsp;<span class="small">(<a href="#first-available">Jump to this date</a>)</span>
                     </p>
                     <p><span>Jump to:</span></p>
 
-                    <!-- Make the <li> tags below display the appropriate months -->
 
                     <ul>
                         @for (var index = 0; index < Model.AvailableSeatGroups.Count; index++)
@@ -152,7 +149,6 @@
                     </ul>
                 </div>
 
-                <!-- For each month, display the appropriate month and id in the <h4> tag and the corresponding dates -->
                 @for (var count = 0; count < Model.AvailableSeatGroups.Count; count++)
                 {
                     <h4 id="month-@count">@Model.AvailableSeatGroups[count].Month</h4>
