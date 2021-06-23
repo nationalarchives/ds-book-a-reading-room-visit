@@ -6,11 +6,11 @@ namespace book_a_reading_room_visit.api.Service
 {
     public interface IWorkingDayService
     {
-        Task<List<DateTime>> GetStandardOrderAvailableDatesAsync();
-        Task<List<DateTime>> GetBulkOrderAvailableDatesAsync();
+        Task<List<DateTime>> GetOneDayOrderAvailableDatesAsync();
+        Task<List<DateTime>> GetTwoDayOrderAvailableDatesAsync();
         Task<DateTime> GetNextWorkingDayAsync(DateTime dateTime, int daysToAdd);
-        Task<DateTime> GetNextStandardOrderOpeningDayAsync(DateTime dateTime, int daysToAdd);
-        Task<DateTime> GetNextBulkOrderOpeningDayAsync(DateTime dateTime, int daysToAdd);
+        Task<DateTime> GetNextOneDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd);
+        Task<DateTime> GetNextTwoDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd);
         Task<DateTime> GetCompleteByDateAsync(DateTime dateTime);
     }
 }

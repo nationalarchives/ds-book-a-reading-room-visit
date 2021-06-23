@@ -29,8 +29,7 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> SecureBooking(BookingViewModel bookingViewModel)
         {
-            bookingViewModel.BookingEndDate = bookingViewModel.BookingType == BookingTypes.StandardOrderVisit ?
-                                              bookingViewModel.BookingStartDate : bookingViewModel.BookingStartDate.AddDays(1);
+            bookingViewModel.BookingEndDate = bookingViewModel.BookingStartDate;
 
             var model = new BookingModel
             {

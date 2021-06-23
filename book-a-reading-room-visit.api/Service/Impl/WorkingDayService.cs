@@ -13,8 +13,8 @@ namespace book_a_reading_room_visit.api.Service
         private readonly IConfiguration _configuration;
         private readonly IBankHolidayAPI _bankHolidayAPI;
         private readonly DayOfWeek[] WorkingWeekDays = new DayOfWeek[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
-        private readonly DayOfWeek[] StandardOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
-        private readonly DayOfWeek[] BulkOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Thursday, };
+        private readonly DayOfWeek[] OneDayOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+        private readonly DayOfWeek[] TwoDayOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Thursday, };
 
         public WorkingDayService(IConfiguration configuration, IBankHolidayAPI bankHolidayAPI, IMemoryCache memoryCache)
         {
@@ -22,44 +22,44 @@ namespace book_a_reading_room_visit.api.Service
             _bankHolidayAPI = bankHolidayAPI;
             _cache = memoryCache;
         }
-        public async Task<List<DateTime>> GetStandardOrderAvailableDatesAsync()
+        public async Task<List<DateTime>> GetOneDayOrderAvailableDatesAsync()
         {
             List<DateTime> availableDates = null;
-            if (!_cache.TryGetValue<List<DateTime>>("StandardOrderAvailableDates", out availableDates))
+            if (!_cache.TryGetValue<List<DateTime>>("OneDayOrderAvailableDates", out availableDates))
             {
                 availableDates = new List<DateTime>();
                 var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
-                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:StandardAvailabilityDatesToShow").Value);
+                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:OneDayAvailabilityDatesToShow").Value);
 
                 var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
 
                 for (int i = 0; i < availabilityDatesToShow; i++)
                 {
-                    startDate = await GetNextStandardOrderOpeningDayAsync(startDate, 1);
+                    startDate = await GetNextOneDayOrderOpeningDayAsync(startDate, 1);
                     availableDates.Add(startDate);
                 }
-                _cache.Set("StandardOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
+                _cache.Set("OneDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             }
             return availableDates;
         }
 
-        public async Task<List<DateTime>> GetBulkOrderAvailableDatesAsync()
+        public async Task<List<DateTime>> GetTwoDayOrderAvailableDatesAsync()
         {
             List<DateTime> availableDates = null;
-            if (!_cache.TryGetValue<List<DateTime>>("BulkOrderAvailableDates", out availableDates))
+            if (!_cache.TryGetValue<List<DateTime>>("TwoDayOrderAvailableDates", out availableDates))
             {
                 availableDates = new List<DateTime>();
                 var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
-                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:BulkAvailabilityDatesToShow").Value);
+                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:TwoDayAvailabilityDatesToShow").Value);
 
                 var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
 
                 for (int i = 0; i < availabilityDatesToShow; i++)
                 {
-                    startDate = await GetNextBulkOrderOpeningDayAsync(startDate, 1);
+                    startDate = await GetNextTwoDayOrderOpeningDayAsync(startDate, 1);
                     availableDates.Add(startDate);
                 }
-                _cache.Set("BulkOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
+                _cache.Set("TwoDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             }
             return availableDates;
         }
@@ -79,27 +79,27 @@ namespace book_a_reading_room_visit.api.Service
             return dateToReturn;
         }
 
-        public async Task<DateTime> GetNextStandardOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
+        public async Task<DateTime> GetNextOneDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
             var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
                 dateToReturn = dateToReturn.AddDays(1);
-                if (StandardOrderOpeningWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
+                if (OneDayOrderOpeningWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
                     daysToAdd--;
             }
             return dateToReturn;
         }
 
-        public async Task<DateTime> GetNextBulkOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
+        public async Task<DateTime> GetNextTwoDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
             var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
                 dateToReturn = dateToReturn.AddDays(1);
-                if (BulkOrderOpeningWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
+                if (TwoDayOrderOpeningWeekDays.Contains(dateToReturn.DayOfWeek) && !holidays.Contains(dateToReturn))
                     daysToAdd--;
             }
             return dateToReturn;

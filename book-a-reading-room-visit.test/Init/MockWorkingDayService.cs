@@ -9,7 +9,7 @@ namespace book_a_reading_room_visit.test
 {
     public class MockWorkingDayService : IWorkingDayService
     {
-        public async Task<List<DateTime>> GetBulkOrderAvailableDatesAsync()
+        public async Task<List<DateTime>> GetTwoDayOrderAvailableDatesAsync()
         {
             var dates = new List<DateTime>();
             var startDate = DateTime.Today.AddDays(5);
@@ -26,12 +26,12 @@ namespace book_a_reading_room_visit.test
             throw new NotImplementedException();
         }
 
-        public Task<DateTime> GetNextBulkOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
+        public Task<DateTime> GetNextTwoDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
             throw new NotImplementedException();
         }
 
-        public Task<DateTime> GetNextStandardOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
+        public Task<DateTime> GetNextOneDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace book_a_reading_room_visit.test
             throw new NotImplementedException();
         }
 
-        public async Task<List<DateTime>> GetStandardOrderAvailableDatesAsync()
+        public async Task<List<DateTime>> GetOneDayOrderAvailableDatesAsync()
         {
             var dates = new List<DateTime>();
             var startDate = DateTime.Today.AddDays(5);

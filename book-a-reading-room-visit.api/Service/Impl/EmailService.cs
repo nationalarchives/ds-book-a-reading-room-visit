@@ -2,6 +2,7 @@
 using Amazon.SimpleEmail.Model;
 using book_a_reading_room_visit.model;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -110,8 +111,9 @@ namespace book_a_reading_room_visit.api.Service
 
                 }
             };
-
-            await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
+            var response = await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
+            
+            Console.WriteLine($"{response.HttpStatusCode} Email request {JsonConvert.SerializeObject(sendRequest)}");
         }
 
         internal string GetTextBody(EmailType emailType, BookingModel bookingModel)

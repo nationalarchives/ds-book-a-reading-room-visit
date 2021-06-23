@@ -7,7 +7,7 @@
         public const string Valid_Ticket_And_BookingReference_Required = "This booking does not exist. Check your details and try again.";
         public const string BookingReference_Is_Cancelled = "You cannot view this document order as your visit was cancelled.";
 
-        public const string Ticket_Exceed_Order_Limit = "You currently have three visits booked over a 28-day period. Choose a later date.";
+        public const string Ticket_Exceed_Order_Limit = "You currently have four visits booked over a 28-day period. Choose a later date.";
         public const string Another_Booking_On_The_Same_date = "You have a visit booked on this date already. Choose a different date.";
         public const string Firstname_Required = "Enter a first name.";
         public const string Lastname_Required = "Enter a last name.";
