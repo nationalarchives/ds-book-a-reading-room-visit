@@ -21,7 +21,8 @@
         "TimeZone": "GMT Standard Time",
         "EnforceOrderLimit": "false",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2"
+        "AWS_REGION": "eu-west-2",
+        "CutOffDate": "28/07/2021"
       }
     },
     "book_a_reading_room_visit.web": {
@@ -39,7 +40,8 @@
         "TimeZone": "GMT Standard Time",
         "EnforceOrderLimit": "false",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2"
+        "AWS_REGION": "eu-west-2",
+        "CutOffDate": "28/07/2021"
       }
     }
   }

@@ -8,6 +8,7 @@ namespace book_a_reading_room_visit.web.Models
     {
         public BookingTypes BookingType { get; set; }
         public SeatTypes SeatType { get; set; }
+        public DateTime CutOffDate { get; set; }
         public string FirstAvailableDate { get; set; }
         public List<AvailableSeat> AvailableBookings { get; set; }
         public List<AvailableSeatGroup> AvailableSeatGroups { get; set; }
