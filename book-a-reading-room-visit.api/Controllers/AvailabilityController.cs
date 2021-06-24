@@ -52,5 +52,12 @@ namespace book_a_reading_room_visit.api.Controllers
             var result = await _availabilityService.GetAllAvailabileSeatsAsync(availableOn, bookingType, includeManagerialDiscretion);
             return Ok(result);
         }
+
+        [HttpGet("seats-multi-day-visit")]
+        public async Task<ActionResult<List<Seat>>> GetAllAvailabileSeatsForMultiDayVisit(DateTime visitStartDate, DateTime visitEndDate, bool includeManagerialDiscretion = false)
+        {
+            var result = await _availabilityService.GetAvailabileSeatsForMultiDayVisitAsync(visitStartDate, visitEndDate, includeManagerialDiscretion);
+            return Ok(result);
+        }
     }
 }

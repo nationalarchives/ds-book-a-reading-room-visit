@@ -116,5 +116,21 @@ namespace book_a_reading_room_visit.api.Service
 
             return seatModels;
         }
+
+        public async Task<List<SeatModel>> GetAvailabileSeatsForMultiDayVisitAsync(DateTime visitStartDate, DateTime visitEndDate, bool includeManagerialDiscretion)
+        {
+            List<int> seatTypes = new List<int>() { (int)SeatTypes.StdRRSeatMultiDay};
+
+            if(includeManagerialDiscretion)
+            {
+                seatTypes.Add((int)SeatTypes.ManagerialDiscretion);
+            }
+
+            IQueryable<Seat> availableSeats = _context.Seats.FromSqlInterpolated($"EXEC dbo.proc_get_available_seats_for_multi_day_visits {visitStartDate}, {visitEndDate}, {includeManagerialDiscretion}");
+
+            var seatModels = availableSeats.AsEnumerable().OrderBy(s => s.Number).Select(s => new SeatModel() { Id = s.Id, Number = s.Number, SeatType = (SeatTypes)s.SeatTypeId }).ToList();
+
+            return seatModels;
+        }
     }
 }
