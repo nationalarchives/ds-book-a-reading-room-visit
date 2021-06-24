@@ -26,6 +26,18 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("create-multi-day")]
+        public async Task<ActionResult<BookingResponseModel>> CreateMultiDayBooking(BookingModelMultiDay bookingModelMultiDay)
+        {
+            var bookingModel = new BookingModel() 
+            { 
+             
+            };
+
+            var result = await _bookingService.CreateBookingAsync(bookingModel);
+            return Ok(result);
+        }
+
         [HttpPost("confirm")]
         public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
         {
@@ -41,7 +53,7 @@ namespace book_a_reading_room_visit.api.Controllers
         }
 
         [HttpPost("update-reserved-seat")]
-        public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel model)
+        public async Task<ActionResult<BookingResponseModel>> UpdateReservedSeat([FromBody] KewBookingSeatUpdateModel  model)
         {
             BookingResponseModel result = await _bookingService.UpdateSeatBookingAsync(model.BookingId, model.NewSeatId, model.Comment, model.UpdatedBy);
 
