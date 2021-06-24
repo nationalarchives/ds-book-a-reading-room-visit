@@ -81,6 +81,48 @@ namespace book_a_reading_room_visit.api.Service
             return response;
         }
 
+        public async Task<BookingResponseModel> CreateMultiDayBookingAsync(BookingModelMultiDay multiDayBooking)
+        {
+            var response = new BookingResponseModel { IsSuccess = true };
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var completeByDate = await _workingDayService.GetCompleteByDateAsync(multiDayBooking.VisitStartDate);
+
+                var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
+
+                
+                response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
+                response.CreatedDate = DateTime.UtcNow;
+
+                var booking = new Booking()
+                {
+                    CreatedDate = response.CreatedDate,
+                    CompleteByDate = completeByDate,
+                    BookingReference = response.BookingReference,
+                    BookingTypeId = (int)BookingTypes.StandardOrderVisit,
+                    IsAcceptTsAndCs = false,
+                    IsAcceptCovidCharter = false,
+                    IsNoFaceCovering = false,
+                    IsNoShow = false,
+                    SeatId = multiDayBooking.SeatId,
+                    BookingStatusId = (int)BookingStatuses.Submitted,
+                    VisitStartDate = multiDayBooking.VisitStartDate,
+                    VisitEndDate = multiDayBooking.VisitEndDate,
+                    LastModifiedBy = Modified_By
+                };
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                response.IsSuccess = false;
+                response.ErrorMessage = "Error creating multi day booking";
+            }
+
+            return response;
+        }
+
         public async Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
@@ -601,5 +643,7 @@ namespace book_a_reading_room_visit.api.Service
             }
             return bookings.Count;
         }
+
+
     }
 }
