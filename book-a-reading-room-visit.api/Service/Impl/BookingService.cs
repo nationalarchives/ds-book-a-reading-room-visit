@@ -102,6 +102,9 @@ namespace book_a_reading_room_visit.api.Service
                     CompleteByDate = completeByDate,
                     BookingReference = response.BookingReference,
                     BookingTypeId = (int)BookingTypes.StandardOrderVisit,
+                    ReaderTicket = multiDayBooking.ReaderTicket,
+                    FirstName = multiDayBooking.FirstName,
+                    LastName = multiDayBooking.LastName,
                     IsAcceptTsAndCs = false,
                     IsAcceptCovidCharter = false,
                     IsNoFaceCovering = false,
@@ -112,6 +115,32 @@ namespace book_a_reading_room_visit.api.Service
                     VisitEndDate = multiDayBooking.VisitEndDate,
                     LastModifiedBy = Modified_By
                 };
+
+                var bookingModel = new BookingModel()
+                {
+                    BookingReference = booking.BookingReference,
+                    ReaderTicket = booking.ReaderTicket,   
+                    VisitStartDate = booking.VisitStartDate,
+                    VisitEndDate = booking.VisitEndDate,
+                    CreatedDate = booking.CreatedDate,
+                    CompleteByDate = booking.CompleteByDate,
+                    FirstName = booking.FirstName,
+                    LastName = booking.LastName,
+                    IsAcceptTsAndCs = false,
+                    IsAcceptCovidCharter = false,
+                    IsNoFaceCovering = false,
+                    IsNoShow = false,
+                    SeatId = booking.SeatId,
+                    BookingStatus = BookingStatuses.Submitted,
+                    OrderDocuments = new List<OrderDocumentModel>(),
+                    LastModifiedBy = Modified_By
+                };
+
+                await _context.Set<Booking>().AddAsync(booking);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                await _emailService.SendEmailAsync(EmailType.ReservationConfirmation, multiDayBooking.Email, bookingModel);
             }
             catch (Exception)
             {

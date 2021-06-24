@@ -12,7 +12,7 @@ namespace book_a_reading_room_visit.model
 
         public string Email { get; set; }
 
-        public string ReaderTicket { get; set; }
+        public int ReaderTicket { get; set; }
 
         public DateTime VisitStartDate { get; set; }
 
