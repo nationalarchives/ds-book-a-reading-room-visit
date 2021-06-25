@@ -70,6 +70,7 @@ namespace book_a_reading_room_visit.api.Service
                     }
                 case EmailType.DSDBookingConfirmation:
                     {
+                        fromAddress = _configuration.GetValue<string>("EmailSettings:DSDFromAddress");
                         subject = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? $"Standard visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}"
                                                                                               : $"Bulk order visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}";
                         break;
@@ -111,9 +112,7 @@ namespace book_a_reading_room_visit.api.Service
 
                 }
             };
-            var response = await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
-            
-            Console.WriteLine($"{response.HttpStatusCode} Email request {JsonConvert.SerializeObject(sendRequest)}");
+            await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
         }
 
         internal string GetTextBody(EmailType emailType, BookingModel bookingModel)
