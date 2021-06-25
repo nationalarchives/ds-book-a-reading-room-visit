@@ -26,7 +26,7 @@ $.fn.mega_menu_enhancements = function() {
             return;
         }
 
-        if ($(window).width() <= 480) {
+        if (window.innerWidth <= 480) {
             var $this = $(this);
             e.preventDefault();
             $this.toggleClass('expanded').next().slideToggle('fast');
@@ -56,7 +56,7 @@ $.fn.mega_menu_enhancements();
 $.moreLinkFocusManager = function() {
 
     $('#more-link').attr('tabindex', function() {
-        return $(window).width() > 480 ? '-1' : '0';
+        return window.innerWidth > 480 ? '-1' : '0';
     });
 };
 
