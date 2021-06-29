@@ -105,8 +105,9 @@ namespace book_a_reading_room_visit.api.Service
                     ReaderTicket = multiDayBooking.ReaderTicket,
                     FirstName = multiDayBooking.FirstName,
                     LastName = multiDayBooking.LastName,
-                    IsAcceptTsAndCs = false,
-                    IsAcceptCovidCharter = false,
+                    Email = multiDayBooking.Email,
+                    IsAcceptTsAndCs = true,
+                    IsAcceptCovidCharter = true,
                     IsNoFaceCovering = false,
                     IsNoShow = false,
                     SeatId = multiDayBooking.SeatId,
@@ -119,6 +120,7 @@ namespace book_a_reading_room_visit.api.Service
                 var bookingModel = new BookingModel()
                 {
                     BookingReference = booking.BookingReference,
+                    BookingType = BookingTypes.StandardOrderVisit,
                     ReaderTicket = booking.ReaderTicket,   
                     VisitStartDate = booking.VisitStartDate,
                     VisitEndDate = booking.VisitEndDate,
@@ -126,8 +128,9 @@ namespace book_a_reading_room_visit.api.Service
                     CompleteByDate = booking.CompleteByDate,
                     FirstName = booking.FirstName,
                     LastName = booking.LastName,
-                    IsAcceptTsAndCs = false,
-                    IsAcceptCovidCharter = false,
+                    Email = booking.Email,
+                    IsAcceptTsAndCs = true,
+                    IsAcceptCovidCharter = true,
                     IsNoFaceCovering = false,
                     IsNoShow = false,
                     SeatId = booking.SeatId,
@@ -140,7 +143,7 @@ namespace book_a_reading_room_visit.api.Service
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                await _emailService.SendEmailAsync(EmailType.ReservationConfirmation, multiDayBooking.Email, bookingModel);
+                await _emailService.SendEmailAsync(EmailType.BookingConfirmation, multiDayBooking.Email, bookingModel);
             }
             catch (Exception)
             {
