@@ -16,14 +16,18 @@ namespace book_a_reading_room_visit.api.Service
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
         private readonly IEmailService _emailService;
+        private readonly IAvailabilityService _availabilityService;
+
         private readonly IConfiguration _configuration;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IConfiguration configuration)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IAvailabilityService availabilityService, IConfiguration configuration)
         {
             _context = context;
             _workingDayService = workingDayService;
             _emailService = emailService;
+            _availabilityService = availabilityService;
+
             _configuration = configuration;
         }
 
@@ -85,7 +89,7 @@ namespace book_a_reading_room_visit.api.Service
         {
             var response = new BookingResponseModel { IsSuccess = true };
 
-            using var transaction = await _context.Database.BeginTransactionAsync();
+            using var transaction = await _context.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead);
             try
             {
                 var completeByDate = await _workingDayService.GetCompleteByDateAsync(multiDayBooking.VisitStartDate);
@@ -140,14 +144,26 @@ namespace book_a_reading_room_visit.api.Service
                 };
 
                 await _context.Set<Booking>().AddAsync(booking);
+
+                // Check that the seat booked in the back office application is still available.
+                List<SeatModel> availableSeats = await _availabilityService.GetAvailabileSeatsForMultiDayVisitAsync(booking.VisitStartDate, booking.VisitEndDate, true);
+
+                SeatModel selectedSeat = availableSeats.SingleOrDefault(s => s.Id == booking.SeatId);
+                if (selectedSeat == null)
+                {
+                    throw new Exception($"Error creating booking for user {booking.FirstName} {booking.LastName}, email {booking.Email} fromm the Back Office.  The requested seat id {booking.SeatId} is no longer available for the date range {booking.VisitStartDate} to {booking.VisitEndDate}.");
+                }
+
+
                 await _context.SaveChangesAsync();
+
                 await transaction.CommitAsync();
 
                 await _emailService.SendEmailAsync(EmailType.BookingConfirmation, multiDayBooking.Email, bookingModel);
             }
             catch (Exception)
             {
-                await transaction.RollbackAsync();
+                await transaction?.RollbackAsync();
                 response.IsSuccess = false;
                 response.ErrorMessage = "Error creating multi day booking";
             }
