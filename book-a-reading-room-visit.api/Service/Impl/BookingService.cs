@@ -27,7 +27,6 @@ namespace book_a_reading_room_visit.api.Service
             _workingDayService = workingDayService;
             _emailService = emailService;
             _availabilityService = availabilityService;
-
             _configuration = configuration;
         }
 
@@ -96,7 +95,6 @@ namespace book_a_reading_room_visit.api.Service
 
                 var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
 
-                
                 response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
                 response.CreatedDate = DateTime.UtcNow;
 
@@ -154,9 +152,7 @@ namespace book_a_reading_room_visit.api.Service
                     throw new Exception($"Error creating booking for user {booking.FirstName} {booking.LastName}, email {booking.Email} fromm the Back Office.  The requested seat id {booking.SeatId} is no longer available for the date range {booking.VisitStartDate} to {booking.VisitEndDate}.");
                 }
 
-
                 await _context.SaveChangesAsync();
-
                 await transaction.CommitAsync();
 
                 await _emailService.SendEmailAsync(EmailType.BookingConfirmation, multiDayBooking.Email, bookingModel);
