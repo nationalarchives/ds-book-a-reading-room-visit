@@ -50,7 +50,7 @@ DECLARE @seats_already_booked TABLE
 )
 
 INSERT INTO @seats_already_booked
-	SELECT SeatId FROM dbo.Bookings b INNER JOIN @seats s ON b.SeatId = s.seat_id
+	SELECT DISTINCT SeatId FROM dbo.Bookings b INNER JOIN @seats s ON b.SeatId = s.seat_id
 	WHERE 
 	(
 	(b.VisitStartDate >= @visit_start_date AND b.VisitStartDate <= @visit_end_date)
