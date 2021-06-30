@@ -16,14 +16,17 @@ namespace book_a_reading_room_visit.api.Service
         private readonly BookingContext _context;
         private readonly IWorkingDayService _workingDayService;
         private readonly IEmailService _emailService;
+        private readonly IAvailabilityService _availabilityService;
+
         private readonly IConfiguration _configuration;
         private const string Modified_By = "system";
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IConfiguration configuration)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IAvailabilityService availabilityService, IConfiguration configuration)
         {
             _context = context;
             _workingDayService = workingDayService;
             _emailService = emailService;
+            _availabilityService = availabilityService;
             _configuration = configuration;
         }
 
@@ -78,6 +81,89 @@ namespace book_a_reading_room_visit.api.Service
                 response.IsSuccess = false;
                 response.ErrorMessage = $"Error reserving the given seat type {bookingModel.SeatType} on the date {bookingModel.VisitStartDate:dd-MM-yyyy}";
             }
+            return response;
+        }
+
+        public async Task<BookingResponseModel> CreateMultiDayBookingAsync(BookingModelMultiDay multiDayBooking)
+        {
+            var response = new BookingResponseModel { IsSuccess = true };
+
+            using var transaction = await _context.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead);
+            try
+            {
+                var completeByDate = await _workingDayService.GetCompleteByDateAsync(multiDayBooking.VisitStartDate);
+
+                var bookingId = (await _context.Set<Booking>().OrderByDescending(b => b.Id).FirstOrDefaultAsync())?.Id ?? 0 + 1;
+
+                response.BookingReference = IdGenerator.GenerateBookingReference(bookingId);
+                response.CreatedDate = DateTime.UtcNow;
+
+                var booking = new Booking()
+                {
+                    CreatedDate = response.CreatedDate,
+                    CompleteByDate = completeByDate,
+                    BookingReference = response.BookingReference,
+                    BookingTypeId = (int)BookingTypes.StandardOrderVisit,
+                    ReaderTicket = multiDayBooking.ReaderTicket,
+                    FirstName = multiDayBooking.FirstName,
+                    LastName = multiDayBooking.LastName,
+                    Email = multiDayBooking.Email,
+                    IsAcceptTsAndCs = true,
+                    IsAcceptCovidCharter = true,
+                    IsNoFaceCovering = false,
+                    IsNoShow = false,
+                    SeatId = multiDayBooking.SeatId,
+                    BookingStatusId = (int)BookingStatuses.Submitted,
+                    VisitStartDate = multiDayBooking.VisitStartDate,
+                    VisitEndDate = multiDayBooking.VisitEndDate,
+                    LastModifiedBy = Modified_By
+                };
+
+                var bookingModel = new BookingModel()
+                {
+                    BookingReference = booking.BookingReference,
+                    BookingType = BookingTypes.StandardOrderVisit,
+                    ReaderTicket = booking.ReaderTicket,   
+                    VisitStartDate = booking.VisitStartDate,
+                    VisitEndDate = booking.VisitEndDate,
+                    CreatedDate = booking.CreatedDate,
+                    CompleteByDate = booking.CompleteByDate,
+                    FirstName = booking.FirstName,
+                    LastName = booking.LastName,
+                    Email = booking.Email,
+                    IsAcceptTsAndCs = true,
+                    IsAcceptCovidCharter = true,
+                    IsNoFaceCovering = false,
+                    IsNoShow = false,
+                    SeatId = booking.SeatId,
+                    BookingStatus = BookingStatuses.Submitted,
+                    OrderDocuments = new List<OrderDocumentModel>(),
+                    LastModifiedBy = Modified_By
+                };
+
+                await _context.Set<Booking>().AddAsync(booking);
+
+                // Check that the seat booked in the back office application is still available.
+                List<SeatModel> availableSeats = await _availabilityService.GetAvailabileSeatsForMultiDayVisitAsync(booking.VisitStartDate, booking.VisitEndDate, true);
+
+                SeatModel selectedSeat = availableSeats.SingleOrDefault(s => s.Id == booking.SeatId);
+                if (selectedSeat == null)
+                {
+                    throw new Exception($"Error creating booking for user {booking.FirstName} {booking.LastName}, email {booking.Email} fromm the Back Office.  The requested seat id {booking.SeatId} is no longer available for the date range {booking.VisitStartDate} to {booking.VisitEndDate}.");
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                await _emailService.SendEmailAsync(EmailType.BookingConfirmation, multiDayBooking.Email, bookingModel);
+            }
+            catch (Exception)
+            {
+                await transaction?.RollbackAsync();
+                response.IsSuccess = false;
+                response.ErrorMessage = "Error creating multi day booking";
+            }
+
             return response;
         }
 
@@ -601,5 +687,7 @@ namespace book_a_reading_room_visit.api.Service
             }
             return bookings.Count;
         }
+
+
     }
 }

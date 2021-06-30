@@ -8,6 +8,7 @@ namespace book_a_reading_room_visit.api.Service
     public interface IBookingService
     {
         Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel);
+        Task<BookingResponseModel> CreateMultiDayBookingAsync(BookingModelMultiDay bookingModelMultiDay);
         Task<BookingResponseModel> ConfirmBookingAsync(BookingModel bookingModel);
         Task<BookingResponseModel> UpsertDocumentsAsync(BookingModel bookingModel);
         Task<BookingResponseModel> UpdateSeatBookingAsync(int bookingId, int newSeatId, string comment, string updatedBy);

@@ -12,5 +12,6 @@ namespace book_a_reading_room_visit.api.Service
         Task<List<AvailabilityModel>> GetAvailabilityAsync(SeatTypes seatType);
         Task<List<Seat>> GetAvailabileSeatsAsync(SeatTypes seatType, DateTime availableOn);
         Task<List<SeatModel>> GetAllAvailabileSeatsAsync(DateTime availableOn, BookingTypes bookingType, bool includeManagerialDiscretion);
+        Task<List<SeatModel>> GetAvailabileSeatsForMultiDayVisitAsync(DateTime visitStartDate, DateTime visitEndDate, bool includeManagerialDiscretion);
     }
 }

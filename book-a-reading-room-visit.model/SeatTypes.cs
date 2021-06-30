@@ -9,6 +9,7 @@
         MandLRRWithCamera = 5,
         BulkOrderSeatWithCamera = 6,
         NotAvailable = 7,
-        ManagerialDiscretion = 8
+        ManagerialDiscretion = 8,
+        StdRRSeatMultiDay = 9
     }
 }

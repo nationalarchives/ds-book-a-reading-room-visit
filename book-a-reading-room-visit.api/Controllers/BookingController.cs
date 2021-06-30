@@ -26,6 +26,13 @@ namespace book_a_reading_room_visit.api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("create-multi-day")]
+        public async Task<ActionResult<BookingResponseModel>> CreateMultiDayBooking(BookingModelMultiDay bookingModelMultiDay)
+        {
+            var result = await _bookingService.CreateMultiDayBookingAsync(bookingModelMultiDay);
+            return Ok(result);
+        }
+
         [HttpPost("confirm")]
         public async Task<ActionResult<BookingResponseModel>> ConfirmBooking(BookingModel bookingModel)
         {
