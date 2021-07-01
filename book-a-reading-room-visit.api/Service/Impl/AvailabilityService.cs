@@ -26,7 +26,9 @@ namespace book_a_reading_room_visit.api.Service
         {
             var availableSummaryModel = new AvailabilitySummaryModel();
             var standardAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
-            var bulkAvailableDates = await _workingDayService.GetOneDayOrderAvailableDatesAsync();
+            var cutoffDate = DateTime.Parse(Environment.GetEnvironmentVariable("CutOffDate"));
+
+            var bulkAvailableDates = standardAvailableDates.Where(x => x.Date > cutoffDate).ToList();
 
             var stdSeatCount = await _context.Seats.CountAsync(s => StandardOrderSeats.Contains((SeatTypes)s.SeatTypeId));
 
