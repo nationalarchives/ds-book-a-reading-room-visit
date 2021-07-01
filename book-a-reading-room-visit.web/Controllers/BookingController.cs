@@ -109,7 +109,7 @@ namespace book_a_reading_room_visit.web.Controllers
             var gmtTimeZone = TimeZoneInfo.FindSystemTimeZoneById(Environment.GetEnvironmentVariable("TimeZone"));
             var currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, gmtTimeZone);
             bookingViewModel.TimeRemaining = Math.Round(bookingViewModel.ExpiredBy.Subtract(currentTime).TotalSeconds);
-            if (bookingViewModel.TimeRemaining <=0)
+            if (bookingViewModel.TimeRemaining <= 0)
             {
                 var routeValues = new
                 {
@@ -210,6 +210,9 @@ namespace book_a_reading_room_visit.web.Controllers
             if (returnToBookingViewModel.ReaderTicket == 0)
             {
                 ModelState.AddModelError("ticket", Constants.Valid_Ticket_Required);
+            }
+            if (!ModelState.IsValid)
+            {
                 return View(returnToBookingViewModel);
             }
             var model = await _bookingService.GetBookingAsync(returnToBookingViewModel.ReaderTicket, returnToBookingViewModel.BookingReference.Trim());
