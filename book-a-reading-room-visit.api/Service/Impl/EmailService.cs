@@ -25,6 +25,8 @@ namespace book_a_reading_room_visit.api.Service
         private readonly IConfiguration _configuration;
 
         public EmailService(IAmazonSimpleEmailService amazonSimpleEmailService, IConfiguration configuration)
+        
+        
         {
             _amazonSimpleEmailService = amazonSimpleEmailService;
             _configuration = configuration;
@@ -226,6 +228,10 @@ namespace book_a_reading_room_visit.api.Service
             rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket < 0 ? $"T{bookingModel.ReaderTicket * -1}" : $"{bookingModel.ReaderTicket}"));
             rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
             rootElement.Add(new XElement("VisitStartDate", $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}"));
+            if(bookingModel.VisitEndDate.Date != bookingModel.VisitStartDate.Date)
+            {
+                rootElement.Add(new XElement("VisitEndDate", $"{bookingModel.VisitEndDate:dddd dd MMMM yyyy}"));
+            }
             rootElement.Add(new XElement("SeatNumber", bookingModel.SeatNumber));
             rootElement.Add(new XElement("AdditionalRequirements", bookingModel.AdditionalRequirements ?? "None entered."));
             rootElement.Add(new XElement("ReturnURL", $"{homeURL}/return-to-booking"));

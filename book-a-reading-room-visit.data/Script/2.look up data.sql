@@ -12,7 +12,7 @@ INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (5, 'Map and lar
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (6, 'Bulk document order seat with camera stand')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (7, 'Not available')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (8, 'Managerial Discretion')
-	
+INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (9, 'Multi day visit standard reading room seat')
 
 --[dbo].[BookingType]
 INSERT INTO [dbo].[BookingType] ([Id], [Description]) VALUES (1, 'Standard order visit')
