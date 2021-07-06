@@ -32,11 +32,22 @@
             </td>
           </tr>
           <tr>
-            <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">Visit date</th>
+            <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">
+              <xsl:if test="VisitEndDate">Visit start date</xsl:if>
+              <xsl:if test="not(VisitEndDate)">Visit date</xsl:if>
+            </th>
             <td style="padding: 1em;border: 1px solid #999;vertical-align: top;">
               <xsl:value-of select="VisitStartDate" />
             </td>
           </tr>
+          <xsl:if test="VisitEndDate">
+            <tr>
+              <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">Visit end date</th>
+              <td style="padding: 1em;border: 1px solid #999;vertical-align: top;">
+                <xsl:value-of select="VisitEndDate" />
+              </td>
+            </tr>
+          </xsl:if>
           <xsl:if test="string(ReadingRoom)">
             <tr>
               <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">Reading room</th>
