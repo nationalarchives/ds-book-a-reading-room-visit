@@ -12,6 +12,7 @@ INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (5, 'Map and lar
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (6, 'Bulk document order seat with camera stand')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (7, 'Not available')
 INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (8, 'Managerial Discretion')
+INSERT INTO [dbo].[SeatType] ([Id], [Description]) VALUES (9, 'Multi-day visit')
 	
 
 --[dbo].[BookingType]
@@ -34,7 +35,7 @@ INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (11, '28B
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (12, '28F',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (13, '29D',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (14, '30D',	1)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (15, '30G',	1)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (15, '30H',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (16, '31B',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (17, '31F',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (18, '32B',	1)
@@ -63,7 +64,7 @@ INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (40, '43F
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (41, '44F',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (42, '45F',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (43, '46H',	1)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (44, '29G',	1)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (44, '29H',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (45, '46D',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (46, '45B',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (47, '44B',	1)
@@ -74,7 +75,7 @@ INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (51, '13A
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (52, '13C',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (53, '13E',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (54, '13G',	1)
-INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (55, '14E',	1)
+INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (55, '14D',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (56, '25B',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (57, '25D',	1)
 INSERT INTO [dbo].[Seats] ([Id], [Number], [SeatTypeId]) VALUES (58, '25F',	1)
