@@ -2,7 +2,11 @@
 
     You have booked a visit to view original documents in The National Archives’ reading rooms on {VisitStartDateDisplay}.
 
-    Your document order has been submitted and we will begin preparing your documents for your visit. We will be in contact if we have any questions about your visit.
+    Your document order has been submitted and we will begin preparing your documents for your visit. 
+    
+    We will be in contact if we have any questions about your visit.
+
+    During your visit, you will be able to order additional documents to view (an additional three documents at a time).
     
     Your booking summary:-
     Name:                                  {Name}

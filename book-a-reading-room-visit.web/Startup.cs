@@ -152,11 +152,6 @@ namespace book_a_reading_room_visit.web
                    new { controller = "Booking", action = "ThankYou" });
 
                 endpoints.MapControllerRoute(
-                   name: "about-the-book-a-reading-room-visit-service",
-                   pattern: "about-the-book-a-reading-room-visit-service",
-                   new { controller = "Home", action = "AboutTheBookAReadingRoomVisitService" });
-
-                endpoints.MapControllerRoute(
                    name: "privacy-policy",
                    pattern: "privacy-policy",
                    new { controller = "Home", action = "PrivacyPolicy" });
@@ -165,11 +160,6 @@ namespace book_a_reading_room_visit.web
                    name: "terms-of-use",
                    pattern: "terms-of-use",
                    new { controller = "Home", action = "TermsOfUse" });
-
-                endpoints.MapControllerRoute(
-                   name: "what-can-I-expect-when-I-visit",
-                   pattern: "what-can-I-expect-when-I-visit",
-                   new { controller = "Home", action = "WhatCanIExpectWhenIVisit" });
 
                 endpoints.MapControllerRoute(
                    name: "error",

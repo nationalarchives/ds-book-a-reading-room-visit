@@ -50,22 +50,12 @@ namespace book_a_reading_room_visit.web.Controllers
             return View(model);
         }
 
-        public IActionResult AboutTheBookAReadingRoomVisitService()
-        {
-            return View();
-        }
-
         public IActionResult PrivacyPolicy()
         {
             return View();
         }
 
         public IActionResult TermsOfUse()
-        {
-            return View();
-        }
-
-        public IActionResult WhatCanIExpectWhenIVisit()
         {
             return View();
         }

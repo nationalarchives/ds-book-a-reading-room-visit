@@ -15,6 +15,9 @@
       <p>
         We will be in contact if we have any questions about your visit.
       </p>
+      <p>
+        During your visit, you will be able to order additional documents to view (an additional three documents at a time).
+      </p>
       <h3 style="margin-top: 2em;">Your booking summary </h3>
 		<p>
             Name: <xsl:value-of select="Name" /><br/>
