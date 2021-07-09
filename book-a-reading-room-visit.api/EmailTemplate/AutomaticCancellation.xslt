@@ -52,7 +52,7 @@
       <p>
         Find out more about this service: 
 		  <a href="https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/">
-        https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/"
+        https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/
       </a>
       </p>
 
