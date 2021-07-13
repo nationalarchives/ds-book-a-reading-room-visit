@@ -50,16 +50,6 @@ namespace book_a_reading_room_visit.web.Controllers
             return View(model);
         }
 
-        public IActionResult PrivacyPolicy()
-        {
-            return View();
-        }
-
-        public IActionResult TermsOfUse()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
