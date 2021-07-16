@@ -18,9 +18,6 @@ namespace book_a_reading_room_visit.web.Models
         public DateTime BookingEndDate { get; set; }
         [Range(typeof(bool), "true", "true", ErrorMessage = Constants.Accept_Terms_Privacy_Required)]
         public bool AcceptTsAndCs { get; set; }
-        [Range(typeof(bool), "true", "true", ErrorMessage = Constants.Accept_COVID_19_Required)]
-        public bool AcceptCovidCharter { get; set; }
-        public bool NoFaceCovering { get; set; }
 
         [Required(ErrorMessage = Constants.Valid_Ticket_Required)]
         [MaxLength(11)]

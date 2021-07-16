@@ -240,24 +240,6 @@
                                 @Html.ValidationMessageFor(Model => Model.AcceptTsAndCs, "", new { @class = "form-error", id = "validation-message-terms-conditions" })
                             }
                         </div>
-
-                        <div class="form-row @(@ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0 ? "checkbox checkbox-warning" : "checkbox")">
-                            @Html.CheckBoxFor(Model => Model.AcceptCovidCharter, new { id = "covid-charter", required = true, aria_describedby = "validation-message-covid-charter" })
-                            <label for="covid-charter" class="reduce-text">Accept our <a target="_blank" rel="noopener noreferrer" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">COVID-19 Visitor Charter</a>. (PDF)</label>
-
-                            @if (ViewData.ModelState["AcceptCovidCharter"]?.Errors.Count() > 0)
-                            {
-                                @Html.ValidationMessageFor(Model => Model.AcceptCovidCharter, "", new { @class = "form-error", id = "validation-message-covid-charter" })
-                            }
-                        </div>
-
-                        <div class="form-row checkbox">
-                            @Html.CheckBoxFor(Model => Model.NoFaceCovering, new { id = "face-covering" })
-                            <label for="face-covering" class="reduce-text">
-                                I have a legitimate reason to <a target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">not wear a face covering</a>.
-                                <br>This information will only be used when you visit and will not be shared with the NHS Test and Trace service.
-                            </label>
-                        </div>
                     </fieldset>
 
                     <div class="form-row">

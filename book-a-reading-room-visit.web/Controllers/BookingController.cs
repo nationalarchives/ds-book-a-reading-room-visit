@@ -155,9 +155,7 @@ namespace book_a_reading_room_visit.web.Controllers
                 LastName = bookingViewModel.LastName,
                 Email = bookingViewModel.Email,
                 Phone = bookingViewModel.Phone,
-                IsAcceptTsAndCs = bookingViewModel.AcceptTsAndCs,
-                IsAcceptCovidCharter = bookingViewModel.AcceptCovidCharter,
-                IsNoFaceCovering = bookingViewModel.NoFaceCovering,
+                IsAcceptTsAndCs = bookingViewModel.AcceptTsAndCs
             };
 
             var result = await _bookingService.ReserveSpaceAsync(model);

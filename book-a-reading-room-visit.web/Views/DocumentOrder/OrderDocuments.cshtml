@@ -104,13 +104,6 @@
                                 <td>Map and large document reading room</td>
                             }
                         </tr>
-                        <tr>
-                            <th scope="row">Seat number</th>
-                            <td>
-                                @Model.SeatNumber
-                                <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">

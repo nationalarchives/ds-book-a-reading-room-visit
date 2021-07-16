@@ -45,12 +45,6 @@
               </td>
             </tr>
           </xsl:if>
-          <tr>
-            <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">Seat number</th>
-            <td style="padding: 1em;border: 1px solid #999;vertical-align: top;">
-              <xsl:value-of select="SeatNumber" />
-            </td>
-          </tr>
         </tbody>
       </table>
       <p>

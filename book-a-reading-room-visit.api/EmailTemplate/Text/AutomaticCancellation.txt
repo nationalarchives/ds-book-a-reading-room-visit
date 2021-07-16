@@ -8,7 +8,6 @@
     Visit type:                 {VisitType}
     Visit date:                 {VisitStartDate}
     Reading room:               {ReadingRoom}
-    Seat number:                {SeatNumber}
 
     The following web addresses may help with what to do next:-
     Book another visit to view our documents: {HomeURL}
