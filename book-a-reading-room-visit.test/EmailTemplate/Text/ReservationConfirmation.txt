@@ -14,8 +14,6 @@
       Visit date:   {VisitStartDate}
       Reading room: {ReadingRoom}
               
-      Based on availability, we may need to change your seat on the date of your visit.
-
       Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
       
       You can cancel your visit at any time. Use this link: {ReturnURL}
