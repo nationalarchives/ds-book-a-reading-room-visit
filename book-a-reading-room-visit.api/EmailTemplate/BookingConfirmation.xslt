@@ -48,14 +48,6 @@
               </td>
             </tr>
           </xsl:if>
-          <tr>
-            <th style="padding: 1em;border: 1px solid #999;width: 150px;vertical-align: top;">Seat number</th>
-            <td style="padding: 1em;border: 1px solid #999;vertical-align: top;">
-              <xsl:value-of select="SeatNumber" />
-              <br />
-              Based on availability, we may need to change your seat on the date of your visit.
-            </td>
-          </tr>
         </tbody>
       </table>
 

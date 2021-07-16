@@ -17,10 +17,7 @@
     Visit type:                            {VisitType}
     Visit date:                            {VisitStartDateDisplay}
     Reading room:                          {ReadingRoom}
-    Seat number:                           {SeatNumber}
     
-    Based on availability, we may need to change your seat on the date of your visit.</span>
-
     Your document order(s):
 
     {Order-Documents}

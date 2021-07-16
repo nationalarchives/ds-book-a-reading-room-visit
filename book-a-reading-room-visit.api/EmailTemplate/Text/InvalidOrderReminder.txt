@@ -1,7 +1,7 @@
 ﻿      Dear {Name},
 
       You have a provisional booking to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
-      Make sure you complete the document order form by {CompleteByDate}British Summer Time (BST). You can do this by visiting this link: {ReturnURL}.
+      Make sure you complete the document order form by {CompleteByDate} British Summer Time (BST). You can do this by visiting this link: {ReturnURL}.
       You will need your booking reference and reader's ticket number to complete this step.
       If you do not complete the document order form by this deadline your visit will be automatically cancelled.
 
@@ -12,7 +12,6 @@
       Visit type:       {VisitType}
       Visit date:       {VisitStartDate}
       Reading room:     {ReadingRoom}
-      Seat number:      {SeatNumber}
 
       Use Discovery, our catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
 

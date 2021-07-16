@@ -107,13 +107,6 @@
                                     }
                                 </tr>
                             }
-                            <tr>
-                                <th scope="row">Seat number</th>
-                                <td>
-                                    @Model.SeatNumber
-                                    <span class="secondary-info">Based on availability, we may need to change your seat on the date of your visit.</span>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -167,10 +160,12 @@
                     <span id="print-your-order"></span>
 
                     <h2 id="prepare-for-your-visit" class="break-before">Prepare for your visit</h2>
-
                     <p>Find out about:</p>
-
                     <ul>
+                        <li>
+                            what to expect when you visit:<br>
+                            <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/</a>
+                        </li>
                         <li>
                             how to use the reading rooms (rules for readers):<br>
                             <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/documents/rules.pdf">https://www.nationalarchives.gov.uk/documents/rules.pdf</a>
@@ -182,25 +177,13 @@
                     </ul>
                     <p>Remember to bring the correct documents to complete your registration if you are using your reader's ticket for the first time.</p>
                     <p>Bring your device if you wish to take photographs of our documents. We do not charge for this.</p>
-                    <h2>What to expect when you visit</h2>
-                    <p>
-                        Watch this video to find out what you can expect during your booked visit to The National Archives' reading rooms and the changes we've made for everyone's safety:<br>
-                        <a target="_blank" rel="noreferrer noopener" href="https://www.youtube.com/watch?v=Wm4mq5X_EFs">https://www.youtube.com/watch?v=Wm4mq5X_EFs</a>
-                    </p>
-                    <p>
-                        Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process:<br>
-                        <a target="_blank" rel="noreferrer noopener" href="https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf">https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf</a>
-                    </p>
-                    <p>
-                        Remember to wear a face mask when you visit, unless you have a valid exemption:<br>
-                        <a target="_blank" rel="noreferrer noopener" href="https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions">https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions</a>
-                    </p>
                     <p>
                         During your visit, you will be able to order additional documents to view (an additional three documents at a time).
                     </p>
+
                     <h2>Can I cancel my visit?</h2>
 
-                    <p>You can cancel your visit at anytime.</p>
+                    <p>You can cancel your visit at any time.</p>
                     <div class="no-print">
                         <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
                             @Html.AntiForgeryToken()

@@ -15,7 +15,6 @@
         public const string Phone_Or_Email_Required = "Enter an email address or telephone number so we can contact you.";
         public const string Series_Required = "Enter a series number.";
         public const string Accept_Terms_Privacy_Required = "Accept our terms of use and privacy policy.";
-        public const string Accept_COVID_19_Required = "Accept our COVID-19 Visitor Charter.";
         public const string Html_Tags_Not_Allowed = "You have entered an <HTML> tag. Only include numbers, letters A to Z, and special characters.";
 
         public const string Duplicate_Document_Reference = "You have already entered this catalogue reference.";
