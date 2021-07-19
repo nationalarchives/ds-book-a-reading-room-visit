@@ -85,10 +85,10 @@
                                 @(Model.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit")
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">Reading room</th>
-                            @if (Model.BookingType == BookingTypes.StandardOrderVisit)
-                            {
+                        @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                            <tr>
+                                <th scope="row">Reading room</th>
                                 @if (Model.SeatType == SeatTypes.StdRRSeat)
                                 {
                                     <td>Document reading room</td>
@@ -97,13 +97,8 @@
                                 {
                                     <td>Map and large document reading room</td>
                                 }
-
-                            }
-                            else
-                            {
-                                <td>Map and large document reading room</td>
-                            }
-                        </tr>
+                            </tr>
+                        }
                     </tbody>
                 </table>
                 <form action="@Url.Action("CancelBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="post">
