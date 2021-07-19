@@ -149,7 +149,7 @@ namespace book_a_reading_room_visit.api.Service
 
             if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
             {
-                expando.ReadingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room (All seats have camera stands)" : "Map and large document reading room";
+                expando.ReadingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room" : "Map and large document reading room";
             }
 
             foreach(KeyValuePair<string, object> kv in dictionary)
@@ -232,7 +232,7 @@ namespace book_a_reading_room_visit.api.Service
             rootElement.Add(new XElement("HomeURL", homeURL));
             if (bookingModel.BookingType == BookingTypes.StandardOrderVisit)
             {
-                var readingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room (All seats have camera stands)" : "Map and large document reading room";
+                var readingRoom = bookingModel.SeatType == SeatTypes.StdRRSeat ? "Document reading room" : "Map and large document reading room";
                 rootElement.Add(new XElement("ReadingRoom", readingRoom));
             }
 
