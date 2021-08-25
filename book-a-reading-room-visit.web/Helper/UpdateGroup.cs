@@ -1,5 +1,4 @@
-﻿using book_a_reading_room_visit.model;
-using book_a_reading_room_visit.web.Models;
+﻿using book_a_reading_room_visit.web.Models;
 
 namespace book_a_reading_room_visit.web.Helper
 {
@@ -13,8 +12,7 @@ namespace book_a_reading_room_visit.web.Helper
             AvailableSeatGroup group = null;
             foreach (var record in model.AvailableBookings)
             {
-                if (record.AvailableSeats > 0 && !found &&
-                    (model.BookingType == BookingTypes.StandardOrderVisit || (model.BookingType == BookingTypes.BulkOrderVisit && record.Date > model.CutOffDate)))
+                if (record.AvailableSeats > 0 && !found)
                 {
                     found = true;
                     record.Id = "first-available";

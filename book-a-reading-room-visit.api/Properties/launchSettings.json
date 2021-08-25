@@ -20,8 +20,7 @@
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2",
-        "CutOffDate": "28/07/2021"
+        "AWS_REGION": "eu-west-2"
       }
     },
     "book_a_reading_room_visit.api": {
@@ -37,8 +36,7 @@
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2",
-        "CutOffDate": "28/07/2021"
+        "AWS_REGION": "eu-west-2"
       }
     }
   }

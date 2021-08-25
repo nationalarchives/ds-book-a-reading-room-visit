@@ -20,6 +20,7 @@ namespace book_a_reading_room_visit.web.Helper
                     context.Response.AddHeaderKey("Referrer-Policy", "no-referrer");
                     context.Response.AddHeaderKey("Strict-Transport-Security", "max-age=31536000 ; includeSubDomains");
                     context.Response.AddHeaderKey("Expect-CT", "max-age=86400");
+                    context.Response.AddHeaderKey("Cache-Control", "no-store, max-age=0");
                     return Task.FromResult(0);
                 });
                 await nextMiddleware();
