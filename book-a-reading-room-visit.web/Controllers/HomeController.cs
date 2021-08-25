@@ -41,7 +41,6 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 BookingType = bookingType,
                 SeatType = seatType,
-                CutOffDate = DateTime.Parse(Environment.GetEnvironmentVariable("CutOffDate")),
                 AvailableBookings = await _availabilityService.GetAvailabilityAsync(seatType),
                 AvailableSeatGroups = new List<AvailableSeatGroup>(),
                 ErrorMessage = errorCode.ToMessage()

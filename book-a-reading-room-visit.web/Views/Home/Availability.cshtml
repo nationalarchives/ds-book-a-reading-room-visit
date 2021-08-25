@@ -155,50 +155,30 @@
                     <ul>
                         @for (var index = Model.AvailableSeatGroups[count].StartIndex; index <= Model.AvailableSeatGroups[count].EndIndex; index++)
                         {
-                            if (Model.BookingType == BookingTypes.BulkOrderVisit && Model.AvailableBookings[index].Date <= Model.CutOffDate)
-                            {
-                                if (Model.AvailableBookings[index].Date.DayOfWeek == DayOfWeek.Tuesday ||
-                                    Model.AvailableBookings[index].Date.DayOfWeek == DayOfWeek.Thursday)
+                            var dateText = $"{Model.AvailableBookings[index].Date:dddd dd MMMM yyyy}";
+                            <li class="date">
+                                @if (Model.AvailableBookings[index].AvailableSeats < 1)
                                 {
-                                    var dateText = $"{Model.AvailableBookings[index].Date:dddd dd} & {Model.AvailableBookings[index].Date.AddDays(1):dddd dd MMMM yyyy}";
-                                    <li class="date">
-                                        <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-left">@dateText</span>
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-right">0 places available</span>
-                                        </span>
-                                    </li>
+                                    <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
+                                        <span class="col-md-6 col-sm-6 col-xs-6 align-left">@dateText</span>
+                                        <span class="col-md-6 col-sm-6 col-xs-6 align-right">0 places available</span>
+                                    </span>
                                 }
-                            }
-                            else
-                            {
-                                <li class="date">
-                                    @{
-                                        var dateText = $"{Model.AvailableBookings[index].Date:dddd dd MMMM yyyy}";
-                                    }
-                                    @if (Model.AvailableBookings[index].AvailableSeats < 1)
-                                    {
-                                        <span class="col-md-12 col-sm-12 col-xs-12 no-availability">
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-left">@dateText</span>
-                                            <span class="col-md-6 col-sm-6 col-xs-6 align-right">0 places available</span>
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
-                                            @Html.AntiForgeryToken()
-                                            @Html.Hidden("seattype", Model.SeatType.ToStringURL(), new { id = "" })
-                                            @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date, new { id = "" })
-                                            <button class="button" type="submit" id="@Model.AvailableBookings[index].Id">
-                                                <span class="col-md-12 col-sm-12 col-xs-12">
-                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-left">@dateText</span>
-                                                    <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats @(Model.AvailableBookings[index].AvailableSeats == 1 ? "place" : "places") available</span>
-                                                </span>
-                                            </button>
-                                        </form>
-                                    }
-                                </li>
-                            }
-
+                                else
+                                {
+                                    <form action="@Url.Action("SecureBooking", "Booking", new { bookingType = @Model.BookingType.ToStringURL() })" method="POST">
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("seattype", Model.SeatType.ToStringURL(), new { id = "" })
+                                        @Html.Hidden("bookingstartdate", Model.AvailableBookings[index].Date, new { id = "" })
+                                        <button class="button" type="submit" id="@Model.AvailableBookings[index].Id">
+                                            <span class="col-md-12 col-sm-12 col-xs-12">
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-left">@dateText</span>
+                                                <span class="col-md-6 col-sm-6 col-xs-6 align-right">@Model.AvailableBookings[index].AvailableSeats @(Model.AvailableBookings[index].AvailableSeats == 1 ? "place" : "places") available</span>
+                                            </span>
+                                        </button>
+                                    </form>
+                                }
+                            </li>
                         }
                     </ul>
                 }
