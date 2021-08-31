@@ -3,6 +3,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    
+  workflow_dispatch:
 
 name: KBS Build and Push API & Web
 
@@ -21,13 +23,15 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
+        role-to-assume: <UNKNOWN ATM>
+        role-session-name: docker-build
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push the API to ECR
-      id: build-API
+      id: build-push-API
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
@@ -40,7 +44,7 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
     - name: Build, tag, and push the Web to ECR
-      id: build-Web
+      id: build-push-Web
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.WEB_REPO_NAME }}
