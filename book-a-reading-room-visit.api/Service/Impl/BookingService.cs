@@ -20,6 +20,7 @@ namespace book_a_reading_room_visit.api.Service
 
         private readonly IConfiguration _configuration;
         private const string Modified_By = "system";
+        private const int MAX_EMAIL_ATTEMPTS = 3;
 
         public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IAvailabilityService availabilityService, IConfiguration configuration)
         {
@@ -615,6 +616,8 @@ namespace book_a_reading_room_visit.api.Service
                 return 0;
             }
 
+            int loopSendDelay = Convert.ToInt32(_configuration.GetSection("EmailSettings:LoopSendDelay").Value);
+
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
@@ -623,7 +626,32 @@ namespace book_a_reading_room_visit.api.Service
                 {
                     var dsdEmail = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? _configuration.GetSection("EmailSettings:StandardOrderAddress").Value :
                                                                                                  _configuration.GetSection("EmailSettings:BulkOrderAddress").Value;
-                    await _emailService.SendEmailAsync(EmailType.DSDBookingConfirmation, dsdEmail, bookingModel);
+                    int attempts = 0;
+
+                    do
+                    {
+                        try
+                        {
+                            attempts++;
+                            await _emailService.SendEmailAsync(EmailType.DSDBookingConfirmation, dsdEmail, bookingModel);
+                            //Wait for the specified interval before sending the next email.
+                            await Task.Delay(TimeSpan.FromMilliseconds(loopSendDelay));
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            //TODO: We may want to check specifically for a MessageRejectedException - the stack may then indicate if this is due to quota.
+                            //TODO: Log the error somehow...
+                            if (attempts == MAX_EMAIL_ATTEMPTS)
+                            {
+                                // This will terminate any further email processing and raise a 500 response (as at present).
+                                throw;
+                            }
+                            // Wait a second before trying again.
+                            await Task.Delay(1000);
+                        }
+
+                    } while (true);
 
                     if (!string.IsNullOrWhiteSpace(bookingModel.Email))
                     {
