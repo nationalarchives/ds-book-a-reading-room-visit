@@ -1,5 +1,6 @@
 ﻿using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+using book_a_reading_room_visit.api.Email;
 using book_a_reading_room_visit.api.Helper;
 using book_a_reading_room_visit.model;
 using Microsoft.Extensions.Configuration;
@@ -22,13 +23,13 @@ namespace book_a_reading_room_visit.api.Service
 {
     public class EmailService : IEmailService
     {
-        private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
         private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
 
-        public EmailService(IAmazonSimpleEmailService amazonSimpleEmailService, IConfiguration configuration)
+        public EmailService(IEmailSender emailSender, IConfiguration configuration)
         {
-            _amazonSimpleEmailService = amazonSimpleEmailService;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
         public async Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel)
         {
@@ -87,41 +88,9 @@ namespace book_a_reading_room_visit.api.Service
             var xDocument = emailType == EmailType.DSDBookingConfirmation ? GetDSDXDocument(bookingModel) :  GetXDocument(bookingModel);
             var htmlBody = GetHtmlBody(emailType, xDocument);
             var textBody = GetTextBody(emailType, bookingModel);
-            //var sendRequest = new SendEmailRequest
-            //{
-            //    Source = fromAddress,
-            //    Destination = new Destination
-            //    {
-            //        ToAddresses = toAddress.Split(',').ToList()
-            //    },
-            //    Message = new Message
-            //    {
-            //        Subject = new Content(subject),
-            //        Body = new Body
-            //        {
-            //            Html = new Content
-            //            {
-            //                Charset = "UTF-8",
-            //                Data = htmlBody
-            //            },
-            //            Text = new Content
-            //            {
-            //                Charset = "UTF-8",
-            //                Data = textBody
-            //            }
-            //        }
-            //    }
-            //};
 
+            await _emailSender.SendEmail(from: fromAddress, to: toAddress, subject: subject, textBody: textBody, htmlBody: htmlBody);
 
-
-
-            var rawMessage = new RawMessage(EmailHelper.MessageStream(from: fromAddress, to: toAddress, subject: subject, textBody: textBody, htmlBody: htmlBody));
-            var rawEmailRequest = new SendRawEmailRequest(rawMessage);
-
-            await _amazonSimpleEmailService.SendRawEmailAsync(rawEmailRequest);
-
-            //await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
         }
 
         internal string GetTextBody(EmailType emailType, BookingModel bookingModel)
