@@ -653,9 +653,27 @@ namespace book_a_reading_room_visit.api.Service
 
                     } while (true);
 
+                    // Send email to customer if they have provided an email address
                     if (!string.IsNullOrWhiteSpace(bookingModel.Email))
                     {
-                        await _emailService.SendEmailAsync(EmailType.BookingConfirmation, bookingModel.Email, bookingModel);
+                        attempts = 0;
+                        try
+                        {
+                            attempts++;
+                            await _emailService.SendEmailAsync(EmailType.BookingConfirmation, bookingModel.Email, bookingModel);
+                            await Task.Delay(TimeSpan.FromMilliseconds(loopSendDelay));
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (attempts == MAX_EMAIL_ATTEMPTS)
+                            {
+                                // This will terminate any further email processing and raise a 500 response (as at present).
+                                throw;
+                            }
+                            // Wait before trying again.
+                            await Task.Delay(attempts * 1000);
+                        }
                     }
                 }
                 else
