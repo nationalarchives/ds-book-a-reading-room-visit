@@ -647,8 +647,8 @@ namespace book_a_reading_room_visit.api.Service
                                 // This will terminate any further email processing and raise a 500 response (as at present).
                                 throw;
                             }
-                            // Wait a second before trying again.
-                            await Task.Delay(1000);
+                            // Wait before trying again.
+                            await Task.Delay(attempts * 1000);
                         }
 
                     } while (true);
