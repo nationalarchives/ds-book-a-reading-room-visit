@@ -2,6 +2,7 @@
 using Amazon.SimpleEmail.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,27 +32,45 @@ namespace book_a_reading_room_visit.api.Email
 
         private  MemoryStream BuildMessageStream(string from, string to, string subject, string textBody, string htmlBody)
         {
-            var sb = new StringBuilder($"From: {from}\nTo: {to}\n");
-            sb.Append($"Subject: {subject}\n");
-            sb.Append($"multipart/mixed;boundary = \"a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1a\"n");
+            string senderDisplayname = from.Substring(0, from.IndexOf("<") - 1);
+            string senderEmail = from.Substring(from.IndexOf("<"));
+
+            var sb = new StringBuilder($"From: \"{senderDisplayname}\" {senderEmail}");
             sb.Append("\n");
-            sb.Append("--a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1a");
+            sb.Append($"To: {to}");
+            sb.Append("\n");
+            sb.Append($"Subject: {subject}");
+            sb.Append("\n");
             sb.Append("X-SES-CONFIGURATION-SET: KBSEmailsToDSD");
-            sb.Append("X-SES-MESSAGE-TAGS: booking - confirmation = adv - order");
-            sb.Append("Content-Type: multipart/alternative;boundary = \"sub_a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1a\"");
-            sb.Append("--sub_a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1a");
-            sb.Append("Content - Type: text / plain; charset = iso - 8859 - 1");
-            sb.Append("Content - Transfer - Encoding: quoted - printable");
-
+            sb.Append("\n");
+            sb.Append("X-SES-MESSAGE-TAGS: booking-confirmation=adv-order");
+            sb.Append("\n");
+            sb.Append("Content-Type: multipart/alternative;boundary=\"Multipart_687cbcb1065148178784dc4ea27d7cd6\"");
+            sb.Append("\n\n");
+            sb.Append("--Multipart_687cbcb1065148178784dc4ea27d7cd6");
+            sb.Append("\n");
+            sb.Append("Content-Type: text/plain; charset=iso-8859-1");
+            sb.Append("\n");
+            sb.Append("Content-Transfer-Encoding: quoted-printable");
+            
+            sb.Append("\n\n");
             sb.Append(textBody);
+            sb.Append("\n\n");
 
-            sb.Append("--sub_a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1asb.");
-            sb.Append("Content - Type: text / html; charset = iso - 8859 - 1");
-            sb.Append("Content - Transfer - Encoding: quoted - printable");
-
+            sb.Append("--Multipart_687cbcb1065148178784dc4ea27d7cd6");
+            sb.Append("\n");
+            //sb.Append("Content-Type: text/html; charset=iso-8859-1");
+            sb.Append("Content-Type: text/html; charset=UTF-8");
+            sb.Append("\n");
+            sb.Append("Content-Transfer-Encoding: quoted-printable");
+            
+            sb.Append("\n\n");
             sb.Append(htmlBody);
+            sb.Append("\n\n");
 
-            sb.Append("-sub_a3f166a86b56ff6c37755292d690675717ea3cd9de81228ec2b76ed4a15d6d1a--");
+            sb.Append("--Multipart_687cbcb1065148178784dc4ea27d7cd6--");
+
+            Debug.Print(sb.ToString());
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(sb.ToString()));
 
