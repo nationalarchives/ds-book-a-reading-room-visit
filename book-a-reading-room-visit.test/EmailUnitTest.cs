@@ -1,4 +1,5 @@
 ﻿using Amazon.SimpleEmail;
+using book_a_reading_room_visit.api.Email;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
@@ -17,14 +18,16 @@ namespace book_a_reading_room_visit.test
     public class EmailUnitTest
     {
         private const string HOME_URL = "HomeURL";
+        private const string DOCUMENT_READING_ROOM = "Document reading room";
         private static readonly string RETURN_URL = $"{Environment.GetEnvironmentVariable(HOME_URL)}/return-to-booking";
 
-        private IAmazonSimpleEmailService _awsSes;
+        //private IAmazonSimpleEmailService _awsSes;
+        private IEmailSender _awsSes;
         private IConfiguration _config;
 
         public EmailUnitTest()
         {
-            _awsSes = Substitute.For<IAmazonSimpleEmailService>();
+            _awsSes = Substitute.For<IEmailSender>();
             _config = Substitute.For<IConfiguration>();
         }
 
@@ -40,14 +43,14 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM) != -1);
 
             if (!String.IsNullOrWhiteSpace(bookingModel.AdditionalRequirements))
             {
                 Assert.IsTrue(emailText.IndexOf(bookingModel.AdditionalRequirements) != -1);
             }
 
-            await CheckDocumentOrders(bookingModel, emailText);
+            await CheckDocumentOrders(bookingModel, emailText, true);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
@@ -64,7 +67,7 @@ namespace book_a_reading_room_visit.test
 
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
 
-            await CheckDocumentOrders(bookingModel, emailText);
+            await CheckDocumentOrders(bookingModel, emailText, false);
         }
 
         [TestMethod]
@@ -77,7 +80,7 @@ namespace book_a_reading_room_visit.test
 
             await CheckCoreFields(bookingModel, emailText);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM) != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
@@ -111,7 +114,7 @@ namespace book_a_reading_room_visit.test
             string emailText = emailService.GetTextBody(EmailType.ValidOrderReminder, bookingModel);
 
             await CheckReminder(bookingModel, emailText);
-            await CheckDocumentOrders(bookingModel, emailText);
+            await CheckDocumentOrders(bookingModel, emailText, true);
         }
 
         [TestMethod]
@@ -142,7 +145,8 @@ namespace book_a_reading_room_visit.test
                 Email = "bilbo.baggins@nationalarchives.gov.uk",
                 Phone = "+44(0)123 567 789",
                 ReaderTicket = 9497920,
-                SeatNumber = "14H"
+                SeatNumber = "14H",
+                SeatType = SeatTypes.StdRRSeat
             };
 
             if (addOrderDocuments)
@@ -166,19 +170,28 @@ namespace book_a_reading_room_visit.test
             Assert.IsTrue(emailText.IndexOf($"{bookingModel.FirstName} {bookingModel.LastName }") != -1);
             Assert.IsTrue(emailText.IndexOf(Convert.ToString(bookingModel.ReaderTicket.Value)) != -1);
             Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
-            Assert.IsTrue(emailText.IndexOf(bookingModel.SeatNumber) > -1);
         }
 
-        private async static Task CheckDocumentOrders(BookingModel bookingModel, string emailText)
+        private async static Task CheckDocumentOrders(BookingModel bookingModel, string emailText, bool checkDescriptions)
         {
             foreach(string orderDocument in bookingModel.MainOrderDocuments)
             {
-                Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                (string Reference, string Description) orderDoc = GetOrderDocumentReferenceAndDescription(orderDocument);
+                Assert.IsTrue(emailText.IndexOf(orderDoc.Reference) > 0);
+                if (checkDescriptions)
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDoc.Description) > 1); 
+                }
             }
 
             foreach (string orderDocument in bookingModel.ReserveOrderDocuments)
             {
-                Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                (string Reference, string Description) orderDoc = GetOrderDocumentReferenceAndDescription(orderDocument);
+                Assert.IsTrue(emailText.IndexOf(orderDoc.Reference) > 0);
+                if (checkDescriptions)
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDoc.Description) > 1);
+                }
             }
         }
 
@@ -187,10 +200,12 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             string visitType = GetVisitType(bookingModel);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            //Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
 
-            Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
-            Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
+            string homeUrl = Environment.GetEnvironmentVariable(HOME_URL);
+
+            Assert.IsTrue(!String.IsNullOrEmpty(homeUrl));
+            Assert.IsTrue(emailText.IndexOf(homeUrl) != -1);
         }
 
         private async static Task CheckOrderReminder(BookingModel bookingModel, string emailText)
@@ -209,7 +224,7 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             string visitType = GetVisitType(bookingModel);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM) != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
@@ -218,6 +233,13 @@ namespace book_a_reading_room_visit.test
         private static string GetVisitType(BookingModel bookingModel)
         {
             return bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit";
+        }
+
+        private static (string Reference, string Description) GetOrderDocumentReferenceAndDescription(string orderDocument)
+        {
+            string[] orderDocumentComponents = orderDocument.Substring(orderDocument.IndexOf("Reference:") + 11).Split(", Description").Select(s => s.Trim(new char[] { ' ', ':', '.' })).ToArray();
+            (string Reference, string Description) t = (orderDocumentComponents[0], orderDocumentComponents[1]);
+            return t;
         }
     }
 }
