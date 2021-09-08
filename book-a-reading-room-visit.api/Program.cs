@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using NLog.Web;
 
 namespace book_a_reading_room_visit.api
 {
@@ -13,7 +9,21 @@ namespace book_a_reading_room_visit.api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nLog.config").GetCurrentClassLogger();
+            try
+            {
+                logger.Debug("Book a Reading Room visit API Starting Up");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (System.Exception e)
+            {
+                logger.Error(e, "Book a Reading Room visit API is stopping due to an exception");
+                throw;
+            }
+            finally
+            {
+                NLog.LogManager.Shutdown();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -21,11 +31,11 @@ namespace book_a_reading_room_visit.api
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
-                    logging.AddConsole();
+                    logging.SetMinimumLevel(LogLevel.Trace);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseNLog();
     }
 }
