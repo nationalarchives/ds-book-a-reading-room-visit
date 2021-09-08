@@ -66,9 +66,6 @@ namespace book_a_reading_room_visit.api
             // N.B. This returns null so have to find all targets and then cast!
             //SlackTarget slackTarget = configuration.FindTargetByName<SlackTarget>("slackTarget");
             SlackTarget slackTarget = (SlackTarget)targets.First(t => t.GetType() == typeof(SlackTarget));
-            
-            Target target = configuration.FindTargetByName("slackTarget");
-
             slackTarget.WebHookUrl = slackWebhookUrl;
             LogManager.Configuration = configuration;
         }
