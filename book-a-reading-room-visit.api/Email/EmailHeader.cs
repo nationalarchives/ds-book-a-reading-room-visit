@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 namespace book_a_reading_room_visit.api.Email
 {
     public struct EmailHeader
@@ -8,6 +8,11 @@ namespace book_a_reading_room_visit.api.Email
 
         public EmailHeader(string name, string value)
         {
+            if(String.IsNullOrWhiteSpace(name) || String.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException("A header name and value must be supplied.");
+            }
+
             _name = name;
             _value = value;
         }
