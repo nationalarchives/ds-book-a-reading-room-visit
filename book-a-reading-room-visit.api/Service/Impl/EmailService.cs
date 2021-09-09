@@ -35,8 +35,6 @@ namespace book_a_reading_room_visit.api.Service
         }
         public async Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel)
         {
-            //var dsdEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "Dsd");
-            //var dsdEmailCustomerSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "DsdCustomer");
 
             EmailHeader[] dsdConfirmationHeaders = null;
             EmailHeader[] customerConfirmationHeaders = null;

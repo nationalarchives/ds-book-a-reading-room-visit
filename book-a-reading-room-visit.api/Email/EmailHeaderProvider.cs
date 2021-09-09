@@ -24,8 +24,9 @@ namespace book_a_reading_room_visit.api.Email
             { 
                 if(_dsdConfirmationHeaders == null)
                 {
-                    IConfigurationSection additionalHeadersEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "DsdConfirmation");
-                    _dsdConfirmationHeaders = additionalHeadersEmailSection.GetChildren().Select(c => new EmailHeader(c.Key, c.Value)).ToArray();
+                    IConfigurationSection additionalHeadersEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().FirstOrDefault(c => c.Key == "DsdConfirmation");
+                    _dsdConfirmationHeaders = additionalHeadersEmailSection == null ? new EmailHeader[0] :
+                        additionalHeadersEmailSection.GetChildren().Select(c => new EmailHeader(c.Key, c.Value)).ToArray();
                 }
                 return new ReadOnlyCollection<EmailHeader>(_dsdConfirmationHeaders); 
             }
@@ -37,8 +38,9 @@ namespace book_a_reading_room_visit.api.Email
             {
                 if (_customerConfirmationHeaders == null)
                 {
-                    IConfigurationSection additionalHeadersEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "CustomerConfirmation");
-                    _customerConfirmationHeaders = additionalHeadersEmailSection.GetChildren().Select(c => new EmailHeader(c.Key, c.Value)).ToArray();
+                    IConfigurationSection additionalHeadersEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().FirstOrDefault(c => c.Key == "CustomerConfirmation");
+                    _customerConfirmationHeaders = additionalHeadersEmailSection == null ? new EmailHeader[0] :
+                        additionalHeadersEmailSection.GetChildren().Select(c => new EmailHeader(c.Key, c.Value)).ToArray();
                 }
                 return new ReadOnlyCollection<EmailHeader>(_customerConfirmationHeaders); 
             }
