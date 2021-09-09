@@ -25,14 +25,23 @@ namespace book_a_reading_room_visit.api.Service
     {
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
+        private readonly EmailHeaderProvider _emailHeaderProvider;
 
         public EmailService(IEmailSender emailSender, IConfiguration configuration)
         {
             _configuration = configuration;
             _emailSender = emailSender;
+            _emailHeaderProvider = new EmailHeaderProvider(_configuration);
         }
         public async Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel)
         {
+            //var dsdEmailSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "Dsd");
+            //var dsdEmailCustomerSection = _configuration.GetSection("EmailSettings").GetSection("AdditionalHeaders").GetChildren().First(c => c.Key == "DsdCustomer");
+
+            EmailHeader[] dsdConfirmationHeaders = null;
+            EmailHeader[] customerConfirmationHeaders = null;
+            EmailHeader[] additionalHeadersForCurrentRequest = null;
+
             var fromAddress = _configuration.GetValue<string>("EmailSettings:FromAddress");
             var subject = string.Empty;
             switch (emailType)
@@ -45,6 +54,12 @@ namespace book_a_reading_room_visit.api.Service
                     }
                 case EmailType.BookingConfirmation:
                     {
+                        if (customerConfirmationHeaders == null)
+                        {
+                            customerConfirmationHeaders = _emailHeaderProvider.CustomerConfirmationHeaders.ToArray();
+                        }
+                        additionalHeadersForCurrentRequest = customerConfirmationHeaders;
+
                         var subjectFormat = _configuration.GetValue<string>("EmailSettings:ConfirmationSubject");
                         subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}",
                                                                 bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
@@ -72,9 +87,15 @@ namespace book_a_reading_room_visit.api.Service
                     }
                 case EmailType.DSDBookingConfirmation:
                     {
+                        if(dsdConfirmationHeaders == null)
+                        {
+                            dsdConfirmationHeaders = _emailHeaderProvider.DsdConfirmationHeaders.ToArray();
+                        }
+
                         fromAddress = _configuration.GetValue<string>("EmailSettings:DSDFromAddress");
                         subject = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? $"Standard visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}"
                                                                                               : $"Bulk order visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}";
+                        additionalHeadersForCurrentRequest = dsdConfirmationHeaders;
                         break;
                     }
                 case EmailType.PostVisit:
@@ -89,7 +110,7 @@ namespace book_a_reading_room_visit.api.Service
             var htmlBody = GetHtmlBody(emailType, xDocument);
             var textBody = GetTextBody(emailType, bookingModel);
 
-            await _emailSender.SendEmail(from: fromAddress, to: toAddress, subject: subject, textBody: textBody, htmlBody: htmlBody);
+            await _emailSender.SendEmail(from: fromAddress, to: toAddress, subject: subject, textBody: textBody, htmlBody: htmlBody, additionalHeaders: additionalHeadersForCurrentRequest);
 
         }
 

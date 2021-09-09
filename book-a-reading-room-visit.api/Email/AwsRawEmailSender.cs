@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Email
 {
-    public class AwsRawEmailSender : IEmailSender
+    internal class AwsRawEmailSender : IEmailSender
     {
 
         private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
@@ -20,9 +20,9 @@ namespace book_a_reading_room_visit.api.Email
             _amazonSimpleEmailService = amazonSimpleEmailService;
         }
 
-        public async Task SendEmail(string from, string to, string subject, string textBody, string htmlBody)
+        public async Task SendEmail(string from, string to, string subject, string textBody, string htmlBody, EmailHeader[] additionalHeaders = null)
         {
-            MemoryStream messageStream = BuildMessageStream(from, to, subject, textBody, htmlBody);
+            MemoryStream messageStream = BuildMessageStream(from, to, subject, textBody, htmlBody, additionalHeaders);
 
             var rawMessage = new RawMessage(messageStream);
             var rawEmailRequest = new SendRawEmailRequest(rawMessage);
@@ -30,7 +30,7 @@ namespace book_a_reading_room_visit.api.Email
             await _amazonSimpleEmailService.SendRawEmailAsync(rawEmailRequest);
         }
 
-        private  MemoryStream BuildMessageStream(string from, string to, string subject, string textBody, string htmlBody)
+        private  MemoryStream BuildMessageStream(string from, string to, string subject, string textBody, string htmlBody, EmailHeader[] additionalHeaders = null)
         {
             string senderDisplayname = from.Substring(0, from.IndexOf("<") - 1);
             string senderEmail = from.Substring(from.IndexOf("<"));
@@ -41,10 +41,15 @@ namespace book_a_reading_room_visit.api.Email
             sb.Append("\n");
             sb.Append($"Subject: {subject}");
             sb.Append("\n");
-            sb.Append("X-SES-CONFIGURATION-SET: KBSEmailsToDSD");
-            sb.Append("\n");
-            sb.Append("X-SES-MESSAGE-TAGS: booking-confirmation=adv-order");
-            sb.Append("\n");
+
+            if (additionalHeaders?.Length > 0)
+            {
+                foreach (EmailHeader additionalHeader in additionalHeaders)
+                {
+                    sb.Append(additionalHeader.ToString());
+                    sb.Append("\n");
+                } 
+            }
             sb.Append("Content-Type: multipart/alternative;boundary=\"Multipart_687cbcb1065148178784dc4ea27d7cd6\"");
             sb.Append("\n\n");
             sb.Append("--Multipart_687cbcb1065148178784dc4ea27d7cd6");
