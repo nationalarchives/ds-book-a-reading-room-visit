@@ -2,6 +2,7 @@
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -13,10 +14,12 @@ namespace book_a_reading_room_visit.api.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
+        private readonly ILogger _logger;
 
-        public BookingController(IBookingService bookingService)
+        public BookingController(IBookingService bookingService, ILogger<BookingController> logger)
         {
             _bookingService = bookingService;
+            _logger = logger;
         }
 
         [HttpPost("create")]
@@ -189,7 +192,9 @@ namespace book_a_reading_room_visit.api.Controllers
         [HttpPost("send-confirmation")]
         public async Task<ActionResult<int>> SendBookingConfirmationEmails(DateTime completeBy)
         {
+            _logger.LogInformation($"Starting sending confirmation emails for bookings with complete by date {completeBy}.");
             int result = await _bookingService.SendBookingConfirmationEmailsAsync(completeBy);
+            _logger.LogInformation($"Finished sending confirmation emails for bookings with complete by date {completeBy}. {result} bookings were processed.");
             return Ok(result);
         }
 

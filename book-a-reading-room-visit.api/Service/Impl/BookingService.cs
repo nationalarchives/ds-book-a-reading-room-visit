@@ -4,6 +4,7 @@ using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,17 @@ namespace book_a_reading_room_visit.api.Service
 
         private readonly IConfiguration _configuration;
         private const string Modified_By = "system";
+        private const int MAX_EMAIL_ATTEMPTS = 3;
+        private ILogger _logger;
 
-        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IAvailabilityService availabilityService, IConfiguration configuration)
+        public BookingService(BookingContext context, IWorkingDayService workingDayService, IEmailService emailService, IAvailabilityService availabilityService, IConfiguration configuration, ILogger<BookingService> logger)
         {
             _context = context;
             _workingDayService = workingDayService;
             _emailService = emailService;
             _availabilityService = availabilityService;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
@@ -615,6 +619,8 @@ namespace book_a_reading_room_visit.api.Service
                 return 0;
             }
 
+            int loopSendDelay = Convert.ToInt32(_configuration.GetSection("EmailSettings:LoopSendDelay").Value);
+
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
@@ -623,11 +629,72 @@ namespace book_a_reading_room_visit.api.Service
                 {
                     var dsdEmail = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? _configuration.GetSection("EmailSettings:StandardOrderAddress").Value :
                                                                                                  _configuration.GetSection("EmailSettings:BulkOrderAddress").Value;
-                    await _emailService.SendEmailAsync(EmailType.DSDBookingConfirmation, dsdEmail, bookingModel);
+                    int attempts = 0;
 
+                    do
+                    {
+                        try
+                        {
+                            attempts++;
+                            await _emailService.SendEmailAsync(EmailType.DSDBookingConfirmation, dsdEmail, bookingModel);
+                            //Wait for the specified interval before sending the next email.
+                            await Task.Delay(TimeSpan.FromMilliseconds(loopSendDelay));
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                            //TODO: We may want to check specifically for a MessageRejectedException - the stack may then indicate if this is due to quota.
+                            //TODO: Log the error somehow...
+                            if (attempts == MAX_EMAIL_ATTEMPTS)
+                            {
+                                _logger.LogError($"DSD Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}");
+                                _logger.LogError($"Error: {ex.Message}");
+                                _logger.LogError($"Stack Trace: {ex.StackTrace}");
+                                break;
+                            }
+                            else
+                            {
+                                _logger.LogError($"DSD Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
+                            }
+                            // Wait before trying again.
+                            await Task.Delay(attempts * 1000);
+                        }
+
+                    } while (true);
+
+                    // Send email to customer if they have provided an email address
                     if (!string.IsNullOrWhiteSpace(bookingModel.Email))
                     {
-                        await _emailService.SendEmailAsync(EmailType.BookingConfirmation, bookingModel.Email, bookingModel);
+                        attempts = 0;
+
+                        do
+                        {
+                            try
+                            {
+                                attempts++;
+                                await _emailService.SendEmailAsync(EmailType.BookingConfirmation, bookingModel.Email, bookingModel);
+                                await Task.Delay(TimeSpan.FromMilliseconds(loopSendDelay));
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                if (attempts == MAX_EMAIL_ATTEMPTS)
+                                {
+                                    _logger.LogError($"Customer Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Destination Email:{bookingModel.Email}, Error : {ex.Message}");
+                                    _logger.LogError($"Error: {ex.Message}");
+                                    _logger.LogError($"Stack Trace: {ex.StackTrace}");
+                                    break;
+                                }
+                                else
+                                {
+                                    _logger.LogError($"Customer Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
+                                }
+
+                                // Wait before trying again.
+                                await Task.Delay(attempts * 1000);
+                            } 
+                        } while (true);
                     }
                 }
                 else
