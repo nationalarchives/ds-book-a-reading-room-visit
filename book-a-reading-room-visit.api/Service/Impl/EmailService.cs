@@ -1,5 +1,7 @@
 ﻿using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+using book_a_reading_room_visit.api.Email;
+using book_a_reading_room_visit.api.Helper;
 using book_a_reading_room_visit.model;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -21,16 +23,23 @@ namespace book_a_reading_room_visit.api.Service
 {
     public class EmailService : IEmailService
     {
-        private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
         private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
+        private readonly EmailHeaderProvider _emailHeaderProvider;
 
-        public EmailService(IAmazonSimpleEmailService amazonSimpleEmailService, IConfiguration configuration)
+        public EmailService(IEmailSender emailSender, IConfiguration configuration)
         {
-            _amazonSimpleEmailService = amazonSimpleEmailService;
             _configuration = configuration;
+            _emailSender = emailSender;
+            _emailHeaderProvider = new EmailHeaderProvider(_configuration);
         }
         public async Task SendEmailAsync(EmailType emailType, string toAddress, BookingModel bookingModel)
         {
+
+            EmailHeader[] dsdConfirmationHeaders = null;
+            EmailHeader[] customerConfirmationHeaders = null;
+            EmailHeader[] additionalHeadersForCurrentRequest = null;
+
             var fromAddress = _configuration.GetValue<string>("EmailSettings:FromAddress");
             var subject = string.Empty;
             switch (emailType)
@@ -43,6 +52,12 @@ namespace book_a_reading_room_visit.api.Service
                     }
                 case EmailType.BookingConfirmation:
                     {
+                        if (customerConfirmationHeaders == null)
+                        {
+                            customerConfirmationHeaders = _emailHeaderProvider.CustomerConfirmationHeaders.ToArray();
+                        }
+                        additionalHeadersForCurrentRequest = customerConfirmationHeaders;
+
                         var subjectFormat = _configuration.GetValue<string>("EmailSettings:ConfirmationSubject");
                         subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}",
                                                                 bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
@@ -70,9 +85,15 @@ namespace book_a_reading_room_visit.api.Service
                     }
                 case EmailType.DSDBookingConfirmation:
                     {
+                        if(dsdConfirmationHeaders == null)
+                        {
+                            dsdConfirmationHeaders = _emailHeaderProvider.DsdConfirmationHeaders.ToArray();
+                        }
+
                         fromAddress = _configuration.GetValue<string>("EmailSettings:DSDFromAddress");
                         subject = bookingModel.BookingType == BookingTypes.StandardOrderVisit ? $"Standard visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}"
                                                                                               : $"Bulk order visit - {bookingModel.VisitStartDate:dddd dd MMMM yyyy}";
+                        additionalHeadersForCurrentRequest = dsdConfirmationHeaders;
                         break;
                     }
                 case EmailType.PostVisit:
@@ -86,33 +107,9 @@ namespace book_a_reading_room_visit.api.Service
             var xDocument = emailType == EmailType.DSDBookingConfirmation ? GetDSDXDocument(bookingModel) :  GetXDocument(bookingModel);
             var htmlBody = GetHtmlBody(emailType, xDocument);
             var textBody = GetTextBody(emailType, bookingModel);
-            var sendRequest = new SendEmailRequest
-            {
-                Source = fromAddress,
-                Destination = new Destination
-                {
-                    ToAddresses = toAddress.Split(',').ToList()
-                },
-                Message = new Message
-                {
-                    Subject = new Content(subject),
-                    Body = new Body
-                    {
-                        Html = new Content
-                        {
-                            Charset = "UTF-8",
-                            Data = htmlBody
-                        },
-                        Text = new Content
-                        {
-                            Charset = "UTF-8",
-                            Data = textBody
-                        }
-                    }
 
-                }
-            };
-            await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
+            await _emailSender.SendEmail(from: fromAddress, to: toAddress, subject: subject, textBody: textBody, htmlBody: htmlBody, additionalHeaders: additionalHeadersForCurrentRequest);
+
         }
 
         internal string GetTextBody(EmailType emailType, BookingModel bookingModel)

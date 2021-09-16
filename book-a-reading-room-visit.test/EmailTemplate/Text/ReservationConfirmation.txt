@@ -1,9 +1,9 @@
 ﻿      Dear {Name},
 
-      You have made a reservation to visit the reading rooms at The National Archives on {VisitStartDate}.
+      You have made a provisional booking to visit the reading rooms at The National Archives on {VisitStartDate}.
       To confirm your booking, tell us which documents you want to view during your visit. If you haven’t already done so, follow this link: {ReturnURL}.
       You will need your booking reference and reader's ticket number to complete this step.
-      If you do not complete this step by {CompleteByDate} British Summer Time (BST), your reservation will be automatically cancelled.
+      If you do not complete this step by {CompleteByDate} British Summer Time (BST), your provisional booking will be automatically cancelled.
       You can ignore this step if you have already completed your document order but you can return and edit your order as many times as you’d like before the deadline above.
 
       Your booking summary:-
@@ -14,7 +14,7 @@
       Visit date:   {VisitStartDate}
       Reading room: {ReadingRoom}
               
-      Use Discovery, our online catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
+      Use Discovery, our catalogue, to gather your booking references: http://discovery.nationalarchives.gov.uk/
       
       You can cancel your visit at any time. Use this link: {ReturnURL}
 

@@ -20,27 +20,19 @@
     
     Your document order(s):
 
-    {MainOrderDocuments}
+    {Order-Documents}
 
-    Your reserve document(s):
+    Prepare for your visit:
 
-    {ReserveOrderDocuments}
-
-    Prepare for your visit by visting the following web addresses:-
-    how to get here: https://www.nationalarchives.gov.uk/about/visit-us/how-to-find-us/
-    what you can take into the reading rooms: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
-    how to use the reading rooms (Rules for readers): https://www.nationalarchives.gov.uk/documents/rules.pdf
-    what to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/about-the-book-a-reading-room-visit-service/ and https://www.youtube.com/watch?v=Wm4mq5X_EFs (video)
-
-    If you are using your reader's ticket for the first time remember to bring the correct documents to complete your registration.  If you wish to take photographs of our documents please bring your device. 
-    We do not charge for this.
-
-    What to expect when you visit:
-    Our building is COVID-19 secure. You have agreed to comply with our Coronavirus Visitor Charter as part of the booking process: https://www.nationalarchives.gov.uk/documents/coronavirus-visitor-charter.pdf
-    Please remember to wear a face mask when you visit, unless you have a valid exemption: https://www.gov.uk/government/publications/face-coverings-when-to-wear-one-and-how-to-make-your-own/face-coverings-when-to-wear-one-and-how-to-make-your-own#exemptions
+    We have had to amend our reading room rules in line with Covid restrictions, please check what is now permissible to bring into the reading rooms: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
+    Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your registration. See a list of acceptable forms of identification: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/
+    
+    We regularly review our opening times and reading room set-up in line with latest government advice. Check these links before your visit:
+    See our opening times: https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ 
+    What to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/
 
     You can cancel your visit at any time. Use this link: {ReturnURL}
 
-    This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
+    This is a redesigned service. Complete our survey so we can keep improving this service: https://www.smartsurvey.co.uk/s/NewVisitBooking/ 
 
-    This is a redesigned service. Complete our survey so we can keep improving this service: https://www.smartsurvey.co.uk/s/NewVisitBooking/
+    This email inbox is not being monitored.

@@ -1,4 +1,5 @@
 using Amazon.SimpleEmail;
+using book_a_reading_room_visit.api.Email;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.data;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,7 @@ namespace book_a_reading_room_visit.api
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
             services.AddAWSService<IAmazonSimpleEmailService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEmailSender, AwsRawEmailSender>();
 
             services.AddLogging(config =>
             {
