@@ -1,8 +1,8 @@
 on:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ jobs:
         aws-access-key-id: ${{ secrets.KBS_AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.KBS_AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
-        role-to-assume: <UNKNOWN ATM>
+        # role-to-assume: <UNKNOWN ATM>
         role-session-name: docker-build
 
     - name: Login to Amazon ECR
