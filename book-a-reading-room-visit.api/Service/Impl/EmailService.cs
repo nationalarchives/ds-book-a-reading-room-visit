@@ -2,7 +2,6 @@
 using Amazon.SimpleEmail.Model;
 using book_a_reading_room_visit.model;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -221,7 +220,7 @@ namespace book_a_reading_room_visit.api.Service
             var rootElement = new XElement("Root");
             rootElement.Add(new XElement("Name", $"{bookingModel.FirstName} {bookingModel.LastName}"));
             rootElement.Add(new XElement("Phone", bookingModel.Phone ?? "None entered."));
-            rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy} at {bookingModel.CompleteByDate:hh:mm tt}"));
+            rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy}"));
             rootElement.Add(new XElement("BookingReference", bookingModel.BookingReference));
             rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket < 0 ? $"T{bookingModel.ReaderTicket * -1}" : $"{bookingModel.ReaderTicket}"));
             rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
@@ -265,7 +264,7 @@ namespace book_a_reading_room_visit.api.Service
             var rootElement = new XElement("Root");
             rootElement.Add(new XElement("Name", $"{bookingModel.FirstName} {bookingModel.LastName}"));
             rootElement.Add(new XElement("Phone", bookingModel.Phone));
-            rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy} at {bookingModel.CompleteByDate:hh:mm tt}"));
+            rootElement.Add(new XElement("CompleteByDate", $"{bookingModel.CompleteByDate:dddd dd MMMM yyyy}"));
             rootElement.Add(new XElement("BookingReference", bookingModel.BookingReference));
             rootElement.Add(new XElement("ReaderTicket", bookingModel.ReaderTicket < 0 ? $"T{bookingModel.ReaderTicket * -1}" : $"{bookingModel.ReaderTicket}"));
             rootElement.Add(new XElement("VisitType", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "Standard visit" : "Bulk order visit"));
