@@ -1,7 +1,7 @@
 ﻿    Dear {Name},
 
     We are looking forward to seeing you soon. See your current document order below - if you would like to edit it, you can still do so before
-    {CompleteByDate} at midnight, local UK time. After this deadline has passed, we will begin preparing your document order.
+    {CompleteByDate} at 11:59pm, local UK time. After this deadline has passed, we will begin preparing your document order.
     To view or edit your document order, please visit: {ReturnURL}.  You will need your booking reference and reader's ticket number to complete this step.
 
     Your booking summary:-

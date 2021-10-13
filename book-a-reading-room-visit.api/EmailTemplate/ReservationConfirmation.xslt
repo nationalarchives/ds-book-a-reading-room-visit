@@ -17,7 +17,7 @@
       </p>
 
       <p>
-        If you do not complete this step by <b><xsl:value-of select="CompleteByDate" /> at midnight, local UK time</b>, your <b>provisional booking will be automatically cancelled.</b>
+        If you do not complete this step by <b><xsl:value-of select="CompleteByDate" /> at 11:59pm, local UK time</b>, your <b>provisional booking will be automatically cancelled.</b>
       </p>
 
       <p>You can ignore this step if you have already completed your document order but you can return and edit your order as many times as you’d like before the deadline above.</p>

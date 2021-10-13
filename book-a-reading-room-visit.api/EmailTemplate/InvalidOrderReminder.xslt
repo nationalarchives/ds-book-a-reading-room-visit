@@ -10,7 +10,7 @@
         You have a provisional booking to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
       </p>
       <p>
-        Make sure you complete the document order form by <b><xsl:value-of select="CompleteByDate" /> at midnight, local UK time.</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
+        Make sure you complete the document order form by <b><xsl:value-of select="CompleteByDate" /> at 11:59pm, local UK time.</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
       </p>
 
       <p>
