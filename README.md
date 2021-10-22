@@ -21,7 +21,7 @@ Download and install:
 	run the following command 
 	`docker run -p 1433:1433 -d docker4gnanesh/kbs-db:2`
 
-	and update the connection string in the launchsettings.json with the following value
+	and update the connection string in the API launchsettings.json (under Properties) with the following value
 	`"KewBookingConnection": "Data Source=localhost,1433;Initial Catalog=KewBooking;User ID=sa;Password=kbstr0ng(!)Passw0rd;"`
 	
 3. In Visual Studio right click on the sln and select Properties. Set the solution to be multiple project startup and select book-a-reading-room-visit.api and book-a-reading-room-visit.web as startup projects in that order
