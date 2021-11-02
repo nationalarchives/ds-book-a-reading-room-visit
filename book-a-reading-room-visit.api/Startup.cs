@@ -47,10 +47,6 @@ namespace book_a_reading_room_visit.api
                 config.AddNLog();
             });
 
-            //var serviceProvider = services.BuildServiceProvider();
-            //var logger = serviceProvider.GetService<ILogger<Program>>();
-            //services.AddSingleton(typeof(ILogger), logger);
-
             NLogHelper.ConfigureLogger();
             
             services.AddDbContext<BookingContext>(opt =>

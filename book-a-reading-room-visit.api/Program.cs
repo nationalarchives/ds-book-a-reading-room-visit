@@ -1,13 +1,8 @@
-using book_a_reading_room_visit.api.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog;
-using NLog.Slack;
 using NLog.Web;
-using System;
-using System.Linq;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace book_a_reading_room_visit.api
@@ -20,13 +15,6 @@ namespace book_a_reading_room_visit.api
 
             try
             {
-                //SetNLogSlackTarget();
-                //LogManager.ConfigurationReloaded += (sender, e) =>
-                //{
-                //    //Re apply if config reloaded
-                //    SetNLogSlackTarget();
-                //};
-
                 var host = CreateHostBuilder(args).Build();
                 logger = host.Services.GetRequiredService<ILogger<Program>>();
                 logger.LogInformation("Book a Reading Room visit API Starting Up");
