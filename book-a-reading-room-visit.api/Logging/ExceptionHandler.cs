@@ -24,7 +24,7 @@ namespace book_a_reading_room_visit.api.Logging
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.LogError($"Error Occurred in Kew Booking API: {contextFeature.Error}");
+                        logger.LogError($"Error Occurred in Kew Booking API ({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment): {contextFeature.Error}");
                     }
                 });
             });
