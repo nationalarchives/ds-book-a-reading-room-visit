@@ -37,8 +37,7 @@
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2",
-        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/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"
+        "AWS_REGION": "eu-west-2"
       }
     }
   }

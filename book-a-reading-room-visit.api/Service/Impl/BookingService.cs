@@ -681,14 +681,14 @@ namespace book_a_reading_room_visit.api.Service
                             {
                                 if (attempts == MAX_EMAIL_ATTEMPTS)
                                 {
-                                    _logger.LogError($"Customer Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Destination Email:{bookingModel.Email}, Error : {ex.Message}");
+                                    _logger.LogError($"({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment) Customer Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Destination Email:{bookingModel.Email}, Error : {ex.Message}.");
                                     _logger.LogError($"Error: {ex.Message}");
                                     _logger.LogError($"Stack Trace: {ex.StackTrace}");
                                     break;
                                 }
                                 else
                                 {
-                                    _logger.LogError($"Customer Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
+                                    _logger.LogError($"({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment) Customer Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
                                 }
 
                                 // Wait before trying again.

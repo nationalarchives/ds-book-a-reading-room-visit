@@ -1,4 +1,5 @@
 using Amazon.SimpleEmail;
+using book_a_reading_room_visit.api.Logging;
 using book_a_reading_room_visit.api.Service;
 using book_a_reading_room_visit.data;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using System;
 using System.Net.Http.Headers;
 
@@ -32,13 +35,20 @@ namespace book_a_reading_room_visit.api
             services.AddAWSService<IAmazonSimpleEmailService>();
             services.AddScoped<IEmailService, EmailService>();
 
+            //services.AddSingleton<ILog, LogNLog>();
+
+            IServiceProvider p = null;
+
             services.AddLogging(config =>
             {
                 config.ClearProviders();
                 config.AddConsole();
                 config.SetMinimumLevel(LogLevel.Warning);
+                config.AddNLog();
             });
 
+            NLogHelper.ConfigureLogger();
+            
             services.AddDbContext<BookingContext>(opt =>
               opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
                  .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
@@ -61,7 +71,7 @@ namespace book_a_reading_room_visit.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Program> logger)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +79,11 @@ namespace book_a_reading_room_visit.api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book a reading room visit-api v1"));
             }
+            else
+            {
+                app.ConfigureExceptionHandler(logger);
+            }
+
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
