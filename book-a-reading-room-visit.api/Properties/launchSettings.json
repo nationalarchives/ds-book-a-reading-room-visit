@@ -21,7 +21,7 @@
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
         "AWS_REGION": "eu-west-2",
-        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/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"
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/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"
       }
     },
     "book_a_reading_room_visit.api": {
