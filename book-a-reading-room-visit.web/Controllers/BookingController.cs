@@ -141,7 +141,7 @@ namespace book_a_reading_room_visit.web.Controllers
             {
                 ModelState.AddModelError("email-phone", Constants.Phone_Or_Email_Required);
             }
-            if (bookingViewModel.Email.Contains(','))
+            if (bookingViewModel.Email != null && bookingViewModel.Email.Contains(','))
             {
                 ModelState.AddModelError("email", Constants.Valid_Email_Required);
             }
