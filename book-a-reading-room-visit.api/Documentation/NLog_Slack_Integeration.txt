@@ -1,6 +1,8 @@
 ﻿Nlog is used by the KBS API and can be  configured to post to Slack.
-This requirs the use of a webhook which in turn is owned by an app you create within the Slack workspace
+This requires the use of a webhook which in turn is owned by an app you create within the Slack workspace
 In the tna-digital Slack workspace:
 - the app is Kew Booking System App
-- the webhook within this app is https://hooks.slack.com/services/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
-- the webhook is configured to post to the ds-kbs-notifications channel
+- webhooks within this app can be retrieved/set at https://api.slack.com/apps/A02DR3E2611/incoming-webhooks?success=1
+- the webhook should be configured to post to the ds-kbs-notifications channel
+- the webhook can be set as an environment variable in launchsettings.json during development and testing.
+- However, webhooks should not be checked into Github as this will result in their being disabled by GitGuardian
