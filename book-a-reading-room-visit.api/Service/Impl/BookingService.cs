@@ -648,14 +648,12 @@ namespace book_a_reading_room_visit.api.Service
                             //TODO: Log the error somehow...
                             if (attempts == MAX_EMAIL_ATTEMPTS)
                             {
-                                _logger.LogError($"DSD Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}");
-                                _logger.LogError($"Error: {ex.Message}");
-                                _logger.LogError($"Stack Trace: {ex.StackTrace}");
+                                _logger.LogError(ex, $"{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment) DSD Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}");
                                 break;
                             }
                             else
                             {
-                                _logger.LogError($"DSD Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
+                                _logger.LogError($"{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment) DSD Confirmation Email send request failed on attempt number {attempts}.  Booking Ref: {bookingModel.BookingReference}, Error : {ex.Message}.  Will retry.");
                             }
                             // Wait before trying again.
                             await Task.Delay(attempts * 1000);
@@ -682,8 +680,6 @@ namespace book_a_reading_room_visit.api.Service
                                 if (attempts == MAX_EMAIL_ATTEMPTS)
                                 {
                                     _logger.LogError(ex, $"({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment) Customer Confirmation Email send request failed on attempt number {attempts} (final attempt).  Booking Ref: {bookingModel.BookingReference}, Destination Email:{bookingModel.Email}, Error : {ex.Message}.");
-                                    //_logger.LogError(ex, $"Error: {ex.Message}");
-                                    //_logger.LogError(ex, $"Stack Trace: {ex.StackTrace}");
                                     break;
                                 }
                                 else

@@ -21,7 +21,7 @@
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
         "AWS_REGION": "eu-west-2",
-        "KBS_SLACK_WEBHOOK": "(redacted)",
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/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",
         "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB;Initial Catalog=Logging;User Id=kbs_logger;Password=kbs_logger"
       }
     },
