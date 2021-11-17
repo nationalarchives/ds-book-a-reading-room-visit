@@ -34,7 +34,8 @@ namespace book_a_reading_room_visit.web.Models
             }
         }
         [MaxLength(100)]
-        [EmailAddress(ErrorMessage = Constants.Valid_Email_Required)]
+        [DataType(DataType.EmailAddress)]
+        [Email(ErrorMessage = Constants.Valid_Email_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Email { get; set; }
         [MaxLength(50)]
