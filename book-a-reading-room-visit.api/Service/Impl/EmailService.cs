@@ -209,8 +209,12 @@ namespace book_a_reading_room_visit.api.Service
             {
                 xslTransform.Transform(new XmlNodeReader(xmlDocument), null, memoryStream);
                 memoryStream.Position = 0;
-                StreamReader streamReader = new StreamReader(memoryStream, Encoding.UTF8);
-                return streamReader.ReadToEnd();
+                string content = null;
+                using (StreamReader streamReader = new StreamReader(memoryStream, Encoding.UTF8))
+                {
+                    content = streamReader.ReadToEnd();
+                }
+                return content;
             }
         }
 
