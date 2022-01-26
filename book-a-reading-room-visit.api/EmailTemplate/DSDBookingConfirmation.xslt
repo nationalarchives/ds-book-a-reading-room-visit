@@ -17,7 +17,7 @@
       <h3 style="margin-top: 2em;">Booking summary </h3>
 
       <ul>
-        <li>
+        <li style="font-size: 32px;">
           Name: <b>
             <xsl:value-of select="Name" />
           </b>
