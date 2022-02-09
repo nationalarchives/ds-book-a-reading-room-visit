@@ -20,5 +20,9 @@
         public const string Duplicate_Document_Reference = "You have already entered this catalogue reference.";
         public const string Document_Reference_Series_Not_Matched = "This document is from a different series to the one you have entered above. Check the catalogue series and try again.";
         public const string Document_Series_Cannot_Order = "This document series cannot be ordered. Check the catalogue for more information.";
+
+        public const string CookieName = "cookies_policy";
+        public const string Localhost = "localhost";
+        public const string TNADomain = "nationalarchives.gov.uk";
     }
 }

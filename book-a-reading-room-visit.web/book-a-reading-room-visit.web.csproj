@@ -12,6 +12,7 @@
     <PackageReference Include="AWS.Logger.AspNetCore" Version="3.2.0" />
     <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.0.10" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.1" />
   </ItemGroup>
