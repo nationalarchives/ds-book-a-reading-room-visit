@@ -12,29 +12,6 @@
     border-radius: 0;
 }
 
-.cookieNotice {
-    a {
-        color: #134571;
-    }
-
-    a#cookieCutter {
-        background: url(/book-a-reading-room-visit/images/close-img.png) 0 2px no-repeat;
-        margin-left: 10px;
-        padding-top: 1px;
-        padding-left: 22px;
-        text-decoration: none;
-
-        &:hover {
-            background-color: #134571;
-        }
-    }
-
-    a:hover {
-        background-color: #134571;
-        color: #fff;
-    }
-}
-
 /* TinyMce - list left thumbnail */
 .list_left_thumbnail {
     margin: 0;
