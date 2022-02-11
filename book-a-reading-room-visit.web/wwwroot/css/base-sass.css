@@ -7272,10 +7272,6 @@ button:focus {
     page-break-before: always;
   }
 
-  .cookieNotice {
-    display: none;
-  }
-
   .tna-breadcrumb {
     display: none;
   }
