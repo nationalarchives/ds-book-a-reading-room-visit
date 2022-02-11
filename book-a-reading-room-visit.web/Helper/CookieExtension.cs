@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.web.Helper
         {
             app.Use(async (context, nextMiddleware) =>
             {
-                if (!context.Request.Cookies.ContainsKey(Constants.CookieName))
+                if (!context.Request.Cookies.Keys.Contains(Constants.CookieName))
                 {
                     var option = new CookieOptions
                     {
