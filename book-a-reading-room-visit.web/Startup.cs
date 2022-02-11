@@ -32,6 +32,7 @@ namespace book_a_reading_room_visit.web
             {
                 options.ModelBinderProviders.Insert(0, new EnumModelBinderProvider());
             });
+            services.AddHttpContextAccessor();
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-Web/DataProtection");
             services.AddLogging(config =>
@@ -76,6 +77,7 @@ namespace book_a_reading_room_visit.web
             {
                 app.UseExceptionHandler("/error");
             }
+            app.RegisterTNACookieConsent();
             app.UseSecurityHeaderMiddleware();
             app.UseRouting();
             var rootPath = Environment.GetEnvironmentVariable("KBS_Root_Path");
