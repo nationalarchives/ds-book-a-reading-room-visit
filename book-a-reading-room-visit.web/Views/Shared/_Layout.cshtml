@@ -13,6 +13,10 @@
           href='~/css/compiled-css/base-sass.min.css'
           type='text/css'
           media='all' />
+    <link rel='stylesheet'
+          href='~/css/ds-cookie-consent.css'
+          type='text/css'
+          media='all' />
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
@@ -40,7 +44,7 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-
+    @await Html.PartialAsync("Partials/_CookieConsent")
     @await Html.PartialAsync("Partials/_NotificationBanner")
     @await Html.PartialAsync("Partials/_Header")
 
@@ -52,10 +56,9 @@
 
     @await Html.PartialAsync("Partials/_ContactFooter")
     @await Html.PartialAsync("Partials/_Footer")
-
+    <script src="~/js/ds-cookie-consent.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/mega-menu.js"></script>
-    <script src="~/js/cookie-banner.js"></script>
     <script src="~/js/hide-room-info.js"></script>
     <script src="~/js/dist/print-your-order.js"></script>
     <script src="~/js/book-a-reading-room-visit-0.0.1.js"></script>
