@@ -13,11 +13,11 @@ on:
       kbs-web-version-tag:
         description: 'KBS Web version Tag'     
         required: true
-        default: 'latest'
+        default: latest
       kbs-api-version-tag:
         description: 'KBS API version Tag'     
         required: true
-        default: 'latest'
+        default: latest
 
 
 name: KBS Build and Push API & Web 
