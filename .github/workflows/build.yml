@@ -13,11 +13,11 @@ on:
       kbs-web-version-tag:
         description: 'KBS Web version Tag'     
         required: true
-        default: latest
+        default: 'latest'
       kbs-api-version-tag:
         description: 'KBS API version Tag'     
         required: true
-        default: latest
+        default: 'latest'
 
 
 name: KBS Build and Push API & Web 
@@ -45,9 +45,9 @@ jobs:
     - name: Build, tag, and push the API to ECR
       id: build-push-API
       env:
-        ECR_REGISTRY: 500447081210.dkr.ecr.eu-west-2.amazonaws.com
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: kbs-api
-        IMAGE_TAG: ${{ github.event.inputs.kbs-api-version-tag }}
+        IMAGE_TAG: latest
       run: |
         # Build the API docker container and push it to ECR 
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} -f Dockerfile-api .
