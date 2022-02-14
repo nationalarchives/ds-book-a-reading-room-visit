@@ -5,11 +5,6 @@ permissions:
       contents: write 
 
 on:
-  push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
-
   workflow_dispatch:
     inputs:
       kbs-web-version-tag:
@@ -26,6 +21,7 @@ jobs:
     name: Docker
     runs-on: ubuntu-latest
 
+    if: github.ref == 'refs/heads/main'
     steps:
     - name: Checkout
       uses: actions/checkout@v2
