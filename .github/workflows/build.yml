@@ -7,6 +7,14 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      create_kbs_web:
+        description: 'KBS Web'
+        required: false 
+        type: boolean
+      create_kbs_api:
+        description: 'KBS API'
+        required: false 
+        type: boolean
       kbs-web-version-tag:
         description: 'KBS Web version Tag'     
         required: true
@@ -38,6 +46,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push the API to ECR
+      if: ${{ github.event.inputs.create_kbs_api }} == 'true'
       id: build-push-API
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -50,6 +59,7 @@ jobs:
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
         echo "::set-output name=image::${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
     - name: Build, tag, and push the Web to ECR
+      if: ${{ github.event.inputs.create_kbs_web }} == 'true'
       id: build-push-Web
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
