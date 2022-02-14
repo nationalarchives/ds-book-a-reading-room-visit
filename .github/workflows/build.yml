@@ -45,7 +45,7 @@ jobs:
     - name: Build, tag, and push the API to ECR
       id: build-push-API
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REGISTRY: 500447081210.dkr.ecr.eu-west-2.amazonaws.com
         ECR_REPOSITORY: kbs-api
         IMAGE_TAG: ${{ github.event.inputs.kbs-api-version-tag }}
       run: |
