@@ -4,11 +4,21 @@ permissions:
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  #   branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
 
   workflow_dispatch:
+    inputs:
+      kbs-web-version-tag:
+        description: 'KBS Web version Tag'     
+        required: true
+        default: 'latest'
+      kbs-api-version-tag:
+        description: 'KBS API version Tag'     
+        required: true
+        default: 'latest'
+
 
 name: KBS Build and Push API & Web 
 
