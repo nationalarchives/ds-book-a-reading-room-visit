@@ -1,3 +1,5 @@
+name: KBS Build and Push API & Web 
+
 permissions:
       id-token: write
       contents: write 
@@ -18,9 +20,6 @@ on:
         description: 'KBS API version Tag'     
         required: true
         default: 'latest'
-
-
-name: KBS Build and Push API & Web 
 
 jobs:
   Docker:
@@ -47,7 +46,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: kbs-api
-        IMAGE_TAG: latest
+        IMAGE_TAG: ${{ github.event.inputs.kbs-api-version-tag }}
       run: |
         echo ${{ github.event.inputs.kbs-web-version-tag }}
         # Build the API docker container and push it to ECR 
