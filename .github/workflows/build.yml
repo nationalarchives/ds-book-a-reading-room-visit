@@ -18,11 +18,11 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@master
-          with:
-              aws-region: eu-west-2
-              role-to-assume: arn:aws:iam::846769538626:role/GithubOIDCProviderIAMRolePermissions-Role-I80RXHT6O1PL
-              role-session-name: MySessionName
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+            aws-region: eu-west-2
+            role-to-assume: arn:aws:iam::846769538626:role/GithubOIDCProviderIAMRolePermissions-Role-I80RXHT6O1PL
+            role-session-name: MySessionName
 
     - name: Login to Amazon ECR
       id: login-ecr
