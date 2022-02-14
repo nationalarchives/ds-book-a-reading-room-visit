@@ -49,6 +49,7 @@ jobs:
         ECR_REPOSITORY: kbs-api
         IMAGE_TAG: latest
       run: |
+        echo ${{ github.event.inputs.kbs-web-version-tag }}
         # Build the API docker container and push it to ECR 
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} -f Dockerfile-api .
         echo "Pushing image to ECR..."
