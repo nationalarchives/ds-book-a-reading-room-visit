@@ -43,12 +43,11 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push the API to ECR
-      if: github.event.pull_request.merged == true
       id: build-push-API
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.API_REPO_NAME }}
-        IMAGE_TAG: test2
+        IMAGE_TAG: ${{ github.event.inputs.kbs-api-version-tag }}
       run: |
         # Build the API docker container and push it to ECR 
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -56,12 +55,11 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     - name: Build, tag, and push the Web to ECR
-      if: github.event.pull_request.merged == true
       id: build-push-Web
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ${{ secrets.WEB_REPO_NAME }}
-        IMAGE_TAG: test2
+        IMAGE_TAG: ${{ github.event.inputs.kbs-web-version-tag }}
       run: |
         # Build the Web docker container and push it to ECR 
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
