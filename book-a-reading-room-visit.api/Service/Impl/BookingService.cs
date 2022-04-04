@@ -614,6 +614,8 @@ namespace book_a_reading_room_visit.api.Service
             var bookings = await _context.Set<Booking>().Include(o => o.OrderDocuments).Include(s => s.Seat)
                                          .Where(b => b.CompleteByDate == completeBy && b.BookingStatusId == (int)BookingStatuses.Submitted).ToListAsync();
 
+            bookings = bookings.OrderBy(b => b.LastName).ToList();
+
             if (bookings.Count == 0)
             {
                 return 0;
