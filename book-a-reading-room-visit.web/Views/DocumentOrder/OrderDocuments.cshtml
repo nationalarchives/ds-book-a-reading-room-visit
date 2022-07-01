@@ -142,7 +142,7 @@
 
                     <fieldset>
                         <legend>
-                            <label for="additional-reqs">Access needs and research requests</label>
+                            <label for="additional-reqs">Access needs and research requests (maximum 2,000 characters)</label>
                         </legend>
 
                         <p class="helper-text">
@@ -155,12 +155,12 @@
 
                         @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
                         {
-                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning", aria_describedby = "validation-message-additional-requirements" })
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @class = "form-warning", aria_describedby = "validation-message-additional-requirements", @maxlength = "2000" })
                             @Html.ValidationMessageFor(Model => Model.AdditionalRequirements, "", new { @class = "form-error", id = "validation-message-additional-requirements" })
                         }
                         else
                         {
-                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @maxlength = "2000" })
                         }
                     </fieldset>
                     <button class="button" type="submit">Save and review</button>
