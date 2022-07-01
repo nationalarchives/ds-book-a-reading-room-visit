@@ -160,7 +160,7 @@
                         }
                         else
                         {
-                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs" })
+                            @Html.TextAreaFor(Model => Model.AdditionalRequirements, new { id = "additional-reqs", @maxlength = "2000" })
                         }
                     </fieldset>
                     <button class="button" type="submit">Save and review</button>
