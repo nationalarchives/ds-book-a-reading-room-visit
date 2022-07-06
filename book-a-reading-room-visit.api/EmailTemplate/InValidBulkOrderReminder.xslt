@@ -7,12 +7,14 @@
 				Dear <xsl:value-of select="Name" />,
 			</p>
 			<p>
-				You have a provisional booking to visit The National Archives’ reading rooms. This is a polite reminder that you need to complete your document order in order to confirm your visit.
+				We're writing to you because you have booked a bulk order visit to our reading rooms soon.
 			</p>
 			<p>
-				Make sure you complete the document order form by <b>
-					<xsl:value-of select="CompleteByDate" /> at 11:59pm, local UK time.
-				</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
+				You're probably already aware that there is limited availability of bulk order seats, which are provided for the benefit of researchers using 20 or more documents from the same record series.
+			</p>
+
+			<p>
+				If you no longer require your bulk order seat, please cancel your booking <b>as soon as possible</b> so that we can make the seat available to another researcher.
 			</p>
 
 			<h3 style="margin-top: 2em;">Complete your document order:</h3>

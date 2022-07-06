@@ -80,6 +80,11 @@ namespace book_a_reading_room_visit.api.Service
                         subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}");
                         break;
                     }
+                case EmailType.InValidBulkOrderReminder:
+                    {
+                        subject = _configuration.GetValue<string>("EmailSettings:InValidBulkOrderReminderSubject");
+                        break;
+                    }
             }
 
             var xDocument = emailType == EmailType.DSDBookingConfirmation ? GetDSDXDocument(bookingModel) :  GetXDocument(bookingModel);
