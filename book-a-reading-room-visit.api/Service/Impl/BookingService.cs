@@ -127,7 +127,7 @@ namespace book_a_reading_room_visit.api.Service
                 {
                     BookingReference = booking.BookingReference,
                     BookingType = BookingTypes.StandardOrderVisit,
-                    ReaderTicket = booking.ReaderTicket,   
+                    ReaderTicket = booking.ReaderTicket,
                     VisitStartDate = booking.VisitStartDate,
                     VisitEndDate = booking.VisitEndDate,
                     CreatedDate = booking.CreatedDate,
@@ -645,7 +645,7 @@ namespace book_a_reading_room_visit.api.Service
                         }
                         catch (Exception ex)
                         {
-                            
+
                             //TODO: We may want to check specifically for a MessageRejectedException - the stack may then indicate if this is due to quota.
                             //TODO: Log the error somehow...
                             if (attempts == MAX_EMAIL_ATTEMPTS)
@@ -691,7 +691,7 @@ namespace book_a_reading_room_visit.api.Service
 
                                 // Wait before trying again.
                                 await Task.Delay(attempts * 1000);
-                            } 
+                            }
                         } while (true);
                     }
                 }
@@ -715,11 +715,6 @@ namespace book_a_reading_room_visit.api.Service
             var bookings = await _context.Set<Booking>().Include(o => o.OrderDocuments).Include(s => s.Seat)
                                          .Where(b => !string.IsNullOrWhiteSpace(b.Email) && b.CompleteByDate == completeBy && b.BookingStatusId == (int)BookingStatuses.Created).ToListAsync();
 
-            if (bookings.Count == 0)
-            {
-                return 0;
-            }
-
             foreach (var booking in bookings)
             {
                 var bookingModel = GetSerialisedBooking(booking);
@@ -733,7 +728,21 @@ namespace book_a_reading_room_visit.api.Service
                     await _emailService.SendEmailAsync(EmailType.InvalidOrderReminder, bookingModel.Email, bookingModel);
                 }
             }
-            return bookings.Count;
+
+            var bulkOrders = await _context.Set<Booking>().Include(o => o.OrderDocuments).Include(s => s.Seat)
+                             .Where(b => !string.IsNullOrWhiteSpace(b.Email) &&
+                                    b.CompleteByDate == completeBy.AddDays(4) &&
+                                    b.BookingStatusId == (int)BookingStatuses.Created &&
+                                    b.BookingTypeId == (int)BookingTypes.BulkOrderVisit &&
+                                    b.OrderDocuments.Count < 20).ToListAsync();
+
+            foreach (var booking in bulkOrders)
+            {
+                var bookingModel = GetSerialisedBooking(booking);
+                await _emailService.SendEmailAsync(EmailType.InValidBulkOrderReminder, bookingModel.Email, bookingModel);
+            }
+
+            return 0;
         }
 
         public async Task<int> SendPostVisitSurveyEmailsAsync(DateTime visitEndDate)
