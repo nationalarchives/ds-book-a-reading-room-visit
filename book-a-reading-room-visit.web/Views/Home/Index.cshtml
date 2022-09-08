@@ -5,6 +5,19 @@
 
 @await Html.PartialAsync("Partials/_Breadcrumbs")
 
+<!--these styles should be ported into the relevant sass file -->
+<style>
+    .disabled-visitor-info li {
+        list-style-type: circle;
+        text-align: left;
+        margin-bottom: 0.5em;
+        list-style-position: outside;
+        font-size: .95em;
+    }
+</style>
+<!--these styles should be ported into the relevant sass file -->
+
+
 <h1 class="display-4">Book a visit to view our documents</h1>
 
 <div id="home" class="text-center">
@@ -103,13 +116,13 @@
                 </div>
             </div>
         </section>
-
+        <br />
         <section class="prompt-white">
             <div class="row">
                 <div class="col-md-12">
-                    <p>For disabled visitors to our reading rooms we have made the following adjustments to enhance your access to our collection:</p>
-                    <ul>
-                        <li>We have reserved one bulk order slot each day separate from those on the booking system. You will still need to give 4 days’ notice for the items you would like to review. To access these slots, you need to contact the accessibility line on 020 3897 1575 so that we can make the booking for you.</li>
+                    <p style="text-align:left">For disabled visitors to our reading rooms we have made the following adjustments to enhance your access to our collection:</p>
+                    <ul class="disabled-visitor-info">
+                        <li>We have reserved one bulk order place each day separate from those on the booking system. You will still need to give 4 days’ notice for the items you would like to review. To access these places, you need to contact the accessibility line on 020 3897 1575 so that we can make the booking for you.</li>
                         <li>We will also hold your documents for up to 3 weeks rather than 1 week in case you are unable to attend on the day booked. We ask that you contact us to let us know so that we can then hold these items for you.</li>
                     </ul>
                 </div>
