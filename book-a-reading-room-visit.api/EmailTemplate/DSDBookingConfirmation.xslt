@@ -28,9 +28,7 @@
           </b>
         </li>
         <li>
-          Seat: <b>
-            <xsl:value-of select="SeatNumber" />
-          </b>
+          Seat: 
         </li>
         <xsl:if test="string(Phone)">
           <li>
