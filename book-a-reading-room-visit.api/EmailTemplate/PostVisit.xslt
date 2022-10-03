@@ -13,7 +13,7 @@
         If you attended, we would love to know how your visit went by completing our short survey.
       </p>
       <p>
-		  Please note, this survey is being run in conjunction with the Archives & Records Association between October and December 2022 to better understand the visitor journey, so even if you have completed a survey for The National Archives recently, or a similar survey at another archive, we would really appreciate your feedback on this visit.  To take part, please
+		  Please note, this survey is being run in conjunction with the Archives and Records Association between October and December 2022 to better understand the visitor journey, so even if you have completed a survey for The National Archives recently, or a similar survey at another archive, we would really appreciate your feedback on this visit. To take part, please
 		  <a href="https://www.smartsurvey.co.uk/s/L4VHCP/">click here</a>.
       </p>
       <p>
