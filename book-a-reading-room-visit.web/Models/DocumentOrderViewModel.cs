@@ -2,6 +2,7 @@
 using book_a_reading_room_visit.web.Helper;
 using System;
 using System.ComponentModel.DataAnnotations;
+using book_a_reading_room_visit.web.Validators;
 
 namespace book_a_reading_room_visit.web.Models
 {
@@ -15,138 +16,181 @@ namespace book_a_reading_room_visit.web.Models
         public SeatTypes SeatType { get; set; }
         public string SeatNumber { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Series { get; set; }
         [CustomHtmlValidation(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string AdditionalRequirements { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string ReserveDocumentReference1 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string ReserveDocumentReference2 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string ReserveDocumentReference3 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference1 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference2 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference3 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference4 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference5 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference6 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference7 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference8 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference9 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference10 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference11 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference12 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference13 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference14 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference15 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference16 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference17 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference18 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference19 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference20 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference21 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference22 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference23 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference24 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference25 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference26 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference27 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference28 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference29 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference30 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference31 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference32 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference33 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference34 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference35 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference36 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference37 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference38 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference39 { get; set; }
         [MaxLength(50)]
-        [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
+        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string DocumentReference40 { get; set; }
         public int MinimumRequiredDocuments
         {
