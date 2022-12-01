@@ -1,0 +1,113 @@
+﻿using book_a_reading_room_visit.web.Validators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace book_a_reading_room_visit.test
+{
+    [TestClass]
+    public class ReferenceUnitTest
+    {
+        private readonly Dictionary<string, bool> _expectedResults = new Dictionary<string, bool>()
+        {
+            {"FO 371", true },
+            {"FO 371/1", true },
+            {"FO371", true },
+            {"FO371/1", true },
+            {"FO/371", false },
+            {"CP 24", false },
+            {"CP24", false },
+            {"CP 24/1", true },
+            {"CP24/1", true },
+            {"CP 25", false },
+            {"CP25", false },
+            {"CP 25/1", true },
+            {"CP25/1", true },
+            {"CP 26", false },
+            {"CP26", false },
+            {"CP 26/1", true },
+            {"CP26/1", true },
+            {"IR 121", false },
+            {"IR121", false },
+            {"IR 121/1", true },
+            {"IR121/1", true },
+            {"IR 124", false },
+            {"IR124", false },
+            {"IR 124/1", true },
+            {"IR124/1", true },
+            {"IR 125", false },
+            {"IR125", false },
+            {"IR 125/1", true },
+            {"IR125/1", true },
+            {"IR 126", false },
+            {"IR126", false },
+            {"IR 126/1", true },
+            {"IR126/1", true },
+            {"IR 127", false },
+            {"IR127", false },
+            {"IR 127/1", true },
+            {"IR127/1", true },
+            {"IR 128", false },
+            {"IR128", false },
+            {"IR 128/1", true },
+            {"IR128/1", true },
+            {"IR 129", false },
+            {"IR129", false },
+            {"IR 129/1", true },
+            {"IR129/1", true },
+            {"IR 130", false },
+            {"IR130", false },
+            {"IR 130/1", true },
+            {"IR130/1", true },
+            {"IR 131", false },
+            {"IR131", false },
+            {"IR 131/1", true },
+            {"IR131/1", true },
+            {"IR 132", false },
+            {"IR132", false },
+            {"IR 132/1", true },
+            {"IR132/1", true },
+            {"IR 133", false },
+            {"IR133", false },
+            {"IR 133/1", true },
+            {"IR133/1", true },
+            {"IR 134", false },
+            {"IR134", false },
+            {"IR 134/1", true },
+            {"IR134/1", true },
+            {"IR 135", false },
+            {"IR135", false },
+            {"IR 135/1", true },
+            {"IR135/1", true },
+            {"PRO 30", false },
+            {"PRO30", false },
+            {"PRO 30/1", true },
+            {"PRO30/1", true },
+            {"PRO 31", false },
+            {"PRO31", false },
+            {"PRO 31/1", true },
+            {"PRO31/1", true },
+            {"PRO 41", false },
+            {"PRO41", false },
+            {"PRO 41/1", true },
+            {"PRO41/1", true },
+            {"PRO 66", false },
+            {"PRO66", false },
+            {"PRO 66/1", true },
+            {"PRO66/1", true }
+        };
+
+        private readonly CheckReference _checkReferenceAttribute = new CheckReference();
+
+        [TestMethod]
+        public Task References_Validate_As_Expected()
+        {
+            foreach (string reference in _expectedResults.Keys)
+            {
+                Assert.AreEqual(_expectedResults[reference], _checkReferenceAttribute.IsValid(reference));
+            }
+
+            return Task.CompletedTask;
+        }
+    }
+}
