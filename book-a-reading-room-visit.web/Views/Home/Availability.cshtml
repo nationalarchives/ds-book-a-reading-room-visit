@@ -136,10 +136,16 @@
                 <div class="jumplink-container">
                     <p class="jump-to-date">
 
-                        <span>First available date:</span> <b>@Model.FirstAvailableDate</b> &nbsp;<span class="small">(<a href="#first-available">Jump to this date</a>)</span>
+                        <span>First bookable date:</span> <b>@Model.FirstAvailableDate</b> &nbsp;<span class="small">(<a href="#first-available">Jump to this date</a>)</span>
                     </p>
-                    <p><span>Jump to:</span></p>
+                    @if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                    {
+                        <p>
+                            Once bookings close, seats in our reading rooms are available on a walk-in basis but cannot be guaranteed. You can contact us via <a href="https://www.nationalarchives.gov.uk/contact-us/">Live Chat</a> to check availability. We encourage you to book in advance to ensure you have a seat on your preferred day.
+                        </p>
+                    }
 
+                    <p><span>Jump to:</span></p>
 
                     <ul>
                         @for (var index = 0; index < Model.AvailableSeatGroups.Count; index++)
