@@ -98,6 +98,7 @@ namespace book_a_reading_room_visit.test
         };
 
         private readonly CheckReference _checkReferenceAttribute = new CheckReference();
+        private readonly CheckSeries _checkSeriesAttribute = new CheckSeries();
 
         [TestMethod]
         public Task References_Validate_As_Expected()
@@ -107,6 +108,38 @@ namespace book_a_reading_room_visit.test
                 Assert.AreEqual(_expectedResults[reference], _checkReferenceAttribute.IsValid(reference));
             }
 
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Series_Ref_Single_Space_IsValid()
+        {
+            string series = "FO 371";
+            Assert.IsTrue(_checkSeriesAttribute.IsValid(series));
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Series_Ref_No_Space_NotValid()
+        {
+            string series = "FO371";
+            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Series_Ref_Multi_Space_NotValid()
+        {
+            string series = "FO  371";
+            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Series_Ref_With_Piece_NotValid()
+        {
+            string series = "FO 371/1";
+            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
             return Task.CompletedTask;
         }
     }
