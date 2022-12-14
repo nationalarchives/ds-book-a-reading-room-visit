@@ -16,7 +16,7 @@ namespace book_a_reading_room_visit.web.Models
         public SeatTypes SeatType { get; set; }
         public string SeatNumber { get; set; }
         [MaxLength(50)]
-        [CheckReference(ErrorMessage = Constants.Invalid_Document_Reference)]
+        [CheckSeries(ErrorMessage = Constants.Invalid_Series_Reference)]
         [CheckForHtmlTags(ErrorMessage = Constants.Html_Tags_Not_Allowed)]
         public string Series { get; set; }
         [CustomHtmlValidation(ErrorMessage = Constants.Html_Tags_Not_Allowed)]

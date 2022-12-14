@@ -16,10 +16,10 @@ namespace book_a_reading_room_visit.web.Validators
 
         public override bool IsValid(object value)
         {
-            string input = value as string;
+            string input = (value as string)?.Trim();
             if (string.IsNullOrWhiteSpace(input))
             {
-                return base.IsValid(value);
+                return base.IsValid(input);
             }
 
 
@@ -31,7 +31,7 @@ namespace book_a_reading_room_visit.web.Validators
             }
             else
             {
-                return base.IsValid(value);
+                return base.IsValid(input);
             }
         }
     }
