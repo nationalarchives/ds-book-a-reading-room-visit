@@ -25,7 +25,7 @@
         public const string Localhost = "localhost";
         public const string TNADomain = "nationalarchives.gov.uk";
 
-        public const string Invalid_Document_Reference = "The document reference you have entered has an invalid format.  References must start with 1-4 letters, followed by a space, then 1-4 digits";
-        public const string Invalid_Series_Reference = "The series reference you have entered has an invalid format.  Series references must start with 1-4 letters, followed by a space, then 1-4 digits";
+        public const string Invalid_Document_Reference = "The document reference you have entered has an invalid format.  References must start with 1-4 uppercase letters, followed by a space, then 1-4 digits";
+        public const string Invalid_Series_Reference = "The series reference you have entered has an invalid format.  Series references must start with 1-4 uppercase letters, followed by a space, then 1-4 digits";
     }
 }
