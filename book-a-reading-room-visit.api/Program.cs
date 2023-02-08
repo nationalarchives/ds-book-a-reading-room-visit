@@ -1,66 +1,94 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.SimpleEmail;
+using book_a_reading_room_visit.api.Logging;
+using book_a_reading_room_visit.api.Service;
+using book_a_reading_room_visit.data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using NLog;
 using NLog.Web;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using System.Net.Http.Headers;
 
-namespace book_a_reading_room_visit.api
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
+
+try
 {
-    public class Program
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddControllers();
+
+    // Get the AWS profile information from configuration providers
+    AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
+    // Configure AWS service clients to use these credentials
+    builder.Services.AddDefaultAWSOptions(awsOptions);
+    builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
+    builder.Services.AddAWSService<IAmazonSimpleEmailService>();
+    builder.Services.AddScoped<IEmailService, EmailService>();
+
+    // Add NLoging to the container.
+    builder.Logging.ClearProviders();
+    builder.Logging.AddConsole();
+    builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning);
+    builder.Host.UseNLog();
+
+    NLogHelper.ConfigureLogger();
+
+    builder.Services.AddDbContext<BookingContext>(opt =>
+      opt.UseSqlServer(Environment.GetEnvironmentVariable("KewBookingConnection"))
+         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+    builder.Services.AddMemoryCache();
+
+    string sRecordCopyingUrl = Environment.GetEnvironmentVariable("RecordCopying_WebApi_URL") ?? string.Empty;
+
+    if (String.IsNullOrEmpty(sRecordCopyingUrl))
     {
-        public static void Main(string[] args)
-        {
-            ILogger<Program> logger = null;
-
-            try
-            {
-                var host = CreateHostBuilder(args).Build();
-                logger = host.Services.GetRequiredService<ILogger<Program>>();
-                logger.LogInformation("Book a Reading Room visit API Starting Up");
-
-                host.Run();
-            }
-            catch (System.Exception e)
-            {
-                logger?.LogError(e, "Book a Reading Room visit API is stopping due to an exception");
-                throw;
-            }
-            finally
-            {
-                NLog.LogManager.Shutdown();
-            }
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(LogLevel.Trace);
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                }).UseNLog();
-
-        //private static void SetNLogSlackTarget()
-        //{
-        //    string slackWebhookUrl = Environment.GetEnvironmentVariable("KBS_SLACK_WEBHOOK");
-
-        //    if (String.IsNullOrEmpty(slackWebhookUrl))
-        //    {
-        //        throw new ApplicationException("Slack webhook URL must be provided via the KBS_SLACK_WEBHOOK environment variable.");
-        //    }
-
-        //    var configuration = LogManager.Configuration;
-        //    var targets = configuration.AllTargets;
-
-        //    // N.B. This returns null so have to find all targets and then cast!
-        //    //SlackTarget slackTarget = configuration.FindTargetByName<SlackTarget>("slackTarget");
-        //    SlackTarget slackTarget = (SlackTarget)targets.First(t => t.GetType() == typeof(SlackTarget));
-        //    slackTarget.WebHookUrl = slackWebhookUrl;
-        //    LogManager.Configuration = configuration;
-        //}
+        throw new ApplicationException("RecordCopying WebApi URL must be provided via the RecordCopying_WebApi_URL environment variable.");
     }
+
+    builder.Services.AddHttpClient<IBankHolidayAPI, BankHolidayAPI>(c =>
+    {
+        c.BaseAddress = new Uri(sRecordCopyingUrl);
+        c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        c.DefaultRequestHeaders.Host = Environment.GetEnvironmentVariable("RecordCopying_Header");
+    });
+    builder.Services.AddScoped<IWorkingDayService, WorkingDayService>();
+    builder.Services.AddScoped<IAvailabilityService, AvailabilityService>();
+    builder.Services.AddScoped<IBookingService, BookingService>();
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Book a reading room visit-api", Version = "v1" });
+    });
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book a reading room visit-api v1"));
+    }
+    else
+    {
+        app.ConfigureExceptionHandler(logger);
+    }
+
+    app.UseRouting();
+    app.MapControllers();
+    app.Run();
+}
+catch (Exception exception)
+{
+    // NLog: catch setup errors
+    logger.Error(exception, "Stopped program because of exception");
+    throw;
+}
+finally
+{
+    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+    NLog.LogManager.Shutdown();
 }

@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
 RUN apk add tzdata
 WORKDIR /app
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://*:8080
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src
 COPY ["book-a-reading-room-visit.web/book-a-reading-room-visit.web.csproj", "book-a-reading-room-visit.web/"]
 RUN dotnet restore "book-a-reading-room-visit.web/book-a-reading-room-visit.web.csproj"

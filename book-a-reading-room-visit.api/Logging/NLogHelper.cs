@@ -1,8 +1,6 @@
 ﻿using NLog;
 using NLog.Slack;
 using NLog.Targets;
-using System;
-using System.Linq;
 
 namespace book_a_reading_room_visit.api.Logging
 {
@@ -26,7 +24,7 @@ namespace book_a_reading_room_visit.api.Logging
 
         private static void SetNLogSlackTarget()
         {
-            string slackWebhookUrl = Environment.GetEnvironmentVariable("KBS_SLACK_WEBHOOK");
+            string slackWebhookUrl = Environment.GetEnvironmentVariable("KBS_SLACK_WEBHOOK") ?? string.Empty;
 
             if (String.IsNullOrEmpty(slackWebhookUrl))
             {
@@ -45,7 +43,7 @@ namespace book_a_reading_room_visit.api.Logging
 
         private static void SetNLogSqlTarget()
         {
-            string nlogSqlConnectionString = Environment.GetEnvironmentVariable("NLOG_SQL_CONNECTION");
+            string nlogSqlConnectionString = Environment.GetEnvironmentVariable("NLOG_SQL_CONNECTION") ?? string.Empty;
 
             if (String.IsNullOrEmpty(nlogSqlConnectionString))
             {

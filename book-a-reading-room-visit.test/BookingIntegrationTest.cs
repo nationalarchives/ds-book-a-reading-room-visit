@@ -1,4 +1,5 @@
 ﻿using book_a_reading_room_visit.model;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -10,11 +11,11 @@ namespace book_a_reading_room_visit.test
     [TestClass]
     public class BookingIntegrationTest
     {
-        private readonly CustomWebApplicationFactory<book_a_reading_room_visit.api.Startup> _factory;
+        private readonly WebApplicationFactory<Program> _factory;
 
         public BookingIntegrationTest()
         {
-            _factory = new CustomWebApplicationFactory<book_a_reading_room_visit.api.Startup>();
+            _factory = new WebApplicationFactory<Program>();
         }
 
         [TestMethod]

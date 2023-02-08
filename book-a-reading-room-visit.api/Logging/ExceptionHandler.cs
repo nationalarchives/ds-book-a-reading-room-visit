@@ -12,7 +12,7 @@ namespace book_a_reading_room_visit.api.Logging
 {
     public static class ExceptionHandler
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger<Program> logger)
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app, NLog.Logger logger)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -24,7 +24,7 @@ namespace book_a_reading_room_visit.api.Logging
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.LogError($"Error Occurred in Kew Booking API ({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment): {contextFeature.Error}");
+                        logger.Error($"Error Occurred in Kew Booking API ({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment): {contextFeature.Error}");
                     }
                 });
             });

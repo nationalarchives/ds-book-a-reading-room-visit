@@ -22,17 +22,17 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<List<DateTime>> GetBankHolidaysAsync()
         {
-            List<DateTime> bankHolidays = null;
-            if (!_cache.TryGetValue<List<DateTime>>("BankHolidays", out bankHolidays))
+            if (_cache.TryGetValue("BankHolidays", out List<DateTime> bankHolidays))
             {
-                var response = await _client.GetAsync("getbankholidays");
-                response.EnsureSuccessStatusCode();
-                var result = await response.Content.ReadFromJsonAsync<BankHoliday[]>();
-
-                bankHolidays = result.Select(h => h.Date).ToList();
-
-                _cache.Set("BankHolidays", bankHolidays, DateTime.Today.AddDays(1));
+                return bankHolidays;
             }
+            var response = await _client.GetAsync("getbankholidays");
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<BankHoliday[]>();
+
+            bankHolidays = result?.Select(h => h.Date).ToList() ?? new List<DateTime>();
+
+            _cache.Set("BankHolidays", bankHolidays, DateTime.Today.AddDays(1));
             return bankHolidays;
         }
     }
