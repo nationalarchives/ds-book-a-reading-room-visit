@@ -89,6 +89,18 @@ CREATE TABLE [OrderDocuments] (
 );
 GO
 
+CREATE TABLE [dbo].[tbl_reader_ticket_upgrades](
+	[booking_id] [int] NOT NULL,
+	[reader_ticket_old] [int] NOT NULL,
+	[reader_ticket_new] [int] NOT NULL,
+	[update_date] [datetime2](7) NOT NULL
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tbl_reader_ticket_upgrades] ADD  CONSTRAINT [DF_tbl_reader_ticket_upgrades_update_date]  DEFAULT (getdate()) FOR [update_date]
+GO
+
+
 CREATE INDEX [IX_Bookings_BookingStatusId] ON [Bookings] ([BookingStatusId]);
 GO
 
