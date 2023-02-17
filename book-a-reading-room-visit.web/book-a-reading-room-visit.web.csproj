@@ -15,10 +15,17 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.10.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
+    <PackageReference Include="NLog.Database" Version="5.1.1" />
+    <PackageReference Include="NLog.Slack" Version="2.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.1" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\book-a-reading-room-visit.domain\book-a-reading-room-visit.domain.csproj" />
     <ProjectReference Include="..\book-a-reading-room-visit.model\book-a-reading-room-visit.model.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Logging\" />
   </ItemGroup>
 </Project>

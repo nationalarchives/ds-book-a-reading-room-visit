@@ -2,7 +2,7 @@
 using NLog.Slack;
 using NLog.Targets;
 
-namespace book_a_reading_room_visit.api.Logging
+namespace book_a_reading_room_visit.web.Logging
 {
     public static class NLogHelper
     {

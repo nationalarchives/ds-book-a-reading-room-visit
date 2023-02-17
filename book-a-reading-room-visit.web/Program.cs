@@ -1,7 +1,9 @@
 using Amazon.Extensions.NETCore.Setup;
 using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Service;
+using book_a_reading_room_visit.web.Logging;
 using Microsoft.AspNetCore.Mvc;
+using NLog.Web;
 using System.Net.Http.Headers;
 using System.ServiceModel;
 
@@ -23,6 +25,9 @@ builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/Da
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning);
+builder.Host.UseNLog();
+
+var logger = NLogHelper.ConfigureLogger();
 
 builder.Services.AddHttpClient<IAvailabilityService, AvailabilityService>(c =>
 {
@@ -58,7 +63,7 @@ else
 {
     app.UseExceptionHandler("/error");
 }
-
+app.ConfigureExceptionHandler(logger);
 app.RegisterTNACookieConsent();
 app.UseSecurityHeaderMiddleware();
 app.UseRouting();
