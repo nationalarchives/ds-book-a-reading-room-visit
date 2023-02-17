@@ -24,43 +24,45 @@ namespace book_a_reading_room_visit.api.Service
         }
         public async Task<List<DateTime>> GetOneDayOrderAvailableDatesAsync()
         {
-            List<DateTime> availableDates = null;
-            if (!_cache.TryGetValue<List<DateTime>>("OneDayOrderAvailableDates", out availableDates))
+            if (_cache.TryGetValue("OneDayOrderAvailableDates", out List<DateTime> availableDates))
             {
-                availableDates = new List<DateTime>();
-                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
-                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:OneDayAvailabilityDatesToShow").Value);
-
-                var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
-
-                for (int i = 0; i < availabilityDatesToShow; i++)
-                {
-                    startDate = await GetNextOneDayOrderOpeningDayAsync(startDate, 1);
-                    availableDates.Add(startDate);
-                }
-                _cache.Set("OneDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
+                return availableDates;
             }
+
+            availableDates = new List<DateTime>();
+            var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
+            var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:OneDayAvailabilityDatesToShow").Value);
+
+            var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
+
+            for (int i = 0; i < availabilityDatesToShow; i++)
+            {
+                startDate = await GetNextOneDayOrderOpeningDayAsync(startDate, 1);
+                availableDates.Add(startDate);
+            }
+            _cache.Set("OneDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             return availableDates;
         }
 
         public async Task<List<DateTime>> GetTwoDayOrderAvailableDatesAsync()
         {
-            List<DateTime> availableDates = null;
-            if (!_cache.TryGetValue<List<DateTime>>("TwoDayOrderAvailableDates", out availableDates))
+            if (_cache.TryGetValue("TwoDayOrderAvailableDates", out List<DateTime> availableDates))
             {
-                availableDates = new List<DateTime>();
-                var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
-                var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:TwoDayAvailabilityDatesToShow").Value);
-
-                var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
-
-                for (int i = 0; i < availabilityDatesToShow; i++)
-                {
-                    startDate = await GetNextTwoDayOrderOpeningDayAsync(startDate, 1);
-                    availableDates.Add(startDate);
-                }
-                _cache.Set("TwoDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
+                return availableDates;
             }
+
+            availableDates = new List<DateTime>();
+            var availabilityFrom = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
+            var availabilityDatesToShow = int.Parse(_configuration.GetSection("BookingTimeLine:TwoDayAvailabilityDatesToShow").Value);
+
+            var startDate = await GetNextWorkingDayAsync(DateTime.Today, availabilityFrom);
+
+            for (int i = 0; i < availabilityDatesToShow; i++)
+            {
+                startDate = await GetNextTwoDayOrderOpeningDayAsync(startDate, 1);
+                availableDates.Add(startDate);
+            }
+            _cache.Set("TwoDayOrderAvailableDates", availableDates, DateTime.Today.AddDays(1));
             return availableDates;
         }
 

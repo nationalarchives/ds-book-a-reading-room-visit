@@ -1,11 +1,11 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
 RUN apk add icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 WORKDIR /app
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://*:8080
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src
 COPY ["book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj", "book-a-reading-room-visit.api/"]
 COPY ["book-a-reading-room-visit.data/book-a-reading-room-visit.data.csproj", "book-a-reading-room-visit.data/"]

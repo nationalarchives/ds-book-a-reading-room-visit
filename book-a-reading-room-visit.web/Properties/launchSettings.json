@@ -21,7 +21,9 @@
         "TimeZone": "GMT Standard Time",
         "EnforceOrderLimit": "false",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2"
+        "AWS_REGION": "eu-west-2",
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
+        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
       }
     },
     "book_a_reading_room_visit.web": {
@@ -31,7 +33,7 @@
       "applicationUrl": "https://localhost:5052;http://localhost:5053",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "KBS_WebApi_URL": "https://localhost:5050/book-a-visit-api/",
+        "KBS_WebApi_URL": "https://localhost:44321/book-a-visit-api/",
         "KBS_Root_Path": "/book-a-reading-room-visit",
         "AdvanceOrderServiceEndPoint": "http://172.31.2.125/AdvancedOrderService/AdvancedOrderService.svc",
         "BulkOrderServiceEndPoint": "http://172.31.2.125/BulkOrdersService/BulkOrdersService.svc",
@@ -39,7 +41,9 @@
         "TimeZone": "GMT Standard Time",
         "EnforceOrderLimit": "false",
         "AWS_PROFILE": "devdsadmin",
-        "AWS_REGION": "eu-west-2"
+        "AWS_REGION": "eu-west-2",
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
+        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
       }
     }
   }

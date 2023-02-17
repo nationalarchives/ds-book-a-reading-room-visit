@@ -10,7 +10,7 @@ namespace book_a_reading_room_visit.web.Models
         public string BookingReference { get; set; }
         public DateTime ExpiredBy { get; set; }
         public double TimeRemaining { get; set; }
-        public string SeatNumber { get; set; }
+        public string? SeatNumber { get; set; }
         public BookingTypes BookingType { get; set; }
         public SeatTypes SeatType { get; set; }
         public DateTime? CompleteByDate { get; set; }
@@ -37,10 +37,10 @@ namespace book_a_reading_room_visit.web.Models
         [DataType(DataType.EmailAddress)]
         [Email(ErrorMessage = Constants.Valid_Email_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [MaxLength(50)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         [MaxLength(50)]
         [Required(ErrorMessage = Constants.Firstname_Required)]
         [RegularExpression(@"^(?!.*<[^>]+>).*", ErrorMessage = Constants.Html_Tags_Not_Allowed)]

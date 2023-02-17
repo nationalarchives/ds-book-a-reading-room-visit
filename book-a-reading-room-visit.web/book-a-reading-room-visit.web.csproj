@@ -1,23 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>book_a_reading_room_visit.web</RootNamespace>
   </PropertyGroup>
+  
   <ItemGroup>
-    <Content Remove="Views\Shared\_Breadcrumb.cshtml" />
+    <PackageReference Include="Amazon.AspNetCore.DataProtection.SSM" Version="3.1.0" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.101.4" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
+    <PackageReference Include="NLog.Database" Version="5.1.1" />
+    <PackageReference Include="NLog.Slack" Version="2.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.1" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Amazon.AspNetCore.DataProtection.SSM" Version="2.1.0" />
-    <PackageReference Include="AWS.Logger.AspNetCore" Version="3.2.0" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.0.10" />
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.8.1" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.1" />
-  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\book-a-reading-room-visit.domain\book-a-reading-room-visit.domain.csproj" />
     <ProjectReference Include="..\book-a-reading-room-visit.model\book-a-reading-room-visit.model.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Logging\" />
   </ItemGroup>
 </Project>

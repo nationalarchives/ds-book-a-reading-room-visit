@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
-using System.Threading.Tasks;
 
-namespace book_a_reading_room_visit.api.Logging
+namespace book_a_reading_room_visit.web.Logging
 {
     public static class ExceptionHandler
     {
@@ -24,7 +17,7 @@ namespace book_a_reading_room_visit.api.Logging
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.Error($"Error Occurred in Kew Booking API ({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment): {contextFeature.Error}");
+                        logger.Error($"Error Occurred in Kew Booking WEB ({Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")} environment): {contextFeature.Error}");
                     }
                 });
             });

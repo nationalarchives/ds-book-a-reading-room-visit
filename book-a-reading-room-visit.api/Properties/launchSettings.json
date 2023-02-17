@@ -15,14 +15,14 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
+        "RecordCopying_WebApi_URL": "http://localhost:8086/home/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
         "AWS_REGION": "eu-west-2",
-        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/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",
-        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB;Initial Catalog=Logging;User Id=kbs_logger;Password=kbs_logger"
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
+        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
       }
     },
     "book_a_reading_room_visit.api": {
@@ -33,8 +33,10 @@
       "applicationUrl": "https://localhost:5050;http://localhost:5051",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://10.112.120.42/RecordCopyingServiceAPI/",
+        "RecordCopying_WebApi_URL": "http://localhost:8086/home/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
+        "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
+        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "devdsadmin",
