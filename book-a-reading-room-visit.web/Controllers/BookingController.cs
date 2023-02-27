@@ -62,6 +62,10 @@ namespace book_a_reading_room_visit.web.Controllers
                 return NotFound();
             }
             var model = await _bookingService.GetBookingAsync(bookingReference);
+            if (model is null)
+            {
+                return NotFound();
+            }
 
             var bookingViewModel = new BookingViewModel
             {

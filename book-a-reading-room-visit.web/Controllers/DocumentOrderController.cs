@@ -21,7 +21,15 @@ namespace book_a_reading_room_visit.web.Controllers
 
         public async Task<IActionResult> ContinueLater(BookingTypes bookingType, string bookingReference)
         {
+            if (string.IsNullOrWhiteSpace(bookingReference))
+            {
+                return NotFound();
+            }
             var bookingModel = await _bookingService.GetBookingAsync(bookingReference);
+            if (bookingModel is null)
+            {
+                return NotFound();
+            }
 
             var model = bookingModel.MapToDocumentOrderViewModel();
             return View(model);
@@ -30,7 +38,16 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderDocuments(BookingTypes bookingType, int readerticket, string bookingReference)
         {
+            if (string.IsNullOrWhiteSpace(bookingReference) || readerticket == 0)
+            {
+                return NotFound();
+            }
             var bookingModel = await _bookingService.GetBookingAsync(readerticket, bookingReference);
+            if (bookingModel is null)
+            {
+                return NotFound();
+            }
+
             if (bookingModel.BookingStatus == BookingStatuses.Created)
             {
                 var model = bookingModel.MapToDocumentOrderViewModel();
@@ -64,7 +81,16 @@ namespace book_a_reading_room_visit.web.Controllers
 
         public async Task<IActionResult> OrderComplete(BookingTypes bookingType, int readerticket, string bookingReference)
         {
+            if (string.IsNullOrWhiteSpace(bookingReference) || readerticket == 0)
+            {
+                return NotFound();
+            }
             var bookingModel = await _bookingService.GetBookingAsync(readerticket, bookingReference);
+            if (bookingModel is null)
+            {
+                return NotFound();
+            }
+
             if (bookingModel.BookingStatus == BookingStatuses.Cancelled)
             {
                 return RedirectToAction("Error", "Home");
