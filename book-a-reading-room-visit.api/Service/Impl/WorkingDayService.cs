@@ -70,8 +70,7 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<DateTime> GetNextWorkingDayAsync(DateTime dateTime, int daysToAdd)
         {
             var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
-            //1 day added for visitor to add documents
-            var dateToReturn = dateTime.AddDays(1);
+            var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
                 dateToReturn = dateToReturn.AddDays(1);
