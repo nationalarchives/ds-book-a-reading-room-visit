@@ -8,14 +8,14 @@
 
 Download and install:
 
-- Visual Studio 2019 Professional
-- .NET Core 5.0
+- Visual Studio 2022 Professional
+- .NET Core 6.0
 - Docker Desktop
 - SQL Server Express version at least
 - Azure Data Studio (for Mac users)
 
 ### Windows setup instructions
-1. Open the Visual Studio 2019 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
+1. Open the Visual Studio 2022 Professional as "administrator" and clone the ds-book-a-reading-room-visit repository to the local folder
 2. To create the KewBookings database on your local machine
 
 	run the following command 
@@ -32,7 +32,7 @@ Download and install:
 
 
 ### Mac setup instructions
-1. Open Visual Studio 2019 for Mac and clone the ds-book-a-reading-room-visit repository
+1. Open Visual Studio 2022 for Mac and clone the ds-book-a-reading-room-visit repository
 2. Download SQL Server (detailed instructions here: https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash)
 	- Pull and run the SQL Server 2019 container image by running the following command in the terminal: `sudo docker pull mcr.microsoft.com/mssql/server:2019-latest`
 	- To run the container image with Docker, run the following command (replacing `<InsertPassword>` with your password)
