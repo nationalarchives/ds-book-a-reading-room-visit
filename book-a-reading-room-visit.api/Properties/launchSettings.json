@@ -15,7 +15,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://localhost:8086/home/",
+        "RecordCopying_WebApi_URL": "http://localhost:82/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
@@ -33,7 +33,7 @@
       "applicationUrl": "https://localhost:5050;http://localhost:5051",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://localhost:8086/home/",
+        "RecordCopying_WebApi_URL": "http://localhost:82/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
         "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
         "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging",

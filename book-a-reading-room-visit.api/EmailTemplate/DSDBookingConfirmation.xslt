@@ -27,6 +27,11 @@
             <xsl:value-of select="VisitStartDate" />
           </b>
         </li>
+        <li style="font-size: 32px;">
+          Reading room: <b>
+            <xsl:value-of select="ReadingRoom" />
+          </b>
+        </li>
         <li>
           Seat: 
         </li>
