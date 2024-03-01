@@ -10,7 +10,12 @@
         You have booked a visit to view original documents in The National Archives’ reading rooms on <xsl:value-of select="VisitStartDate" />.
       </p>
       <p>
-        Your document order has been submitted and we will begin preparing your documents for your visit.
+        Please note that this is a confirmation of your booking, <b>not</b> the availability of the documents you have requested.  
+        While we do our very best to make all documents requested available, there are some instances where this is not possible. 
+        If more than half of your document requests become unavailable we will contact you the day before your visit.
+      </p>
+      <p>
+        Your document order has been submitted and we will begin preparing your order for your visit.
       </p>
       <p>
         We will be in contact if we have any questions about your visit.
@@ -75,15 +80,11 @@
 
       <h3 style="margin-top: 2em;">Prepare for your visit</h3>
 	  <p>
-		  We have had to amend our reading room rules in line with Covid restrictions, please check what is now permissible to bring into the
-	      reading rooms: <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/</a>
-	  </p>
-	  <p>
 		  Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your
 		  registration. See a list of acceptable forms of identification: <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/</a>
 	  </p>
 	  <p style="font-weight: bold;">
-		  We regularly review our opening times and reading room set-up in line with latest government advice. Check these links before your visit:
+		  Check these links before your visit:
 	  </p>
 	  <ul style="list-style: none;">
 		  <li>
