@@ -124,7 +124,19 @@
                     }
                     else
                     {
-                        <p>We will contact you if a large number of the documents you want to order become unavailable for the date of your visit.</p>
+                        if (Model.BookingType == BookingTypes.StandardOrderVisit)
+                        {
+                         <p>
+                            Please note that this is a confirmation of your booking, <b>not</b> the availability of the documents you have requested.
+                            While we do our very best to make all documents requested available, there are some instances where this is not possible.
+                            If more than half of your document requests become unavailable we will contact you the day before your visit.
+                        </p>
+                        }
+                        else
+                        {
+                            <p>We will contact you if a large number of the documents you want to order become unavailable for the date of your visit.</p>
+                        }
+
                         <ol class="document-list">
                             @foreach (var document in Model.Documents.Where(x => !x.IsReserved).ToList())
                             {

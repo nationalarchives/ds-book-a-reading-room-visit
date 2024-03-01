@@ -2,7 +2,9 @@
 
     You have booked a visit to view original documents in The National Archives’ reading rooms on {VisitStartDateDisplay}.
 
-    Your document order has been submitted and we will begin preparing your documents for your visit. 
+    Please note that this is a confirmation of your booking, not the availability of the documents you have requested. While we do our very best to make all documents requested available, there are some instances where this is not possible. If more than half of your document requests become unavailable we will contact you the day before your visit.
+    
+    Your document order has been submitted and we will begin preparing your order for your visit. 
     
     We will be in contact if we have any questions about your visit.
 
@@ -24,10 +26,9 @@
 
     Prepare for your visit:
 
-    We have had to amend our reading room rules in line with Covid restrictions, please check what is now permissible to bring into the reading rooms: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/can-take-reading-rooms/
     Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your registration. See a list of acceptable forms of identification: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/
     
-    We regularly review our opening times and reading room set-up in line with latest government advice. Check these links before your visit:
+    Check these links before your visit:
     See our opening times: https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ 
     What to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/
 

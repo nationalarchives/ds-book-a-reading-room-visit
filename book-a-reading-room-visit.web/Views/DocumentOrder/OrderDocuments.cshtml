@@ -142,16 +142,12 @@
 
                     <fieldset>
                         <legend>
-                            <label for="additional-reqs">Access needs and research requests (maximum 2,000 characters)</label>
+                            <label for="additional-reqs">Additional comments and access needs (maximum 2,000 characters)</label>
                         </legend>
 
                         <p class="helper-text">
-                            Tell us about your access needs, including if you have mobility access requirements. You can also use
-                            this space to tell us your research requests, including library materials, microfilm/microfiche, or finding/preservation
-                            aids that are normally available on self-service.
+                            Use this space for any additional comments or if you’d like to let us know about your access needs, including if you have mobility access requirements.
                         </p>
-
-                        <p class="helper-text">We cannot guarantee that all of the research materials you request will be available.</p>
 
                         @if (ViewData.ModelState["AdditionalRequirements"]?.Errors.Count() > 0)
                         {
