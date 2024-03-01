@@ -43,8 +43,8 @@ namespace book_a_reading_room_visit.api.Service
                 case EmailType.BookingConfirmation:
                     {
                         var subjectFormat = _configuration.GetValue<string>("EmailSettings:ConfirmationSubject");
-                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}",
-                                                                bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
+                        subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}");
+                        //subject = string.Format(subjectFormat, $"{bookingModel.VisitStartDate:dddd dd MMMM yyyy}", bookingModel.BookingType == BookingTypes.StandardOrderVisit ? "standard" : "bulk");
                         break;
                     }
                 case EmailType.BookingCancellation:
