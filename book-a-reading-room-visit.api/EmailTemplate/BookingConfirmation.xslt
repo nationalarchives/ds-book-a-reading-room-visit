@@ -12,7 +12,7 @@
       <p>
         Please note that this is a confirmation of your booking, <b>not</b> the availability of the documents you have requested.  
         While we do our very best to make all documents requested available, there are some instances where this is not possible. 
-        If more than half of your document requests become unavailable we will contact you the day before your visit.
+        If more than half of your document requests become unavailable we will contact you the working day before your visit.
       </p>
       <p>
         Your document order has been submitted and we will begin preparing your order for your visit.
