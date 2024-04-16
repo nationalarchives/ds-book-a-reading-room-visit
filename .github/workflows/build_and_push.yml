@@ -33,7 +33,8 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
       with:
-        ref: github.ref
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
