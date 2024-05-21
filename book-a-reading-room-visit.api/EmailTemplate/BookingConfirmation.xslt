@@ -91,7 +91,7 @@
 			  See our opening times: <a href="https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ ">https://www.nationalarchives.gov.uk/about/visit-us/opening-times/</a>
 		  </li>
 		  <li>
-			  What to expect when you visit:<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/what-can-i-expect-when-i-visit/</a>
+			  What to expect when you visit:<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/</a>
 		  </li>
 	  </ul>
 		
