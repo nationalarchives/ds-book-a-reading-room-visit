@@ -2,7 +2,7 @@
 @using book_a_reading_room_visit.web.Helper
 @using Newtonsoft.Json
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="tna-template">
 @{
     var usage = false;
     string policy = httpContextAccessor.HttpContext.Request.Cookies[Constants.CookieName];
@@ -29,6 +29,10 @@
           href='~/css/ds-cookie-consent.css'
           type='text/css'
           media='all' />
+    <link rel='stylesheet'
+          href='~/css/compiled-css/global-header-package.css'
+          type='text/css'
+          media='all' />
     <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Mono' rel='stylesheet' type='text/css'>
@@ -52,7 +56,7 @@
         <!-- End Google Tag Manager -->
     }
 </head>
-<body>
+<body class="tna-template__body">
     @if (usage)
     {
         <!-- Google Tag Manager (noscript) -->
@@ -80,5 +84,15 @@
     <script src="~/js/hide-room-info.js"></script>
     <script src="~/js/dist/print-your-order.js"></script>
     <script src="~/js/book-a-reading-room-visit-0.0.1.js"></script>
+    <script src="~/js/all.js"></script>
+    <script src="~/js/analytics.js"></script>
+    <script>
+        if (window.TNAFrontend && window.TNAFrontend.initAll) {
+            window.TNAFrontend.initAll()
+        }
+        if (window.TNAFrontendAnalytics && window.TNAFrontendAnalytics.GA4) {
+            new TNAFrontendAnalytics.GA4({ addTrackingCode: false })
+        }
+    </script>
 </body>
 </html>

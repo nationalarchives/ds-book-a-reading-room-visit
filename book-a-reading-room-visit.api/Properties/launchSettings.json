@@ -17,9 +17,9 @@
       "applicationUrl": "https://localhost:7140;http://localhost:5148",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://localhost:82/RecordCopyingServiceAPI/",
+        "RecordCopying_WebApi_URL": "http://discovery-services.dev.local/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
-        "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
+        "KewBookingConnection": "Data Source=dev-sql-cluster.crddqglgg7xp.eu-west-2.rds.amazonaws.com,4333;Initial Catalog=KewBooking;User ID=kbs_user;Password=ledXso!Sb8nEJEbi;TrustServerCertificate=True;",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "dev",
         "AWS_REGION": "eu-west-2",
@@ -33,9 +33,9 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "RecordCopying_WebApi_URL": "http://localhost:82/RecordCopyingServiceAPI/",
+        "RecordCopying_WebApi_URL": "http://discovery-services.dev.local/RecordCopyingServiceAPI/",
         "RecordCopying_Header": "services.nationalarchives.web.local",
-        "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
+        "KewBookingConnection": "Data Source=dev-sql-cluster.crddqglgg7xp.eu-west-2.rds.amazonaws.com,4333;Initial Catalog=KewBooking;User ID=kbs_user;Password=ledXso!Sb8nEJEbi;TrustServerCertificate=True;",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
         "AWS_PROFILE": "dev",
         "AWS_REGION": "eu-west-2",
