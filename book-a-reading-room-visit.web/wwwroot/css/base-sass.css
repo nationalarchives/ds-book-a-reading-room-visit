@@ -7925,9 +7925,9 @@ main {
 }
 
 @media screen and (max-width: 768px) {
-  h3 {
-    margin-top: 3em !important;
-  }
+    h3:not(:first-child) {
+        margin-top: 3em !important;
+    }
 }
 
 a.button {
