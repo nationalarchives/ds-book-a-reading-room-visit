@@ -24,3 +24,16 @@ fieldset input[type=email],
 fieldset input[type=password] {
     box-sizing: border-box;
 }
+#ds-cookie-consent-banner {
+    padding: 0 !important;
+    position: static !important;
+    background: #134571 !important;
+}
+#ds-cookie-consent-banner .container {
+    padding: 10px 40px 25px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+}
+.tna-global-header__top-navigation {
+    display: none !important;
+}

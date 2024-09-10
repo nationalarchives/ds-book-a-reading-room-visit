@@ -66,7 +66,6 @@
         </noscript>
         <!-- End Google Tag Manager (noscript) -->
     }
-    @await Html.PartialAsync("Partials/_CookieConsent")
     @await Html.PartialAsync("Partials/_NotificationBanner")
     @await Html.PartialAsync("Partials/_Header")
 
@@ -85,10 +84,15 @@
     <script src="~/js/dist/print-your-order.js"></script>
     <script src="~/js/book-a-reading-room-visit-0.0.1.js"></script>
     <script src="~/js/all.js"></script>
-    <script src="~/js/analytics.js"></script>
+    <script src="~/js/tna-frontend-analytics-0.2.10-prerelease.js"></script>
     <script>
-        if (window.TNAFrontend && window.TNAFrontend.initAll) {
-            window.TNAFrontend.initAll()
+        if (window.TNAFrontend) {
+            if (window.TNAFrontend.Cookies) {
+                new window.TNAFrontend.Cookies({ domain: ".nationalarchives.gov.uk" });
+            }
+            if (window.TNAFrontend.initAll) {
+                window.TNAFrontend.initAll()
+            }
         }
         if (window.TNAFrontendAnalytics && window.TNAFrontendAnalytics.GA4) {
             new TNAFrontendAnalytics.GA4({ addTrackingCode: false })
