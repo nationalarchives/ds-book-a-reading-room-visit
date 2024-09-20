@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using book_a_reading_room_visit.data;
+using book_a_reading_room_visit.domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace book_a_reading_room_visit.api.Service
 {
@@ -11,15 +9,15 @@ namespace book_a_reading_room_visit.api.Service
     {
         private IMemoryCache _cache;
         private readonly IConfiguration _configuration;
-        private readonly IBankHolidayAPI _bankHolidayAPI;
+        private readonly BookingContext _context;
         private readonly DayOfWeek[] WorkingWeekDays = new DayOfWeek[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
         private readonly DayOfWeek[] OneDayOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
         private readonly DayOfWeek[] TwoDayOrderOpeningWeekDays = new DayOfWeek[] { DayOfWeek.Tuesday, DayOfWeek.Thursday, };
 
-        public WorkingDayService(IConfiguration configuration, IBankHolidayAPI bankHolidayAPI, IMemoryCache memoryCache)
+        public WorkingDayService(IConfiguration configuration, BookingContext context, IMemoryCache memoryCache)
         {
             _configuration = configuration;
-            _bankHolidayAPI = bankHolidayAPI;
+            _context = context; 
             _cache = memoryCache;
         }
         public async Task<List<DateTime>> GetOneDayOrderAvailableDatesAsync()
@@ -69,7 +67,9 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<DateTime> GetNextWorkingDayAsync(DateTime dateTime, int daysToAdd)
         {
-            var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
+            var holidays = await (from holiday in _context.Set<TNAHoliday>()
+                                    select holiday.date_closed).ToListAsync();
+
             var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
@@ -82,7 +82,8 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<DateTime> GetNextOneDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
-            var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
+            var holidays = await (from holiday in _context.Set<TNAHoliday>()
+                                  select holiday.date_closed).ToListAsync();
             var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
@@ -95,7 +96,8 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<DateTime> GetNextTwoDayOrderOpeningDayAsync(DateTime dateTime, int daysToAdd)
         {
-            var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
+            var holidays = await (from holiday in _context.Set<TNAHoliday>()
+                                  select holiday.date_closed).ToListAsync();
             var dateToReturn = dateTime;
             while (daysToAdd > 0)
             {
@@ -109,7 +111,8 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<DateTime> GetCompleteByDateAsync(DateTime dateTime)
         {
             int daysToDeduct = int.Parse(_configuration.GetSection("BookingTimeLine:DocumentsPreparationDays").Value);
-            var holidays = await _bankHolidayAPI.GetBankHolidaysAsync();
+            var holidays = await (from holiday in _context.Set<TNAHoliday>()
+                                  select holiday.date_closed).ToListAsync();
             var dateToReturn = dateTime;
             while (daysToDeduct > 0)
             {
