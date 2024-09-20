@@ -15,6 +15,7 @@ namespace book_a_reading_room_visit.data
         public DbSet<Seat> Seats { get; set; }
         public DbSet<BookingStatus> BookingStatus { get; set; }
         public DbSet<OrderDocument> OrderDocuments { get; set; }
+        public DbSet<TNAHoliday> TNAHoliday { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,8 @@ namespace book_a_reading_room_visit.data
             modelBuilder.Entity<OrderDocument>().Property(e => e.PieceReference).HasMaxLength(40);
             modelBuilder.Entity<OrderDocument>().Property(e => e.ItemReference).HasMaxLength(40);
             modelBuilder.Entity<OrderDocument>().Property(e => e.Site).HasMaxLength(20);
+
+            modelBuilder.Entity<TNAHoliday>().ToView(nameof(TNAHoliday)).HasNoKey();
         }
     }
 }

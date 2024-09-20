@@ -6,7 +6,6 @@ using book_a_reading_room_visit.data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
-using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,19 +33,6 @@ builder.Services.AddDbContext<BookingContext>(opt =>
 
 builder.Services.AddMemoryCache();
 
-string sRecordCopyingUrl = Environment.GetEnvironmentVariable("RecordCopying_WebApi_URL") ?? string.Empty;
-
-if (String.IsNullOrEmpty(sRecordCopyingUrl))
-{
-    throw new ApplicationException("RecordCopying WebApi URL must be provided via the RecordCopying_WebApi_URL environment variable.");
-}
-
-builder.Services.AddHttpClient<IBankHolidayAPI, BankHolidayAPI>(c =>
-{
-    c.BaseAddress = new Uri(sRecordCopyingUrl);
-    c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    c.DefaultRequestHeaders.Host = Environment.GetEnvironmentVariable("RecordCopying_Header");
-});
 builder.Services.AddScoped<IWorkingDayService, WorkingDayService>();
 builder.Services.AddScoped<IAvailabilityService, AvailabilityService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
