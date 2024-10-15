@@ -2,14 +2,10 @@
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-
 
 namespace book_a_reading_room_visit.api.Controllers
 {
-    [Route("book-a-visit-api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
     {

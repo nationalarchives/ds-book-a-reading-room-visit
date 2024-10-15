@@ -2,13 +2,10 @@
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Controllers
 {
-    [Route("book-a-visit-api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AvailabilityController : ControllerBase
     {
@@ -17,12 +14,6 @@ namespace book_a_reading_room_visit.api.Controllers
         public AvailabilityController(IAvailabilityService availabilityService)
         {
             _availabilityService = availabilityService;
-        }
-
-        [HttpGet("ping")]
-        public async Task<ActionResult> Ping()
-        {
-            return Ok("API is up and running!!!");
         }
 
         [HttpGet("summary")]

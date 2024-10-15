@@ -22,7 +22,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 // Add NLoging to the container.
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning);
+builder.Logging.SetMinimumLevel(LogLevel.Warning);
 builder.Host.UseNLog();
 
 var logger = NLogHelper.ConfigureLogger();
@@ -42,18 +42,20 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Book a reading room visit-api", Version = "v1" });
 });
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+app.ConfigureExceptionHandler(logger);
+
+app.UsePathBase(new PathString("/book-a-visit-api"));
+app.MapHealthChecks("/book-a-visit-api/healthz");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book a reading room visit-api v1"));
+    app.UseSwaggerUI();
 }
-app.ConfigureExceptionHandler(logger);
-
-app.UseRouting();
 app.MapControllers();
 app.Run();
