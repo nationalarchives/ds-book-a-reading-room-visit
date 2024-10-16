@@ -2,7 +2,7 @@
 
 namespace book_a_reading_room_visit.data.Migrations
 {
-    public partial class deleteexpiredbookings : Migration
+    public partial class Deleteexpiredbookings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

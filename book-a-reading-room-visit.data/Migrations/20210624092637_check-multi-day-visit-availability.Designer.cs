@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
     [Migration("20210624092637_check-multi-day-visit-availability")]
-    partial class checkmultidayvisitavailability
+    partial class Checkmultidayvisitavailability
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

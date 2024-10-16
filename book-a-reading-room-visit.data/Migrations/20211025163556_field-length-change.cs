@@ -2,7 +2,7 @@
 
 namespace book_a_reading_room_visit.data.Migrations
 {
-    public partial class fieldlengthchange : Migration
+    public partial class Fieldlengthchange : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
     [Migration("20210401155033_delete-expired-bookings")]
-    partial class deleteexpiredbookings
+    partial class Deleteexpiredbookings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

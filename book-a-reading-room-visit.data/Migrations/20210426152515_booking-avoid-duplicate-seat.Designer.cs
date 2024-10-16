@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
     [Migration("20210426152515_booking-avoid-duplicate-seat")]
-    partial class bookingavoidduplicateseat
+    partial class Bookingavoidduplicateseat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

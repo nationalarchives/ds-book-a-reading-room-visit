@@ -11,7 +11,7 @@ namespace book_a_reading_room_visit.data.Migrations
 {
     [DbContext(typeof(BookingContext))]
     [Migration("20211025163556_field-length-change")]
-    partial class fieldlengthchange
+    partial class Fieldlengthchange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
