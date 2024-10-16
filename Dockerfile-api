@@ -8,21 +8,17 @@ ENV ASPNETCORE_URLS=http://*:8080
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj", "book-a-reading-room-visit.api/"]
 COPY ["book-a-reading-room-visit.data/book-a-reading-room-visit.data.csproj", "book-a-reading-room-visit.data/"]
 COPY ["book-a-reading-room-visit.domain/book-a-reading-room-visit.domain.csproj", "book-a-reading-room-visit.domain/"]
-COPY ["book-a-reading-room-visit.model/book-a-reading-room-visit.model.csproj", "book-a-reading-room-visit.model/"]
-RUN dotnet restore "./book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj"
+RUN dotnet restore "book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj"
 COPY . .
 WORKDIR "/src/book-a-reading-room-visit.api"
-RUN dotnet build "./book-a-reading-room-visit.api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "book-a-reading-room-visit.api.csproj" -c Release -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./book-a-reading-room-visit.api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "book-a-reading-room-visit.api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
