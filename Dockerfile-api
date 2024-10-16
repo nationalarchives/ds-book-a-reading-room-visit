@@ -1,23 +1,30 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS base
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 RUN apk add icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 WORKDIR /app
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://*:8080
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj", "book-a-reading-room-visit.api/"]
 COPY ["book-a-reading-room-visit.data/book-a-reading-room-visit.data.csproj", "book-a-reading-room-visit.data/"]
 COPY ["book-a-reading-room-visit.domain/book-a-reading-room-visit.domain.csproj", "book-a-reading-room-visit.domain/"]
-RUN dotnet restore "book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj"
+COPY ["book-a-reading-room-visit.model/book-a-reading-room-visit.model.csproj", "book-a-reading-room-visit.model/"]
+RUN dotnet restore "./book-a-reading-room-visit.api/book-a-reading-room-visit.api.csproj"
 COPY . .
 WORKDIR "/src/book-a-reading-room-visit.api"
-RUN dotnet build "book-a-reading-room-visit.api.csproj" -c Release -o /app/build
+RUN dotnet build "./book-a-reading-room-visit.api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+# This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
-RUN dotnet publish "book-a-reading-room-visit.api.csproj" -c Release -o /app/publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./book-a-reading-room-visit.api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 RUN addgroup -g 965 -S appuser && adduser -u 975 -S -D -h /app appuser appuser
 USER appuser
