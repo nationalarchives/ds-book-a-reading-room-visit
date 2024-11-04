@@ -10,14 +10,14 @@
 				Thank you for booking a visit to The National Archives.
 			</p>
 			<p>
-				If you attended, we would love to know how your visit went by completing our short survey.
-			</p>
+        If you attended, we would love to know how your visit went by completing a visitor survey.
+      </p>
 			<p>
-				Whether this was your first visit or one of many, we really value the opinions of our visitors and all feedback is taken into consideration when planning our future services.
-			</p>
+        During November 2024, this is a special survey in conjunction with the Archives and Records Association to help understand the visitor experience in archives across the country. If you already completed the paper version of this survey during your visit, you may disregard this email.
+      </p>
 			<p>
-				The survey will take just a few minutes to complete. To take part, please <a href="https://www.smartsurvey.co.uk/s/44M31K/">click here</a>.
-			</p>
+        However, even if you have completed a previous survey for The National Archives, or a similar survey recently at another archive, we would really appreciate your feedback on this visit. To take part, please <a href="https://www.smartsurvey.co.uk/s/7NTMNU/">click here</a>.
+      </p>
 			<p>
 				This email inbox is not being monitored.
 			</p>
