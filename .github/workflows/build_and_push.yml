@@ -28,6 +28,10 @@ jobs:
   Docker:
     name: Build and Push KBS Docker Images
     runs-on: ubuntu-latest
+    
+    environment: inter-site 
+    env:
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}        
 
     steps:
     - name: Checkout repo
@@ -40,7 +44,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::500447081210:role/github-oidc-Role-MCT2KM9AM6YN
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
           role-session-name: KBS_GitAction
 
     - name: Login to Amazon ECR
