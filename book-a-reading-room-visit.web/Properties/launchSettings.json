@@ -15,7 +15,7 @@
       "applicationUrl": "https://localhost:7289;http://localhost:5230",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "KBS_WebApi_URL": "https://localhost:7140/book-a-visit-api/",
+        "KBS_WebApi_URL": "http://ds-api.dev.local/book-a-visit-api/",
         "KBS_Root_Path": "/",
         "AdvanceOrderServiceEndPoint": "http://10.113.120.42/AdvancedOrderService/AdvancedOrderService.svc",
         "BulkOrderServiceEndPoint": "http://10.113.120.42/BulkOrdersService/BulkOrdersService.svc",
@@ -33,7 +33,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "KBS_WebApi_URL": "https://localhost:7140/book-a-visit-api/",
+        "KBS_WebApi_URL": "http://ds-api.dev.local/book-a-visit-api/",
         "KBS_Root_Path": "/book-a-reading-room-visit",
         "AdvanceOrderServiceEndPoint": "http://10.113.120.42/AdvancedOrderService/AdvancedOrderService.svc",
         "BulkOrderServiceEndPoint": "http://10.113.120.42/BulkOrdersService/BulkOrdersService.svc",
