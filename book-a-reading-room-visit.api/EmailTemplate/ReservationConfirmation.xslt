@@ -13,6 +13,8 @@
 
       <p>
         To confirm your booking, tell us which documents you want to view during your visit. If you haven’t already done so, follow this link: <xsl:value-of select="ReturnURL" />.
+      </p>
+      <p>
         You will need your booking reference and reader's ticket number to complete this step.
       </p>
 
@@ -63,10 +65,10 @@
       <br/>
       <p>
         Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy.
-        We apologise for any disruption to your visit <a target="_blank" href="https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/">Learn more.</a>.
+        We apologise for any disruption to your visit <a target="_blank" href="https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/">Learn more</a>.
       </p>
       <p>
-        This email inbox is not being monitored.
+        This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
       </p>
     </body>
   </xsl:template>

@@ -87,15 +87,16 @@
         <li>
           What to expect when you visit:<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/</a>
         </li>
-        <li>
-          Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy.
-          We apologise for any disruption to your visit <a target="_blank" href="https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/">Learn more.</a>.
-        </li>
-        <li>
-          From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building.
-          We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/about/visit-us/visitor-regulations/
-        </li>
       </ul>
+
+      <p>
+        Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy.
+        We apologise for any disruption to your visit <a target="_blank" href="https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/">Learn more</a>.
+      </p>
+      <p>
+        From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building.
+        We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/about/visit-us/visitor-regulations/
+      </p>
 
       <h3 style="margin-top: 2em;">Cancel your visit</h3>
       <p>
@@ -107,7 +108,7 @@
         <a href="https://www.smartsurvey.co.uk/s/NewVisitBooking/">https://www.smartsurvey.co.uk/s/NewVisitBooking/</a>
       </p>
       <p>
-        This email inbox is not being monitored.
+        This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
       </p>
     </body>
   </xsl:template>
