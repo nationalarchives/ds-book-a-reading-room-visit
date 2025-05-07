@@ -1,12 +1,8 @@
 ﻿    Dear {Name},
 
-    You have booked a visit to view original documents in The National Archives’ reading rooms on {VisitStartDateDisplay}.
+    Your document order for The National Archives’ reading rooms has been submitted, and we will begin preparing your order for your visit on {VisitStartDateDisplay}.
 
     Please note that this is a confirmation of your booking, not the availability of the documents you have requested. While we do our very best to make all documents requested available, there are some instances where this is not possible. If more than half of your document requests become unavailable we will contact you the working day before your visit.
-    
-    Your document order has been submitted and we will begin preparing your order for your visit. 
-    
-    We will be in contact if we have any questions about your visit.
 
     During your visit, you will be able to order additional documents to view (an additional three documents at a time).
     
@@ -31,6 +27,10 @@
     Check these links before your visit:
     See our opening times: https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ 
     What to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/
+
+    Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy. We apologise for any disruption to your visit, Learn more: https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/
+
+    From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building. We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/about/visit-us/visitor-regulations/
 
     You can cancel your visit at any time. Use this link: {ReturnURL}
 
