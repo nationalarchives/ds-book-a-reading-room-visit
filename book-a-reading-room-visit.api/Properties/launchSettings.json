@@ -19,10 +19,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
-        "AWS_PROFILE": "dev",
+        "AWS_PROFILE": "tna-dev",
         "AWS_REGION": "eu-west-2",
         "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
         "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
+      },
+      "AWS": {
+        "Profile": "tna-dev",
+        "Region": "eu-west-2"
       }
     },
     "IIS Express": {
@@ -33,10 +37,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "KewBookingConnection": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=KewBooking",
         "HomeURL": "https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit",
-        "AWS_PROFILE": "dev",
+        "AWS_PROFILE": "tna-dev",
         "AWS_REGION": "eu-west-2",
         "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
         "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
+      },
+      "AWS": {
+        "Profile": "tna-dev",
+        "Region": "eu-west-2"
       }
     }
   }
