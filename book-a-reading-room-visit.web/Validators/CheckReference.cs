@@ -8,6 +8,7 @@ namespace book_a_reading_room_visit.web.Validators
         private static readonly Regex seriesSpecific1 = new Regex(@"^(CP ?2[456]|IR ?(12[14-9]|13[0-5])|PRO ?(3[01]|41|66))");
         private static readonly Regex seriesSpecific2 = new Regex(@"^(CP ?2[456]\/|IR ?(12[14-9]|13[0-5])\/|PRO ?(3[01]|41|66)\/)[0-9]");
         private static readonly string mainRegex = @"^[A-Z]{1,4} ?[0-9]{1,4}.*";
+        private static readonly Regex parlyRegex = new Regex(@"^Y[A-Z]{1,3}\/{1}[0-9]{1,4}.*");
 
         public CheckReference() : base(mainRegex)
         {
@@ -28,6 +29,10 @@ namespace book_a_reading_room_visit.web.Validators
             {
                 bool isMatch = seriesSpecific2.IsMatch(input);
                 return isMatch;
+            }
+            else if (parlyRegex.IsMatch(input))
+            {
+                return true; 
             }
             else
             {
