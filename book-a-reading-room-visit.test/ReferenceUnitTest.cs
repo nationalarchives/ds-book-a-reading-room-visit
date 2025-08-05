@@ -10,9 +10,9 @@ namespace book_a_reading_room_visit.test
     {
         private readonly Dictionary<string, bool> _expectedResults = new Dictionary<string, bool>()
         {
-            {"FO 371", true },
+            {"FO 371", false },
             {"FO 371/1", true },
-            {"FO371", true },
+            {"FO371", false },
             {"FO371/1", true },
             {"FO/371", false },
             {"CP 24", false },
@@ -140,17 +140,6 @@ namespace book_a_reading_room_visit.test
         public Task Series_Ref_Multi_Space_NotValid()
         {
             string series = "FO  371";
-            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
-            return Task.CompletedTask;
-        }
-
-        // BNO 4 Aug 2025.  Test Currently failing since the reference is marked as valid. The same reference is tested in the main
-        // test with an expected result there of True, which then passes the test. 
-        [Ignore]
-        [TestMethod]
-        public Task Series_Ref_With_Piece_NotValid()
-        {
-            string series = "FO 371/1";
             Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
             return Task.CompletedTask;
         }

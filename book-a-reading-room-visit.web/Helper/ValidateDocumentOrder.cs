@@ -14,12 +14,15 @@ namespace book_a_reading_room_visit.web.Helper
 {
     public class ValidateDocumentOrder
     {
+        private static readonly Regex _documentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
+        private static readonly Regex _parlyArchivesReferenceRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
+
         private IAdvancedOrderService _advancedOrderService;
         private IBulkOrdersService _bulkOrdersService;
         private IConfiguration _configuration;
         private Dictionary<int, string> _documentReference;
         private List<DocumentViewModel> _validatedDocuments;
-        private Regex _documentReferenceRegex = new Regex(@"^([a-zA-Z]{1,4})\s*?(\d{1,4})/(.+)$");
+
         public ValidateDocumentOrder(ChannelFactory<IAdvancedOrderService> advanceChannelFactory, ChannelFactory<IBulkOrdersService> bulkChannelFactory, IConfiguration configuration)
         {
             _advancedOrderService = advanceChannelFactory.CreateChannel();
@@ -219,27 +222,38 @@ namespace book_a_reading_room_visit.web.Helper
             ValidateReference(modelStateDictionary, "DocumentReference40", _documentReference.TryGetValue(40, out var ref40) ? ref40 : "");
         }
 
-        private void ValidateReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docRerefenceVal, bool isReserved = false)
+        private void ValidateReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docReferenceVal, bool isReserved = false)
         {
-            if (!string.IsNullOrEmpty(docRerefenceVal))
+            if (!string.IsNullOrEmpty(docReferenceVal))
             {
-                DocumentReference docRef = _advancedOrderService.ValidateDocumentReference(docRerefenceVal);
+                // TODO: Change _advancedOrderService to return ParlyArchive refs in strandard format with space after lettercode.
+                // E.g. for YHC/123/456/1 , DocumentParts.DocumentReferenceText would come back as YHC 123/456/1.
+                // Or alternatively have e.g. facade to perform the changes locally.
+                DocumentReference docRef = _advancedOrderService.ValidateDocumentReference(docReferenceVal);
                 var errMessage = docRef.ReturnStatus.ToError();
                 bool documentIsOffsite = docRef.DocParts.ReturnStatus == (int)DocumentRefCodes.DOCUMENT_REFERENCE_OFFSITE ? true : false;
 
                 if (!string.IsNullOrEmpty(errMessage) && !documentIsOffsite)
                 {
-                    modelStateDictionary.AddModelError(docRerefenceName, $"{docRerefenceVal} - {errMessage}");
+                    modelStateDictionary.AddModelError(docRerefenceName, $"{docReferenceVal} - {errMessage}");
                 }
                 else
                 {
-                    Match match = _documentReferenceRegex.Match(docRerefenceVal);
-                    var letterCode = match.Groups[1].Value;
-                    var classNumber = 0;
-                    if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
-                    {
-                        classNumber = number;
-                    }
+                    var (letterCode, classNumber) = GetLetterCodeAndClassNumberFromReference(docReferenceVal);
+
+                    //Match match = _documentReferenceRegex.Match(docRerefenceVal);
+
+                    //if (!match.Success) 
+                    //{
+                    //    match = _parlyArchivesReferenceRegex.Match(docRerefenceVal);
+                    //}
+
+                    //var letterCode = match.Groups[1].Value;
+                    //var classNumber = 0;
+                    //if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
+                    //{
+                    //    classNumber = number;
+                    //}
 
                     _validatedDocuments.Add(
                         new DocumentViewModel()
@@ -318,6 +332,25 @@ namespace book_a_reading_room_visit.web.Helper
             {
                 modelStateDictionary.AddModelError("Series", Constants.Document_Series_Cannot_Order);
             }
+        }
+
+        private (string, int) GetLetterCodeAndClassNumberFromReference(string docReferenceVal)
+        {
+            Match match = _documentReferenceRegex.Match(docReferenceVal);
+
+            if (!match.Success)
+            {
+                match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
+            }
+
+            var letterCode = match.Groups[1].Value;
+            var classNumber = 0;
+            if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
+            {
+                classNumber = number;
+            }
+
+            return (letterCode, classNumber);
         }
     }
 }
