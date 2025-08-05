@@ -226,10 +226,10 @@ namespace book_a_reading_room_visit.web.Helper
         {
             if (!string.IsNullOrEmpty(docReferenceVal))
             {
-                // TODO: Change _advancedOrderService to return ParlyArchive refs in strandard format with space after lettercode.
-                // E.g. for YHC/123/456/1 , DocumentParts.DocumentReferenceText would come back as YHC 123/456/1.
-                // Or alternatively have e.g. facade to perform the changes locally.
-                DocumentReference docRef = _advancedOrderService.ValidateDocumentReference(docReferenceVal);
+                // Replace initial slash witha space for Parliamentary archive records.
+                // e.g.YHC/123/456/1 => YHC 123/456/1.
+                string standardisedReference =  GetStandardisedDocReference(docReferenceVal);
+                DocumentReference docRef = _advancedOrderService.ValidateDocumentReference(standardisedReference);
                 var errMessage = docRef.ReturnStatus.ToError();
                 bool documentIsOffsite = docRef.DocParts.ReturnStatus == (int)DocumentRefCodes.DOCUMENT_REFERENCE_OFFSITE ? true : false;
 
@@ -337,6 +337,18 @@ namespace book_a_reading_room_visit.web.Helper
             }
 
             return (letterCode, classNumber);
+        }
+        private string GetStandardisedDocReference(string docReferenceVal)
+        {
+            Match   match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
+
+            if(match.Success) 
+            {
+                int firstSlash = docReferenceVal.IndexOf('/');  
+                return docReferenceVal.Substring(0, firstSlash) + " " + docReferenceVal.Substring(firstSlash +1); 
+            }
+
+            return docReferenceVal;
         }
     }
 }
