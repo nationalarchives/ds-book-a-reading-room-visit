@@ -4,6 +4,7 @@
     <EnvironmentVariables>
       <!-- List of environment variables we want to set-->
       <HomeURL>https://dev-www.nationalarchives.gov.uk/book-a-reading-room-visit</HomeURL>
-    </EnvironmentVariables>
+	  <NLOG_SQL_CONNECTION>Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging</NLOG_SQL_CONNECTION>
+	</EnvironmentVariables>
   </RunConfiguration>
 </RunSettings>

@@ -241,20 +241,6 @@ namespace book_a_reading_room_visit.web.Helper
                 {
                     var (letterCode, classNumber) = GetLetterCodeAndClassNumberFromReference(docReferenceVal);
 
-                    //Match match = _documentReferenceRegex.Match(docRerefenceVal);
-
-                    //if (!match.Success) 
-                    //{
-                    //    match = _parlyArchivesReferenceRegex.Match(docRerefenceVal);
-                    //}
-
-                    //var letterCode = match.Groups[1].Value;
-                    //var classNumber = 0;
-                    //if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
-                    //{
-                    //    classNumber = number;
-                    //}
-
                     _validatedDocuments.Add(
                         new DocumentViewModel()
                         {
