@@ -59,7 +59,7 @@ namespace book_a_reading_room_visit.web.Controllers
         [HttpPost]
         public async Task<IActionResult> OrderDocuments(DocumentOrderViewModel model)
         {
-            if (_validateDocumentOrder.IsValid(ModelState, model, out var validatedDocs))
+            if (ModelState.IsValid && _validateDocumentOrder.IsValid(ModelState, model, out var validatedDocs))
             {
                 var bookingModel = model.MapToBookingModel(validatedDocs);
                 var response = await _bookingService.UpsertDocumentAsync(bookingModel);
