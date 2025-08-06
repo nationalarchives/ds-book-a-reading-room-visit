@@ -345,7 +345,7 @@ namespace book_a_reading_room_visit.web.Helper
             if(match.Success) 
             {
                 int firstSlash = docReferenceVal.IndexOf('/');  
-                return docReferenceVal.Substring(0, firstSlash) + " " + docReferenceVal.Substring(firstSlash +1); 
+                return docReferenceVal.Substring(0, firstSlash) + " " + "1/" + docReferenceVal.Substring(firstSlash +1); 
             }
 
             return docReferenceVal;
