@@ -14,6 +14,7 @@ namespace book_a_reading_room_visit.web.Helper
 {
     public class ValidateDocumentOrder
     {
+        private const string PARLY_ARCHIVES_CLASS_NO = "1/";
         private static readonly Regex _documentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
         private static readonly Regex _parlyArchivesReferenceRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
 
@@ -345,7 +346,7 @@ namespace book_a_reading_room_visit.web.Helper
             if(match.Success) 
             {
                 int firstSlash = docReferenceVal.IndexOf('/');  
-                return docReferenceVal.Substring(0, firstSlash) + " " + "1/" + docReferenceVal.Substring(firstSlash +1); 
+                return docReferenceVal.Substring(0, firstSlash) + " " + PARLY_ARCHIVES_CLASS_NO + docReferenceVal.Substring(firstSlash +1); 
             }
 
             return docReferenceVal;
