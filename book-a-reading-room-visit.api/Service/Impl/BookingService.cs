@@ -36,7 +36,7 @@ namespace book_a_reading_room_visit.api.Service
 
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
         {
-            var response = new BookingResponseModel { IsSuccess = true };
+             var response = new BookingResponseModel { IsSuccess = true };
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try

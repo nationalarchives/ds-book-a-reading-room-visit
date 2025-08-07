@@ -240,7 +240,7 @@ namespace book_a_reading_room_visit.web.Helper
                 }
                 else
                 {
-                    var (letterCode, classNumber) = GetLetterCodeAndClassNumberFromReference(docReferenceVal);
+                    var (letterCode, classNumber) = GetLetterCodeAndClassNumberFromReference(standardisedReference);
 
                     _validatedDocuments.Add(
                         new DocumentViewModel()
@@ -343,13 +343,20 @@ namespace book_a_reading_room_visit.web.Helper
         {
             Match   match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
 
-            if(match.Success) 
+            if(match.Success && !IsTnaFormatReference(match)) 
             {
                 int firstSlash = docReferenceVal.IndexOf('/');  
-                return docReferenceVal.Substring(0, firstSlash) + " " + PARLY_ARCHIVES_CLASS_NO + docReferenceVal.Substring(firstSlash +1); 
+                return docReferenceVal.Substring(0, firstSlash) + " " +
+                    (docReferenceVal.Substring(firstSlash + 1).StartsWith(PARLY_ARCHIVES_CLASS_NO) ? "" : PARLY_ARCHIVES_CLASS_NO) + 
+                    docReferenceVal.Substring(firstSlash +1); 
             }
 
             return docReferenceVal;
+        }
+
+        private bool IsTnaFormatReference(Match match)
+        {
+            return match.Success && match.Groups[2].Success;
         }
     }
 }
