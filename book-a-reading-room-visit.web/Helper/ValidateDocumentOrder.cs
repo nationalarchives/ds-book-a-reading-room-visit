@@ -227,8 +227,9 @@ namespace book_a_reading_room_visit.web.Helper
         {
             if (!string.IsNullOrEmpty(docReferenceVal))
             {
-                // Replace initial slash witha space for Parliamentary archive records.
-                // e.g.YHC/123/456/1 => YHC 123/456/1.
+                // Convert any Parliamentary Archive records supplied in their original format to the standardised
+                // TNA format. i.e. Replace the initial slash with a space, and add the class no. 
+                // e.g.YHC/123/456/1 => YHC 1/123/456/1.
                 string standardisedReference =  GetStandardisedDocReference(docReferenceVal);
                 DocumentReference docRef = _advancedOrderService.ValidateDocumentReference(standardisedReference);
                 var errMessage = docRef.ReturnStatus.ToError();
@@ -356,6 +357,11 @@ namespace book_a_reading_room_visit.web.Helper
 
         private bool IsTnaFormatReference(Match match)
         {
+            // Groups[2] will contain the class number if found. E.g. :
+            // e.g.YHC/123/456/1 (original format Parliamentary archive reference):
+            //  match.Groups[2].Success => false
+            // YHC 1/123/456/1 (modified format Parliamentary archive reference):
+            //  match.Groups[2].Success => true i.e. returns the 1 between the space and first / .
             return match.Success && match.Groups[2].Success;
         }
     }
