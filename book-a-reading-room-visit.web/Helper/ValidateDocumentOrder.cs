@@ -162,8 +162,7 @@ namespace book_a_reading_room_visit.web.Helper
             for (int i = 1; i <= 12; i++)
             {
                 string docReferenceName = GetDocumentReferenceName(i);
-                string outRef = null;
-                ValidateReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out outRef) ? outRef : "");
+                ValidateReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out var outRef) ? outRef : "");
             }
 
             ValidateReference(modelStateDictionary, "ReserveDocumentReference1", _documentReference.TryGetValue(13, out var ref13) ? ref13 : "", true);
@@ -178,8 +177,7 @@ namespace book_a_reading_room_visit.web.Helper
             for (int i = 1; i <= 40; i++)
             {
                 string docReferenceName = GetDocumentReferenceName(i);
-                string outRef = null;
-                ValidateReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out outRef) ? outRef : "");
+                ValidateReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out var outRef) ? outRef : "");
             }
         }
 
@@ -226,8 +224,7 @@ namespace book_a_reading_room_visit.web.Helper
             for (int i = 1; i <= 40; i++)
             {
                 string docReferenceName = GetDocumentReferenceName(i);
-                string outRef = null;
-                ValidateSeriesReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out outRef) ? outRef : "", series);
+                ValidateSeriesReference(modelStateDictionary, docReferenceName, _documentReference.TryGetValue(i, out var outRef) ? outRef : "", series);
             }
         }
 
