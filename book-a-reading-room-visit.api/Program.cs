@@ -10,14 +10,21 @@ using NLog.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IEmailService, EmailServiceDummy>();
+#if DEBUG
 
+#else
 // Get the AWS profile information from configuration providers
 AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
-// Configure AWS service clients to use these credentials
 builder.Services.AddDefaultAWSOptions(awsOptions);
+// Configure AWS service clients to use these credentials
 builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
+
+
 builder.Services.AddAWSService<IAmazonSimpleEmailService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddScoped<IEmailService, >();
+#endif
 
 // Add NLoging to the container.
 builder.Logging.ClearProviders();

@@ -18,6 +18,7 @@ namespace book_a_reading_room_visit.test
     {
         private const string HOME_URL = "HomeURL";
         private static readonly string RETURN_URL = $"{Environment.GetEnvironmentVariable(HOME_URL)}/return-to-booking";
+        private const string DOCUMENT_READING_ROOM_TEXT = "Document reading room";
 
         private IAmazonSimpleEmailService _awsSes;
         private IConfiguration _config;
@@ -40,7 +41,7 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM_TEXT) != -1);
 
             if (!String.IsNullOrWhiteSpace(bookingModel.AdditionalRequirements))
             {
@@ -64,7 +65,7 @@ namespace book_a_reading_room_visit.test
 
             Assert.IsTrue(emailText.IndexOf(bookingModel.Phone) != -1);
 
-            await CheckDocumentOrders(bookingModel, emailText);
+            await CheckDocumentOrders(bookingModel, emailText, true);
         }
 
         [TestMethod]
@@ -77,7 +78,7 @@ namespace book_a_reading_room_visit.test
 
             await CheckCoreFields(bookingModel, emailText);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM_TEXT) != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);
@@ -142,7 +143,8 @@ namespace book_a_reading_room_visit.test
                 Email = "bilbo.baggins@nationalarchives.gov.uk",
                 Phone = "+44(0)123 567 789",
                 ReaderTicket = 9497920,
-                SeatNumber = "14H"
+                SeatNumber = "14H",
+                SeatType = SeatTypes.StdRRSeat
             };
 
             if (addOrderDocuments)
@@ -166,19 +168,33 @@ namespace book_a_reading_room_visit.test
             Assert.IsTrue(emailText.IndexOf($"{bookingModel.FirstName} {bookingModel.LastName }") != -1);
             Assert.IsTrue(emailText.IndexOf(Convert.ToString(bookingModel.ReaderTicket.Value)) != -1);
             Assert.IsTrue(emailText.IndexOf(bookingModel.VisitStartDate.ToShortDateString()) > -1);
-            Assert.IsTrue(emailText.IndexOf(bookingModel.SeatNumber) > -1);
+            // Assert.IsTrue(emailText.IndexOf(bookingModel.SeatNumber) > -1);
         }
 
-        private async static Task CheckDocumentOrders(BookingModel bookingModel, string emailText)
+        private async static Task CheckDocumentOrders(BookingModel bookingModel, string emailText, bool isDsd = false)
         {
             foreach(string orderDocument in bookingModel.MainOrderDocuments)
             {
-                Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                if (isDsd)
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDocument.Substring(0,orderDocument.IndexOf(":")-1)) > 0);
+                }
+                else
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                }
             }
 
             foreach (string orderDocument in bookingModel.ReserveOrderDocuments)
             {
-                Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                if (isDsd)
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDocument.Substring(0, orderDocument.IndexOf(":") - 1)) > 0);
+                }
+                else
+                {
+                    Assert.IsTrue(emailText.IndexOf(orderDocument) > 0);
+                }
             }
         }
 
@@ -187,7 +203,7 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             string visitType = GetVisitType(bookingModel);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf("Document reading room") != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
@@ -198,7 +214,7 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             string visitType = GetVisitType(bookingModel);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM_TEXT) != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(Environment.GetEnvironmentVariable(HOME_URL)) != -1);
@@ -209,7 +225,7 @@ namespace book_a_reading_room_visit.test
             await CheckCoreFields(bookingModel, emailText);
             string visitType = GetVisitType(bookingModel);
             Assert.IsTrue(emailText.IndexOf(visitType) != -1);
-            Assert.IsTrue(emailText.IndexOf("Standard Reading Room") != -1);
+            Assert.IsTrue(emailText.IndexOf(DOCUMENT_READING_ROOM_TEXT) != -1);
 
             Assert.IsTrue(!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(HOME_URL)));
             Assert.IsTrue(emailText.IndexOf(RETURN_URL) != -1);

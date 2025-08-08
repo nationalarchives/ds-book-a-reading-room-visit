@@ -35,12 +35,12 @@ namespace book_a_reading_room_visit.model
 
         public List<string> MainOrderDocuments
         {
-            get { return OrderDocuments?.Where(o => !o.IsReserve).Select(o => $"Reference: {o.DocumentReference}, Description: {o.Description}").ToList(); }
+            get { return OrderDocuments?.Where(o => !o.IsReserve).Select(o => $"{o.DocumentReference}: {o.Description}").ToList(); }
         }
 
         public List<string> ReserveOrderDocuments
         {
-            get { return OrderDocuments?.Where(o => o.IsReserve).Select(o => $"Reference: {o.DocumentReference}, Description: {o.Description}").ToList(); }
+            get { return OrderDocuments?.Where(o => o.IsReserve).Select(o => $"{o.DocumentReference}: {o.Description}").ToList(); }
         }
     }
 }

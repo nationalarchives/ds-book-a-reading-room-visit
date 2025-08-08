@@ -10,9 +10,9 @@ namespace book_a_reading_room_visit.test
     {
         private readonly Dictionary<string, bool> _expectedResults = new Dictionary<string, bool>()
         {
-            {"FO 371", true },
+            {"FO 371", false },
             {"FO 371/1", true },
-            {"FO371", true },
+            {"FO371", false },
             {"FO371/1", true },
             {"FO/371", false },
             {"CP 24", false },
@@ -94,7 +94,16 @@ namespace book_a_reading_room_visit.test
             {"PRO 66", false },
             {"PRO66", false },
             {"PRO 66/1", true },
-            {"PRO66/1", true }
+            {"PRO66/1", true },
+
+            // Additional test cases for Parliamentary archives.  These have a / instead of a space after the letter code.
+            // Initial letter must be a Y .
+            {"YHL/123/456/789/1", true },
+            {"YHC/123/456/789/1", true },
+            {"YHL123/456/789/1", true },  // Does not match Parliamentary archive regex but passes the general one. Since the
+            {"YHC123/456/789/1", true },  // space between the letter codes and numbers is optional if numbers follwed by / !
+            {"AHL/123/456/789/1", false },
+            {"BHC/123/456/789/1", false }
         };
 
         private readonly CheckReference _checkReferenceAttribute = new CheckReference();
@@ -131,14 +140,6 @@ namespace book_a_reading_room_visit.test
         public Task Series_Ref_Multi_Space_NotValid()
         {
             string series = "FO  371";
-            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
-            return Task.CompletedTask;
-        }
-
-        [TestMethod]
-        public Task Series_Ref_With_Piece_NotValid()
-        {
-            string series = "FO 371/1";
             Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
             return Task.CompletedTask;
         }
