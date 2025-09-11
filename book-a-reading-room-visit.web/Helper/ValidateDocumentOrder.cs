@@ -15,7 +15,7 @@ namespace book_a_reading_room_visit.web.Helper
     public class ValidateDocumentOrder
     {
         private const string PARLY_ARCHIVES_CLASS_NO = "1/";
-        private static readonly Regex _documentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
+        private static readonly Regex _standardDocumentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
         private static readonly Regex _parlyArchivesReferenceRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
 
         private IAdvancedOrderService _advancedOrderService;
@@ -181,7 +181,7 @@ namespace book_a_reading_room_visit.web.Helper
             }
         }
 
-        private void ValidateReference(ModelStateDictionary modelStateDictionary, string docRerefenceName, string docReferenceVal, bool isReserved = false)
+        private void ValidateReference(ModelStateDictionary modelStateDictionary, string docReferenceName, string docReferenceVal, bool isReserved = false)
         {
             if (!string.IsNullOrEmpty(docReferenceVal))
             {
@@ -195,16 +195,17 @@ namespace book_a_reading_room_visit.web.Helper
 
                 if (!string.IsNullOrEmpty(errMessage) && !documentIsOffsite)
                 {
-                    modelStateDictionary.AddModelError(docRerefenceName, $"{docReferenceVal} - {errMessage}");
+                    modelStateDictionary.AddModelError(docReferenceName, $"{docReferenceVal} - {errMessage}");
                 }
                 else
                 {
-                    var (letterCode, classNumber) = GetLetterCodeAndClassNumberFromReference(standardisedReference);
+                    try
+                    {
+                        var (letterCode, classNumber, isParliamentaryArchiveReference) = GetLetterCodeAndClassNumberFromReference(standardisedReference);
 
-                    _validatedDocuments.Add(
-                        new DocumentViewModel()
+                        var docViewModel = new DocumentViewModel()
                         {
-                            Reference = docRef.DocParts.DocumentReferenceText,
+                            Reference = isParliamentaryArchiveReference ? docReferenceVal : docRef.DocParts.DocumentReferenceText,
                             Description = docRef.DocParts.Scope,
                             LetterCode = letterCode,
                             ClassNumber = classNumber,
@@ -214,7 +215,15 @@ namespace book_a_reading_room_visit.web.Helper
                             SubClassNumber = docRef.DocParts.SubClass,
                             IsOffsite = documentIsOffsite,
                             IsReserved = isReserved
-                        });
+                        };
+
+                        _validatedDocuments.Add(docViewModel);
+                    }
+                    catch (Exception)
+                    {
+                        modelStateDictionary.AddModelError(docReferenceName, $"{docReferenceVal} - Reference could not be validated.");
+                    }
+
                 }
             }
         }
@@ -245,13 +254,15 @@ namespace book_a_reading_room_visit.web.Helper
             }
         }
 
-        private (string, int) GetLetterCodeAndClassNumberFromReference(string docReferenceVal)
+        private (string, int, bool) GetLetterCodeAndClassNumberFromReference(string docReferenceVal)
         {
-            Match match = _documentReferenceRegex.Match(docReferenceVal);
+            bool isParliamentaryArchiveRef = false;
+            Match match = _standardDocumentReferenceRegex.Match(docReferenceVal);
 
             if (!match.Success)
             {
                 match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
+                isParliamentaryArchiveRef = match.Success;
             }
 
             var letterCode = match.Groups[1].Value;
@@ -261,11 +272,11 @@ namespace book_a_reading_room_visit.web.Helper
                 classNumber = number;
             }
 
-            return (letterCode, classNumber);
+            return (letterCode, classNumber, isParliamentaryArchiveRef);
         }
         private string GetStandardisedDocReference(string docReferenceVal)
         {
-            Match   match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
+            Match match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
 
             if(match.Success && !IsTnaFormatReference(match)) 
             {
@@ -274,8 +285,10 @@ namespace book_a_reading_room_visit.web.Helper
                     (docReferenceVal.Substring(firstSlash + 1).StartsWith(PARLY_ARCHIVES_CLASS_NO) ? "" : PARLY_ARCHIVES_CLASS_NO) + 
                     docReferenceVal.Substring(firstSlash +1); 
             }
-
-            return docReferenceVal;
+            else 
+            { 
+                return docReferenceVal; 
+            }
         }
 
         private bool IsTnaFormatReference(Match match)
