@@ -19,7 +19,10 @@ builder.Services.AddHttpContextAccessor();
 AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
 // Configure AWS service clients to use these credentials
 builder.Services.AddDefaultAWSOptions(awsOptions);
+
+#if !DEBUG
 builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
+#endif
 
 // Add NLoging to the container.
 builder.Logging.ClearProviders();
