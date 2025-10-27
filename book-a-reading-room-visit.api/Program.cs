@@ -23,7 +23,7 @@ builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/Da
 
 builder.Services.AddAWSService<IAmazonSimpleEmailService>();
 
-builder.Services.AddScoped<IEmailService, >();
+builder.Services.AddScoped<IEmailService, EmailService>();
 #endif
 
 // Add NLoging to the container.
