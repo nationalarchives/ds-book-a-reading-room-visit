@@ -248,7 +248,7 @@ namespace book_a_reading_room_visit.web.Helper
         public void ValidateNotOrderableSeries(ModelStateDictionary modelStateDictionary, string series)
         {
             var notOrderableSeries = _configuration.GetSection("Booking:NotOrderableSeries").Value.ToLower().Split(',');
-            if (notOrderableSeries.Contains(series.ToLower()))
+            if (notOrderableSeries.Contains(series.ToLower()) || series.StartsWith("Y", StringComparison.InvariantCultureIgnoreCase))
             {
                 modelStateDictionary.AddModelError("Series", Constants.Document_Series_Cannot_Order);
             }
