@@ -201,7 +201,7 @@ namespace book_a_reading_room_visit.web.Helper
                 {
                     try
                     {
-                        var (letterCode, classNumber, isParliamentaryArchiveReference) = GetLetterCodeAndClassNumberFromReference(standardisedReference);
+                        var (letterCode, classNumber, isParliamentaryArchiveReference) = GetLetterCodeAndClassNumberFromReference(docReferenceVal);
 
                         var docViewModel = new DocumentViewModel()
                         {
@@ -258,19 +258,50 @@ namespace book_a_reading_room_visit.web.Helper
         {
             bool isParliamentaryArchiveRef = false;
             Match match = _standardDocumentReferenceRegex.Match(docReferenceVal);
+            string letterCode = null;
+            int classNumber = 0;
 
-            if (!match.Success)
+            if (match.Success)
+            {
+                letterCode = match.Groups[1].Value;
+
+                if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
+                {
+                    classNumber = number;
+                }
+            }
+            else
             {
                 match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
                 isParliamentaryArchiveRef = match.Success;
+                if (isParliamentaryArchiveRef)
+                {
+                    letterCode = match.Groups[1].Value;
+                    classNumber = Constants.Parl_Archives_Class_No;
+                }
             }
 
-            var letterCode = match.Groups[1].Value;
-            var classNumber = 0;
-            if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
-            {
-                classNumber = number;
-            }
+            //if (!match.Success)
+            //{
+            //    match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
+            //    isParliamentaryArchiveRef = match.Success;
+            //    if (isParliamentaryArchiveRef)
+            //    {
+            //        letterCode = "1";
+            //        classNumber = 0;
+            //    }
+            //}
+            //else
+            //{
+            //    letterCode = match.Groups[1].Value;
+
+            //    if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
+            //    {
+            //        classNumber = number;
+            //    }
+            //}
+
+
 
             return (letterCode, classNumber, isParliamentaryArchiveRef);
         }
@@ -278,7 +309,7 @@ namespace book_a_reading_room_visit.web.Helper
         {
             Match match = _parlyArchivesReferenceRegex.Match(docReferenceVal);
 
-            if(match.Success && !IsTnaFormatReference(match)) 
+            if(match.Success) 
             {
                 int firstSlash = docReferenceVal.IndexOf('/');  
                 return docReferenceVal.Substring(0, firstSlash) + " " + PARLY_ARCHIVES_CLASS_NO + docReferenceVal.Substring(firstSlash +1); 
