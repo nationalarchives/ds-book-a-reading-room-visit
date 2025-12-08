@@ -114,7 +114,9 @@ namespace book_a_reading_room_visit.test
             {"YHC123/456/789/1", false },  // nor the general one as first letter Y. 
             {"AHL/123/456/789/1", false },
             {"BHC/123/456/789/1", false },
-            {"YHL/PO/PU/1/1806/46G3n59", true }
+            {"YHL/PO/PU/1/1806/46G3n59", true },
+            {"YHL/1/PO/PU/1/1806/46G3n59", true },
+            {"YHL 1/PO/PU/1/1806/46G3n59", false }
         };
 
         private readonly CheckReference _checkReferenceAttribute = new CheckReference();
