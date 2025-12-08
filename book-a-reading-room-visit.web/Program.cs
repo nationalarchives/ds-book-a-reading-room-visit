@@ -15,6 +15,7 @@ builder.Services.AddControllersWithViews(options =>
 });
 builder.Services.AddHttpContextAccessor();
 
+#if !DEBUG
 // Get the AWS profile information from configuration providers
 AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
 // Configure AWS service clients to use these credentials

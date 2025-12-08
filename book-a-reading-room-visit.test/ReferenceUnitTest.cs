@@ -1,5 +1,7 @@
-﻿using book_a_reading_room_visit.web.Validators;
+﻿using Amazon.Runtime.Internal.Transform;
+using book_a_reading_room_visit.web.Validators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,9 +12,9 @@ namespace book_a_reading_room_visit.test
     {
         private readonly Dictionary<string, bool> _expectedResults = new Dictionary<string, bool>()
         {
-            {"FO 371", true },
+            {"FO 371", false },
             {"FO 371/1", true },
-            {"FO371", true },
+            {"FO371", false },
             {"FO371/1", true },
             {"FO/371", false },
             {"CP 24", false },
@@ -94,7 +96,27 @@ namespace book_a_reading_room_visit.test
             {"PRO 66", false },
             {"PRO66", false },
             {"PRO 66/1", true },
-            {"PRO66/1", true }
+            {"PRO66/1", true },
+            {"YO 371/1", false },
+            {"E 134/1WandM/Hil2", true},
+            {"C 2/JasI/B27/11", true },
+            {"E 317/Beds/3", true },
+            {"E 210/9962/viii", true }
+        };
+
+        private readonly Dictionary<string, bool> _expectedResultsParlArchives = new Dictionary<string, bool>()
+        {
+                        // Additional test cases for Parliamentary archives.  These have a / instead of a space after the letter code.
+            // Initial letter must be a Y .
+            {"YHL/123/456/789/1", true },
+            {"YHC/123/456/789/1", true },
+            {"YHL123/456/789/1", false },  // Does not match Parliamentary archive regex,
+            {"YHC123/456/789/1", false },  // nor the general one as first letter Y. 
+            {"AHL/123/456/789/1", false },
+            {"BHC/123/456/789/1", false },
+            {"YHL/PO/PU/1/1806/46G3n59", true },
+            {"YHL/1/PO/PU/1/1806/46G3n59", true },
+            {"YHL 1/PO/PU/1/1806/46G3n59", false }
         };
 
         private readonly CheckReference _checkReferenceAttribute = new CheckReference();
@@ -106,6 +128,17 @@ namespace book_a_reading_room_visit.test
             foreach (string reference in _expectedResults.Keys)
             {
                 Assert.AreEqual(_expectedResults[reference], _checkReferenceAttribute.IsValid(reference));
+            }
+
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Parly_Archive_References_Validate_As_Expected()
+        {
+            foreach (string reference in _expectedResultsParlArchives.Keys)
+            {
+                Assert.AreEqual(_expectedResultsParlArchives[reference], _checkReferenceAttribute.IsValid(reference));
             }
 
             return Task.CompletedTask;
@@ -131,14 +164,6 @@ namespace book_a_reading_room_visit.test
         public Task Series_Ref_Multi_Space_NotValid()
         {
             string series = "FO  371";
-            Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
-            return Task.CompletedTask;
-        }
-
-        [TestMethod]
-        public Task Series_Ref_With_Piece_NotValid()
-        {
-            string series = "FO 371/1";
             Assert.IsFalse(_checkSeriesAttribute.IsValid(series));
             return Task.CompletedTask;
         }
