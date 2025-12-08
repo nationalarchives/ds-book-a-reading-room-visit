@@ -1,5 +1,7 @@
-﻿using book_a_reading_room_visit.web.Validators;
+﻿using Amazon.Runtime.Internal.Transform;
+using book_a_reading_room_visit.web.Validators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -95,8 +97,16 @@ namespace book_a_reading_room_visit.test
             {"PRO66", false },
             {"PRO 66/1", true },
             {"PRO66/1", true },
+            {"YO 371/1", false },
+            {"E 134/1WandM/Hil2", true},
+            {"C 2/JasI/B27/11", true },
+            {"E 317/Beds/3", true },
+            {"E 210/9962/viii", true }
+        };
 
-            // Additional test cases for Parliamentary archives.  These have a / instead of a space after the letter code.
+        private readonly Dictionary<string, bool> _expectedResultsParlArchives = new Dictionary<string, bool>()
+        {
+                        // Additional test cases for Parliamentary archives.  These have a / instead of a space after the letter code.
             // Initial letter must be a Y .
             {"YHL/123/456/789/1", true },
             {"YHC/123/456/789/1", true },
