@@ -110,10 +110,11 @@ namespace book_a_reading_room_visit.test
             // Initial letter must be a Y .
             {"YHL/123/456/789/1", true },
             {"YHC/123/456/789/1", true },
-            {"YHL123/456/789/1", true },  // Does not match Parliamentary archive regex but passes the general one. Since the
-            {"YHC123/456/789/1", true },  // space between the letter codes and numbers is optional if numbers follwed by / !
+            {"YHL123/456/789/1", false },  // Does not match Parliamentary archive regex,
+            {"YHC123/456/789/1", false },  // nor the general one as first letter Y. 
             {"AHL/123/456/789/1", false },
-            {"BHC/123/456/789/1", false }
+            {"BHC/123/456/789/1", false },
+            {"YHL/PO/PU/1/1806/46G3n59", true }
         };
 
         private readonly CheckReference _checkReferenceAttribute = new CheckReference();
@@ -125,6 +126,17 @@ namespace book_a_reading_room_visit.test
             foreach (string reference in _expectedResults.Keys)
             {
                 Assert.AreEqual(_expectedResults[reference], _checkReferenceAttribute.IsValid(reference));
+            }
+
+            return Task.CompletedTask;
+        }
+
+        [TestMethod]
+        public Task Parly_Archive_References_Validate_As_Expected()
+        {
+            foreach (string reference in _expectedResultsParlArchives.Keys)
+            {
+                Assert.AreEqual(_expectedResultsParlArchives[reference], _checkReferenceAttribute.IsValid(reference));
             }
 
             return Task.CompletedTask;

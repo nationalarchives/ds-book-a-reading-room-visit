@@ -15,7 +15,7 @@ namespace book_a_reading_room_visit.web.Helper
     public class ValidateDocumentOrder
     {
         private const string PARLY_ARCHIVES_CLASS_NO = "1/";
-        private static readonly Regex _standardDocumentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General_Stage2);
+        private static readonly Regex _standardDocumentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
         private static readonly Regex _parlyArchivesReferenceRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
 
         private IAdvancedOrderService _advancedOrderService;
@@ -264,7 +264,7 @@ namespace book_a_reading_room_visit.web.Helper
             if (match.Success)
             {
                 letterCode = match.Groups[1].Value;
-
+               
                 if (match.Groups.Count > 1 && int.TryParse(match.Groups[2].Value, out var number))
                 {
                     classNumber = number;
@@ -320,24 +320,9 @@ namespace book_a_reading_room_visit.web.Helper
             }
         }
 
-        private bool IsTnaFormatReference(Match match)
-        {
-            // Groups[2] will contain the class number if found. E.g. :
-            // e.g.YHC/123/456/1 (original format Parliamentary archive reference):
-            //  match.Groups[2].Success => false
-            // YHC 1/123/456/1 (modified format Parliamentary archive reference):
-            //  match.Groups[2].Success => true i.e. returns the 1 between the space and first / .
-            return match.Success && match.Groups[2].Success;
-        }
-
         private string GetDocumentReferenceName(int numberSuffix)
         {
             return String.Concat("DocumentReference", numberSuffix);
-        }
-
-        private string GetReserveDocumentReferenceName(int numberSuffix)
-        {
-            return String.Concat("ReserveDocumentReference", numberSuffix);
         }
     }
 }

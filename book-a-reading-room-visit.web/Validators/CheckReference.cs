@@ -10,7 +10,7 @@ namespace book_a_reading_room_visit.web.Validators
         private static readonly Regex seriesSpecific2 = new Regex(@"^(CP ?2[456]\/|IR ?(12[14-9]|13[0-5])\/|PRO ?(3[01]|41|66)\/)[0-9]");
         private static readonly Regex parlyRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
 
-        private static readonly string mainRegex = Constants.Doc_Ref_Regex_General_Stage2;
+        private static readonly string mainRegex = Constants.Doc_Ref_Regex_General;
 
         public CheckReference() : base(mainRegex)
         {
