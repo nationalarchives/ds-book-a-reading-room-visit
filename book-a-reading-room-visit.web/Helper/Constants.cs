@@ -29,6 +29,7 @@
         public const string Invalid_Series_Reference = "The series reference you have entered has an invalid format.  Series references must start with 1-4 uppercase letters, followed by a space, then 1-4 digits";
 
         public const string Doc_Ref_Regex_General = @"^[^Yy\W]{1,4} ?[0-9]{1,4}.*";
+        public const string Doc_Ref_Regex_General_Stage2 = @"^(^Yy[a-zA-Z]{1,4})\s*?(\d{1,4})/(.+)$";
         public const string Doc_Ref_Regex_Parly_Archives = @"^(Y[a-zA-Z0-9]{1,3})(/.*|Y[a-zA-Z0-9]{1,3})$";
         public const int Parl_Archives_Class_No = 1;
     }

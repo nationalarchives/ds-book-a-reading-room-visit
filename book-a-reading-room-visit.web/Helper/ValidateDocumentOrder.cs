@@ -15,7 +15,7 @@ namespace book_a_reading_room_visit.web.Helper
     public class ValidateDocumentOrder
     {
         private const string PARLY_ARCHIVES_CLASS_NO = "1/";
-        private static readonly Regex _standardDocumentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General);
+        private static readonly Regex _standardDocumentReferenceRegex = new Regex(Constants.Doc_Ref_Regex_General_Stage2);
         private static readonly Regex _parlyArchivesReferenceRegex = new Regex(Constants.Doc_Ref_Regex_Parly_Archives);
 
         private IAdvancedOrderService _advancedOrderService;
