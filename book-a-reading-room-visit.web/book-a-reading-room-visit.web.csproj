@@ -13,6 +13,7 @@
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
     <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.400.34" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog.Slack" Version="2.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
