@@ -75,17 +75,17 @@
       <h3 style="margin-top: 2em;">Prepare for your visit</h3>
       <p>
         Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your registration. 
-        See a list of acceptable forms of identification: <a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/</a>
+        See a list of acceptable forms of identification: <a href="https://www.nationalarchives.gov.uk/visit/researching-here/readers-tickets/#heading-forms-of-identity-3afde773-16a3-4398-ab03-00db26d626d5">https://www.nationalarchives.gov.uk/visit/researching-here/readers-tickets/#heading-forms-of-identity-3afde773-16a3-4398-ab03-00db26d626d5</a>
       </p>
       <p style="font-weight: bold;">
         Check these links before your visit:
       </p>
       <ul style="list-style: none;">
         <li>
-          See our opening times: <a href="https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ ">https://www.nationalarchives.gov.uk/about/visit-us/opening-times/</a>
+          See our opening times: <a href="https://www.nationalarchives.gov.uk/visit/plan-your-visit/opening-times/ ">https://www.nationalarchives.gov.uk/visit/plan-your-visit/opening-times/</a>
         </li>
         <li>
-          What to expect when you visit:<a href="https://www.nationalarchives.gov.uk/about/visit-us/researching-here/">https://www.nationalarchives.gov.uk/about/visit-us/researching-here/</a>
+          What to expect when you visit:<a href="https://www.nationalarchives.gov.uk/visit/researching-here/">https://www.nationalarchives.gov.uk/visit/researching-here/</a>
         </li>
       </ul>
 
@@ -95,7 +95,7 @@
       </p>
       <p>
         From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building.
-        We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/about/visit-us/visitor-regulations/
+        We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/visit/plan-your-visit/visitor-regulations/
       </p>
 
       <h3 style="margin-top: 2em;">Cancel your visit</h3>
