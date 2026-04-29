@@ -10,13 +10,13 @@
         Thank you for booking a visit to The National Archives.
       </p>
       <p>
-        If you attended, we would love to know how your visit went by completing our short survey.
+        If you were able to attend, please complete our short survey to tell us more about your visit.
       </p>
       <p>
-        Whether this was your first visit or one of many, we really value the opinions of our visitors and all feedback is taken into consideration when planning our future services.
+        Whether this was your first visit or one of many, we welcome feedback from all visitors to help us improve our onsite experience and plan services for the future.
       </p>
       <p>
-        The survey will take just a few minutes to complete. To take part, please <a href="https://www.smartsurvey.co.uk/s/44M31K/">click here</a>.
+        The survey will take just a few minutes to complete. To take part, please <a href="https://www.smartsurvey.co.uk/s/ReadingRoomVisit/">click here</a>.
       </p>
       <p>
         This email inbox is not being monitored.
