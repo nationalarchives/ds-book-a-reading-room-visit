@@ -22,15 +22,15 @@
 
     Prepare for your visit:
 
-    Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your registration. See a list of acceptable forms of identification: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/do-i-need-a-readers-ticket/
+    Bring your reader’s ticket. If you have a temporary ticket number, remember to bring the correct documents to complete your registration. See a list of acceptable forms of identification: https://www.nationalarchives.gov.uk/visit/researching-here/readers-tickets/
     
     Check these links before your visit:
-    See our opening times: https://www.nationalarchives.gov.uk/about/visit-us/opening-times/ 
-    What to expect when you visit: https://www.nationalarchives.gov.uk/about/visit-us/researching-here/
+    See our opening times: https://www.nationalarchives.gov.uk/visit/plan-your-visit/opening-times/ 
+    What to expect when you visit: https://www.nationalarchives.gov.uk/visit/researching-here/
 
     Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy. We apologise for any disruption to your visit, Learn more: https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/
 
-    From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building. We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/about/visit-us/visitor-regulations/
+    From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building. We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/visit/plan-your-visit/visitor-regulations/
 
     You can cancel your visit at any time. Use this link: {ReturnURL}
 
