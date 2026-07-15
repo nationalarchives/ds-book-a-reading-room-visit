@@ -227,10 +227,9 @@ namespace book_a_reading_room_visit.api.Service
             _context.Attach(booking);
             booking.AdditionalRequirements = bookingModel.AdditionalRequirements;
 
-            var documents = await _context.Set<OrderDocument>().Where(d => d.BookingId == booking.Id).ToListAsync();
-            _context.Set<OrderDocument>().RemoveRange(documents);
+            var existingOrderDocuments = await _context.Set<OrderDocument>().Where(d => d.BookingId == booking.Id).ToListAsync();
 
-            var orderDocuments = (from document in bookingModel.OrderDocuments
+            var newOrUpdatedOrderDocuments = (from document in bookingModel.OrderDocuments
                                   select new OrderDocument
                                   {
                                       DocumentReference = document.DocumentReference,
@@ -246,7 +245,23 @@ namespace book_a_reading_room_visit.api.Service
                                       IsReserve = document.IsReserve
                                   }).ToList();
 
-            await _context.Set<OrderDocument>().AddRangeAsync(orderDocuments);
+            // Update existing documents with any changes, or rmove te document if missing from the new list.
+            foreach (OrderDocument od in _context.OrderDocuments)
+            {
+                OrderDocument newOrderDoc = newOrUpdatedOrderDocuments.FirstOrDefault(n => n.DocumentReference == od.DocumentReference);
+
+                if (newOrderDoc != null)
+                {
+                    _context.Entry(od).CurrentValues.SetValues(newOrderDoc);
+                }
+                else
+                {
+                    _context.Set<OrderDocument>().Remove(od);
+                }
+            }
+
+            // Add any new documents
+            await _context.Set<OrderDocument>().AddRangeAsync(newOrUpdatedOrderDocuments.Where(o => existingOrderDocuments.Find(e => e.DocumentReference == o.DocumentReference) == null));
 
             await _context.SaveChangesAsync();
             return response;
