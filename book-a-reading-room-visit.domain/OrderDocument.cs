@@ -16,5 +16,6 @@
         public string Site { get; set; }
         public bool IsReserve { get; set; }
         public bool? Requisitioned { get; set; }
+        public string LastModifiedBy { get; set; }
     }
 }

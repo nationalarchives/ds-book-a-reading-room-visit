@@ -215,7 +215,7 @@ namespace book_a_reading_room_visit.api.Service
         public async Task<BookingResponseModel> UpsertDocumentsAsync(BookingModel bookingModel)
         {
             var response = new BookingResponseModel { IsSuccess = true, BookingReference = bookingModel.BookingReference };
-            var booking = await _context.Set<Booking>().FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
+            var booking = await _context.Set<Booking>().Include(b => b.OrderDocuments).FirstOrDefaultAsync(b => b.BookingReference == bookingModel.BookingReference);
 
             if (booking == null)
             {
@@ -227,7 +227,6 @@ namespace book_a_reading_room_visit.api.Service
             _context.Attach(booking);
             booking.AdditionalRequirements = bookingModel.AdditionalRequirements;
 
-            var existingOrderDocuments = await _context.Set<OrderDocument>().Where(d => d.BookingId == booking.Id).ToListAsync();
 
             var newOrUpdatedOrderDocuments = (from document in bookingModel.OrderDocuments
                                   select new OrderDocument
@@ -242,17 +241,23 @@ namespace book_a_reading_room_visit.api.Service
                                       SubClassNumber = document.SubClassNumber,
                                       ItemReference = document.ItemReference,
                                       Site = document.Site,
-                                      IsReserve = document.IsReserve
+                                      IsReserve = document.IsReserve,
+                                      LastModifiedBy = Modified_By
                                   }).ToList();
 
-            // Update existing documents with any changes, or rmove te document if missing from the new list.
-            foreach (OrderDocument od in _context.OrderDocuments)
+            // Update existing documents with any changes, or remove te document if missing from the new list.
+            foreach (OrderDocument od in booking.OrderDocuments)
             {
                 OrderDocument newOrderDoc = newOrUpdatedOrderDocuments.FirstOrDefault(n => n.DocumentReference == od.DocumentReference);
 
                 if (newOrderDoc != null)
                 {
-                    _context.Entry(od).CurrentValues.SetValues(newOrderDoc);
+                    var potentiallyModifiedProps = new { newOrderDoc.Description, newOrderDoc.ClassNumber, newOrderDoc.LetterCode, newOrderDoc.PieceId, 
+                        newOrderDoc.PieceReference, newOrderDoc.SubClassNumber,
+                        newOrderDoc.ItemReference, newOrderDoc.Site, newOrderDoc.IsReserve, newOrderDoc.LastModifiedBy
+                    };
+
+                    _context.Entry(od).CurrentValues.SetValues(potentiallyModifiedProps);
                 }
                 else
                 {
@@ -261,7 +266,7 @@ namespace book_a_reading_room_visit.api.Service
             }
 
             // Add any new documents
-            await _context.Set<OrderDocument>().AddRangeAsync(newOrUpdatedOrderDocuments.Where(o => existingOrderDocuments.Find(e => e.DocumentReference == o.DocumentReference) == null));
+            await _context.Set<OrderDocument>().AddRangeAsync(newOrUpdatedOrderDocuments.Where(o => booking.OrderDocuments.Find(e => e.DocumentReference == o.DocumentReference) == null));
 
             await _context.SaveChangesAsync();
             return response;
