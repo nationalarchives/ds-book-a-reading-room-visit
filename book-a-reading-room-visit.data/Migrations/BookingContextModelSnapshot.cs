@@ -74,7 +74,8 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
@@ -171,7 +172,8 @@ namespace book_a_reading_room_visit.data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("LetterCode")
                         .HasMaxLength(20)
