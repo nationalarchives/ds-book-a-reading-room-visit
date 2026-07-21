@@ -11,7 +11,7 @@
 			</p>
 			<p>
 				Make sure you complete the document order form by <b>
-					<xsl:value-of select="CompleteByDate" /> at 11:59pm, local UK time.
+					<xsl:value-of select="CompleteByDate" /> at 23:59, local UK time.
 				</b> If you do not complete the document order form by this deadline your visit will be automatically cancelled.
 			</p>
 
