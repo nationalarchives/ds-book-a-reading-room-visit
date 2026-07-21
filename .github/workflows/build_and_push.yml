@@ -7,10 +7,6 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
-      target_branch:
-        description: Branch to build
-        required: true
-        default: main
       create_kbs_web:
         description: 'KBS Web'
         required: false 
@@ -39,9 +35,9 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.inputs.target_branch }}
+        ref: ${{ github.head_ref }}
         fetch-depth: 0
 
     - name: Configure AWS Credentials
