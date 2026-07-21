@@ -87,11 +87,18 @@
         <li>
           What to expect when you visit: <a href="https://www.nationalarchives.gov.uk/visit/researching-here/">https://www.nationalarchives.gov.uk/visit/researching-here/</a>
         </li>
+        <li>
+          How to handle specific types of documents: <a href="https://www.nationalarchives.gov.uk/visit/researching-here/handling-documents/">https://www.nationalarchives.gov.uk/visit/researching-here/handling-documents/</a>
+        </li>
       </ul>
 
       <p>
         When you enter our building, our security team will check your bags for any items that you are not permitted to bring inside. 
         We recommend that you only bring what you need with you. Our visitor regulations, including a full list of prohibited items, can be found here: https://www.nationalarchives.gov.uk/visit/plan-your-visit/visitor-regulations/
+      </p>
+
+      <p>
+        We encourage you to bring an extra light layer of clothing with you, in case you find our temperature-controlled spaces cold. Please note that coats are not permitted in our reading rooms.
       </p>
 
       <h3 style="margin-top: 2em;">Cancel your visit</h3>

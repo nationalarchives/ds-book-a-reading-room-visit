@@ -20,7 +20,7 @@
 
       <p>
         If you do not complete this step by <b>
-          <xsl:value-of select="CompleteByDate" /> at 11:59pm, local UK time
+          <xsl:value-of select="CompleteByDate" /> at 23:59, local UK time
         </b>, your <b>provisional booking will be automatically cancelled.</b>
       </p>
 
@@ -63,10 +63,6 @@
         You can cancel your visit at any time. Use this link: <xsl:value-of select="ReturnURL" />
       </p>
       <br/>
-      <p>
-        Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy.
-        We apologise for any disruption to your visit <a target="_blank" href="https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/">Learn more</a>.
-      </p>
       <p>
         This email inbox is not being monitored. Contact us if you need help with this service: https://www.nationalarchives.gov.uk/contact-us/
       </p>

@@ -33,18 +33,7 @@
           </b>
         </li>
         <li>
-          Seat: 
-        </li>
-        <xsl:if test="string(Phone)">
-          <li>
-            Telephone: <xsl:value-of select="Phone" />
-          </li>
-        </xsl:if>
-        <li>
           Reader's ticket number: <xsl:value-of select="ReaderTicket" />
-        </li>
-        <li>
-          Booking reference: <xsl:value-of select="BookingReference" />
         </li>
       </ul>
       <hr />
@@ -459,6 +448,24 @@
           </li>
         </ul>
       </xsl:if>
+
+      <h3 style="margin-top: 2em;">FAQs</h3>
+      <p>
+        How many documents can I take to my desk?
+        In the Document Reading Room you may take one boxed item to your desk, or no more than three bound volumes or tagged files, at a time. In the Map and Large Document Reading Room staff at the Document Collection Counter will give you whichever document you would like to view next.
+      </p>
+      <p>
+        Can I order more documents during my visit?
+        You can order up to three documents at a time using our computers. Most orders take up to an hour to arrive.
+      </p>
+      <p>
+        Can I keep my documents out for a future visit?
+        If you are visiting again within the next week, you can use any of our computers to reserve your documents. If you are in the Document Reading Room leave the reserved documents in your locker. In the Map and Large Document Reading Room, hand them to staff at the Document Collection Counter.
+      </p>
+      <p>
+        What should I do when I am finished with a document?
+        You can return documents to the Returns Counter on the first floor, or to the appropriate space near the Document Collection Counter if you are in the Map and Large Document Reading Room.
+      </p>
     </body>
   </xsl:template>
 </xsl:stylesheet>

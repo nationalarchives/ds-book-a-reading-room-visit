@@ -27,10 +27,12 @@
     Check these links before your visit:
     See our opening times: https://www.nationalarchives.gov.uk/visit/plan-your-visit/opening-times/ 
     What to expect when you visit: https://www.nationalarchives.gov.uk/visit/researching-here/
+    How to handle specific types of documents: "https://www.nationalarchives.gov.uk/visit/researching-here/handling-documents/
 
-    Please note we are replacing the windows in the older part of our building until November 2025 and the work may be noisy. We apologise for any disruption to your visit, Learn more: https://www.nationalarchives.gov.uk/about/news/improvement-work-to-our-building-continues/
+    When you enter our building, our security team will check your bags for any items that you are not permitted to bring inside. 
+    We recommend that you only bring what you need with you. Our visitor regulations, including a full list of prohibited items, can be found here: https://www.nationalarchives.gov.uk/visit/plan-your-visit/visitor-regulations/
 
-    From 29 April, mandatory bag checks will be introduced for all visitors upon entrance to the building. We recommend that you only bring what you need with you. Our visitor regulations including a full list of prohibited items can be found here: https://www.nationalarchives.gov.uk/visit/plan-your-visit/visitor-regulations/
+    We encourage you to bring an extra light layer of clothing with you, in case you find our temperature-controlled spaces cold. Please note that coats are not permitted in our reading rooms.
 
     You can cancel your visit at any time. Use this link: {ReturnURL}
 
