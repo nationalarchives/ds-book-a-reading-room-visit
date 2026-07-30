@@ -13,6 +13,10 @@ namespace book_a_reading_room_visit.web.Service
         public BookingService(HttpClient client)
         {
             _client = client;
+
+#if DEBUG
+            _client.Timeout = TimeSpan.FromMinutes(30);
+#endif
         }
         public async Task<BookingResponseModel> CreateBookingAsync(BookingModel bookingModel)
         {
