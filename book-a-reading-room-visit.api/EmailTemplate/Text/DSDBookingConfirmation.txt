@@ -3,7 +3,6 @@
     Telephone                            {Phone}
     Booking reference:                   {BookingReference}
     Reader’s ticket number:              {ReaderTicket}
-    Face covering:                       {FaceCovering}
     Access needs and research requests:  {AdditionalRequirements}
     Visit date:                          {VisitStartDateDisplay}
 

@@ -194,6 +194,12 @@ namespace book_a_reading_room_visit.api.Service
                 sb = sb.Replace("{Order-Documents}", orderDocuments.ToString());
             }
 
+            if (emailType == EmailType.DSDBookingConfirmation && bookingModel.BookingType == BookingTypes.StandardOrderVisit)
+            {
+                sb.AppendLine();
+                sb.Append(File.ReadAllText($"EmailTemplate/Text/AdditionalFAQs.txt"));
+            }
+
             return sb.ToString();
         }
 
