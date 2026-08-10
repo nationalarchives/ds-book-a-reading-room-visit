@@ -11,20 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// #if DEBUG
+#if DEBUG
 builder.Services.AddScoped<IEmailService, EmailServiceDummy>();
-//#else
+#else
 // Get the AWS profile information from configuration providers
 AWSOptions awsOptions = builder.Configuration.GetAWSOptions();
 builder.Services.AddDefaultAWSOptions(awsOptions);
 // Configure AWS service clients to use these credentials
 builder.Services.AddDataProtection().PersistKeysToAWSSystemsManager("/KBS-API/DataProtection");
-
-
 builder.Services.AddAWSService<IAmazonSimpleEmailService>();
-
 builder.Services.AddScoped<IEmailService, EmailService>();
-//#endif
+#endif
 
 // Add NLoging to the container.
 builder.Logging.ClearProviders();
