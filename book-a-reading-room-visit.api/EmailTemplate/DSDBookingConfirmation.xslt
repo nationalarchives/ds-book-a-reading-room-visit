@@ -464,7 +464,7 @@
             </p>
             <p>
                 <b>Can I see the reserve documents I requested when booking?</b>
-                YYou can order these documents yourself using our computers inside or outside the reading room.
+                You can order these documents yourself using our computers inside or outside the reading room.
            </p>
            <p>
                <b>Can I keep my documents out for a future visit?</b>
