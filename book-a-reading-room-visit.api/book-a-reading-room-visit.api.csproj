@@ -55,6 +55,9 @@
     <None Update="EmailTemplate\ReservationConfirmation.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="EmailTemplate\Text\AdditionalFAQs.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="EmailTemplate\Text\InValidBulkOrderReminder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
