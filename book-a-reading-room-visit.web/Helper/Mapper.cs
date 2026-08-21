@@ -1,12 +1,11 @@
 ﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace book_a_reading_room_visit.web.Helper
 {
     public static class Mapper
     {
+        private const int NO_SUB_CLASS = -1;
         public static DocumentOrderViewModel MapToDocumentOrderViewModel(this BookingModel model)
         {
             var returnModel = new DocumentOrderViewModel
@@ -23,7 +22,7 @@ namespace book_a_reading_room_visit.web.Helper
             var documents = model.OrderDocuments.Where(d => !d.IsReserve).ToList();
             var reserveDocuments = model.OrderDocuments.Where(d => d.IsReserve).ToList();
 
-            returnModel.Series = documents.Count > 0 ? $"{documents[0].LetterCode} {documents[0].ClassNumber}" : string.Empty;
+            SetSeries(returnModel, documents);
 
             returnModel.DocumentReference1 = documents.Count > 0 ? documents[0].DocumentReference : string.Empty;
             returnModel.DocumentReference2 = documents.Count > 1 ? documents[1].DocumentReference : string.Empty;
@@ -127,6 +126,25 @@ namespace book_a_reading_room_visit.web.Helper
                                 IsReserved = document.IsReserve
                             }).ToList()
             };
+        }
+
+        private static void SetSeries(DocumentOrderViewModel returnModel, List<OrderDocumentModel> documents)
+        {
+            if (documents.Count > 0)
+            {
+                if (documents[0].SubClassNumber == NO_SUB_CLASS)
+                {
+                    returnModel.Series = $"{documents[0].LetterCode} {documents[0].ClassNumber}";
+                }
+                else
+                {
+                    returnModel.Series = $"{documents[0].LetterCode} {documents[0].ClassNumber}/{documents[0].SubClassNumber}";
+                }
+            }
+            else
+            {
+                returnModel.Series = string.Empty;
+            }
         }
     }
 }
