@@ -1,7 +1,6 @@
-using Amazon.Extensions.NETCore.Setup;
 using book_a_reading_room_visit.web.Helper;
-using book_a_reading_room_visit.web.Service;
 using book_a_reading_room_visit.web.Logging;
+using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
 using NLog.Web;
 using System.Net.Http.Headers;
