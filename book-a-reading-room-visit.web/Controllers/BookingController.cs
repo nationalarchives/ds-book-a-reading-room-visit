@@ -3,10 +3,7 @@ using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Models;
 using book_a_reading_room_visit.web.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.web.Controllers
 {

@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using book_a_reading_room_visit.web.Service;
-using book_a_reading_room_visit.model;
-using book_a_reading_room_visit.web.Models;
+﻿using book_a_reading_room_visit.model;
 using book_a_reading_room_visit.web.Helper;
+using book_a_reading_room_visit.web.Models;
+using book_a_reading_room_visit.web.Service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace book_a_reading_room_visit.web.Controllers
 {
