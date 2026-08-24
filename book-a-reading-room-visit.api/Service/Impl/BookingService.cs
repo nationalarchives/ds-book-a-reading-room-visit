@@ -3,12 +3,6 @@ using book_a_reading_room_visit.data;
 using book_a_reading_room_visit.domain;
 using book_a_reading_room_visit.model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace book_a_reading_room_visit.api.Service
 {

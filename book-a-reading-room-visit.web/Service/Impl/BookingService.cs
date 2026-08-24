@@ -1,9 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Net.Http.Json;
+﻿using book_a_reading_room_visit.model;
 using System.Net;
-using System.Net.Http;
-using book_a_reading_room_visit.model;
-using System;
 
 namespace book_a_reading_room_visit.web.Service
 {
