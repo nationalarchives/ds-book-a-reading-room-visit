@@ -1,3 +1,4 @@
+using Amazon.Extensions.NETCore.Setup;
 using book_a_reading_room_visit.web.Helper;
 using book_a_reading_room_visit.web.Logging;
 using book_a_reading_room_visit.web.Service;
