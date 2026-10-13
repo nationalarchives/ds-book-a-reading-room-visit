@@ -116,6 +116,12 @@ namespace book_a_reading_room_visit.api.Service
 
                 }
             };
+
+            string configurationSetName = _configuration.GetValue<string>("EmailSettings:ConfigurationSetName");
+            if (!String.IsNullOrEmpty(configurationSetName))
+            {
+                sendRequest.ConfigurationSetName = configurationSetName; 
+            }
             await _amazonSimpleEmailService.SendEmailAsync(sendRequest);
         }
 
