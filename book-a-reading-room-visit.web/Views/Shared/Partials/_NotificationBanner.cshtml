@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="notice">
                     <strong class="title">@Environment.GetEnvironmentVariable("BANNER_TITLE")</strong>
-                    <p>@Environment.GetEnvironmentVariable("BANNER_MESSAGE")</p>
+                    <p>@(Html.Raw(Environment.GetEnvironmentVariable("BANNER_MESSAGE")))</p>
                 </div>
             </div>
         </div>

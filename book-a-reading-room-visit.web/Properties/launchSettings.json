@@ -25,7 +25,10 @@
         "AWS_PROFILE": "dev",
         "AWS_REGION": "eu-west-2",
         "KBS_SLACK_WEBHOOK": "https://hooks.slack.com/services/XX",
-        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging"
+        "NLOG_SQL_CONNECTION": "Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=Logging",
+        "SHOW_BANNER": "true",
+        "BANNER_TITLE": "Important information",
+        "BANNER_MESSAGE": "On Friday 11 December the reading rooms will close at 2pm. Please see our <a target='_blank' href='https://www.nationalarchives.gov.uk/news/'>news story</a> for further information."
       }
     },
     "IIS Express": {
